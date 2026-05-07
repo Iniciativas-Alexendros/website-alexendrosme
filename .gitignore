@@ -20,6 +20,7 @@ dist
 .idea
 
 # claude code local config (settings.local.json contiene permisos por máquina)
+.claude
 .claude/
 
 # logs
