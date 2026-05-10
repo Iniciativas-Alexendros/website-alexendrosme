@@ -18,6 +18,13 @@ export default tseslint.config(
   },
   prettier,
   {
+    files: ["**/*.cjs"],
+    languageOptions: {
+      sourceType: "commonjs",
+      globals: { module: "readonly", require: "readonly", __dirname: "readonly", __filename: "readonly", exports: "writable" },
+    },
+  },
+  {
     ignores: ["node_modules/", "dist/", ".next/", "out/", ".turbo/", "next-env.d.ts"],
   },
 );
