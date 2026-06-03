@@ -1,13 +1,17 @@
 import localFont from "next/font/local";
 import { Inter } from "next/font/google";
+import dynamic from "next/dynamic";
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
-import { ParticleBg } from "@/components/particle-bg";
 import { Atmosphere } from "@/components/atmosphere";
 import { siteConfig } from "@/lib/site";
 import { personJsonLd, websiteJsonLd } from "@/lib/structured-data";
+
+const ParticleBg = dynamic(() =>
+  import("@/components/particle-bg").then((m) => m.ParticleBg),
+);
 
 const geistSans = localFont({
   src: "../public/fonts/GeistVF.woff2",
@@ -31,6 +35,7 @@ const interDisplay = Inter({
   variable: "--font-display",
   weight: ["700", "800"],
   display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {

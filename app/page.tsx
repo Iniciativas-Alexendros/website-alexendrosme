@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { StackMarquee } from "@/components/stack-marquee";
 import { ContactFab } from "@/components/contact-fab";
 import { ReferralsFab } from "@/components/referrals-fab";
 import { siteConfig } from "@/lib/site";
+
+const StackMarquee = dynamic(() =>
+  import("@/components/stack-marquee").then((m) => m.StackMarquee),
+);
 
 export const metadata: Metadata = {
   description: siteConfig.description,
