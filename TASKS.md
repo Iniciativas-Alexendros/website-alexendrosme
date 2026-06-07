@@ -67,4 +67,26 @@ Lista viva de pendientes del repositorio standalone `alexendros-me`.
 
 ---
 
-_Última actualización: 2026-04-12 (higiene repo + validaciones post-deploy)._
+## 8. Reconversión `.me` → espacio libre de dinero (2026-06-07)
+
+> Cambio de rumbo: el `.me` deja de ser landing comercial y pasa a contenido
+> personal **antidinero** (ideológico/filosófico/nacional/social). Plan completo
+> en `docs/reconversion-me.md`.
+
+**Aviso de estado real** — la estructura actual es un **one-pager**
+(`app/page.tsx`) + `app/legal/*`. Las rutas `/about`, `/projects`, `/uses`,
+`/contact`, `/herramientas` mencionadas en §4 y §5 **no existen** en el árbol
+actual; esos items quedan **obsoletos** y se sustituyen por el plan de
+reconversión.
+
+- [x] Plan estructural redactado (`docs/reconversion-me.md`).
+- [x] Documentación saneada (CLAUDE.md §5/§8, esta nota).
+- [ ] Decisiones abiertas del autor (afiliados, licencia, `knowsAbout`) — §6 del plan.
+- [ ] Purga de venta/afiliados (Proton, Hostinger, referral Claude).
+- [ ] Departamento de contenido `/ideas` (MDX) + `content/ideas/`.
+- [ ] Reorientar `lib/site.ts` y `lib/structured-data.ts` (sin vocabulario pro).
+- [ ] Pieza divulgativa de cookies (capa manifiesto + capa formal).
+
+---
+
+_Última actualización: 2026-06-07 (giro a reconversión antidinero; saneado de documentación)._

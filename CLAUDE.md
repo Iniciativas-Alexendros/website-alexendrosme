@@ -84,13 +84,13 @@ package_manager: pnpm@10+
 ```
 alexendros-me/
 |-- app/
-|   |-- globals.css              (tokens oklch + tailwind v4 theme)
+|   |-- globals.css              (importa app/styles/*.css)
+|   |-- styles/                  (tokens, base, typography, components, utilities, motion, breakpoints, print)
 |   |-- layout.tsx               (metadata, fonts, JSON-LD, nav, footer)
-|   |-- page.tsx                 (hero + resumen)
-|   |-- about/page.tsx           (narrativa 3 actos)
-|   |-- contact/page.tsx         (mailto/Calendly)
-|   |-- projects/page.tsx        (portfolio)
-|   |-- uses/page.tsx            (stack & herramientas)
+|   |-- page.tsx                 (ONE-PAGER: hero + biografia + misiones + stack + experiencias)
+|   |-- error.tsx                (error boundary raiz)
+|   |-- not-found.tsx            (404)
+|   |-- icon.svg / apple-icon.tsx (favicons)
 |   `-- legal/
 |       |-- layout.tsx
 |       |-- aviso-legal/page.tsx (LSSI-CE Art. 10)
@@ -99,7 +99,9 @@ alexendros-me/
 |-- components/
 |   |-- nav.tsx                  (Sheet mobile + desktop links)
 |   |-- footer.tsx
-|   `-- ui/                      (shadcn inline — 15 componentes)
+|   |-- atmosphere.tsx · particle-bg.tsx · stack-marquee.tsx (FX/visual)
+|   |-- contact-fab.tsx · referrals-fab.tsx (FABs flotantes)
+|   `-- ui/                      (shadcn inline — 6: badge, button, card, popover, separator, sheet)
 |-- lib/
 |   |-- utils.ts                 (cn helper)
 |   |-- site.ts                  (siteConfig global)
@@ -141,7 +143,7 @@ pnpm lint
 [x] Reintroducir dependencias de @repo/* — esta app es standalone
 [x] Anadir rutas API, middleware o cualquier backend
 [x] Activar analytics sin consentimiento del usuario
-[x] Hardcodear colores fuera de app/globals.css
+[x] Hardcodear colores fuera de app/styles/tokens.css
 [x] Ignorar errores TypeScript con @ts-ignore o as any
 [x] Commits directos a main
 [x] Anadir formularios que envien datos a un servidor (usar mailto/Calendly)
@@ -153,7 +155,11 @@ pnpm lint
 
 - **Fase 3 cerrada** (3/3 planes completados, ver `docs/CHANGELOG.md`).
 - **En producción** en `alexendros.me` (apex + www vía Vercel, preview por PR activo).
-- **Pendientes vivos**: ver `TASKS.md` — Lighthouse real sobre prod, posible Lote D extendido (contenido `/projects`).
+- **Reconversión en curso**: el `.me` deja de ser landing comercial y pasa a
+  espacio personal **libre de dinero** (ideológico/filosófico/nacional/social).
+  Plan estructural en `docs/reconversion-me.md`. Toda venta, afiliación y
+  vocabulario "pro" se purga; lo comercial vive en `alexendros.pro`.
+- **Pendientes vivos**: ver `TASKS.md`.
 
 ## 9. INTEGRACION CON EL RESTO DEL ECOSISTEMA ALEXENDROS
 
