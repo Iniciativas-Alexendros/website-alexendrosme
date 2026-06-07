@@ -7,8 +7,9 @@ import { ContactFab } from "@/components/contact-fab";
 import { ReferralsFab } from "@/components/referrals-fab";
 import { siteConfig } from "@/lib/site";
 
-const StackMarquee = dynamic(() =>
-  import("@/components/stack-marquee").then((m) => m.StackMarquee),
+const StackMarquee = dynamic(
+  () => import("@/components/stack-marquee").then((m) => m.StackMarquee),
+  { loading: () => <div className="py-8" /> },
 );
 
 export const metadata: Metadata = {
