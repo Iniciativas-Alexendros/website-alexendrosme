@@ -75,9 +75,11 @@ Lo que **sí** está bien y se conserva:
 alexendros-me/
 ├── app/
 │   ├── page.tsx                 # Portada: tesis + índice de secciones (sin venta)
-│   ├── ideas/                   # DEPARTAMENTO de contenido (MDX)
-│   │   ├── page.tsx             # Índice de ensayos (lee content/ideas en build)
-│   │   └── [slug]/page.tsx      # Render de cada ensayo · generateStaticParams
+│   ├── espensar/                # El pensamiento (MDX): ensayos, conceptos
+│   │   ├── page.tsx             # Índice (lee content/espensar en build)
+│   │   └── [slug]/page.tsx      # Render de cada pieza · generateStaticParams
+│   ├── esposible/               # Lo posible: experimentos, futuros — nada comercial
+│   │   └── page.tsx
 │   ├── sobre/                   # (antes "biografía") narrativa personal, no CV
 │   │   └── page.tsx
 │   ├── legal/
@@ -86,43 +88,47 @@ alexendros-me/
 │   │   └── cookies/             # PIEZA DIVULGATIVA (ver §5)
 │   └── styles/                  # (sin cambios: ya departamentado)
 ├── content/                     # NUEVO — fuente de verdad del contenido
-│   └── ideas/
-│       └── *.mdx                # un archivo por ensayo (frontmatter + cuerpo)
+│   └── espensar/
+│       └── *.mdx                # un archivo por pieza (frontmatter + cuerpo)
 ├── lib/
 │   ├── site.ts                  # purgado de afiliados y vocabulario pro
 │   ├── content.ts               # NUEVO — loader de MDX (fs en build)
-│   └── structured-data.ts       # Person/WebSite reorientado + Article para ideas
+│   └── structured-data.ts       # Person/WebSite reorientado + Article para esPensar
 └── components/
     ├── nav.tsx                  # rutas reales (no solo anclas)
     ├── footer.tsx               # sin afiliados; licencia abierta
     └── ui/                      # se conserva lo usado; se poda lo muerto
 ```
 
+> **esPensar** y **esPosible**: nombres del autor. No se abrevian con guion, no
+> se etiquetan como categoría. Son. Display `esPensar`/`esPosible`, ruta
+> `/espensar`/`/esposible`.
+
 ### Decisiones de ruteo
 
 - El one-pager con anclas (`#biografia`, `#misiones`, `#experiencias`) se
   reemplaza por **rutas reales** indexables: mejor SEO natural y mejor encaje
   con un sitio de contenido.
-- `nav` en `lib/site.ts:16-20` pasa de anclas a rutas (`/`, `/ideas`, `/sobre`).
+- `nav` en `lib/site.ts:16-20` pasa de anclas a rutas (`/`, `/espensar`, `/esposible`, `/sobre`).
 
 ---
 
-## 3. Sistema de contenido `/ideas` (MDX, compatible static export)
+## 3. Contenido de esPensar (MDX, compatible static export)
 
-Objetivo: escribir ensayos en Markdown sin tocar React.
+Objetivo: escribir en Markdown sin tocar React.
 
-- **Fuente**: `content/ideas/*.mdx` con frontmatter
+- **Fuente**: `content/espensar/*.mdx` con frontmatter
   (`title`, `date`, `summary`, `tags`, `lang`, `draft`).
 - **Loader**: `lib/content.ts` lee el filesystem en build (Server Component) →
   100% compatible con `output: 'export'`.
-- **Rutas**: `app/ideas/[slug]/page.tsx` + `generateStaticParams()` deriva los
+- **Rutas**: `app/espensar/[slug]/page.tsx` + `generateStaticParams()` deriva los
   slugs de los archivos. `draft: true` se excluye del build de producción.
 - **Render MDX**: vía `@next/mdx` o `next-mdx-remote/rsc` (a decidir en
   implementación; ambos válidos en export estático).
 - **Sin base de datos, sin API** (regla dura del repo: se respeta).
 
-> Esta ronda deja la **estructura** lista; los ensayos los escribe el autor en
-> la fase de contenido. No se inventa ningún ensayo.
+> Esta ronda deja la **estructura** lista; las piezas las escribe el autor en
+> la fase de contenido. No se inventa nada.
 
 ---
 

@@ -45,8 +45,9 @@ trazabilidad.
 ## Opciones consideradas
 
 - **A. Reconversión profunda**: purgar venta/afiliados, reorientar identidad,
-  añadir departamento de contenido `/ideas` (MDX) y rutas reales.
-- **B. Capa ideológica encima**: añadir sección de ideas sin tocar el resto.
+  añadir el pensamiento (`/espensar`, MDX) y lo posible (`/esposible`) como
+  rutas reales.
+- **B. Capa ideológica encima**: añadir una sección sin tocar el resto.
 - **C. Status quo**: mantener el `.me` como landing comercial.
 
 ## Resultado de la decisión
@@ -59,9 +60,9 @@ monetización en este dominio.
 Ejecución por fases (detalle en `docs/reconversion-me.md`):
 
 1. Estructura + saneado de documentación (esta PR).
-2. Purga de venta/afiliados + montaje de `/ideas` (MDX) + reorientación de
-   `lib/site.ts` y `lib/structured-data.ts`.
-3. Contenido (portada, `/sobre`, pieza de cookies, ensayos).
+2. Purga de venta/afiliados + montaje de `/espensar` (MDX) y `/esposible` +
+   reorientación de `lib/site.ts` y `lib/structured-data.ts`.
+3. Contenido (portada, `/sobre`, pieza de cookies, piezas de esPensar).
 4. Cierre: SEO (Article schema, sitemap dinámico), Lighthouse, deploy.
 
 ### Consecuencias positivas
@@ -81,7 +82,7 @@ Ejecución por fases (detalle en `docs/reconversion-me.md`):
 
 - `pnpm build` verde con export estático tras cada fase.
 - Ausencia de afiliados/tracking verificable en el árbol y en cabeceras HTTP.
-- Lighthouse ≥ 90 mantenido; rutas `/ideas`, `/ideas/[slug]`, `/sobre`
+- Lighthouse ≥ 90 mantenido; rutas `/espensar`, `/espensar/[slug]`, `/esposible`, `/sobre`
   servidas 200 e indexables.
 - Documentación (CLAUDE.md, TASKS.md) coincide con el árbol real.
 
