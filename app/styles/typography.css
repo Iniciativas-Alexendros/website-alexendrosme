@@ -4,7 +4,7 @@
 
 @theme {
   /* Escala fluid VAP (patrón §4). Clamp(min, preferred, max), sin media queries. */
-  --text-xs: clamp(0.75rem, 0.72rem + 0.12vw, 0.813rem);
+  --text-xs: clamp(0.8rem, 0.77rem + 0.12vw, 0.813rem);
   --text-sm: clamp(0.813rem, 0.79rem + 0.14vw, 0.875rem);
   --text-base: clamp(0.938rem, 0.90rem + 0.18vw, 1rem);
   --text-lg: clamp(1.063rem, 1.02rem + 0.22vw, 1.125rem);
