@@ -1,15 +1,9 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ContactFab } from "@/components/contact-fab";
 import { siteConfig } from "@/lib/site";
-
-const StackMarquee = dynamic(
-  () => import("@/components/stack-marquee").then((m) => m.StackMarquee),
-  { loading: () => <div className="py-8" /> },
-);
 
 export const metadata: Metadata = {
   description: siteConfig.description,
@@ -24,7 +18,7 @@ const misions = [
     year: "2024–",
     stack: ["Next.js", "Supabase", "Prisma", "Stripe", "Turborepo"],
     description:
-      "Plataforma SaaS multi-app. Cada vertical es un producto independiente sobre infraestructura compartida: auth, pagos, email. StageKit (producción electrónica) en MVP.",
+      "Mi proyecto comercial, a propósito fuera de este espacio: lo que se cobra y se vende vive allí, no en el .me.",
     url: "https://alexendros.pro",
   },
   {
@@ -34,7 +28,7 @@ const misions = [
     year: "2025–",
     stack: ["Next.js", "Tailwind v4", "Vergina v0.2.2"],
     description:
-      "Este sitio. Campo de pruebas de branding e identidad visual antes de aplicarlos al producto. Criterio en abierto.",
+      "Este sitio. Espacio personal y libre de dinero: pensamiento, soberanía digital y crítica tecnológica. Criterio en abierto.",
     url: null,
   },
   {
@@ -44,7 +38,7 @@ const misions = [
     year: "2026",
     stack: [],
     description:
-      "Verticales para despachos jurídicos y gestorías. En el roadmap del monorepo. Público cuando haya algo operativo.",
+      "Verticales (despachos jurídicos, gestorías) del roadmap comercial. Viven en alexendros.pro, no aquí.",
     url: null,
   },
 ];
@@ -85,17 +79,12 @@ export default function Home() {
       {/* ─────────────────────────── HERO ─────────────────────────── */}
       <section className="site-shell hero-section">
         <div className="flex flex-wrap items-center gap-3">
-          <p className="hero-eyebrow">Valencia · Fullstack · alexendros.pro</p>
-          <span className="availability-pill">
-            <span className="availability-pill__dot" aria-hidden="true" />
-            Disponible
-          </span>
+          <p className="hero-eyebrow">Valencia · pensamiento, soberanía digital y libertades</p>
         </div>
-        <h1 className="hero-signature">
-          Construyo software útil donde suele llegar caro, tarde o roto.
-        </h1>
+        <h1 className="hero-signature">No vine a venderte nada. Vine a pensar en voz alta.</h1>
         <p className="prose-lead">
-          Fullstack developer. Plataforma propia en{" "}
+          Espacio personal y libre de dinero: humanismo, soberanía digital y crítica tecnológica. Lo
+          que se vende vive en{" "}
           <a
             href="https://alexendros.pro"
             target="_blank"
@@ -104,14 +93,17 @@ export default function Home() {
           >
             alexendros.pro
           </a>
-          . Construyo y opero mi propio SaaS — lo que recomiendo lo he probado en producción.
+          ; aquí solo se piensa, se escribe y se comparte.
+        </p>
+        <p className="text-sm text-muted-foreground italic">
+          Ánimo de todo tipo. Lucro ni idea de quién es.
         </p>
         <div className="flex flex-wrap gap-3">
           <Button asChild>
             <a href={`mailto:${siteConfig.contact.email}`}>Convócame</a>
           </Button>
           <Button variant="outline" asChild>
-            <a href="#misiones">Ver misiones</a>
+            <a href="#biografia">Conóceme</a>
           </Button>
         </div>
       </section>
@@ -134,10 +126,9 @@ export default function Home() {
               <h3 className="title">Acto I — Origen</h3>
               <p className="text-muted-foreground leading-relaxed">
                 Años fuera del software —hostelería, gestión, atención al cliente— que me enseñaron
-                a leer negocios antes que a escribir código. Traje de ahí tres cosas: criterio para
-                distinguir lo que importa del ruido, paciencia para los detalles que nadie ve, y la
-                costumbre de cobrar por resultados. Cuando por fin me senté a programar, ya tenía
-                claro para qué.
+                a leer negocios antes que a escribir código. Traje de ahí dos cosas: criterio para
+                distinguir lo que importa del ruido y paciencia para los detalles que nadie ve.
+                Cuando por fin me senté a programar, ya tenía claro para qué.
               </p>
             </div>
 
@@ -171,15 +162,6 @@ export default function Home() {
                 dinero.
               </p>
             </div>
-
-            <Separator />
-
-            <blockquote className="border-l-2 border-primary pl-4">
-              <p className="text-foreground font-medium leading-relaxed">
-                &ldquo;Construyo y opero mi propio SaaS. Lo que recomiendo lo he probado antes en
-                producción.&rdquo;
-              </p>
-            </blockquote>
           </div>
         </div>
       </section>
@@ -237,19 +219,6 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      <Separator className="site-shell" />
-
-      {/* ─────────────────────── STACK ────────────────────────── */}
-      <section className="section section-below-fold">
-        <div className="mx-auto max-w-5xl">
-          <div className="site-shell max-w-3xl mb-8">
-            <h2 className="headline mb-2">Stack</h2>
-            <p className="prose-lead text-muted-foreground">Las piezas con las que construyo.</p>
-          </div>
-          <StackMarquee />
         </div>
       </section>
 
