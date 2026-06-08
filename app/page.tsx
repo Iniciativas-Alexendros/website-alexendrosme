@@ -81,7 +81,7 @@ export default function Home() {
         <div className="flex flex-wrap items-center gap-3">
           <p className="hero-eyebrow">Valencia · pensamiento, soberanía digital y libertades</p>
         </div>
-        <h1 className="hero-signature">No vine a venderte nada. Vine a pensar en voz alta.</h1>
+        <h1 className="hero-signature">Grandes soluciones de un ingenio no previsto.</h1>
         <p className="prose-lead">
           Espacio personal y libre de dinero: humanismo, soberanía digital y crítica tecnológica. Lo
           que se vende vive en{" "}
