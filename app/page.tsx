@@ -267,7 +267,7 @@ export default function Home() {
               Experiencias
             </h2>
             <p className="text-muted-foreground">
-              Lo extra-laboral que me ha formado, el stack que uso y los aliados que recomiendo.
+              Lo extra-laboral que me ha formado, el stack que uso y los aliados que me acompañan.
             </p>
           </div>
 

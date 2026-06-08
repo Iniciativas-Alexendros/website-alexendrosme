@@ -58,7 +58,7 @@ export const metadata: Metadata = {
         url: "/og/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "Alexendros — Fullstack Developer",
+        alt: siteConfig.title,
       },
     ],
   },
