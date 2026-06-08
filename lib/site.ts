@@ -1,9 +1,9 @@
 export const siteConfig = {
   name: "Alexendros",
   fullName: "Alejandro Domingo Agustí",
-  title: "Alejandro Agustí — pensamiento, soberanía digital y software",
+  title: "Alexendros. Pensador, tecnólogo, investigador, amante. Yo me hice así.",
   description:
-    "Espacio personal y libre de dinero de Alejandro Domingo Agustí: pensamiento, soberanía digital y crítica tecnológica. Valencia. Lo comercial vive en alexendros.pro.",
+    "Espacio personal y libre de dinero de Alexendros: pensador, tecnólogo, investigador, amante. Soberanía digital, crítica tecnológica y pensamiento desde Valencia.",
   url: "https://alexendros.me",
   email: "contacto@alexendros.me",
   location: "Valencia, España",
