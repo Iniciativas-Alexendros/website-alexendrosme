@@ -85,17 +85,14 @@ export default function Home() {
       {/* ─────────────────────────── HERO ─────────────────────────── */}
       <section className="site-shell hero-section">
         <div className="flex flex-wrap items-center gap-3">
-          <p className="hero-eyebrow">Valencia · Fullstack · alexendros.pro</p>
-          <span className="availability-pill">
-            <span className="availability-pill__dot" aria-hidden="true" />
-            Disponible
-          </span>
+          <p className="hero-eyebrow">
+            Valencia · pensamiento, soberanía digital y libertades · sin ánimo de lucro
+          </p>
         </div>
-        <h1 className="hero-signature">
-          Construyo software útil donde suele llegar caro, tarde o roto.
-        </h1>
+        <h1 className="hero-signature">No vine a venderte nada. Vine a pensar en voz alta.</h1>
         <p className="prose-lead">
-          Fullstack developer. Plataforma propia en{" "}
+          Espacio personal y libre de dinero: humanismo, soberanía digital y crítica tecnológica. Lo
+          que se vende vive en{" "}
           <a
             href="https://alexendros.pro"
             target="_blank"
@@ -104,14 +101,14 @@ export default function Home() {
           >
             alexendros.pro
           </a>
-          . Construyo y opero mi propio SaaS — lo que recomiendo lo he probado en producción.
+          ; aquí solo se piensa, se escribe y se comparte.
         </p>
         <div className="flex flex-wrap gap-3">
           <Button asChild>
             <a href={`mailto:${siteConfig.contact.email}`}>Convócame</a>
           </Button>
           <Button variant="outline" asChild>
-            <a href="#misiones">Ver misiones</a>
+            <a href="#biografia">Conóceme</a>
           </Button>
         </div>
       </section>
