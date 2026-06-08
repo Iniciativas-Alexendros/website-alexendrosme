@@ -78,7 +78,7 @@ export function Footer() {
             <span className="line-through decoration-2">€</span>Ç
           </span>{" "}
           · {year} Alejandro Domingo Agustí · Anticomercial: cópialo, úsalo, compártelo. No
-          comercies con ello.
+          comercies con ello. F.A.F.O.
         </p>
         <p className="mt-1 text-xs text-muted-foreground italic">
           ¿De qué sirve el dinero a quien no sabe usarlo? Ya lo tengo yo.
