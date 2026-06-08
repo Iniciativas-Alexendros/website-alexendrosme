@@ -1,15 +1,9 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ContactFab } from "@/components/contact-fab";
 import { siteConfig } from "@/lib/site";
-
-const StackMarquee = dynamic(
-  () => import("@/components/stack-marquee").then((m) => m.StackMarquee),
-  { loading: () => <div className="py-8" /> },
-);
 
 export const metadata: Metadata = {
   description: siteConfig.description,
@@ -85,9 +79,7 @@ export default function Home() {
       {/* ─────────────────────────── HERO ─────────────────────────── */}
       <section className="site-shell hero-section">
         <div className="flex flex-wrap items-center gap-3">
-          <p className="hero-eyebrow">
-            Valencia · pensamiento, soberanía digital y libertades · sin ánimo de lucro
-          </p>
+          <p className="hero-eyebrow">Valencia · pensamiento, soberanía digital y libertades</p>
         </div>
         <h1 className="hero-signature">No vine a venderte nada. Vine a pensar en voz alta.</h1>
         <p className="prose-lead">
@@ -102,6 +94,9 @@ export default function Home() {
             alexendros.pro
           </a>
           ; aquí solo se piensa, se escribe y se comparte.
+        </p>
+        <p className="text-sm text-muted-foreground italic">
+          Ánimo de todo tipo. Lucro ni idea de quién es.
         </p>
         <div className="flex flex-wrap gap-3">
           <Button asChild>
@@ -224,19 +219,6 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      <Separator className="site-shell" />
-
-      {/* ─────────────────────── STACK ────────────────────────── */}
-      <section className="section section-below-fold">
-        <div className="mx-auto max-w-5xl">
-          <div className="site-shell max-w-3xl mb-8">
-            <h2 className="headline mb-2">Stack</h2>
-            <p className="prose-lead text-muted-foreground">Las piezas con las que construyo.</p>
-          </div>
-          <StackMarquee />
         </div>
       </section>
 
