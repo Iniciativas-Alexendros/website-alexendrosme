@@ -24,7 +24,7 @@ const misions = [
     year: "2024–",
     stack: ["Next.js", "Supabase", "Prisma", "Stripe", "Turborepo"],
     description:
-      "Plataforma SaaS multi-app. Cada vertical es un producto independiente sobre infraestructura compartida: auth, pagos, email. StageKit (producción electrónica) en MVP.",
+      "Mi proyecto comercial, a propósito fuera de este espacio: lo que se cobra y se vende vive allí, no en el .me.",
     url: "https://alexendros.pro",
   },
   {
@@ -34,7 +34,7 @@ const misions = [
     year: "2025–",
     stack: ["Next.js", "Tailwind v4", "Vergina v0.2.2"],
     description:
-      "Este sitio. Campo de pruebas de branding e identidad visual antes de aplicarlos al producto. Criterio en abierto.",
+      "Este sitio. Espacio personal y libre de dinero: pensamiento, soberanía digital y crítica tecnológica. Criterio en abierto.",
     url: null,
   },
   {
@@ -44,7 +44,7 @@ const misions = [
     year: "2026",
     stack: [],
     description:
-      "Verticales para despachos jurídicos y gestorías. En el roadmap del monorepo. Público cuando haya algo operativo.",
+      "Verticales (despachos jurídicos, gestorías) del roadmap comercial. Viven en alexendros.pro, no aquí.",
     url: null,
   },
 ];
@@ -131,10 +131,9 @@ export default function Home() {
               <h3 className="title">Acto I — Origen</h3>
               <p className="text-muted-foreground leading-relaxed">
                 Años fuera del software —hostelería, gestión, atención al cliente— que me enseñaron
-                a leer negocios antes que a escribir código. Traje de ahí tres cosas: criterio para
-                distinguir lo que importa del ruido, paciencia para los detalles que nadie ve, y la
-                costumbre de cobrar por resultados. Cuando por fin me senté a programar, ya tenía
-                claro para qué.
+                a leer negocios antes que a escribir código. Traje de ahí dos cosas: criterio para
+                distinguir lo que importa del ruido y paciencia para los detalles que nadie ve.
+                Cuando por fin me senté a programar, ya tenía claro para qué.
               </p>
             </div>
 
@@ -168,15 +167,6 @@ export default function Home() {
                 dinero.
               </p>
             </div>
-
-            <Separator />
-
-            <blockquote className="border-l-2 border-primary pl-4">
-              <p className="text-foreground font-medium leading-relaxed">
-                &ldquo;Construyo y opero mi propio SaaS. Lo que recomiendo lo he probado antes en
-                producción.&rdquo;
-              </p>
-            </blockquote>
           </div>
         </div>
       </section>
