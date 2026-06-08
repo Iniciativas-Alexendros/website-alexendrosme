@@ -72,10 +72,10 @@ export function Footer() {
           </a>
         </div>
 
-        {/* Marca anticomercial — CE trencada (comercial, tachado) */}
+        {/* Marca anticomercial — €Ç: € (dinero) tachado, Ç = la C comercial quebrada */}
         <p className="mt-2 text-sm text-muted-foreground">
-          <span className="line-through decoration-2" title="Comercial, tachado — anticomercial">
-            CE
+          <span title="Comercial (€) tachado por lo anticomercial; Ç = C comercial quebrada">
+            <span className="line-through decoration-2">€</span>Ç
           </span>{" "}
           · {year} Alejandro Domingo Agustí · Anticomercial: cópialo, úsalo, compártelo. No
           comercies con ello.

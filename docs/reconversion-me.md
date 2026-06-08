@@ -210,7 +210,7 @@ Todo lo que se afirme debe ser contrastable. Material base:
    _Recomendación: eliminar del `.me`; si interesan, viven en `.pro`._
 2. **Licencia / copyright** — sustituir "Todos los derechos reservados" por una
    licencia abierta (p. ej. CC BY-SA o CC BY-NC) coherente con "contenido
-   libre". _Decidir cuál._
+   libre". _Resuelto: CC BY-NC-SA 4.0 en `LICENSE` + sello €Ç en el footer._
 3. **`knowsAbout` / identidad SEO** — reorientar a intereses **reales y
    verificables** (filosofía política, soberanía digital, etc.). El autor aporta
    la lista; no se inventa.

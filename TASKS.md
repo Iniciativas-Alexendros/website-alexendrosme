@@ -81,7 +81,7 @@ reconversión.
 
 - [x] Plan estructural redactado (`docs/reconversion-me.md`).
 - [x] Documentación saneada (CLAUDE.md §5/§8, esta nota).
-- [x] Decisiones del autor (§6): afiliados fuera, licencia = sello anticomercial "CE trencada", `knowsAbout` reorientado a soberanía digital + filosofía política.
+- [x] Decisiones del autor (§6): afiliados fuera, licencia = CC BY-NC-SA 4.0 (sello €Ç anticomercial en el footer), `knowsAbout` reorientado a soberanía digital + filosofía política.
 - [x] Purga de venta/afiliados (Proton, Hostinger, referral Claude): `ReferralsFab`, sección "Aliados con programa de referidos", disclosure del footer y array `referrals` eliminados.
 - [ ] Departamento de contenido `/ideas` (MDX) + `content/ideas/`.
 - [x] Reorientar `lib/site.ts` y `lib/structured-data.ts` (sin vocabulario pro; la tech se mantiene como materia de crítica).
