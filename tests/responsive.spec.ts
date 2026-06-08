@@ -20,7 +20,7 @@ test.describe("Responsividad · no-overflow + tap targets ≥44px", () => {
     const smallTargets = await page.evaluate(() => {
       const targets = [
         ...document.querySelectorAll<HTMLElement>(
-          'a, button, [role="button"], input, select, textarea'
+          'a, button, [role="button"], input, select, textarea',
         ),
       ];
       return targets
@@ -44,12 +44,10 @@ test.describe("Responsividad · no-overflow + tap targets ≥44px", () => {
     // La regla WCAG 2.5.5 (AAA) recomienda 44px; WCAG 2.5.8 (AA en 2.2) admite excepciones inline
   });
 
-  test("FABs visibles en mobile", async ({ page }) => {
-    // En mobile, los FABs deben estar visible sin scroll
+  test("FAB visible en mobile", async ({ page }) => {
+    // En mobile, el FAB de contacto debe estar visible sin scroll
     const contactFab = page.locator("button", { hasText: "Convócame" });
-    const referralsFab = page.locator("button", { hasText: "Mis aliados" });
     await expect(contactFab).toBeVisible();
-    await expect(referralsFab).toBeVisible();
   });
 
   test("nav mobile: Sheet se abre y cierra", async ({ page, viewport }) => {

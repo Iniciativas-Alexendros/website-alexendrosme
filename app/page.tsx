@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ContactFab } from "@/components/contact-fab";
-import { ReferralsFab } from "@/components/referrals-fab";
 import { siteConfig } from "@/lib/site";
 
 const StackMarquee = dynamic(
@@ -105,8 +104,7 @@ export default function Home() {
           >
             alexendros.pro
           </a>
-          . Construyo, opero y cobro en mi propio SaaS — lo que recomiendo lo he probado en
-          producción.
+          . Construyo y opero mi propio SaaS — lo que recomiendo lo he probado en producción.
         </p>
         <div className="flex flex-wrap gap-3">
           <Button asChild>
@@ -168,9 +166,9 @@ export default function Home() {
                 >
                   alexendros.pro
                 </a>
-                . Monorepo multi-app en construcción, build in public documentado y disponibilidad
-                para consultoría en proyectos donde la mezcla de producto y ejecución técnica marca
-                la diferencia.
+                . Monorepo multi-app en construcción y build in public documentado. Lo comercial
+                vive en alexendros.pro; esto, alexendros.me, es un espacio personal y libre de
+                dinero.
               </p>
             </div>
 
@@ -178,41 +176,10 @@ export default function Home() {
 
             <blockquote className="border-l-2 border-primary pl-4">
               <p className="text-foreground font-medium leading-relaxed">
-                &ldquo;Construyo, opero y cobro en mi propio SaaS. Lo que recomiendo lo he probado
-                antes en producción.&rdquo;
+                &ldquo;Construyo y opero mi propio SaaS. Lo que recomiendo lo he probado antes en
+                producción.&rdquo;
               </p>
             </blockquote>
-
-            <div className="overflow-x-auto">
-              <table className="legal-table">
-                <thead>
-                  <tr>
-                    <th scope="col">Dimensión</th>
-                    <th scope="col">Alexendros</th>
-                    <th scope="col">Dev genérico</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {[
-                    ["Código fullstack enterprise", "✓", "Variable"],
-                    ["Cumplimiento legal (RGPD/LOPDGDD) bien integrado", "✓", "Superficial"],
-                    ["Producto SaaS propio en producción", "✓", "—"],
-                    ["Criterio de negocio desde el primer commit", "✓", "Variable"],
-                    ["Build in public documentado", "✓", "Variable"],
-                  ].map(([dim, a, b]) => (
-                    <tr key={dim}>
-                      <td data-label="Dimensión">{dim}</td>
-                      <td data-label="Alexendros" className="text-primary">
-                        {a}
-                      </td>
-                      <td data-label="Dev genérico" className="text-muted-foreground">
-                        {b}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
           </div>
         </div>
       </section>
@@ -280,9 +247,7 @@ export default function Home() {
         <div className="mx-auto max-w-5xl">
           <div className="site-shell max-w-3xl mb-8">
             <h2 className="headline mb-2">Stack</h2>
-            <p className="prose-lead text-muted-foreground">
-              Las piezas con las que construyo.
-            </p>
+            <p className="prose-lead text-muted-foreground">Las piezas con las que construyo.</p>
           </div>
           <StackMarquee />
         </div>
@@ -302,7 +267,7 @@ export default function Home() {
               Experiencias
             </h2>
             <p className="text-muted-foreground">
-              Lo extra-laboral que me ha formado, el stack que uso y los aliados que recomiendo.
+              Lo extra-laboral que me ha formado, el stack que uso y los aliados que me acompañan.
             </p>
           </div>
 
@@ -321,51 +286,6 @@ export default function Home() {
               </ul>
             </div>
           ))}
-
-          <div className="space-y-3">
-            <h3 className="title">Aliados con programa de referidos</h3>
-            <p className="text-sm text-muted-foreground">
-              Solo aparecen aquí si los usaría igualmente sin el programa. Si contratas a través de
-              los enlaces, la compañía me acredita una comisión sin coste extra para ti.
-            </p>
-            <div className="space-y-4">
-              <div className="referral-item">
-                <div>
-                  <a
-                    href="https://pr.tn/ref/J9V01ZFX"
-                    target="_blank"
-                    rel="sponsored nofollow noopener noreferrer"
-                    className="referral-item__link"
-                  >
-                    Proton
-                  </a>
-                  <span className="referral-item__badge">(enlace de afiliado)</span>
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  Mail, VPN y Drive cifrados end-to-end. Con sede en Suiza. Lo uso a diario para
-                  separar identidades y mantener el correo fuera del circuito publicitario. Un mes
-                  gratis en planes de pago con este enlace.
-                </p>
-              </div>
-              <div className="referral-item">
-                <div>
-                  <a
-                    href="https://www.hostinger.com/es?REFERRALCODE=G9PALEJANGEG"
-                    target="_blank"
-                    rel="sponsored nofollow noopener noreferrer"
-                    className="referral-item__link"
-                  >
-                    Hostinger
-                  </a>
-                  <span className="referral-item__badge">(enlace de afiliado)</span>
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  VPS, hosting y dominios económicos. Para cuando necesitas control total sin pagar
-                  tarifa de startup. 20% de descuento adicional en la primera contratación.
-                </p>
-              </div>
-            </div>
-          </div>
 
           <div className="space-y-3">
             <h3 className="title">Pruebas de trabajo</h3>
@@ -396,8 +316,7 @@ export default function Home() {
       </section>
 
       {/* FABs — always visible */}
-      <div className="fab-stack" role="region" aria-label="Acciones de contacto y aliados">
-        <ReferralsFab />
+      <div className="fab-stack" role="region" aria-label="Acciones de contacto">
         <ContactFab />
       </div>
     </>

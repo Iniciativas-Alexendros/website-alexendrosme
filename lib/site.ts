@@ -1,9 +1,9 @@
 export const siteConfig = {
   name: "Alexendros",
   fullName: "Alejandro Domingo Agustí",
-  title: "Alejandro Agustí — Fullstack Developer",
+  title: "Alejandro Agustí — pensamiento, soberanía digital y software",
   description:
-    "Fullstack developer especializado en Next.js y Supabase. Plataforma propia en alexendros.pro. Valencia.",
+    "Espacio personal y libre de dinero de Alejandro Domingo Agustí: pensamiento, soberanía digital y crítica tecnológica. Valencia. Lo comercial vive en alexendros.pro.",
   url: "https://alexendros.me",
   email: "contacto@alexendros.me",
   location: "Valencia, España",
@@ -28,27 +28,4 @@ export const siteConfig = {
     telegram: { handle: "@alexendros", status: "preparacion" as const },
     matrix: { handle: "@alexendros:matrix.org", status: "proximamente" as const },
   },
-  referrals: [
-    {
-      key: "claude",
-      name: "Claude AI",
-      href: "https://claude.ai/referral/WXK5RBGz5Q",
-      tagline: "El asistente con el que construyo todo esto",
-      desc: "Si no lo estás usando ya, deberías. Enlace de referido.",
-    },
-    {
-      key: "proton",
-      name: "Proton",
-      href: "https://pr.tn/ref/J9V01ZFX",
-      tagline: "Mail · VPN · Drive cifrados end-to-end",
-      desc: "Alternativa real a Google/Microsoft. Un mes gratis con este enlace.",
-    },
-    {
-      key: "playlist",
-      name: "Playlist",
-      href: null as string | null,
-      tagline: "Tidal / YouTube · TBD",
-      desc: "Próximamente.",
-    },
-  ],
 } as const;

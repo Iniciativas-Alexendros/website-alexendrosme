@@ -7,6 +7,18 @@ y este proyecto se adhiere a [SemVer 2.0.0](https://semver.org/lang/es/).
 
 ## [Sin publicar]
 
+### Eliminado
+
+- **Monetización del `.me`** (reconversión a espacio libre de dinero): componente `ReferralsFab` (`components/referrals-fab.tsx`), sección "Aliados con programa de referidos" en `app/page.tsx`, disclosure de afiliados en el footer, array `siteConfig.referrals` y estilos `.referral-item*`. Enlaces de afiliado (Proton, Hostinger, referral de Claude) retirados.
+- Tabla comparativa de venta "Alexendros vs Dev genérico" en `app/page.tsx`.
+
+### Cambiado
+
+- `components/footer.tsx`: "Todos los derechos reservados" sustituido por sello anticomercial (CE trencada) + lema "¿De qué sirve el dinero a quien no sabe usarlo? Ya lo tengo yo.".
+- `app/page.tsx`: reclamos de venta ("cobro en mi SaaS", "disponibilidad para consultoría") reescritos sin vocabulario comercial; SaaS/Stripe se mantienen como materia técnica.
+- `lib/site.ts` y `lib/structured-data.ts`: `title`/`description`/`knowsAbout` reorientados a identidad personal (soberanía digital, filosofía política); lo comercial apunta a `alexendros.pro`.
+- Tests E2E actualizados: retirados los asertos del FAB "Mis aliados" y de los enlaces de afiliado.
+
 ## [0.3.0] — 2026-05-09 · SPA landing v2
 
 ### Añadido

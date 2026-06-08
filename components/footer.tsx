@@ -72,21 +72,16 @@ export function Footer() {
           </a>
         </div>
 
-        {/* Copyright */}
+        {/* Marca anticomercial — CE trencada (comercial, tachado) */}
         <p className="mt-2 text-sm text-muted-foreground">
-          © {year} Alejandro Domingo Agustí. Todos los derechos reservados.
+          <span className="line-through decoration-2" title="Comercial, tachado — anticomercial">
+            CE
+          </span>{" "}
+          · {year} Alejandro Domingo Agustí · Anticomercial: cópialo, úsalo, compártelo. No
+          comercies con ello.
         </p>
-
-        {/* Afiliados */}
-        <p className="mt-2 text-xs text-muted-foreground">
-          Esta web incluye{" "}
-          <Link
-            href="/#experiencias"
-            className="underline underline-offset-4 decoration-primary/60 hover:decoration-primary"
-          >
-            enlaces de afiliado
-          </Link>
-          . Si contratas a través de ellos, puedo recibir una comisión sin coste extra para ti.
+        <p className="mt-1 text-xs text-muted-foreground italic">
+          ¿De qué sirve el dinero a quien no sabe usarlo? Ya lo tengo yo.
         </p>
       </div>
     </footer>

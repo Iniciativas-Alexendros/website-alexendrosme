@@ -58,20 +58,6 @@ test.describe("Landing · smoke + anchors + FABs", () => {
     await expect(page.locator("a[href^='mailto:']").first()).toBeVisible();
   });
 
-  test("FAB Mis aliados abre el popover con Claude AI y Proton", async ({ page }) => {
-    const fab = page.locator("button", { hasText: "Mis aliados" });
-    await expect(fab).toBeVisible();
-    await fab.click();
-    // Scope dentro del popover para evitar strict mode con los enlaces del cuerpo
-    const popover = page.locator("[data-radix-popper-content-wrapper]").last();
-    await expect(
-      popover.locator(`a[href*='claude.ai/referral']`)
-    ).toBeVisible();
-    await expect(
-      popover.locator(`a[href*='pr.tn/ref']`)
-    ).toBeVisible();
-  });
-
   test("FABs: Escape cierra el popover y devuelve foco al trigger", async ({ page }) => {
     const fab = page.locator("button", { hasText: "Convócame" });
     await fab.click();

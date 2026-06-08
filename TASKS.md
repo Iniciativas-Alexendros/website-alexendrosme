@@ -81,12 +81,12 @@ reconversión.
 
 - [x] Plan estructural redactado (`docs/reconversion-me.md`).
 - [x] Documentación saneada (CLAUDE.md §5/§8, esta nota).
-- [ ] Decisiones abiertas del autor (afiliados, licencia, `knowsAbout`) — §6 del plan.
-- [ ] Purga de venta/afiliados (Proton, Hostinger, referral Claude).
+- [x] Decisiones del autor (§6): afiliados fuera, licencia = sello anticomercial "CE trencada", `knowsAbout` reorientado a soberanía digital + filosofía política.
+- [x] Purga de venta/afiliados (Proton, Hostinger, referral Claude): `ReferralsFab`, sección "Aliados con programa de referidos", disclosure del footer y array `referrals` eliminados.
 - [ ] Departamento de contenido `/ideas` (MDX) + `content/ideas/`.
-- [ ] Reorientar `lib/site.ts` y `lib/structured-data.ts` (sin vocabulario pro).
+- [x] Reorientar `lib/site.ts` y `lib/structured-data.ts` (sin vocabulario pro; la tech se mantiene como materia de crítica).
 - [ ] Pieza divulgativa de cookies (capa manifiesto + capa formal).
 
 ---
 
-_Última actualización: 2026-06-07 (giro a reconversión antidinero; saneado de documentación)._
+_Última actualización: 2026-06-08 (Fase 2: purga de venta/afiliados ejecutada; footer con sello anticomercial)._

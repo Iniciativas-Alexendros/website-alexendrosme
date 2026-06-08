@@ -100,7 +100,7 @@ alexendros-me/
 |   |-- nav.tsx                  (Sheet mobile + desktop links)
 |   |-- footer.tsx
 |   |-- atmosphere.tsx · particle-bg.tsx · stack-marquee.tsx (FX/visual)
-|   |-- contact-fab.tsx · referrals-fab.tsx (FABs flotantes)
+|   |-- contact-fab.tsx              (FAB flotante de contacto)
 |   `-- ui/                      (shadcn inline — 6: badge, button, card, popover, separator, sheet)
 |-- lib/
 |   |-- utils.ts                 (cn helper)
