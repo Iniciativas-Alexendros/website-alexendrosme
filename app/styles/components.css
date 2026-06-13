@@ -592,4 +592,106 @@
     letter-spacing: 0.08em;
     color: var(--muted-foreground);
   }
+
+  /* ═══════════════ Fase 3 — subida visual (Vergina Imperial) ═══════════════ */
+
+  /* Hero: firma con metalizado oro Vergina (background-clip text) */
+  .hero-signature--shimmer {
+    background: var(--accent-shimmer);
+    background-size: 100% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: hero-shimmer 6s var(--ease-in-out) infinite alternate;
+  }
+
+  /* Biografía: cada Acto como tarjeta glass translúcida (elevación lumínica) */
+  .bio-act {
+    position: relative;
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--radius-lg);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    transition:
+      border-color var(--duration-base) var(--ease-out-expo),
+      transform var(--duration-base) var(--ease-spring);
+  }
+  .bio-act:hover {
+    border-color: color-mix(in oklch, var(--accent) 35%, var(--glass-border));
+    transform: translateY(-2px);
+  }
+  .bio-act__index {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--accent-dim);
+    letter-spacing: 0.08em;
+  }
+
+  /* Manifiesto: sílabas con scale+glow al hover (spring) */
+  .manifiesto-desglose li {
+    border-radius: var(--radius-md);
+    transition:
+      background-color var(--duration-fast) var(--ease-out-expo),
+      transform var(--duration-base) var(--ease-spring);
+  }
+  .manifiesto-desglose li:hover {
+    background: color-mix(in oklch, var(--accent) 6%, transparent);
+    transform: translateX(4px);
+  }
+  .manifiesto-silaba {
+    display: inline-block;
+    transition:
+      transform var(--duration-base) var(--ease-spring),
+      color var(--duration-fast) var(--ease-out-expo),
+      text-shadow var(--duration-base) var(--ease-out-expo);
+  }
+  .manifiesto-desglose li:hover .manifiesto-silaba {
+    transform: scale(1.08);
+    color: var(--accent-bright);
+    text-shadow: 0 0 16px color-mix(in oklch, var(--accent) 50%, transparent);
+  }
+
+  /* Manifiesto: preguntas con "?" oro + light-up */
+  .manifiesto-preguntas li {
+    position: relative;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-md);
+    transition: background-color var(--duration-base) var(--ease-out-expo);
+  }
+  .manifiesto-preguntas li:hover {
+    background: color-mix(in oklch, var(--accent) 5%, transparent);
+  }
+
+  /* Motion: nav link underline + FAB con spring */
+  .site-nav__link::after {
+    transition: transform var(--duration-base) var(--ease-spring);
+  }
+  .fab-btn {
+    transition:
+      background-color var(--duration-fast) var(--ease-out-expo),
+      border-color var(--duration-fast) var(--ease-out-expo),
+      transform var(--duration-base) var(--ease-spring);
+  }
+}
+
+@keyframes hero-shimmer {
+  from {
+    background-position: 50% 0%;
+  }
+  to {
+    background-position: 50% 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-signature--shimmer {
+    animation: none;
+  }
+  .bio-act,
+  .manifiesto-desglose li,
+  .manifiesto-silaba {
+    transition: none;
+  }
 }

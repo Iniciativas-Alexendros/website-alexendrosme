@@ -82,7 +82,7 @@ export default function Home() {
         <div className="flex flex-wrap items-center gap-3">
           <p className="hero-eyebrow">Valencia · pensamiento, soberanía digital y libertades</p>
         </div>
-        <h1 className="hero-signature motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-3 motion-safe:duration-700">
+        <h1 className="hero-signature hero-signature--shimmer motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-3 motion-safe:duration-700">
           Grandes soluciones de un ingenio no previsto.
         </h1>
         <p className="prose-lead">
@@ -124,9 +124,10 @@ export default function Home() {
             (Auto)biografía
           </h2>
 
-          <div className="space-y-6">
-            <div className="space-y-3">
-              <h3 className="title">Acto I — Origen</h3>
+          <div className="space-y-4">
+            <div className="bio-act space-y-2">
+              <p className="bio-act__index">Acto I</p>
+              <h3 className="title">Origen</h3>
               <p className="text-muted-foreground leading-relaxed">
                 Años fuera del software —hostelería, gestión, atención al cliente— que me enseñaron
                 a leer negocios antes que a escribir código. Traje de ahí dos cosas: criterio para
@@ -135,10 +136,9 @@ export default function Home() {
               </p>
             </div>
 
-            <Separator />
-
-            <div className="space-y-3">
-              <h3 className="title">Acto II — Transición</h3>
+            <div className="bio-act space-y-2">
+              <p className="bio-act__index">Acto II</p>
+              <h3 className="title">Transición</h3>
               <p className="text-muted-foreground leading-relaxed">
                 Salto al software a tiempo completo. Formación autodidacta intensiva en stack
                 moderno: Next.js, Supabase, Stripe, Docker, n8n. Primeros proyectos freelance,
@@ -146,10 +146,9 @@ export default function Home() {
               </p>
             </div>
 
-            <Separator />
-
-            <div className="space-y-3">
-              <h3 className="title">Acto III — Actualidad</h3>
+            <div className="bio-act space-y-2">
+              <p className="bio-act__index">Acto III</p>
+              <h3 className="title">Actualidad</h3>
               <p className="text-muted-foreground leading-relaxed">
                 Operador de{" "}
                 <a
