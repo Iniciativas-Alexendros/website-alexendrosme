@@ -25,6 +25,15 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ["node_modules/", "dist/", ".next/", "out/", ".turbo/", "next-env.d.ts"],
+    ignores: [
+      "node_modules/",
+      "dist/",
+      ".next/",
+      "out/",
+      ".turbo/",
+      "next-env.d.ts",
+      ".git-worktrees/**",
+      ".claude/**",
+    ],
   },
 );
