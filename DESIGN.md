@@ -1,7 +1,7 @@
 # Diseño de mi-website-personal
 
 Este documento describe cómo mi-website-personal consume el sistema de diseño
-**Vergina Imperial v0.2.0**.
+**Vergina Imperial v0.2.2**.
 
 ## Principios
 
@@ -19,14 +19,14 @@ Los tokens canónicos viven en el repositorio
 
 Mapeo de tokens consumidos en este proyecto:
 
-| Token | Uso |
-|-------|-----|
-| `--vi-bg` | fondo base |
-| `--vi-fg` | texto primario |
-| `--vi-accent-gold` | acento decisional |
-| `--vi-accent-titanium` | acento neutro |
-| `--vi-border` | separadores |
-| `--vi-muted` | texto secundario |
+| Token                  | Uso               |
+| ---------------------- | ----------------- |
+| `--vi-bg`              | fondo base        |
+| `--vi-fg`              | texto primario    |
+| `--vi-accent-gold`     | acento decisional |
+| `--vi-accent-titanium` | acento neutro     |
+| `--vi-border`          | separadores       |
+| `--vi-muted`           | texto secundario  |
 
 ## Componentes
 
@@ -56,5 +56,5 @@ Mapeo de tokens consumidos en este proyecto:
 
 ## Migraciones desde versiones anteriores
 
-Vergina Imperial v0.2.0 sustituye a v0.1.x (Abisal). Si encuentras tokens
+Vergina Imperial v0.2.2 sustituye a v0.1.x (Abisal). Si encuentras tokens
 `--abisal-*`, migra a sus equivalentes `--vi-*` y elimínalos.
