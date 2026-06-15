@@ -10,7 +10,6 @@ import {
   siTurborepo,
   siVercel,
   siResend,
-  siN8n,
   type SimpleIcon,
 } from "simple-icons";
 
@@ -59,7 +58,6 @@ const items: StackItem[] = [
   },
   { icon: siVercel, label: "Vercel", color: "currentColor", href: "https://vercel.com" },
   { icon: siResend, label: "Resend", color: "currentColor", href: "https://resend.com" },
-  { icon: siN8n, label: "n8n", color: `#${siN8n.hex}`, href: "https://n8n.io" },
 ];
 
 function LogoRow({ ariaHidden = false }: { ariaHidden?: boolean }) {
