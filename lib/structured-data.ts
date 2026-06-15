@@ -8,7 +8,7 @@ export const personJsonLd = {
   url: "https://alexendros.me",
   jobTitle: "Fullstack Developer",
   description:
-    "Espacio personal y libre de dinero: pensamiento, soberanía digital y crítica tecnológica. Lo comercial vive en alexendros.pro.",
+    "Espacio personal y libre de dinero: pensamiento, soberanía digital y crítica tecnológica. Lo comercial vive en alexendros.dev.",
   knowsAbout: [
     "Soberanía digital",
     "Software libre",

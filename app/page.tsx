@@ -69,12 +69,12 @@ export default function Home() {
           Espacio personal y libre de dinero: humanismo, soberanía digital y crítica tecnológica. Lo
           que se vende vive en{" "}
           <a
-            href="https://alexendros.pro"
+            href="https://alexendros.dev"
             target="_blank"
             rel="noopener noreferrer"
             className="underline underline-offset-4 decoration-primary/60 hover:decoration-primary"
           >
-            alexendros.pro
+            alexendros.dev
           </a>
           ; aquí solo se piensa, se escribe y se comparte.
         </p>

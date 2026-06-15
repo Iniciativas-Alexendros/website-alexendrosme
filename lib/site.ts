@@ -8,7 +8,7 @@ export const siteConfig = {
   email: "contacto@alexendros.me",
   location: "Valencia, España",
   links: {
-    pro: "https://alexendros.pro",
+    dev: "https://alexendros.dev",
     github: "https://github.com/alexendros",
     linkedin: "https://linkedin.com/in/alexendros",
     twitter: "https://x.com/alexendros",

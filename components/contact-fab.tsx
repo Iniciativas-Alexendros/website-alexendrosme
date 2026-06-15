@@ -31,9 +31,7 @@ export function ContactFab() {
           <Send className="h-4 w-4 shrink-0 opacity-40" aria-hidden="true" />
           <span className="fab-item__label">
             <span className="fab-item__name opacity-60">Telegram</span>
-            <span className="fab-item__desc">
-              {contact.telegram.handle} · en preparación
-            </span>
+            <span className="fab-item__desc">{contact.telegram.handle} · en preparación</span>
           </span>
         </div>
 
@@ -41,16 +39,12 @@ export function ContactFab() {
           <Hash className="h-4 w-4 shrink-0 opacity-40" aria-hidden="true" />
           <span className="fab-item__label">
             <span className="fab-item__name opacity-60">Matrix / Element</span>
-            <span className="fab-item__desc">
-              {contact.matrix.handle} · próximamente
-            </span>
+            <span className="fab-item__desc">{contact.matrix.handle} · próximamente</span>
           </span>
         </div>
 
         <div className="fab-divider" role="separator" />
-        <p className="fab-section-label">
-          Form formal → alexendros.pro
-        </p>
+        <p className="fab-section-label">Form formal → alexendros.dev</p>
       </PopoverContent>
     </PopoverRoot>
   );
