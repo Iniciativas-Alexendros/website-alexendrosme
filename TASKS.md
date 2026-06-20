@@ -59,7 +59,7 @@ Lista viva de pendientes del repositorio standalone `alexendros-me`.
 
 ## 7. Audit 2026-04-12 (completado)
 
-- [x] Auditoría de estructura canónica Next.js 15 + shadcn.
+- [x] Auditoría de estructura canónica Next.js 16 + shadcn.
 - [x] Análisis estático: imports no usados (0), componentes UI huérfanos (0), CSS vars muertas (0).
 - [x] `docs/history/` sintetizado en `docs/CHANGELOG.md` y eliminado.
 - [x] `CLAUDE.md` y `README.md` actualizados (referencias a `docs/history/` → `docs/CHANGELOG.md`).

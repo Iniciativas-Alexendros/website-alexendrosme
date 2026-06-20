@@ -25,7 +25,7 @@ Rama: `audit/cleanup-20260412`
 | `/uses`              | 604 B   | 182 kB        |
 | Shared chunks (base) | —       | 102 kB        |
 
-## Inventario canónico (Next.js 15 App Router + static export)
+## Inventario canónico (Next.js 16 App Router + static export)
 
 | Archivo / Dir                                                                                   | Estado    | Acción recomendada                                  |
 | ----------------------------------------------------------------------------------------------- | --------- | --------------------------------------------------- |
@@ -76,7 +76,7 @@ Rama: `audit/cleanup-20260412`
 
 ## Riesgo aceptado (documentado)
 
-- CSP con `'unsafe-inline'` para `script-src` y `style-src`. Motivo: Next.js 15 hydration inline scripts + JSON-LD (`dangerouslySetInnerHTML` en `app/layout.tsx`) + Tailwind v4 estilos inline. Sin input de usuario ni backend — superficie de ataque mínima.
+- CSP con `'unsafe-inline'` para `script-src` y `style-src`. Motivo: Next.js 16 hydration inline scripts + JSON-LD (`dangerouslySetInnerHTML` en `app/layout.tsx`) + Tailwind v4 estilos inline. Sin input de usuario ni backend — superficie de ataque mínima.
 - NIF 21002968N expuesto en `/legal/aviso-legal` — requerido por LSSI-CE Art. 10.
 - Email `contacto@alexendros.me` expuesto en `/contact` — contacto intencional.
 
