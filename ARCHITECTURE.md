@@ -6,7 +6,7 @@ código y los ADR.
 
 ## Visión general
 
-Aplicación Next.js 15 que sirve Sitio web personal de Alexendros.. Despliegue serverless en
+Aplicación Next.js 16 que sirve Sitio web personal de Alexendros.. Despliegue serverless en
 Vercel con dominio alexendros.me gestionado en Hostinger.
 
 ```mermaid

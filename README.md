@@ -65,7 +65,7 @@ necesitas y sin depender de infraestructura que no controlas.
 Para quien quiera ver **cómo** está hecho, no solo **qué** dice:
 
 ```
-app/            Rutas (Next.js 15 App Router) — export estático
+app/            Rutas (Next.js 16 App Router) — export estático
   styles/       Tokens oklch, tipografía, componentes, motion, breakpoints
   legal/        Aviso legal · Privacidad · Cookies (textos reales, no lorem ipsum)
 components/     Nav, footer, efectos visuales, shadcn/ui inline (6 componentes)
@@ -79,7 +79,7 @@ public/         Fuentes locales, OG image, sitemap, robots
 
 | Capa       | Elección                                               |
 | ---------- | ------------------------------------------------------ |
-| Framework  | Next.js 15 · App Router · React 19 · TypeScript strict |
+| Framework  | Next.js 16 · App Router · React 19 · TypeScript strict |
 | Estilos    | Tailwind CSS v4 (CSS-first) · tokens oklch dark-first  |
 | Tipografía | Geist Sans + Mono (self-hosted) · Inter display        |
 | Calidad    | ESLint flat · Prettier 3 · depcheck · ts-prune         |
