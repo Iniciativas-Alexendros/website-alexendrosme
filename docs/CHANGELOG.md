@@ -126,7 +126,7 @@ Toolchain ampliada y quality gate ejecutado antes del deploy a Vercel.
 | -------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | Funcionalidad  | ✅     | 11 rutas estáticas renderizan; nav desktop+mobile, legales completos, JSON-LD validado.                                                       |
 | Rendimiento    | ⏳     | CWV targets definidos en CLAUDE.md (LCP<2.0s desktop); Lighthouse pendiente post-deploy (Fase 4).                                             |
-| Compatibilidad | ✅     | Next.js 16 static export + React 19; navegadores modernos; responsive con Tailwind v4.                                                        |
+| Compatibilidad | ✅     | Next.js 15 static export + React 19; navegadores modernos; responsive con Tailwind v4.                                                        |
 | Usabilidad     | ✅     | Test de 5 segundos superado; nav accesible; contenido legal en es-ES.                                                                         |
 | Fiabilidad     | ✅     | Sin backend → superficie de fallo mínima; `app/error.tsx` + `app/not-found.tsx` cubren edge cases.                                            |
 | Seguridad      | ✅     | CSP strict + HSTS preload + X-Frame-Options DENY ([vercel.json](../vercel.json)); `'unsafe-inline'` mitigado por ausencia de input y backend. |
@@ -175,7 +175,7 @@ Cierre de la Fase 3: shell de layout, contenido + legales, SEO y headers. 11 pá
 ### Plan 03 — SEO, headers y build verificado (2026-04-09)
 
 - `lib/structured-data.ts` con `personJsonLd` + `websiteJsonLd` (schema Person + WebSite), inyectado en `app/layout.tsx` vía `dangerouslySetInnerHTML` (la metadata API no cubre scripts arbitrarios).
-- `public/sitemap.xml` y `public/robots.txt` estáticos. Motivo: `output: "export"` en Next.js 16 no soporta `app/sitemap.ts` ni `app/robots.ts` como route handlers.
+- `public/sitemap.xml` y `public/robots.txt` estáticos. Motivo: `output: "export"` en Next.js 15 no soporta `app/sitemap.ts` ni `app/robots.ts` como route handlers.
 - `public/og/opengraph-image.png` (1200×630) pre-generada con ImageMagick. Motivo: `next/og ImageResponse` requiere runtime incompatible con static export.
 - `vercel.json` con 6 security headers: `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, CSP con `'unsafe-inline'` documentado (hydration de Next.js + JSON-LD inline + Tailwind v4), HSTS 2 años + preload, `Referrer-Policy: strict-origin-when-cross-origin`, Permissions-Policy (camera/mic/geo bloqueados).
 
