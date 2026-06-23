@@ -2,6 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests",
+  testMatch: /.*\.spec\.ts$/,
   fullyParallel: true,
   forbidOnly: !!process.env["CI"],
   retries: process.env["CI"] ? 2 : 0,
@@ -16,7 +17,7 @@ export default defineConfig({
     { name: "desktop", use: { viewport: { width: 1440, height: 900 } } },
   ],
   webServer: {
-    command: "pnpm dev",
+    command: "pnpm build && python3 -m http.server 3000 -d out",
     url: "http://localhost:3000",
     reuseExistingServer: !process.env["CI"],
     timeout: 120_000,
