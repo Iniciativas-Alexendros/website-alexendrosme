@@ -4,6 +4,8 @@
 **Herramienta**: Chrome DevTools MCP + verificación directa de código
 **Alcance**: 8 URLs × 5 viewports (VP1=320, VP2=375, VP3=393, VP4=412, VP5=768)
 
+> **Nota de archivo**: este informe es un snapshot histórico de la estructura de rutas previa a la reconversión. Los enlaces a `app/about/page.tsx`, `app/projects/page.tsx`, `app/contact/page.tsx` y `app/herramientas/page.tsx` apuntan a páginas que fueron eliminadas cuando el sitio pasó a ser una SPA one-page. Se conserva como referencia del análisis original, pero las rutas legacy ya no existen.
+
 ---
 
 ## 0. Resumen ejecutivo

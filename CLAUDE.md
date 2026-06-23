@@ -49,7 +49,7 @@ package_manager: pnpm@10+
 
 ### Seguridad (riesgos aceptados)
 
-- CSP en `vercel.json` usa `'unsafe-inline'` para `script-src` y `style-src`. Motivo: Next.js requiere inline scripts para hydration y JSON-LD (`dangerouslySetInnerHTML` en `layout.tsx`), y Tailwind CSS v4 genera estilos inline. Riesgo mitigado por la ausencia de input de usuario y backend.
+- CSP en `vercel.json` usa `'unsafe-inline'` para `script-src` y `style-src`. Motivo: el sitio es un export estático servido por Vercel, por lo que no es posible inyectar nonces por request; Next.js requiere scripts inline para hydration y JSON-LD (`dangerouslySetInnerHTML` en `layout.tsx`), y Tailwind CSS v4 genera estilos inline. Riesgo aceptado y documentado; mitigado por la ausencia de input de usuario, backend y cualquier fuente de datos no confiable.
 
 ### UI
 
