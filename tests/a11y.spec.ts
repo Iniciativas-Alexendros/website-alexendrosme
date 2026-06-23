@@ -22,7 +22,7 @@ for (const { name, path } of pages) {
         const summary = results.violations
           .map(
             (v) =>
-              `[${v.impact}] ${v.id}: ${v.description}\n  Nodes: ${v.nodes.map((n) => n.target.join(", ")).join(" | ")}`
+              `[${v.impact}] ${v.id}: ${v.description}\n  Nodes: ${v.nodes.map((n) => n.target.join(", ")).join(" | ")}`,
           )
           .join("\n\n");
         console.error(`Violations on ${path}:\n${summary}`);

@@ -2,6 +2,7 @@
 > Varios hallazgos descartados por conflicto con doctrina CLAUDE.md (Resend backend, CSP nonce, toggle dark/light, OG dinámica, ciudad "Madrid" errónea). Ver documento de plan para tratamiento completo.
 
 # AUDITORÍA TÉCNICA
+
 alexendros.me
 
 **Fecha:** 2026-04-14  
@@ -21,6 +22,7 @@ El sitio es un portfolio estático (Next.js App Router, presuntamente `output: '
 No hay backend activo ni base de datos. Hay integración prevista con Resend para el formulario de contacto, pero su estado funcional es desconocido.
 
 **Reglas de operación:**
+
 - No inventar código que no se pueda verificar contra el repositorio real.
 - No modificar ficheros no listados en cada tarea.
 - Ejecutar siempre `pnpm typecheck && pnpm lint && pnpm build` antes de dar una tarea por completada.
@@ -75,13 +77,14 @@ alexendrosme/
 ## BUGS CONFIRMADOS
 
 ### BUG-01 · `<title>Inicio</title>` en página raíz
+
 - **Impacto:** SEO — "Inicio" no tiene valor de keyword; confuso en pestañas del navegador.
 - **Evidencia:** `curl -s https://alexendros.me | grep '<title>'` → `<title>Inicio</title>`
 - **Fix:** En `src/app/page.tsx` añadir override:
   ```ts
   export const metadata: Metadata = {
-    title: 'Alexendros',
-  }
+    title: "Alexendros",
+  };
   ```
   O configurar template en `src/app/layout.tsx`:
   ```ts
@@ -90,6 +93,7 @@ alexendrosme/
   y en `page.tsx`: `title: 'Inicio'` → no, simplemente `title: 'Alexendros'` como excepción.
 
 ### BUG-02 · `addressLocality: "Valencia"` incorrecto
+
 - **Impacto:** Dato personal incorrecto en LD+JSON Person schema y hero eyebrow.
 - **Evidencia:** HTML renderizado contiene `"addressLocality":"Valencia"` y eyebrow `"Valencia · Fullstack · KitOS"`. El desarrollador reside en **Madrid**.
 - **Fix:**
@@ -98,6 +102,7 @@ alexendrosme/
   - `src/app/layout.tsx` → verificar que el LD+JSON Person lee de `site.ts`
 
 ### BUG-03 · `connect-src 'self'` bloquea servicios de terceros
+
 - **Impacto:** Formulario de contacto / Resend bloqueado por CSP en producción.
 - **Evidencia:** Cabecera en prod: `content-security-policy: ... connect-src 'self' ...`
 - **Fix en `next.config.ts`** — bloque `headers()`:
@@ -107,6 +112,7 @@ alexendrosme/
   Documentar el cambio con comentario inline.
 
 ### BUG-04 · `unsafe-inline` en `script-src` y `style-src`
+
 - **Impacto:** Anula protección XSS que el CSP pretende ofrecer.
 - **Evidencia:** `content-security-policy: script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'`
 - **Fix (dos opciones):**
@@ -118,6 +124,7 @@ alexendrosme/
     ```
 
 ### BUG-05 · Formulario de contacto no funcional con `output: export`
+
 - **Impacto CRÍTICO:** Las API Routes de Next.js no funcionan en modo `output: 'export'`. Si el formulario usa `fetch('/api/contact')`, falla silenciosamente en producción.
 - **Verificación:** Comprobar `next.config.ts` → si contiene `output: 'export'`, confirmar bug.
 - **Fix (elegir UNA opción):**
@@ -125,52 +132,57 @@ alexendrosme/
   **Opción A — Migrar a Vercel Serverless Functions (recomendada):**
   1. Eliminar `output: 'export'` de `next.config.ts`
   2. Crear `src/app/api/contact/route.ts`:
-     ```ts
-     import { Resend } from 'resend'
-     import { NextRequest, NextResponse } from 'next/server'
 
-     const resend = new Resend(process.env.RESEND_API_KEY)
+     ```ts
+     import { Resend } from "resend";
+     import { NextRequest, NextResponse } from "next/server";
+
+     const resend = new Resend(process.env.RESEND_API_KEY);
 
      export async function POST(req: NextRequest) {
-       const { name, email, message } = await req.json()
+       const { name, email, message } = await req.json();
        // Validar inputs antes de enviar
        if (!name || !email || !message) {
-         return NextResponse.json({ error: 'Campos requeridos' }, { status: 400 })
+         return NextResponse.json({ error: "Campos requeridos" }, { status: 400 });
        }
        await resend.emails.send({
-         from: 'contacto@alexendros.me',
-         to: 'contacto@alexendros.me',
+         from: "contacto@alexendros.me",
+         to: "contacto@alexendros.me",
          subject: `Contacto web: ${name}`,
          text: `De: ${email}\n\n${message}`,
-       })
-       return NextResponse.json({ ok: true })
+       });
+       return NextResponse.json({ ok: true });
      }
      ```
+
   3. Añadir `RESEND_API_KEY` en Vercel Dashboard → Settings → Environment Variables
 
   **Opción B — Web3Forms (sin cambios de config):**
+
   ```ts
   // En el componente de formulario:
-  const res = await fetch('https://api.web3forms.com/submit', {
-    method: 'POST',
+  const res = await fetch("https://api.web3forms.com/submit", {
+    method: "POST",
     body: JSON.stringify({ access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY, ...formData }),
-    headers: { 'Content-Type': 'application/json' },
-  })
+    headers: { "Content-Type": "application/json" },
+  });
   ```
 
   **GDPR OBLIGATORIO (art. 6.1.a RGPD / art. 11 LOPDGDD):**
   Cualquier opción elegida debe incluir checkbox de consentimiento:
+
   ```tsx
   <label>
-    <input type="checkbox" required />
-    {' '}Acepto el tratamiento de mis datos según la{' '}
+    <input type="checkbox" required /> Acepto el tratamiento de mis datos según la{" "}
     <Link href="/legal/privacidad">Política de privacidad</Link>
   </label>
   ```
+
   Sin este checkbox, la recogida de datos es ilícita según art. 6 RGPD.
   Verificar también que `/legal/privacidad` incluye apartado "Formulario de contacto" con base legitimadora.
 
 ### BUG-06 · Card `alexendros.me` sin enlace en /projects y /
+
 - **Impacto:** Inconsistencia UI — KitOS tiene enlace `alexendros.pro →`, `alexendros.me` muestra `<span>` sin enlace.
 - **Evidencia:** HTML: `<span class="text-sm text-muted-foreground">alexendros.me</span>`
 - **Fix en `src/app/page.tsx` y `src/app/projects/page.tsx`:**
@@ -186,25 +198,30 @@ alexendrosme/
 ## DEUDA TÉCNICA
 
 ### DT-01 · Ausencia de CI/CD automatizado
+
 - **Impacto:** Sin gates de calidad — typecheck, lint y secret scan solo se ejecutan si el dev lo recuerda.
 - **Evidencia:** Sin `.github/workflows/` confirmado en historial de commits.
 - **Fichero a crear:** `.github/workflows/ci.yml`
 
 ### DT-02 · `@types/node` bump major 22 → 25 sin tests
+
 - **Impacto:** Dependabot mergeó `22.19.17 → 25.6.0` directamente a `main`. Posibles breaking changes en tipos Node internos.
 - **Verificación:** `pnpm typecheck` — si pasa, riesgo bajo.
 
 ### DT-03 · Dark mode forzado, sin respeto a `prefers-color-scheme`
+
 - **Impacto:** Usuarios con modo claro ven fondo negro. Accesibilidad reducida.
 - **Evidencia:** `<html class="dark __variable_f11e04 __variable_fde7fc">`
 - **Librería recomendada:** `next-themes` — `pnpm add next-themes`
 
 ### DT-04 · OG image estática (no dinámica por ruta)
+
 - **Impacto:** Todas las rutas comparten el mismo preview al compartir en redes.
 - **Fichero actual:** `public/og/opengraph-image.png` (PNG estático)
 - **Fix:** Crear `src/app/opengraph-image.tsx` con `ImageResponse` de `next/og`
 
 ### DT-05 · Sin tests (unit ni e2e)
+
 - **Impacto:** Regresiones no detectadas automáticamente.
 - **Recomendación mínima:** smoke test con Playwright para las 11 rutas activas.
 
@@ -222,6 +239,7 @@ Ejecutar siempre al final de cada tarea: `pnpm typecheck && pnpm lint && pnpm bu
 ---
 
 #### TAREA-01 · Fix título home y datos de ubicación
+
 ```
 Prioridad: ALTA
 Dominio: Calidad / SEO
@@ -230,17 +248,21 @@ Estimación: 15 min
 ```
 
 **Ficheros a modificar:**
+
 - `src/app/page.tsx`
 - `src/lib/site.ts`
 - `src/app/layout.tsx` (solo verificar que LD+JSON lee de site.ts)
 
 **Pasos:**
+
 1. Abrir `src/app/page.tsx`. Añadir al principio del fichero:
+
    ```ts
    export const metadata: Metadata = {
-     title: 'Alexendros',
-   }
+     title: "Alexendros",
+   };
    ```
+
    Importar `Metadata` de `'next'` si no está ya importado.
 
 2. Abrir `src/lib/site.ts`. Localizar `addressLocality` y cambiar `"Valencia"` → `"Madrid"`.
@@ -251,6 +273,7 @@ Estimación: 15 min
 4. Verificar que `src/app/layout.tsx` no tiene `addressLocality` hardcodeado — debe leer de `site.ts`.
 
 **Criterio de éxito:**
+
 ```bash
 pnpm build
 curl -s https://alexendros.me | grep '<title>'
@@ -258,6 +281,7 @@ curl -s https://alexendros.me | grep '<title>'
 ```
 
 **Rollback:**
+
 ```bash
 git revert HEAD
 ```
@@ -265,6 +289,7 @@ git revert HEAD
 ---
 
 #### TAREA-02 · Resolver formulario de contacto
+
 ```
 Prioridad: ALTA
 Dominio: Workflows / GDPR
@@ -273,14 +298,17 @@ Estimación: 45-90 min
 ```
 
 **Paso 0 — Verificación previa:**
+
 ```bash
 grep -n "output" next.config.ts
 ```
+
 Si contiene `output: 'export'` → el formulario con API Route está roto. Elegir Opción A o B.
 
 **Opción A — Migrar a Serverless (recomendada):**
 
 Ficheros a modificar/crear:
+
 - `next.config.ts` — eliminar `output: 'export'`
 - `src/app/api/contact/route.ts` — crear (ver código en BUG-05)
 - `src/app/contact/page.tsx` — actualizar `action` del formulario a `/api/contact`
@@ -290,41 +318,40 @@ Ficheros a modificar/crear:
 **Opción B — Web3Forms (mantener export):**
 
 Ficheros a modificar:
+
 - `src/app/contact/page.tsx` — cambiar fetch target
 - `.env.local` — añadir `NEXT_PUBLIC_WEB3FORMS_KEY=xxxx`
 
 **GDPR — OBLIGATORIO en ambas opciones:**
 
 En `src/app/contact/page.tsx`, añadir antes del botón submit:
+
 ```tsx
 <div className="flex items-start gap-2">
-  <input
-    type="checkbox"
-    id="consent"
-    name="consent"
-    required
-    className="mt-1"
-  />
+  <input type="checkbox" id="consent" name="consent" required className="mt-1" />
   <label htmlFor="consent" className="text-sm text-muted-foreground">
-    Acepto el tratamiento de mis datos personales según la{' '}
+    Acepto el tratamiento de mis datos personales según la{" "}
     <Link href="/legal/privacidad" className="text-primary underline underline-offset-4">
       Política de privacidad
-    </Link>
-    {' '}(art. 6.1.a RGPD)
+    </Link>{" "}
+    (art. 6.1.a RGPD)
   </label>
 </div>
 ```
 
 También añadir campo honeypot anti-spam:
+
 ```tsx
 <input type="text" name="_gotcha" className="hidden" tabIndex={-1} aria-hidden="true" />
 ```
 
 **Criterio de éxito:**
+
 - Enviar formulario de prueba → recibir email en `contacto@alexendros.me`
 - Sin checkbox marcado → botón submit deshabilitado o muestra error
 
 **Rollback:**
+
 ```bash
 # Opción A:
 git revert HEAD
@@ -335,6 +362,7 @@ git revert HEAD
 ---
 
 #### TAREA-03 · Fix connect-src CSP
+
 ```
 Prioridad: ALTA
 Dominio: Seguridad
@@ -345,6 +373,7 @@ Estimación: 15 min
 **Fichero a modificar:** `next.config.ts`
 
 **Pasos:**
+
 1. Localizar el bloque `headers()` en `next.config.ts`.
 2. Encontrar la directiva `connect-src`.
 3. Reemplazar:
@@ -366,6 +395,7 @@ Estimación: 15 min
    ```
 
 **Criterio de éxito:**
+
 ```bash
 pnpm build
 curl -I https://alexendros.me | grep content-security-policy
@@ -373,6 +403,7 @@ curl -I https://alexendros.me | grep content-security-policy
 ```
 
 **Rollback:**
+
 ```bash
 git revert HEAD
 ```
@@ -384,6 +415,7 @@ git revert HEAD
 ---
 
 #### TAREA-04 · Crear CI workflow GitHub Actions
+
 ```
 Prioridad: ALTA
 Dominio: Calidad
@@ -415,8 +447,8 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '24'
-          cache: 'pnpm'
+          node-version: "24"
+          cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -441,13 +473,14 @@ jobs:
       - name: TruffleHog scan
         uses: trufflesecurity/trufflehog@main
         with:
-          path: './'
+          path: "./"
           base: ${{ github.event.repository.default_branch }}
           head: HEAD
           extra_args: --only-verified
 ```
 
 **Verificar que `package.json` tiene estos scripts. Si no existen, añadir:**
+
 ```json
 {
   "scripts": {
@@ -456,13 +489,16 @@ jobs:
   }
 }
 ```
+
 (No sobreescribir scripts existentes — solo añadir los que falten.)
 
 **Criterio de éxito:**
+
 - Abrir PR de prueba → check `CI / Typecheck · Lint · Build` aparece en GitHub
 - `pnpm typecheck` exitoso localmente sin errores
 
 **Rollback:**
+
 ```bash
 rm .github/workflows/ci.yml
 ```
@@ -470,6 +506,7 @@ rm .github/workflows/ci.yml
 ---
 
 #### TAREA-05 · Verificar y corregir @types/node major bump
+
 ```
 Prioridad: MEDIA
 Dominio: Calidad
@@ -480,6 +517,7 @@ Estimación: 10 min
 **Fichero a verificar:** `package.json`
 
 **Pasos:**
+
 1. Ejecutar `pnpm typecheck` — si pasa sin errores, el bump es compatible.
 2. Si hay errores de tipos relacionados con Node.js APIs:
    - Identificar los ficheros afectados
@@ -487,12 +525,14 @@ Estimación: 10 min
 3. Documentar el resultado en `CHANGELOG.md`
 
 **Criterio de éxito:**
+
 ```bash
 pnpm typecheck
 # Exit code 0, sin errores
 ```
 
 **Rollback:**
+
 ```bash
 pnpm add -D @types/node@22.19.17
 ```
@@ -504,6 +544,7 @@ pnpm add -D @types/node@22.19.17
 ---
 
 #### TAREA-06 · OG image dinámica por ruta
+
 ```
 Prioridad: MEDIA
 Dominio: Workflows / SEO
@@ -513,50 +554,50 @@ Estimación: 30 min
 ```
 
 **Ficheros a crear:**
+
 - `src/app/opengraph-image.tsx`
 - `src/app/about/opengraph-image.tsx`
 - `src/app/projects/opengraph-image.tsx`
 
 **Fichero a eliminar:**
+
 - `public/og/opengraph-image.png` (solo tras confirmar que las rutas dinámicas funcionan)
 
 **Template base `src/app/opengraph-image.tsx`:**
-```tsx
-import { ImageResponse } from 'next/og'
 
-export const runtime = 'edge'
-export const size = { width: 1200, height: 630 }
-export const contentType = 'image/png'
+```tsx
+import { ImageResponse } from "next/og";
+
+export const runtime = "edge";
+export const size = { width: 1200, height: 630 };
+export const contentType = "image/png";
 
 export default function OGImage() {
   return new ImageResponse(
-    (
-      <div
-        style={{
-          background: '#0a0a0a',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-          justifyContent: 'center',
-          padding: '80px',
-        }}
-      >
-        <div style={{ color: '#ffffff', fontSize: 72, fontWeight: 700 }}>
-          Alexendros
-        </div>
-        <div style={{ color: '#a1a1aa', fontSize: 32, marginTop: 24 }}>
-          Fullstack Developer · Madrid
-        </div>
+    <div
+      style={{
+        background: "#0a0a0a",
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        justifyContent: "center",
+        padding: "80px",
+      }}
+    >
+      <div style={{ color: "#ffffff", fontSize: 72, fontWeight: 700 }}>Alexendros</div>
+      <div style={{ color: "#a1a1aa", fontSize: 32, marginTop: 24 }}>
+        Fullstack Developer · Madrid
       </div>
-    ),
-    { ...size }
-  )
+    </div>,
+    { ...size },
+  );
 }
 ```
 
 **Criterio de éxito:**
+
 ```bash
 curl -I https://alexendros.me/opengraph-image
 # content-type: image/png
@@ -564,6 +605,7 @@ curl -I https://alexendros.me/opengraph-image
 ```
 
 **Rollback:**
+
 ```bash
 git revert HEAD
 # Restaurar public/og/opengraph-image.png si se eliminó
@@ -572,6 +614,7 @@ git revert HEAD
 ---
 
 #### TAREA-07 · Dark/light mode toggle
+
 ```
 Prioridad: MEDIA
 Dominio: UI/UX
@@ -580,44 +623,49 @@ Estimación: 30 min
 ```
 
 **Ficheros a modificar/crear:**
+
 - `package.json` — añadir `next-themes` si ausente
 - `src/app/layout.tsx`
 - `src/components/Nav.tsx`
 - `src/components/ThemeToggle.tsx` (nuevo)
 
 **Pasos:**
+
 1. Verificar si `next-themes` ya está en `package.json`. Si no:
+
    ```bash
    pnpm add next-themes
    ```
 
 2. En `src/app/layout.tsx`, envolver `<body>` en `ThemeProvider`:
+
    ```tsx
-   import { ThemeProvider } from 'next-themes'
-   
+   import { ThemeProvider } from "next-themes";
+
    // En JSX:
    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
      {children}
-   </ThemeProvider>
+   </ThemeProvider>;
    ```
 
 3. Crear `src/components/ThemeToggle.tsx`:
+
    ```tsx
-   'use client'
-   import { useTheme } from 'next-themes'
-   import { Sun, Moon } from 'lucide-react'
-   
+   "use client";
+   import { useTheme } from "next-themes";
+   import { Sun, Moon } from "lucide-react";
+
    export function ThemeToggle() {
-     const { theme, setTheme } = useTheme()
+     const { theme, setTheme } = useTheme();
      return (
        <button
-         aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
-         onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+         aria-label={theme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
          className="icon-link"
        >
-         {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+         {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
        </button>
-     )
+     );
    }
    ```
 
@@ -626,12 +674,14 @@ Estimación: 30 min
 5. **Verificar tokens CSS:** los tokens oklch en `src/app/styles/tokens.css` deben tener variante `:root` (light) y `.dark` (dark). Si solo existe `.dark`, añadir valores light razonables.
 
 **Criterio de éxito:**
+
 ```bash
 pnpm build
 # Toggle visible en Nav, cambia clase en <html>
 ```
 
 **Rollback:**
+
 ```bash
 pnpm remove next-themes
 git revert HEAD
@@ -644,6 +694,7 @@ git revert HEAD
 ---
 
 #### TAREA-08 · Hero: microcopy CTA + fix eyebrow
+
 ```
 Prioridad: MEDIA
 Dominio: UI/UX
@@ -654,14 +705,13 @@ Estimación: 15 min
 **Fichero a modificar:** `src/app/page.tsx`
 
 **Pasos:**
+
 1. Verificar que el eyebrow ya fue actualizado a `"Madrid · Fullstack · KitOS"` en TAREA-01.
 
 2. Bajo los botones CTA (`"Hablemos"` / `"Ver proyectos"`), añadir:
+
    ```tsx
-   <p
-     id="response-time"
-     className="text-xs text-muted-foreground"
-   >
+   <p id="response-time" className="text-xs text-muted-foreground">
      Respondo en menos de 48h
    </p>
    ```
@@ -671,6 +721,7 @@ Estimación: 15 min
 4. **No modificar** la frase hero `hero-signature` — PR #26 recién mergeado.
 
 **Criterio de éxito:**
+
 ```bash
 pnpm build
 # "Respondo en menos de 48h" visible bajo los CTAs
@@ -678,6 +729,7 @@ pnpm build
 ```
 
 **Rollback:**
+
 ```bash
 git revert HEAD
 ```
@@ -685,6 +737,7 @@ git revert HEAD
 ---
 
 #### TAREA-09 · Projects: tech chips + enlace card alexendros.me
+
 ```
 Prioridad: MEDIA
 Dominio: UI/UX
@@ -695,14 +748,20 @@ Estimación: 20 min
 **Fichero a modificar:** `src/app/projects/page.tsx` (y `src/app/page.tsx` si las cards se renderizan ahí)
 
 **Pasos:**
+
 1. Localizar la card de **KitOS**. Añadir chips de tech bajo la descripción:
+
    ```tsx
    <div className="flex flex-wrap gap-1 mt-2">
-     {['Next.js', 'Supabase', 'Stripe', 'Turborepo'].map((tech) => (
-       <span key={tech} data-slot="badge" data-variant="outline"
+     {["Next.js", "Supabase", "Stripe", "Turborepo"].map((tech) => (
+       <span
+         key={tech}
+         data-slot="badge"
+         data-variant="outline"
          className="group/badge inline-flex h-5 w-fit items-center justify-center gap-1
            overflow-hidden rounded-4xl border border-border px-2 py-0.5
-           text-xs font-medium text-muted-foreground">
+           text-xs font-medium text-muted-foreground"
+       >
          {tech}
        </span>
      ))}
@@ -710,11 +769,13 @@ Estimación: 20 min
    ```
 
 2. Localizar la card de **alexendros.me**. Añadir chips:
+
    ```tsx
    {['Next.js', 'Tailwind v4'].map(...)}
    ```
 
 3. En la card `alexendros.me`, cambiar el `<span>alexendros.me</span>` por:
+
    ```tsx
    <Link href="/" className="text-sm text-primary hover:underline">
      alexendros.me →
@@ -724,6 +785,7 @@ Estimación: 20 min
 4. **No añadir URLs** para proyectos roadmap (StageKit/LexKit/GestKit) — no tienen URLs reales.
 
 **Criterio de éxito:**
+
 ```bash
 pnpm build
 # Chips visibles en /projects
@@ -731,6 +793,7 @@ pnpm build
 ```
 
 **Rollback:**
+
 ```bash
 git revert HEAD
 ```
@@ -742,6 +805,7 @@ git revert HEAD
 ---
 
 #### TAREA-10 · CLAUDE.md: decisiones pendientes + GDPR
+
 ```
 Prioridad: BAJA
 Dominio: Docs
@@ -753,16 +817,18 @@ Estimación: 15 min
 
 **Añadir las siguientes secciones** (no sobreescribir contenido existente):
 
-```markdown
+````markdown
 ## Decisiones de arquitectura pendientes
 
 ### output: 'export' vs standalone
+
 - Estado actual: verificar en `next.config.ts`
 - Si `output: 'export'`: API Routes NO funcionan. El formulario de contacto requiere
   solución alternativa (Web3Forms, Formspree) o migración a standalone.
 - Si se migra a standalone: eliminar esta sección y documentar la migración.
 
 ### Formulario de contacto
+
 - Backend elegido: [RELLENAR tras TAREA-02]
 - Variable de entorno necesaria: `RESEND_API_KEY` (si Opción A) o `NEXT_PUBLIC_WEB3FORMS_KEY` (si Opción B)
 - Añadir en Vercel Dashboard → Settings → Environment Variables → Production
@@ -774,6 +840,7 @@ pnpm typecheck   # tsc --noEmit
 pnpm lint        # eslint .
 pnpm build       # next build
 ```
+````
 
 ## GDPR / Privacidad
 
@@ -785,16 +852,18 @@ pnpm build       # next build
 - **Normativa aplicable:**
   - Reglamento (UE) 2016/679 (RGPD) — art. 6, 13 — vigente desde 25/05/2018
   - LO 3/2018 (LOPDGDD) — art. 11 — vigente desde 07/12/2018
-```
+
+````
 
 **Criterio de éxito:**
 ```bash
 grep -n "Decisiones de arquitectura" CLAUDE.md
 grep -n "GDPR" CLAUDE.md
 # Ambos deben devolver resultados
-```
+````
 
 **Rollback:**
+
 ```bash
 git revert HEAD
 # Solo docs, sin impacto en build
@@ -803,6 +872,7 @@ git revert HEAD
 ---
 
 #### TAREA-11 · CHANGELOG: registrar auditoría y estado de tareas
+
 ```
 Prioridad: BAJA
 Dominio: Docs
@@ -818,11 +888,13 @@ Estimación: 10 min
 ## 2026-04-14 — Auditoría técnica completa
 
 ### Sesión
+
 Auditoría realizada por Perplexity AI (Sonnet 4.6) sobre el estado del repositorio
 en producción. 26 PRs mergeados en la jornada. Sin errores de runtime en 24h.
 Lighthouse: Perf 99/96 · A11y 100 · BP 100 · SEO 100.
 
 ### Bugs identificados
+
 - [ ] BUG-01: `<title>Inicio</title>` en home → TAREA-01
 - [ ] BUG-02: `addressLocality: "Valencia"` incorrecto → TAREA-01
 - [ ] BUG-03: `connect-src 'self'` bloquea Resend → TAREA-03
@@ -831,6 +903,7 @@ Lighthouse: Perf 99/96 · A11y 100 · BP 100 · SEO 100.
 - [ ] BUG-06: Card alexendros.me sin enlace → TAREA-09
 
 ### Deuda técnica identificada
+
 - [ ] DT-01: Sin CI/CD automatizado → TAREA-04
 - [ ] DT-02: @types/node major bump sin tests → TAREA-05
 - [ ] DT-03: Dark mode forzado → TAREA-07
@@ -839,12 +912,14 @@ Lighthouse: Perf 99/96 · A11y 100 · BP 100 · SEO 100.
 ```
 
 **Criterio de éxito:**
+
 ```bash
 head -30 CHANGELOG.md
 # Debe mostrar la entrada 2026-04-14
 ```
 
 **Rollback:**
+
 ```bash
 git revert HEAD
 ```
@@ -904,15 +979,15 @@ curl -I https://alexendros.me | grep content-security-policy
 
 ## REFERENCIAS NORMATIVAS
 
-| Norma | Artículo | Materia | Vigencia |
-|---|---|---|---|
-| Reglamento (UE) 2016/679 (RGPD) | Art. 6.1.a | Base legitimadora consentimiento | 25/05/2018 |
-| Reglamento (UE) 2016/679 (RGPD) | Art. 13 | Info activa en recogida de datos | 25/05/2018 |
-| LO 3/2018 (LOPDGDD) | Art. 11 | Transparencia en tratamiento | 07/12/2018 |
-| WCAG 2.1 AA | Criterio 2.5.5 | Tap target mínimo 44×44px | — |
-| WCAG 2.1 AA | Criterio 1.4.3 | Contraste mínimo (pendiente a11y flag) | — |
-| CSP Level 3 (W3C) | — | Nonce-based CSP para eliminar unsafe-inline | — |
+| Norma                           | Artículo       | Materia                                     | Vigencia   |
+| ------------------------------- | -------------- | ------------------------------------------- | ---------- |
+| Reglamento (UE) 2016/679 (RGPD) | Art. 6.1.a     | Base legitimadora consentimiento            | 25/05/2018 |
+| Reglamento (UE) 2016/679 (RGPD) | Art. 13        | Info activa en recogida de datos            | 25/05/2018 |
+| LO 3/2018 (LOPDGDD)             | Art. 11        | Transparencia en tratamiento                | 07/12/2018 |
+| WCAG 2.1 AA                     | Criterio 2.5.5 | Tap target mínimo 44×44px                   | —          |
+| WCAG 2.1 AA                     | Criterio 1.4.3 | Contraste mínimo (pendiente a11y flag)      | —          |
+| CSP Level 3 (W3C)               | —              | Nonce-based CSP para eliminar unsafe-inline | —          |
 
 ---
 
-*Fin del documento de auditoría — alexendros.me — 2026-04-14*
+_Fin del documento de auditoría — alexendros.me — 2026-04-14_

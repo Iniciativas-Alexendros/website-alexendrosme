@@ -119,16 +119,16 @@ export default function PrivacidadPage() {
       <section aria-labelledby="priv-formal">
         <h2 id="priv-formal">Texto formal</h2>
         <p>
-          La presente Política de Privacidad se elabora en cumplimiento del Reglamento (UE)
-          2016/679 del Parlamento Europeo y del Consejo (RGPD) y de la Ley Orgánica 3/2018, de 5
-          de diciembre, de Protección de Datos Personales y garantía de los derechos digitales
+          La presente Política de Privacidad se elabora en cumplimiento del Reglamento (UE) 2016/679
+          del Parlamento Europeo y del Consejo (RGPD) y de la Ley Orgánica 3/2018, de 5 de
+          diciembre, de Protección de Datos Personales y garantía de los derechos digitales
           (LOPDGDD).
         </p>
         <p>
           El titular aplica medidas técnicas y organizativas adecuadas para garantizar un nivel de
-          seguridad apropiado al riesgo (Art. 32 RGPD) y notificará cualquier violación de
-          seguridad a la AEPD en el plazo de 72 horas si resulta probable que entrañe riesgo para
-          los derechos y libertades de las personas.
+          seguridad apropiado al riesgo (Art. 32 RGPD) y notificará cualquier violación de seguridad
+          a la AEPD en el plazo de 72 horas si resulta probable que entrañe riesgo para los derechos
+          y libertades de las personas.
         </p>
         <p>
           <em>Última actualización: mayo de 2026.</em>

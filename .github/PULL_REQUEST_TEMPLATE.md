@@ -1,4 +1,5 @@
 <!-- canon-managed: true -->
+
 ## Qué
 
 Resume en una o dos frases qué cambia este pull request.

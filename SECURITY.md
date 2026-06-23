@@ -2,11 +2,11 @@
 
 ## Versiones soportadas
 
-| Versión | Soporte de seguridad |
-|---------|----------------------|
-| última estable | sí |
-| previa estable | parches críticos |
-| anteriores | no |
+| Versión        | Soporte de seguridad |
+| -------------- | -------------------- |
+| última estable | sí                   |
+| previa estable | parches críticos     |
+| anteriores     | no                   |
 
 ## Reportar una vulnerabilidad
 
