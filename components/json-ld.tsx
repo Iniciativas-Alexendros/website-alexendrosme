@@ -1,33 +1,35 @@
-"use client";
+import fs from "node:fs";
+import path from "node:path";
 
-import { useEffect } from "react";
+function readSchema(filename: string): string | null {
+  try {
+    const filePath = path.join(process.cwd(), "public", "schema", filename);
+    return fs.readFileSync(filePath, "utf-8");
+  } catch {
+    return null;
+  }
+}
 
 export function JsonLd() {
-  useEffect(() => {
-    const schemas = [
-      { url: "/schema/person.json", id: "person-json-ld" },
-      { url: "/schema/website.json", id: "website-json-ld" },
-    ];
+  const person = readSchema("person.json");
+  const website = readSchema("website.json");
 
-    schemas.forEach(({ url, id }) => {
-      if (document.getElementById(id)) return;
-
-      fetch(url)
-        .then((res) => res.json())
-        .then((data) => {
-          const script = document.createElement("script");
-          script.type = "application/ld+json";
-          script.id = id;
-          script.textContent = JSON.stringify(data);
-          document.head.appendChild(script);
-        })
-        .catch((err) => {
-          if (process.env.NODE_ENV === "development") {
-            console.error(`Failed to load JSON-LD from ${url}:`, err);
-          }
-        });
-    });
-  }, []);
-
-  return null;
+  return (
+    <>
+      {person && (
+        <script
+          type="application/ld+json"
+          id="person-json-ld"
+          dangerouslySetInnerHTML={{ __html: person }}
+        />
+      )}
+      {website && (
+        <script
+          type="application/ld+json"
+          id="website-json-ld"
+          dangerouslySetInnerHTML={{ __html: website }}
+        />
+      )}
+    </>
+  );
 }

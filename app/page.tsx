@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { ContactFab } from "@/components/contact-fab";
 import { StackMarquee } from "@/components/stack-marquee";
 import { siteConfig } from "@/lib/site";
@@ -89,7 +88,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Separator className="site-shell" />
+      <hr className="site-shell shrink-0 bg-border h-px w-full border-0" />
 
       <section
         id="biografia"
@@ -107,7 +106,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Separator className="site-shell" />
+      <hr className="site-shell shrink-0 bg-border h-px w-full border-0" />
 
       <section
         id="misiones"
@@ -162,7 +161,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Separator className="site-shell" />
+      <hr className="site-shell shrink-0 bg-border h-px w-full border-0" />
 
       <section
         id="experiencias"
@@ -197,7 +196,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Separator className="site-shell" />
+      <hr className="site-shell shrink-0 bg-border h-px w-full border-0" />
 
       <section aria-labelledby="h2-stack-marquee" className="marquee-section">
         <h2 id="h2-stack-marquee" className="site-shell headline marquee-heading">
