@@ -82,21 +82,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       data-accent="gold"
       className={`dark ${geistSans.variable} ${geistMono.variable} ${interDisplay.variable}`}
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              if (window.trustedTypes && trustedTypes.createPolicy) {
-                trustedTypes.createPolicy("json-ld", {
-                  createHTML: (s) => s,
-                  createScript: (s) => s,
-                  createScriptURL: (s) => s,
-                });
-              }
-            `,
-          }}
-        />
-      </head>
       <body className="body-layout">
         <a href="#main" className="skip-link">
           Saltar al contenido
