@@ -36,20 +36,21 @@ const experiencias = [
   {
     category: "Stack actual",
     items: [
-      "Next.js 15 App Router · TypeScript strict · React 19",
+      "Next.js 16 App Router · TypeScript strict · React 19",
       "Supabase (Postgres + Auth + Storage + RLS)",
       "Stripe (Subscriptions + Connect Express)",
       "Tailwind CSS v4 · shadcn/ui · Radix UI",
       "Turborepo · Vercel · GitHub Actions",
-      "Sentry · Playwright · Vitest",
+      "Playwright · Vitest",
     ],
   },
   {
-    category: "Herramientas aliadas",
+    category: "Herramientas de mi día a día",
     items: [
-      "Claude AI — par de desarrollo. Lo uso a diario desde el terminal y VS Code.",
-      "Proton — mail, VPN y Drive cifrados. Alternativa real a Google fuera del circuito publicitario.",
-      "Hostinger — VPS y dominios cuando necesito control total y precio honesto.",
+      "Claude Code y OpenCode — Mi apoyo en el desarrollo de código y producción de proyectos.",
+      "Proton.me — Mail, VPN, Drive, IA... todo un ecosistema privado alojado en Suiza con cifrado de alta seguridad.",
+      "Hostinger — Dominios cuando necesito control total y precio honesto.",
+      "GitHub — Aquí encontrarás casi todos mis trabajos y proyectos de software, los cuales trato de tratar con la máxima profesionalidad sin pérdida de contenido original y soluciones creativas.",
     ],
   },
 ];
@@ -193,22 +194,6 @@ export default function Home() {
               </ul>
             </div>
           ))}
-
-          <div className="exp-category">
-            <h3 className="title">Pruebas de trabajo</h3>
-            <ul className="exp-list">
-              <li>
-                <a
-                  href="https://github.com/alexendros"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="brand-link text-sm"
-                >
-                  GitHub · alexendros →
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
       </section>
 
@@ -216,7 +201,7 @@ export default function Home() {
 
       <section aria-labelledby="h2-stack-marquee" className="marquee-section">
         <h2 id="h2-stack-marquee" className="site-shell headline marquee-heading">
-          Mi caja de herramientas
+          Mis tecnologías favoritas
         </h2>
         <p className="site-shell prose-lead marquee-desc">
           El stack con el que construyo, en movimiento.
