@@ -8,11 +8,11 @@ Antes de abrir un issue revisa estas vías:
 - `docs/` para guías y referencias técnicas (si existen).
 - `docs/adr/` para entender las decisiones de arquitectura.
 
-## 2. Discusiones
+## 2. Issues
 
 Para preguntas y conversaciones de uso utiliza la sección
-[Discussions del repositorio](https://github.com/Alexendros/mi-website-personal/discussions)
-si está habilitada.
+[Issues del repositorio](https://github.com/Alexendros/mi-website-personal/issues)
+(plantillas en `.github/ISSUE_TEMPLATE/`).
 
 ## 3. Issues
 

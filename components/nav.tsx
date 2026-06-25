@@ -51,7 +51,7 @@ export function Nav() {
             if (best && best[1] > 0) setActiveHash(`#${best[0]}`);
           }
         },
-        { rootMargin: "-20% 0px -60% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
+        { rootMargin: "-20% 0px -60% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] },
       );
       obs.observe(el);
       observers.push(obs);
@@ -109,7 +109,11 @@ export function Nav() {
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon-touch" className="md:hidden" aria-label="Abrir menú">
-              {open ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
+              {open ? (
+                <X className="h-5 w-5" aria-hidden="true" />
+              ) : (
+                <Menu className="h-5 w-5" aria-hidden="true" />
+              )}
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-[min(18rem,85vw)] sm:w-64">

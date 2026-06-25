@@ -9,9 +9,7 @@ import { Atmosphere } from "@/components/atmosphere";
 import { siteConfig } from "@/lib/site";
 import { personJsonLd, websiteJsonLd } from "@/lib/structured-data";
 
-const ParticleBg = dynamic(() =>
-  import("@/components/particle-bg").then((m) => m.ParticleBg),
-);
+const ParticleBg = dynamic(() => import("@/components/particle-bg").then((m) => m.ParticleBg));
 
 const geistSans = localFont({
   src: "../public/fonts/GeistVF.woff2",

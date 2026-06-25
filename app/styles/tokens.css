@@ -12,36 +12,36 @@
      1. ATMÓSFERA — púrpura pretoriana hue 315, +0.02 L por paso.
      Elevación = diferencia de luminosidad, NUNCA box-shadow.
      ===================================================================== */
-  --color-surface-0: oklch(0.10 0.014 315); /* noche profunda púrpura */
+  --color-surface-0: oklch(0.1 0.014 315); /* noche profunda púrpura */
   --color-surface-50: oklch(0.12 0.016 315);
   --color-surface-100: oklch(0.14 0.018 315); /* card base */
-  --color-surface-200: oklch(0.17 0.020 315);
-  --color-surface-300: oklch(0.20 0.022 315); /* border subtle */
+  --color-surface-200: oklch(0.17 0.02 315);
+  --color-surface-300: oklch(0.2 0.022 315); /* border subtle */
   --color-surface-400: oklch(0.23 0.024 315);
   --color-surface-500: oklch(0.26 0.026 315); /* border default */
   --color-surface-600: oklch(0.29 0.028 315);
-  --color-surface-700: oklch(0.33 0.030 315); /* border strong */
+  --color-surface-700: oklch(0.33 0.03 315); /* border strong */
   --color-surface-800: oklch(0.37 0.032 315);
   --color-surface-900: oklch(0.42 0.034 315); /* elementos flotantes máx */
 
   /* Atmósfera radial (focos PurpleAtmosphere) — opcional para hero/landing */
-  --atmosphere-haze: oklch(0.32 0.090 318);
-  --atmosphere-velvet: oklch(0.18 0.060 315);
-  --atmosphere-vignette: oklch(0.04 0.020 315);
+  --atmosphere-haze: oklch(0.32 0.09 318);
+  --atmosphere-velvet: oklch(0.18 0.06 315);
+  --atmosphere-vignette: oklch(0.04 0.02 315);
 
   /* =====================================================================
      2. ACENTO — Oro Vergina (default, hue 85, cálido)
      "Memoria, valor, firma, declaración." alexendros.me es lente identitaria.
      ===================================================================== */
   --accent: oklch(0.78 0.165 85); /* oro batido helénico */
-  --accent-dim: oklch(0.62 0.130 85); /* oro grave */
-  --accent-bright: oklch(0.92 0.100 88); /* brillo alto */
+  --accent-dim: oklch(0.62 0.13 85); /* oro grave */
+  --accent-bright: oklch(0.92 0.1 88); /* brillo alto */
   --accent-fg: oklch(0.12 0.014 50); /* tinta cálida sobre oro */
 
   /* Shimmer vertical — texto metalizado (cifras, números de sección) */
   --accent-shimmer: linear-gradient(
     180deg,
-    oklch(0.92 0.10 88) 0%,
+    oklch(0.92 0.1 88) 0%,
     oklch(0.82 0.165 85) 38%,
     oklch(0.62 0.13 85) 70%,
     oklch(0.78 0.155 85) 100%
@@ -58,7 +58,7 @@
      3. TEXT — neutro tintado púrpura mínimo
      ===================================================================== */
   --color-text-primary: oklch(0.97 0.008 310);
-  --color-text-secondary: oklch(0.80 0.010 310);
+  --color-text-secondary: oklch(0.8 0.01 310);
   --color-text-tertiary: oklch(0.62 0.012 310);
   --color-text-disabled: oklch(0.46 0.014 310);
   --color-text-inverse: oklch(0.07 0.012 315);
@@ -82,9 +82,7 @@
   );
   --glass-border: oklch(1 0 0 / 0.08);
   --glass-blur: blur(20px) saturate(140%);
-  --glass-shadow:
-    inset 0 1px 0 oklch(1 0 0 / 0.10),
-    0 30px 80px -20px oklch(0 0 0 / 0.55);
+  --glass-shadow: inset 0 1px 0 oklch(1 0 0 / 0.1), 0 30px 80px -20px oklch(0 0 0 / 0.55);
 
   /* =====================================================================
      6. SEMANTIC STATES — armonizados con la base púrpura
@@ -92,8 +90,8 @@
      "acción de marca" con "éxito".
      ===================================================================== */
   --color-success-fg: oklch(0.78 0.16 130);
-  --color-success-bg: oklch(0.20 0.06 130);
-  --color-success-border: oklch(0.40 0.12 130);
+  --color-success-bg: oklch(0.2 0.06 130);
+  --color-success-border: oklch(0.4 0.12 130);
 
   --color-warning-fg: oklch(0.82 0.16 82);
   --color-warning-bg: oklch(0.22 0.06 82);
@@ -104,8 +102,8 @@
   --color-error-border: oklch(0.42 0.16 25);
 
   --color-info-fg: oklch(0.78 0.14 230);
-  --color-info-bg: oklch(0.20 0.05 230);
-  --color-info-border: oklch(0.40 0.10 230);
+  --color-info-bg: oklch(0.2 0.05 230);
+  --color-info-border: oklch(0.4 0.1 230);
 
   /* =====================================================================
      7. MOTION — 5 durations + easings custom (nunca ease-in-out nativo)
@@ -121,8 +119,25 @@
   --ease-in-quart: cubic-bezier(0.5, 0, 0.75, 0);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-spring: linear(
-    0, 0.009, 0.035 2.1%, 0.141, 0.292, 0.468, 0.653, 0.831, 0.945 38.7%, 0.987, 1.003, 1.008, 1.008,
-    1.004, 0.999, 0.994, 0.992, 0.996, 1
+    0,
+    0.009,
+    0.035 2.1%,
+    0.141,
+    0.292,
+    0.468,
+    0.653,
+    0.831,
+    0.945 38.7%,
+    0.987,
+    1.003,
+    1.008,
+    1.008,
+    1.004,
+    0.999,
+    0.994,
+    0.992,
+    0.996,
+    1
   );
 
   /* Alias legados apuntando a los canónicos — no romper components.css */
@@ -147,18 +162,15 @@
      Cards, inputs, nav items NUNCA llevan box-shadow.
      ===================================================================== */
   --shadow-overlay:
-    0 1px 2px 0 oklch(0 0 0 / 0.3),
-    0 12px 32px -8px oklch(0 0 0 / 0.5),
+    0 1px 2px 0 oklch(0 0 0 / 0.3), 0 12px 32px -8px oklch(0 0 0 / 0.5),
     0 0 0 1px var(--color-border-default);
 
   --shadow-popover:
-    0 1px 2px 0 oklch(0 0 0 / 0.2),
-    0 8px 24px -6px oklch(0 0 0 / 0.4),
+    0 1px 2px 0 oklch(0 0 0 / 0.2), 0 8px 24px -6px oklch(0 0 0 / 0.4),
     0 0 0 1px var(--color-border-default);
 
   --shadow-toast:
-    0 1px 2px 0 oklch(0 0 0 / 0.25),
-    0 10px 28px -6px oklch(0 0 0 / 0.45),
+    0 1px 2px 0 oklch(0 0 0 / 0.25), 0 10px 28px -6px oklch(0 0 0 / 0.45),
     0 0 0 1px var(--color-border-default);
 
   /* Inner highlight — cómo se comunica profundidad en cards (pixel superior) */
@@ -169,9 +181,7 @@
   --shadow-glow-accent: var(--shadow-glow-brand);
 
   /* Focus ring 2px brand + 2px offset surface-0, vía box-shadow */
-  --ring-focus:
-    0 0 0 2px var(--color-surface-0),
-    0 0 0 4px var(--accent);
+  --ring-focus: 0 0 0 2px var(--color-surface-0), 0 0 0 4px var(--accent);
 
   /* =====================================================================
      10. Z-INDEX semántico
@@ -263,17 +273,20 @@
 
 /* H1 hero · doctrina Vergina Imperial v0.2.2 · fade vertical color→semi-transparente.
    Sólido hasta 55%, transición al 80%, baseline 35% al 100% — NUNCA fade total. */
-h1.display, .hero h1 {
+h1.display,
+.hero h1 {
   font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: -0.025em;
   line-height: 0.98;
   text-wrap: balance;
-  background: linear-gradient(180deg,
+  background: linear-gradient(
+    180deg,
     var(--color-text-primary) 0%,
     var(--color-text-primary) 55%,
     color-mix(in oklch, var(--color-text-primary) 78%, transparent) 80%,
-    color-mix(in oklch, var(--color-text-primary) 35%, transparent) 100%);
+    color-mix(in oklch, var(--color-text-primary) 35%, transparent) 100%
+  );
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;

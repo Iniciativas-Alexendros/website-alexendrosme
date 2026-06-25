@@ -31,8 +31,8 @@ export default function CookiesPage() {
 
         <h3>¿Qué es una cookie?</h3>
         <p>
-          Una cookie es un pequeño archivo de texto que un sitio web almacena en tu dispositivo.
-          Las cookies que no sean estrictamente necesarias para la prestación del servicio requieren
+          Una cookie es un pequeño archivo de texto que un sitio web almacena en tu dispositivo. Las
+          cookies que no sean estrictamente necesarias para la prestación del servicio requieren
           consentimiento previo e informado.
         </p>
 
@@ -66,8 +66,8 @@ export default function CookiesPage() {
         </table>
 
         <p>
-          Ambas son técnicas y estrictamente necesarias. No requieren consentimiento previo
-          conforme al Art. 22.2 LSSI-CE y la Guía AEPD 2023.
+          Ambas son técnicas y estrictamente necesarias. No requieren consentimiento previo conforme
+          al Art. 22.2 LSSI-CE y la Guía AEPD 2023.
         </p>
 
         <h3>Sin analytics ni publicidad</h3>
