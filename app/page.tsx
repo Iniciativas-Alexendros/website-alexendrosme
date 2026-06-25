@@ -161,16 +161,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section aria-labelledby="h2-stack-marquee" className="marquee-section">
-        <h2 id="h2-stack-marquee" className="site-shell headline marquee-heading">
-          Mi caja de herramientas
-        </h2>
-        <p className="site-shell prose-lead marquee-desc">
-          El stack con el que construyo, en movimiento.
-        </p>
-        <StackMarquee />
-      </section>
-
       <Separator className="site-shell" />
 
       <section
@@ -204,6 +194,18 @@ export default function Home() {
             </div>
           ))}
         </div>
+      </section>
+
+      <Separator className="site-shell" />
+
+      <section aria-labelledby="h2-stack-marquee" className="marquee-section">
+        <h2 id="h2-stack-marquee" className="site-shell headline marquee-heading">
+          Mi caja de herramientas
+        </h2>
+        <p className="site-shell prose-lead marquee-desc">
+          El stack con el que construyo, en movimiento.
+        </p>
+        <StackMarquee />
       </section>
 
       <div className="fab-stack" role="region" aria-label="Acciones de contacto">
