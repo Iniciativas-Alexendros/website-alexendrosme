@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   experimental: {
     optimizePackageImports: ["radix-ui", "simple-icons"],
-    optimizeCss: true,
   },
 };
 
