@@ -11,9 +11,10 @@ export default defineConfig({
     baseURL: process.env["BASE_URL"] ?? "http://localhost:3000",
     trace: "on-first-retry",
     launchOptions: {
-      // Ruta fija al Chromium de Snap en Ubuntu 26.04
-      // Puede sobrescr variable de entorno PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH si es necesario
-      executablePath: '/snap/bin/chromium',
+      // En local con Snap Chromium: PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/snap/bin/chromium
+      ...(process.env['PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH']
+        ? { executablePath: process.env['PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH'] }
+        : {}),
     },
     browserName: 'chromium',
   },
