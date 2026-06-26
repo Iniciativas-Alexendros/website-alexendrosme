@@ -15,9 +15,7 @@
   "headers": [
     {
       "source": "/.well-known/openpgpkey/policy",
-      "headers": [
-        { "key": "Content-Type", "value": "application/octet-stream" }
-      ]
+      "headers": [{ "key": "Content-Type", "value": "application/octet-stream" }]
     },
     {
       "source": "/.well-known/openpgpkey/hu/(.+)",
