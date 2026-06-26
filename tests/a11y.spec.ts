@@ -6,6 +6,7 @@ const pages = [
   { name: "aviso-legal", path: "/legal/aviso-legal" },
   { name: "privacidad", path: "/legal/privacidad" },
   { name: "cookies", path: "/legal/cookies" },
+  { name: "seguridad", path: "/legal/seguridad" },
 ];
 
 for (const { name, path } of pages) {

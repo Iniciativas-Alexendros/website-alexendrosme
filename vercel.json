@@ -5,7 +5,8 @@
     { "source": "/experiencia", "destination": "/#experiencias", "permanent": true },
     { "source": "/contacto", "destination": "/", "permanent": true },
     { "source": "/bitacora", "destination": "/", "permanent": true },
-    { "source": "/uses", "destination": "/#experiencias", "permanent": true }
+    { "source": "/uses", "destination": "/#experiencias", "permanent": true },
+    { "source": "/empleo", "destination": "/", "permanent": false }
   ],
   "headers": [
     {

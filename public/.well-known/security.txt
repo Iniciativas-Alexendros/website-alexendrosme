@@ -1,7 +1,6 @@
 Contact: mailto:security@alexendros.me
-Encryption: https://alexendros.me/.well-known/openpgpkey/hu/
 Preferred-Languages: es, en
 Canonical: https://alexendros.me/.well-known/security.txt
-Policy: https://alexendros.me/seguridad
+Policy: https://alexendros.me/legal/seguridad
 Hiring: https://alexendros.me/empleo
 Expires: 2027-12-31T23:59:59.000Z

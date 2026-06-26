@@ -38,8 +38,9 @@ export function ParticleBg() {
 
     let particles: Particle[] = [];
     let raf = 0;
+    let resizeRaf = 0;
 
-    const resize = () => {
+    const applyResize = () => {
       const w = window.innerWidth;
       const h = window.innerHeight;
       canvas.width = w * dpr;
@@ -61,6 +62,14 @@ export function ParticleBg() {
         a: Math.random() * 0.35 + 0.1,
         hue: Math.random() < 0.8 ? 0 : 1,
       }));
+    };
+
+    const resize = () => {
+      if (resizeRaf) return;
+      resizeRaf = requestAnimationFrame(() => {
+        resizeRaf = 0;
+        applyResize();
+      });
     };
 
     const draw = () => {
@@ -85,12 +94,13 @@ export function ParticleBg() {
       raf = requestAnimationFrame(draw);
     };
 
-    resize();
+    applyResize();
     draw();
     window.addEventListener("resize", resize);
 
     return () => {
       window.removeEventListener("resize", resize);
+      if (resizeRaf) cancelAnimationFrame(resizeRaf);
       if (raf) cancelAnimationFrame(raf);
     };
   }, [mounted]);

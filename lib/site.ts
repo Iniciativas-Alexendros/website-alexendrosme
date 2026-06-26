@@ -22,6 +22,7 @@ export const siteConfig = {
     { label: "Aviso legal", href: "/legal/aviso-legal" },
     { label: "Privacidad", href: "/legal/privacidad" },
     { label: "Cookies", href: "/legal/cookies" },
+    { label: "Seguridad", href: "/legal/seguridad" },
   ],
   contact: {
     email: "contacto@alexendros.me",
