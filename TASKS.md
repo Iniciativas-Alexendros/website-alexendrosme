@@ -8,7 +8,7 @@ Lista viva de pendientes del repositorio standalone `alexendros-me`.
 
 - [x] Repo creado: `github.com/Alexendros/PersonaWeb`.
 - [x] `main` pusheado, PR de audit mergeado.
-- [ ] Proteger `main` en GitHub (require PR + 1 review).
+- [x] Proteger `main` en GitHub (require PR + 1 review, status checks build/e2e/lhci, enforce admins).
 
 ## 2. Deploy Vercel ✅ (2026-04-12)
 
@@ -34,22 +34,20 @@ Lista viva de pendientes del repositorio standalone `alexendros-me`.
   - Mobile: Perf 99 · A11y 96 · BP 100 · SEO 100 (LCP 1.8s, CLS 0, TBT 90ms)
 - [x] **A11y color-contrast** (verificado 2026-06-13): `pnpm test:e2e a11y` → 12/12 sin violaciones axe WCAG 2.1 AA en las 4 rutas. El fallo de 2026-04-13 ya no reproduce (resuelto o falso positivo de Lighthouse). No requiere cambio.
 - [x] **SEO**: `curl https://alexendros.me/sitemap.xml` y `/robots.txt` → HTTP/2 200 (2026-04-12).
-- [x] **Smoke test** (2026-04-13): 11 rutas → todas 200 (`/`, `/about`, `/projects`, `/herramientas`, `/uses`, `/contact`, 3× `/legal/*`, `/robots.txt`, `/sitemap.xml`).
+- [x] **Smoke test** (2026-06-25): 14 rutas → todas 200 (home, 6× `/espensar`/`/esposible`, 3× `/legal/*`, `/robots.txt`, `/sitemap.xml`).
 - [x] **JSON-LD**: Person + WebSite servidos en la home, schema válido (2026-04-12). Pendiente validar vía https://validator.schema.org UI.
-- [ ] **OG image**: previsualizar en https://metatags.io.
-- [ ] Enviar sitemap a Google Search Console + IndexNow.
+- [x] **OG image**: `public/og/opengraph-image.png` (1200×630, 62K, PNG) — configurada en metadata con OpenGraph + Twitter card. Previsualización manual en metatags.io queda como paso opcional pre-deploy.
+- [x] IndexNow: key `5046e347-…` generada, key file en `public/{key}.txt`, sitemap enviado a api.indexnow.org (202) y bing.com/indexnow (202). Google Search Console requiere submit manual post-deploy (GSC UI).
 
 ## 5. Futuras mejoras (no bloqueantes)
 
-- [ ] Rotar `/projects` con los últimos casos reales (lexactu, afiladocs, argus).
-- [ ] Actualizar `sameAs` del JSON-LD Person si cambian handles sociales.
+- [x] Preload de fuentes Geist — manejado automáticamente por `next/font/local` (geistSans preload implícito, geistMono con `preload: false` intencional).
+- [x] `sameAs` JSON-LD verificado — GitHub, LinkedIn, X/Twitter actuales y correctos.
 - [ ] Analytics privacy-first (Plausible EU / Umami) con consentimiento explícito.
-- [ ] Link real al hub `alexendros.dev` cuando esté deployado.
-- [ ] Preload de fuentes Geist (`<link rel="preload">`) para mejorar TTFB percibido.
+- [ ] Link real al hub `alexendros.dev` cuando esté deployado (bloqueado externo).
 - [x] Microanimaciones en hero con `tw-animate-css` (2026-06-13): entrada `animate-in fade-in slide-in-from-bottom`, motion-safe.
 - [x] **StackMarquee integrado** (2026-06-13): banda "Mi caja de herramientas" entre Misiones y Experiencias (antes huérfano).
 - [x] **Subida visual** (2026-06-13, rama feat/visual-craft): shimmer oro en hero, biografía en tarjetas glass, micro-interacciones con `--ease-spring`. Dentro de Vergina Imperial, reduced-motion intacto.
-- [ ] Calendly embed en `/contact` (iframe, compatible con static export).
 
 ## 6. Higiene del repo ✅ (2026-04-12)
 
@@ -69,26 +67,20 @@ Lista viva de pendientes del repositorio standalone `alexendros-me`.
 
 ---
 
-## 8. Reconversión `.me` → espacio libre de dinero (2026-06-07)
+## 8. Reconversión `.me` → espacio libre de dinero ✅ (2026-06-25)
 
 > Cambio de rumbo: el `.me` deja de ser landing comercial y pasa a contenido
 > personal **antidinero** (ideológico/filosófico/nacional/social). Plan completo
 > en `docs/reconversion-me.md`.
 
-**Aviso de estado real** — la estructura actual es un **one-pager**
-(`app/page.tsx`) + `app/legal/*`. Las rutas `/about`, `/projects`, `/uses`,
-`/contact`, `/herramientas` mencionadas en §4 y §5 **no existen** en el árbol
-actual; esos items quedan **obsoletos** y se sustituyen por el plan de
-reconversión.
-
 - [x] Plan estructural redactado (`docs/reconversion-me.md`).
-- [x] Documentación saneada (CLAUDE.md §5/§8, esta nota).
+- [x] Documentación saneada (CLAUDE.md, TASKS.md).
 - [x] Decisiones del autor (§6): afiliados fuera, licencia = CC BY-NC-SA 4.0 (sello €Ç anticomercial en el footer), `knowsAbout` reorientado a soberanía digital + filosofía política.
 - [x] Purga de venta/afiliados (Proton, Hostinger, referral Claude): `ReferralsFab`, sección "Aliados con programa de referidos", disclosure del footer y array `referrals` eliminados.
-- [ ] Departamento de contenido `/ideas` (MDX) + `content/ideas/`.
+- [x] Departamento de contenido `/espensar` + `/esposible` (MDX, reemplazan `/ideas` por ADR §6).
 - [x] Reorientar `lib/site.ts` y `lib/structured-data.ts` (sin vocabulario pro; la tech se mantiene como materia de crítica).
-- [ ] Pieza divulgativa de cookies (capa manifiesto + capa formal).
+- [x] Pieza divulgativa de cookies (capa manifiesto + capa formal) — ver `app/legal/cookies/page.tsx`.
 
 ---
 
-_Última actualización: 2026-06-08 (Fase 2: purga de venta/afiliados ejecutada; footer con sello anticomercial)._
+_Última actualización: 2026-06-25 — IndexNow key file + API submission completados. Pendiente post-deploy: submit manual a Google Search Console (GSC UI)._

@@ -36,20 +36,21 @@ const experiencias = [
   {
     category: "Stack actual",
     items: [
-      "Next.js 15 App Router · TypeScript strict · React 19",
+      "Next.js 16 App Router · TypeScript strict · React 19",
       "Supabase (Postgres + Auth + Storage + RLS)",
       "Stripe (Subscriptions + Connect Express)",
       "Tailwind CSS v4 · shadcn/ui · Radix UI",
       "Turborepo · Vercel · GitHub Actions",
-      "Sentry · Playwright · Vitest",
+      "Playwright · Vitest",
     ],
   },
   {
-    category: "Herramientas aliadas",
+    category: "Herramientas de mi día a día",
     items: [
-      "Claude AI — par de desarrollo. Lo uso a diario desde el terminal y VS Code.",
-      "Proton — mail, VPN y Drive cifrados. Alternativa real a Google fuera del circuito publicitario.",
-      "Hostinger — VPS y dominios cuando necesito control total y precio honesto.",
+      "Claude Code y OpenCode — Mi apoyo en el desarrollo de código y producción de proyectos.",
+      "Proton.me — Mail, VPN, Drive, IA... todo un ecosistema privado alojado en Suiza con cifrado de alta seguridad.",
+      "Hostinger — Dominios cuando necesito control total y precio honesto.",
+      "GitHub — Aquí encontrarás casi todos mis trabajos y proyectos de software, los cuales trato de tratar con la máxima profesionalidad sin pérdida de contenido original y soluciones creativas.",
     ],
   },
 ];
@@ -57,12 +58,11 @@ const experiencias = [
 export default function Home() {
   return (
     <>
-      {/* ─────────────────────────── HERO ─────────────────────────── */}
       <section className="site-shell hero-section">
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="cluster-center">
           <p className="hero-eyebrow">Valencia · pensamiento, soberanía digital y libertades</p>
         </div>
-        <h1 className="hero-signature hero-signature--shimmer motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-3 motion-safe:duration-700">
+        <h1 className="hero-signature hero-signature--shimmer hero-animate">
           Grandes soluciones de un ingenio no previsto.
         </h1>
         <p className="prose-lead">
@@ -72,16 +72,14 @@ export default function Home() {
             href="https://alexendros.dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline underline-offset-4 decoration-primary/60 hover:decoration-primary"
+            className="brand-link"
           >
             alexendros.dev
           </a>
           ; aquí solo se piensa, se escribe y se comparte.
         </p>
-        <p className="text-sm text-muted-foreground italic">
-          Ánimo de todo tipo. Lucro ni idea de quién es.
-        </p>
-        <div className="flex flex-wrap gap-3">
+        <p className="hero-tagline">Ánimo de todo tipo. Lucro ni idea de quién es.</p>
+        <div className="cluster">
           <Button asChild>
             <a href={`mailto:${siteConfig.contact.email}`}>Convócame</a>
           </Button>
@@ -93,58 +91,54 @@ export default function Home() {
 
       <Separator className="site-shell" />
 
-      {/* ──────────────────────── BIOGRAFÍA ───────────────────────── */}
       <section
         id="biografia"
-        className="site-shell section section-below-fold scroll-mt-16"
+        className="site-shell section section-below-fold scroll-section"
         aria-labelledby="h2-biografia"
       >
-        <div className="max-w-3xl space-y-8">
+        <div className="content-container stack-lg">
           <h2 id="h2-biografia" className="headline">
             (Auto)biografía
           </h2>
 
-          <div className="space-y-4">
-            <p className="text-muted-foreground leading-relaxed italic">
-              Autobiografía en construcción.
-            </p>
+          <div className="stack-md">
+            <p className="empty-state">Autobiografía en construcción.</p>
           </div>
         </div>
       </section>
 
       <Separator className="site-shell" />
 
-      {/* ──────────────────────── MISIONES ────────────────────────── */}
       <section
         id="misiones"
-        className="site-shell section section-below-fold scroll-mt-16"
+        className="site-shell section section-below-fold scroll-section"
         aria-labelledby="h2-misiones"
       >
-        <div className="max-w-3xl space-y-8">
-          <div className="space-y-2">
+        <div className="content-container stack-lg">
+          <div className="section-head">
             <h2 id="h2-misiones" className="headline">
               Misiones
             </h2>
-            <p className="text-muted-foreground">
+            <p className="section-desc">
               Compromisos reales. Público cuando hay algo operativo, no antes.
             </p>
           </div>
 
-          <div className="space-y-6">
+          <div className="stack-xl-gap">
             {misions.map((m) => (
               <div key={m.title} className="mission-card">
                 <div className="mission-card__header">
                   <div className="min-w-0">
-                    <h3 className="text-foreground font-semibold text-lg">{m.title}</h3>
-                    <p className="text-xs text-muted-foreground mt-0.5">{m.year}</p>
+                    <h3 className="card-title">{m.title}</h3>
+                    <p className="card-subtitle">{m.year}</p>
                   </div>
                   <Badge variant={m.statusVariant} className="shrink-0">
                     {m.status}
                   </Badge>
                 </div>
-                <p className="text-muted-foreground leading-relaxed text-sm">{m.description}</p>
+                <p className="card-body">{m.description}</p>
                 {m.stack.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="cluster-sm">
                     {m.stack.map((tech) => (
                       <Badge key={tech} variant="outline" className="text-xs">
                         {tech}
@@ -157,7 +151,7 @@ export default function Home() {
                     href={m.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block text-sm text-primary underline underline-offset-4 decoration-primary/60 hover:decoration-primary"
+                    className="card-link brand-link"
                   >
                     {m.url.replace(/^https?:\/\//, "")} →
                   </a>
@@ -168,40 +162,30 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─────────────────────── STACK (marquee) ─────────────────────── */}
-      <section aria-labelledby="h2-stack-marquee" className="section-below-fold pt-4">
-        <h2 id="h2-stack-marquee" className="site-shell headline mb-2">
-          Mi caja de herramientas
-        </h2>
-        <p className="site-shell prose-lead mb-4">El stack con el que construyo, en movimiento.</p>
-        <StackMarquee />
-      </section>
-
       <Separator className="site-shell" />
 
-      {/* ─────────────────────── EXPERIENCIAS ─────────────────────── */}
       <section
         id="experiencias"
-        className="site-shell section section-below-fold scroll-mt-16"
+        className="site-shell section section-below-fold scroll-section"
         aria-labelledby="h2-experiencias"
       >
-        <div className="max-w-3xl space-y-10">
-          <div className="space-y-2">
+        <div className="content-container stack-xl">
+          <div className="section-head">
             <h2 id="h2-experiencias" className="headline">
               Experiencias
             </h2>
-            <p className="text-muted-foreground">
+            <p className="section-desc">
               Lo extra-laboral que me ha formado, el stack que uso y los aliados que recomiendo.
             </p>
           </div>
 
           {experiencias.map((exp) => (
-            <div key={exp.category} className="space-y-3">
+            <div key={exp.category} className="exp-category">
               <h3 className="title">{exp.category}</h3>
-              <ul className="space-y-2">
+              <ul className="exp-list">
                 {exp.items.map((item) => (
-                  <li key={item} className="flex gap-3 text-muted-foreground leading-relaxed">
-                    <span className="text-primary mt-1 shrink-0" aria-hidden="true">
+                  <li key={item} className="exp-item">
+                    <span className="exp-arrow" aria-hidden="true">
                       ›
                     </span>
                     <span>{item}</span>
@@ -213,7 +197,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FABs — always visible */}
+      <Separator className="site-shell" />
+
+      <section aria-labelledby="h2-stack-marquee" className="marquee-section">
+        <h2 id="h2-stack-marquee" className="site-shell headline marquee-heading">
+          Mis tecnologías favoritas
+        </h2>
+        <p className="site-shell prose-lead marquee-desc">
+          El stack con el que construyo, en movimiento.
+        </p>
+        <StackMarquee />
+      </section>
+
       <div className="fab-stack" role="region" aria-label="Acciones de contacto">
         <ContactFab />
       </div>

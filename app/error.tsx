@@ -12,21 +12,21 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error(error);
+    if (process.env.NODE_ENV === "development") {
+      console.error(error);
+    }
   }, [error]);
 
   return (
-    <div className="site-shell max-w-3xl section text-center">
+    <div className="site-shell page-center section">
       <h1 className="headline">Algo ha ido mal</h1>
-      <p className="mt-4 text-muted-foreground">
+      <p className="error-text">
         Se ha producido un error inesperado. Puedes reintentarlo o volver al inicio.
       </p>
       {process.env.NODE_ENV === "development" && error.message ? (
-        <pre className="mt-6 overflow-x-auto rounded-md border border-border bg-muted p-4 text-left text-sm text-muted-foreground">
-          {error.message}
-        </pre>
+        <pre className="error-block">{error.message}</pre>
       ) : null}
-      <div className="mt-8 flex flex-wrap justify-center gap-3">
+      <div className="btn-group btn-wrapper">
         <Button onClick={() => reset()}>Reintentar</Button>
         <Button variant="outline" asChild>
           <Link href="/">Volver al inicio</Link>

@@ -12,7 +12,7 @@ export function ContactFab() {
     <PopoverRoot>
       <PopoverTrigger asChild>
         <button type="button" className="fab-btn" aria-label="Abrir opciones de contacto">
-          <Mail className="h-4 w-4 shrink-0" aria-hidden="true" />
+          <Mail className="icn-sm" aria-hidden="true" />
           <span>Convócame</span>
         </button>
       </PopoverTrigger>
@@ -20,25 +20,37 @@ export function ContactFab() {
         <p className="fab-section-label">Contacto directo</p>
 
         <a href={buildMailto()} className="fab-item">
-          <Mail className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+          <Mail className="icn-sm icn-primary" aria-hidden="true" />
           <span className="fab-item__label">
             <span className="fab-item__name">Email</span>
             <span className="fab-item__desc">{contact.email}</span>
           </span>
         </a>
 
-        <div className="fab-item" aria-disabled="true">
-          <Send className="h-4 w-4 shrink-0 opacity-40" aria-hidden="true" />
+        <div
+          className="fab-item"
+          role="button"
+          aria-disabled="true"
+          tabIndex={-1}
+          aria-hidden="true"
+        >
+          <Send className="icn-sm icn-disabled" aria-hidden="true" />
           <span className="fab-item__label">
-            <span className="fab-item__name opacity-60">Telegram</span>
+            <span className="fab-item__name fab-item__name--disabled">Telegram</span>
             <span className="fab-item__desc">{contact.telegram.handle} · en preparación</span>
           </span>
         </div>
 
-        <div className="fab-item" aria-disabled="true">
-          <Hash className="h-4 w-4 shrink-0 opacity-40" aria-hidden="true" />
+        <div
+          className="fab-item"
+          role="button"
+          aria-disabled="true"
+          tabIndex={-1}
+          aria-hidden="true"
+        >
+          <Hash className="icn-sm icn-disabled" aria-hidden="true" />
           <span className="fab-item__label">
-            <span className="fab-item__name opacity-60">Matrix / Element</span>
+            <span className="fab-item__name fab-item__name--disabled">Matrix / Element</span>
             <span className="fab-item__desc">{contact.matrix.handle} · próximamente</span>
           </span>
         </div>

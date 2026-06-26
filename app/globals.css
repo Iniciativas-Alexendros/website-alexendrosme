@@ -4,13 +4,13 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@import "./styles/tokens.css";
+@import "./styles/tokens/index.css";
 @import "./styles/breakpoints.css";
 @import "./styles/typography.css";
 @import "./styles/base.css";
 @import "./styles/components.css";
+@import "./styles/prose.css";
 @import "./styles/utilities.css";
-@import "./styles/motion.css";
 @import "./styles/print.css";
 
 @source "../components";

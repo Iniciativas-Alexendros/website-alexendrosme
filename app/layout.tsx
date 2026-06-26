@@ -6,8 +6,8 @@ import type { Metadata, Viewport } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { Atmosphere } from "@/components/atmosphere";
+import { JsonLd } from "@/components/json-ld";
 import { siteConfig } from "@/lib/site";
-import { personJsonLd, websiteJsonLd } from "@/lib/structured-data";
 
 const ParticleBg = dynamic(() => import("@/components/particle-bg").then((m) => m.ParticleBg));
 
@@ -82,22 +82,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       data-accent="gold"
       className={`dark ${geistSans.variable} ${geistMono.variable} ${interDisplay.variable}`}
     >
-      <body className="flex min-h-screen flex-col">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (window.trustedTypes && trustedTypes.createPolicy) {
+                trustedTypes.createPolicy("json-ld", {
+                  createHTML: (s) => s,
+                  createScript: (s) => s,
+                  createScriptURL: (s) => s,
+                });
+              }
+            `,
+          }}
+        />
+      </head>
+      <body className="body-layout">
         <a href="#main" className="skip-link">
           Saltar al contenido
         </a>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-        />
+        <JsonLd />
         <Atmosphere />
         <ParticleBg />
         <Nav />
-        <main id="main" className="flex-1 pb-28 md:pb-0">
+        <main id="main" className="main-content">
           {children}
         </main>
         <Footer />

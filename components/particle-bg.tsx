@@ -33,8 +33,8 @@ export function ParticleBg() {
 
     const styles = getComputedStyle(document.documentElement);
     // Fallbacks alineados a Patrón VAP gama Vergina (oro + ámbar profundo).
-    const primary = styles.getPropertyValue("--primary").trim() || "oklch(0.80 0.16 85)";
-    const accent = styles.getPropertyValue("--accent").trim() || "oklch(0.66 0.14 65)";
+    const primary: string = styles.getPropertyValue("--primary").trim() || "oklch(0.80 0.16 85)";
+    const accent: string = styles.getPropertyValue("--accent").trim() || "oklch(0.66 0.14 65)";
 
     let particles: Particle[] = [];
     let raf = 0;
@@ -108,6 +108,11 @@ export function ParticleBg() {
   if (!mounted) return null;
 
   return (
-    <canvas ref={ref} aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10" />
+    <canvas
+      ref={ref}
+      role="img"
+      aria-label="Fondo decorativo de partículas doradas, sin información relevante"
+      className="particle-canvas"
+    />
   );
 }

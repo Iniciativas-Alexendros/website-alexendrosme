@@ -1,0 +1,128 @@
+/* colors.css — Vergina Imperial v0.2.2 · Paleta completa
+   Atmósfera púrpura pretoriana (hue 315) + acento oro Vergina (hue 85).
+   Dark-first. oklch exclusivo. Profundidad por luminosidad. */
+
+:root {
+  /* =====================================================================
+     1. ATMÓSFERA — púrpura pretoriana hue 315, +0.02 L por paso.
+     Elevación = diferencia de luminosidad, NUNCA box-shadow.
+     ===================================================================== */
+  --color-surface-0: oklch(0.1 0.014 315); /* noche profunda púrpura */
+  --color-surface-50: oklch(0.12 0.016 315);
+  --color-surface-100: oklch(0.14 0.018 315); /* card base */
+  --color-surface-200: oklch(0.17 0.02 315);
+  --color-surface-300: oklch(0.2 0.022 315); /* border subtle */
+  --color-surface-400: oklch(0.23 0.024 315);
+  --color-surface-500: oklch(0.26 0.026 315); /* border default */
+  --color-surface-600: oklch(0.29 0.028 315);
+  --color-surface-700: oklch(0.33 0.03 315); /* border strong */
+  --color-surface-800: oklch(0.37 0.032 315);
+  --color-surface-900: oklch(0.42 0.034 315); /* elementos flotantes máx */
+
+  /* Atmósfera radial (focos PurpleAtmosphere) — opcional para hero/landing */
+  --atmosphere-haze: oklch(0.32 0.09 318);
+  --atmosphere-velvet: oklch(0.18 0.06 315);
+  --atmosphere-vignette: oklch(0.04 0.02 315);
+
+  /* =====================================================================
+     2. ACENTO — Oro Vergina (default, hue 85, cálido)
+     "Memoria, valor, firma, declaración." alexendros.me es lente identitaria.
+     ===================================================================== */
+  --accent: oklch(0.78 0.165 85); /* oro batido helénico */
+  --accent-dim: oklch(0.62 0.13 85); /* oro grave */
+  --accent-bright: oklch(0.92 0.1 88); /* brillo alto */
+  --accent-fg: oklch(0.12 0.014 50); /* tinta cálida sobre oro */
+
+  /* Shimmer vertical — texto metalizado (cifras, números de sección) */
+  --accent-shimmer: linear-gradient(
+    180deg,
+    oklch(0.92 0.1 88) 0%,
+    oklch(0.82 0.165 85) 38%,
+    oklch(0.62 0.13 85) 70%,
+    oklch(0.78 0.155 85) 100%
+  );
+
+  /* Alias de marca para componentes que lean tokens "brand" */
+  --color-brand-primary: var(--accent);
+  --color-brand-primary-hc: var(--accent); /* AA sobre surface-0: 9.85:1 */
+  --color-brand-primary-fg: var(--accent-fg);
+  --color-brand-accent: var(--accent-dim);
+  --color-brand-accent-fg: var(--accent-fg);
+
+  /* =====================================================================
+     3. TEXT — neutro tintado púrpura mínimo
+     ===================================================================== */
+  --color-text-primary: oklch(0.97 0.008 310);
+  --color-text-secondary: oklch(0.8 0.01 310);
+  --color-text-tertiary: oklch(0.62 0.012 310);
+  --color-text-disabled: oklch(0.46 0.014 310);
+  --color-text-inverse: oklch(0.07 0.012 315);
+
+  /* =====================================================================
+     4. BORDER — alineados con la escala surface
+     ===================================================================== */
+  --color-border-subtle: var(--color-surface-300);
+  --color-border-default: var(--color-surface-500);
+  --color-border-strong: var(--color-surface-700);
+  --color-border-focus: var(--accent);
+
+  /* =====================================================================
+     5. SEMANTIC STATES — armonizados con la base púrpura
+     Success usa oliva (hue 130) — distinto del oro para no confundir
+     "acción de marca" con "éxito".
+     ===================================================================== */
+  --color-success-fg: oklch(0.78 0.16 130);
+  --color-success-bg: oklch(0.2 0.06 130);
+  --color-success-border: oklch(0.4 0.12 130);
+
+  --color-warning-fg: oklch(0.82 0.16 82);
+  --color-warning-bg: oklch(0.22 0.06 82);
+  --color-warning-border: oklch(0.42 0.12 82);
+
+  --color-error-fg: oklch(0.72 0.22 25);
+  --color-error-bg: oklch(0.22 0.07 25);
+  --color-error-border: oklch(0.42 0.16 25);
+
+  --color-info-fg: oklch(0.78 0.14 230);
+  --color-info-bg: oklch(0.2 0.05 230);
+  --color-info-border: oklch(0.4 0.1 230);
+
+  /* =====================================================================
+     6. GLASS primitive — paneles translúcidos sobre la atmósfera
+     ===================================================================== */
+  --glass-bg: linear-gradient(
+    140deg,
+    oklch(1 0 0 / 0.06) 0%,
+    oklch(1 0 0 / 0.02) 50%,
+    oklch(1 0 0 / 0.04) 100%
+  );
+  --glass-border: oklch(1 0 0 / 0.08);
+  --glass-blur: blur(20px) saturate(140%);
+  --glass-shadow: inset 0 1px 0 oklch(1 0 0 / 0.1), 0 30px 80px -20px oklch(0 0 0 / 0.55);
+
+  /* =====================================================================
+     7. SHADOWS — solo para overlays (Dialog, Popover, Toast, Tooltip).
+     Cards, inputs, nav items NUNCA llevan box-shadow.
+     ===================================================================== */
+  --shadow-overlay:
+    0 1px 2px 0 oklch(0 0 0 / 0.3), 0 12px 32px -8px oklch(0 0 0 / 0.5),
+    0 0 0 1px var(--color-border-default);
+
+  --shadow-popover:
+    0 1px 2px 0 oklch(0 0 0 / 0.2), 0 8px 24px -6px oklch(0 0 0 / 0.4),
+    0 0 0 1px var(--color-border-default);
+
+  --shadow-toast:
+    0 1px 2px 0 oklch(0 0 0 / 0.25), 0 10px 28px -6px oklch(0 0 0 / 0.45),
+    0 0 0 1px var(--color-border-default);
+
+  /* Inner highlight — cómo se comunica profundidad en cards (pixel superior) */
+  --shadow-inner-highlight: inset 0 1px 0 0 oklch(1 0 0 / 0.04);
+
+  /* Glow de marca — permitido detrás del CTA hero o badges destacados */
+  --shadow-glow-brand: 0 0 56px color-mix(in oklch, var(--accent) 32%, transparent);
+  --shadow-glow-accent: var(--shadow-glow-brand);
+
+  /* Focus ring 2px brand + 2px offset surface-0, vía box-shadow */
+  --ring-focus: 0 0 0 2px var(--color-surface-0), 0 0 0 4px var(--accent);
+}

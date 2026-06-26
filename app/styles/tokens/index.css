@@ -1,0 +1,105 @@
+/* index.css — Vergina Imperial v0.2.2 · Entry point
+   Re-exporta todos los tokens atómicos + capa semántica shadcn + @theme inline. */
+
+@import "./colors.css";
+@import "./spacing.css";
+@import "./motion.css";
+
+/* ===========================================================================
+   CAPA DE CONSUMO SEMÁNTICO shadcn → apunta a tokens canónicos Vergina Imperial.
+   Permite que components/ui/* y clases Tailwind (bg-card, text-foreground)
+   mantengan su API sin conocer los nombres internos.
+   =========================================================================== */
+:root {
+  --background: var(--color-surface-0);
+  --foreground: var(--color-text-primary);
+  --card: var(--color-surface-100);
+  --card-foreground: var(--color-text-primary);
+  --popover: var(--color-surface-200);
+  --popover-foreground: var(--color-text-primary);
+  --primary: var(--color-brand-primary);
+  --primary-foreground: var(--color-brand-primary-fg);
+  --secondary: var(--color-surface-300);
+  --secondary-foreground: var(--color-text-primary);
+  --muted: var(--color-surface-200);
+  --muted-foreground: var(--color-text-tertiary);
+  --accent-shadcn: var(--color-brand-accent);
+  --accent-foreground: var(--color-brand-accent-fg);
+  --destructive: var(--color-error-fg);
+  --destructive-foreground: var(--color-text-primary);
+  --border: var(--color-border-default);
+  --input: var(--color-border-default);
+  --ring: var(--color-brand-primary);
+}
+
+/* ===========================================================================
+   @theme inline — expone tokens al generador de Tailwind v4.
+   Incluye tanto la nomenclatura canónica Vergina Imperial (bg-surface-100,
+   text-text-primary) como la semántica shadcn (bg-card, text-foreground).
+   =========================================================================== */
+@theme inline {
+  /* Shadcn semántico */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent-shadcn);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Radii */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Fonts — consumidos por next/font vía --font-geist-sans + --font-display (Inter v0.2.2) */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display, "Inter"), var(--font-geist-sans), sans-serif;
+
+  /* Keyframes para Tailwind v4 animate-* utilities */
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-atm-drift: atm-drift 18s ease-in-out infinite alternate;
+  --animate-pulse-dot: pulse-dot 2s var(--ease-smooth) infinite;
+  --animate-hero-shimmer: hero-shimmer 6s var(--ease-in-out) infinite alternate;
+  --animate-accordion-down: accordion-down var(--duration-base) var(--ease-out-expo);
+  --animate-accordion-up: accordion-up var(--duration-base) var(--ease-out-expo);
+}
+
+/* =====================================================================
+   H1 hero · doctrina Vergina Imperial v0.2.2 · fade vertical color→semi-transparente.
+   Sólido hasta 55%, transición al 80%, baseline 35% al 100% — NUNCA fade total.
+   ===================================================================== */
+h1.display,
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 0.98;
+  text-wrap: balance;
+  background: linear-gradient(
+    180deg,
+    var(--color-text-primary) 0%,
+    var(--color-text-primary) 55%,
+    color-mix(in oklch, var(--color-text-primary) 78%, transparent) 80%,
+    color-mix(in oklch, var(--color-text-primary) 35%, transparent) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 36px color-mix(in oklch, var(--accent) 18%, transparent));
+}

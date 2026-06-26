@@ -30,3 +30,14 @@ export const siteConfig = {
     matrix: { handle: "@alexendros:matrix.org", status: "proximamente" as const },
   },
 } as const;
+
+// Development-only deep freeze for extra safety
+if (process.env.NODE_ENV === "development") {
+  Object.freeze(siteConfig);
+  Object.freeze(siteConfig.nav);
+  Object.freeze(siteConfig.legalNav);
+  Object.freeze(siteConfig.links);
+  Object.freeze(siteConfig.contact);
+  Object.freeze(siteConfig.contact.telegram);
+  Object.freeze(siteConfig.contact.matrix);
+}

@@ -1,0 +1,129 @@
+/* motion.css — Vergina Imperial v0.2.2 · Durations + Easings + Keyframes */
+
+:root {
+  /* =====================================================================
+     1. MOTION — 5 durations + easings custom (nunca ease-in-out nativo)
+     ===================================================================== */
+  --duration-instant: 80ms;
+  --duration-fast: 120ms;
+  --duration-base: 180ms;
+  --duration-slow: 240ms;
+  --duration-slower: 400ms;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-quart: cubic-bezier(0.5, 0, 0.75, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: linear(
+    0,
+    0.009,
+    0.035 2.1%,
+    0.141,
+    0.292,
+    0.468,
+    0.653,
+    0.831,
+    0.945 38.7%,
+    0.987,
+    1.003,
+    1.008,
+    1.008,
+    1.004,
+    0.999,
+    0.994,
+    0.992,
+    0.996,
+    1
+  );
+
+  /* Alias legados apuntando a los canónicos — no romper components.css */
+  --ease-smooth: var(--ease-out-expo);
+}
+
+/* =====================================================================
+   KEYFRAMES — animaciones globales
+   ===================================================================== */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes atm-drift {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(4%, 3%) scale(1.08);
+  }
+}
+
+@keyframes pulse-dot {
+  0% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.8);
+  }
+}
+
+@keyframes hero-shimmer {
+  from {
+    background-position: 50% 0%;
+  }
+  to {
+    background-position: 50% 100%;
+  }
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height, var(--accordion-panel-height, auto));
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height, var(--accordion-panel-height, auto));
+  }
+  to {
+    height: 0;
+  }
+}
+
+/* =====================================================================
+   REDUCED MOTION — respeta prefers-reduced-motion
+   ===================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .marquee-track {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .atm__haze,
+  .atm__spark,
+  .atm__dust {
+    animation: none !important;
+  }
+
+  body::before {
+    opacity: 0;
+  }
+}

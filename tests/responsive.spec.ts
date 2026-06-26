@@ -44,7 +44,8 @@ test.describe("Responsividad · no-overflow + tap targets ≥44px", () => {
     // La regla WCAG 2.5.5 (AAA) recomienda 44px; WCAG 2.5.8 (AA en 2.2) admite excepciones inline
   });
 
-  test("FAB visible en mobile", async ({ page }) => {
+  test("FAB visible en mobile", async ({ page, viewport }) => {
+    if (!viewport || viewport.width >= 768) test.skip();
     // En mobile, el FAB de contacto debe estar visible sin scroll
     const contactFab = page.locator("button", { hasText: "Convócame" });
     await expect(contactFab).toBeVisible();

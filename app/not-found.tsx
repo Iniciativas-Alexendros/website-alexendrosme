@@ -8,10 +8,10 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className="site-shell max-w-3xl section text-center">
+    <div className="site-shell page-center section">
       <h1 className="headline">Página no encontrada</h1>
-      <p className="mt-4 text-muted-foreground">La página que buscas no existe o ha sido movida.</p>
-      <div className="mt-8">
+      <p className="error-text">La página que buscas no existe o ha sido movida.</p>
+      <div className="btn-wrapper">
         <Button asChild>
           <Link href="/">Volver al inicio</Link>
         </Button>

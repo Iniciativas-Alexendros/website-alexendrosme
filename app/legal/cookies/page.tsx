@@ -11,7 +11,33 @@ export default function CookiesPage() {
     <>
       <h1>Política de cookies</h1>
 
-      {/* BLOQUE 1 — Lo esencial */}
+      {/* ── CAPA MANIFIESTO — divulgativa, para el humano ── */}
+      <section aria-labelledby="ck-manifiesto">
+        <h2 id="ck-manifiesto">Manifiesto</h2>
+
+        <div className="manifiesto">
+          <p className="manifiesto-lead">
+            Cada vez que visitas una web con tracking, tu navegador entrega un parte silencioso:
+            sistema operativo, ubicación aproximada, qué viste antes, cuánto tiempo te quedaste. Ese
+            parte —la cookie— no es un simple archivo de texto: es el ladrillo básico de una
+            industria que ha hecho de la vigilancia su modelo de negocio.
+          </p>
+          <p>
+            No se trata de un intercambio inocuo. Cada cookie de terceros que aceptas financia una
+            infraestructura diseñada para predecir tu comportamiento, clasificarte en segmentos y
+            manipularte sin que lo sepas. La economía de la atención no pide permiso: lo da por
+            supuesto.
+          </p>
+          <p>
+            Este sitio no participa de ese pacto. No porque las cookies sean intrínsecamente
+            malignas —son, al fin y al cabo, piezas de software—, sino porque el ecosistema que han
+            normalizado erosiona la soberanía digital de las personas. Usar la web no debería
+            implicar ser medido, perfilado y vendido.
+          </p>
+        </div>
+      </section>
+
+      {/* ── Lo esencial ── */}
       <section aria-labelledby="ck-esencial">
         <h2 id="ck-esencial">Lo esencial</h2>
         <p>
@@ -25,7 +51,7 @@ export default function CookiesPage() {
         </p>
       </section>
 
-      {/* BLOQUE 2 — Detalle */}
+      {/* ── Detalle ── */}
       <section aria-labelledby="ck-detalle">
         <h2 id="ck-detalle">Detalle</h2>
 
@@ -107,7 +133,7 @@ export default function CookiesPage() {
         </p>
       </section>
 
-      {/* BLOQUE 3 — Tus derechos */}
+      {/* ── Tus derechos ── */}
       <section aria-labelledby="ck-derechos">
         <h2 id="ck-derechos">Tus derechos</h2>
         <p>
@@ -118,7 +144,10 @@ export default function CookiesPage() {
         </p>
       </section>
 
-      {/* BLOQUE 4 — Texto formal */}
+      {/* ── CAPA FORMAL — blindaje AEPD ── */}
+      <hr className="formal-divider" role="presentation" />
+      <span className="formal-label">Capa formal</span>
+
       <section aria-labelledby="ck-formal">
         <h2 id="ck-formal">Texto formal</h2>
         <p>

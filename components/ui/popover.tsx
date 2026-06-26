@@ -4,7 +4,6 @@ import { Popover } from "radix-ui";
 
 const PopoverRoot = Popover.Root;
 const PopoverTrigger = Popover.Trigger;
-const PopoverAnchor = Popover.Anchor;
 
 function PopoverContent({
   className,
@@ -38,4 +37,4 @@ function PopoverContent({
   );
 }
 
-export { PopoverRoot, PopoverTrigger, PopoverAnchor, PopoverContent };
+export { PopoverRoot, PopoverTrigger, PopoverContent };

@@ -1,0 +1,12 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Alexendros",
+  "url": "https://alexendros.me",
+  "description": "Espacio digital de humanismo y libertades creado por Alexendros: pensador, tecnólogo, investigador, estimulante. Procesando desde Valencia.",
+  "author": {
+    "@type": "Person",
+    "name": "Alejandro Domingo Agustí"
+  },
+  "inLanguage": "es"
+}
