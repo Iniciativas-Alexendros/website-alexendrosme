@@ -776,18 +776,6 @@
     margin-top: 1.5rem;
   }
 
-  /* ── Tag pill (etiquetas de artículo) ─────────────── */
-  .tag-pill {
-    display: inline-flex;
-    padding: 0.125rem 0.5rem;
-    border-radius: 0.375rem;
-    background: color-mix(in oklch, var(--muted) 20%, transparent);
-    font-size: var(--text-xs);
-    font-family: var(--font-mono);
-    line-height: 1.25;
-    color: var(--muted-foreground);
-  }
-
   /* ── Artículo: listado ───────────────────────────── */
   .article-item {
     display: flex;
@@ -1128,12 +1116,14 @@
   }
 }
 
-@keyframes hero-shimmer {
-  from {
-    background-position: 50% 0%;
+/* ── Mobile GPU optimization: reduce backdrop-filter blur ──── */
+@media (max-width: 48rem) {
+  .site-nav {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
   }
-  to {
-    background-position: 50% 100%;
+  .mission-card {
+    backdrop-filter: none;
   }
 }
 
