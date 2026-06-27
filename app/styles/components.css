@@ -23,7 +23,7 @@
     padding: 0.5rem 1rem;
     background: var(--primary);
     color: var(--primary-foreground);
-    border-radius: var(--radius-md);
+    border-radius: var(--ax-radius-md);
   }
 
   /* ── Shell ─────────────────────────────────────────────── */
@@ -31,7 +31,7 @@
     margin-inline: auto;
     width: 100%;
     max-width: 72rem;
-    padding-inline: var(--safe-inset-x);
+    padding-inline: var(--ax-safe-inset);
   }
 
   /* ── Navigation ────────────────────────────────────────── */
@@ -75,13 +75,13 @@
   .site-nav__link {
     position: relative;
     padding: 0.5rem 0.75rem;
-    border-radius: var(--radius-md);
+    border-radius: var(--ax-radius-md);
     font-size: var(--text-sm);
     font-weight: 500;
     color: var(--muted-foreground);
     transition:
-      background-color var(--duration-fast) var(--ease-out-expo),
-      color var(--duration-fast) var(--ease-out-expo);
+      background-color var(--ax-duration-fast) var(--ax-ease-out-expo),
+      color var(--ax-duration-fast) var(--ax-ease-out-expo);
   }
   .site-nav__link:hover {
     color: var(--foreground);
@@ -101,7 +101,7 @@
     background: var(--primary);
     transform: translateX(-50%) scaleX(0);
     transform-origin: center;
-    transition: transform var(--duration-base) var(--ease-smooth);
+    transition: transform var(--ax-duration-base) var(--ax-ease-smooth);
   }
   .site-nav__link--active::after,
   .site-nav__link:hover::after {
@@ -109,25 +109,25 @@
   }
 
   .site-nav[data-scrolled="true"] {
-    border-bottom-color: var(--color-border-default);
+    border-bottom-color: var(--ax-border-default);
     background: color-mix(in oklch, var(--background) 88%, transparent);
     transition:
-      border-color var(--duration-base) var(--ease-out-expo),
-      background-color var(--duration-base) var(--ease-out-expo);
+      border-color var(--ax-duration-base) var(--ax-ease-out-expo),
+      background-color var(--ax-duration-base) var(--ax-ease-out-expo);
   }
 
-  /* ── Sheet (mobile menu) — glass Vergina ──────────────── */
+  /* ── Sheet (mobile menu) — glass Alexendros.me Design System ──────────────── */
   [data-slot="sheet-overlay"] {
-    background: color-mix(in oklch, var(--color-surface-0) 60%, transparent);
+    background: color-mix(in oklch, var(--ax-surface-0) 60%, transparent);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
 
   [data-slot="sheet-content"] {
-    background: color-mix(in oklch, var(--color-surface-100) 90%, transparent);
+    background: color-mix(in oklch, var(--ax-surface-100) 90%, transparent);
     backdrop-filter: blur(20px) saturate(140%);
     -webkit-backdrop-filter: blur(20px) saturate(140%);
-    border-color: var(--color-border-default);
+    border-color: var(--ax-border-default);
   }
 
   /* ── Footer ────────────────────────────────────────────── */
@@ -156,14 +156,14 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: var(--tap-target-min);
-    min-height: var(--tap-target-min);
+    min-width: var(--ax-tap-target);
+    min-height: var(--ax-tap-target);
     padding: 0.5rem;
-    border-radius: var(--radius-md);
+    border-radius: var(--ax-radius-md);
     color: var(--muted-foreground);
     transition:
-      color var(--duration-fast) var(--ease-smooth),
-      background-color var(--duration-fast) var(--ease-smooth);
+      color var(--ax-duration-fast) var(--ax-ease-smooth),
+      background-color var(--ax-duration-fast) var(--ax-ease-smooth);
   }
   .icon-link:hover {
     color: var(--foreground);
@@ -193,7 +193,7 @@
     pointer-events: none;
     background: radial-gradient(
       ellipse at center,
-      color-mix(in oklch, var(--color-brand-primary) 20%, transparent),
+      color-mix(in oklch, var(--ax-brand-primary) 20%, transparent),
       transparent 65%
     );
     filter: blur(48px);
@@ -218,7 +218,7 @@
     contain-intrinsic-size: auto 40rem;
 
     .legal-doc {
-      max-width: var(--measure-prose);
+      max-width: var(--ax-measure);
       font-size: var(--text-body);
       line-height: 1.7;
     }
@@ -306,7 +306,7 @@
       margin-block: 1.5rem 2.5rem;
       border-left: 3px solid var(--primary);
       background: color-mix(in oklch, var(--primary) 6%, transparent);
-      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      border-radius: 0 var(--ax-radius-md) var(--ax-radius-md) 0;
     }
     .manifiesto-lead {
       font-size: var(--text-lg);
@@ -367,7 +367,7 @@
     mask-image: linear-gradient(to right, transparent 0, #000 10%, #000 90%, transparent 100%);
   }
 
-  /* ── Atmosphere Vergina v0.2.2 (4 layers) ─────────────── */
+  /* ── Atmosphere Alexendros.me Design System v1 (4 layers) ─────────────── */
   .atm {
     position: fixed;
     inset: 0;
@@ -385,7 +385,7 @@
     border-radius: 50%;
     background: radial-gradient(
       ellipse at center,
-      color-mix(in oklch, var(--atmosphere-haze) 35%, transparent),
+      color-mix(in oklch, var(--ax-atmo-haze) 35%, transparent),
       transparent 65%
     );
     filter: blur(64px);
@@ -416,7 +416,7 @@
     height: 30%;
     background: radial-gradient(
       ellipse at center,
-      color-mix(in oklch, var(--atmosphere-velvet) 25%, transparent),
+      color-mix(in oklch, var(--ax-atmo-velvet) 25%, transparent),
       transparent 70%
     );
     filter: blur(80px);
@@ -426,19 +426,15 @@
   .atm__vignette {
     position: absolute;
     inset: 0;
-    background: radial-gradient(
-      ellipse at center,
-      transparent 40%,
-      var(--atmosphere-vignette) 100%
-    );
+    background: radial-gradient(ellipse at center, transparent 40%, var(--ax-atmo-vignette) 100%);
     pointer-events: none;
   }
 
   /* ── Mission card (Misiones section) ──────────────────── */
   .mission-card {
-    border-radius: var(--radius-xl);
+    border-radius: var(--ax-radius-xl);
     border: 1px solid var(--border);
-    background: var(--glass-bg);
+    background: var(--ax-glass-bg);
     backdrop-filter: blur(4px);
     padding: 1.25rem;
     display: flex;
@@ -458,7 +454,7 @@
     position: fixed;
     bottom: 1.5rem;
     right: 1.5rem;
-    z-index: var(--z-sticky);
+    z-index: var(--ax-z-sticky);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -470,7 +466,7 @@
     gap: 0.5rem;
     height: 2.75rem;
     padding-inline: 1rem;
-    border-radius: var(--radius-full);
+    border-radius: var(--ax-radius-full);
     border: 1px solid color-mix(in oklch, var(--primary) 30%, var(--border));
     background: color-mix(in oklch, var(--background) 85%, transparent);
     backdrop-filter: blur(12px);
@@ -480,12 +476,12 @@
     font-weight: 500;
     cursor: pointer;
     transition:
-      background-color var(--duration-fast) var(--ease-smooth),
-      border-color var(--duration-fast) var(--ease-smooth),
-      transform var(--duration-fast) var(--ease-out-expo);
+      background-color var(--ax-duration-fast) var(--ax-ease-smooth),
+      border-color var(--ax-duration-fast) var(--ax-ease-smooth),
+      transform var(--ax-duration-fast) var(--ax-ease-out-expo);
     white-space: nowrap;
-    min-width: var(--tap-target-min);
-    min-height: var(--tap-target-min);
+    min-width: var(--ax-tap-target);
+    min-height: var(--ax-tap-target);
   }
   .fab-btn:hover {
     background: color-mix(in oklch, var(--background) 95%, transparent);
@@ -494,7 +490,7 @@
   }
   .fab-btn:focus-visible {
     outline: none;
-    box-shadow: var(--ring-focus);
+    box-shadow: var(--ax-ring-focus);
   }
   .fab-btn:active {
     transform: translateY(0);
@@ -505,14 +501,14 @@
     gap: 0.75rem;
     width: 100%;
     padding: 0.625rem 0.75rem;
-    border-radius: var(--radius-md);
+    border-radius: var(--ax-radius-md);
     font-size: var(--text-small);
     color: var(--muted-foreground);
     text-decoration: none;
     transition:
-      background-color var(--duration-fast) var(--ease-smooth),
-      color var(--duration-fast) var(--ease-smooth);
-    min-height: var(--tap-target-min);
+      background-color var(--ax-duration-fast) var(--ax-ease-smooth),
+      color var(--ax-duration-fast) var(--ax-ease-smooth);
+    min-height: var(--ax-tap-target);
   }
   .fab-item:hover {
     background: color-mix(in oklch, var(--foreground) 6%, transparent);
@@ -520,8 +516,8 @@
   }
   .fab-item:focus-visible {
     outline: none;
-    box-shadow: var(--ring-focus);
-    border-radius: var(--radius-md);
+    box-shadow: var(--ax-ring-focus);
+    border-radius: var(--ax-radius-md);
   }
   .fab-item__label {
     flex: 1;
@@ -580,8 +576,8 @@
     text-underline-offset: 0.25em;
     text-decoration-color: color-mix(in oklch, var(--primary) 60%, transparent);
     transition:
-      color var(--duration-fast) var(--ease-out-expo),
-      text-decoration-color var(--duration-fast) var(--ease-out-expo);
+      color var(--ax-duration-fast) var(--ax-ease-out-expo),
+      text-decoration-color var(--ax-duration-fast) var(--ax-ease-out-expo);
   }
   .brand-link:hover {
     text-decoration-color: var(--primary);
@@ -660,13 +656,13 @@
   .nav-logo {
     display: inline-flex;
     align-items: center;
-    min-height: var(--tap-target-min);
+    min-height: var(--ax-tap-target);
     font-family: var(--font-geist-sans, ui-sans-serif, system-ui, sans-serif);
     font-size: var(--text-lg);
     font-weight: 700;
     letter-spacing: -0.025em;
     color: var(--primary);
-    transition: color var(--duration-fast) var(--ease-out-expo);
+    transition: color var(--ax-duration-fast) var(--ax-ease-out-expo);
   }
   .nav-logo:hover {
     color: var(--foreground);
@@ -713,15 +709,15 @@
   .sidebar-link {
     display: flex;
     align-items: center;
-    min-height: var(--tap-target-min);
+    min-height: var(--ax-tap-target);
     padding: 0.75rem 0.75rem;
-    border-radius: var(--radius-md);
+    border-radius: var(--ax-radius-md);
     font-size: var(--text-sm);
     font-weight: 500;
     color: var(--muted-foreground);
     transition:
-      background-color var(--duration-fast) var(--ease-out-expo),
-      color var(--duration-fast) var(--ease-out-expo);
+      background-color var(--ax-duration-fast) var(--ax-ease-out-expo),
+      color var(--ax-duration-fast) var(--ax-ease-out-expo);
   }
   .sidebar-link:hover {
     background: color-mix(in oklch, var(--foreground) 6%, transparent);
@@ -736,12 +732,12 @@
   .footer-link {
     display: inline-flex;
     align-items: center;
-    min-height: var(--tap-target-min);
+    min-height: var(--ax-tap-target);
     font-size: var(--text-sm);
     color: var(--muted-foreground);
     transition:
-      color var(--duration-fast) var(--ease-out-expo),
-      background-color var(--duration-fast) var(--ease-out-expo);
+      color var(--ax-duration-fast) var(--ax-ease-out-expo),
+      background-color var(--ax-duration-fast) var(--ax-ease-out-expo);
   }
   .footer-link:hover {
     color: var(--foreground);
@@ -791,7 +787,7 @@
     font-size: var(--text-2xl);
     line-height: 1.25;
     letter-spacing: -0.022em;
-    transition: color var(--duration-fast) var(--ease-out-expo);
+    transition: color var(--ax-duration-fast) var(--ax-ease-out-expo);
   }
   .article-item__desc {
     font-size: var(--text-base);
@@ -833,7 +829,7 @@
   .error-block {
     margin-top: 1.5rem;
     overflow-x: auto;
-    border-radius: var(--radius-md);
+    border-radius: var(--ax-radius-md);
     border: 1px solid var(--border);
     background: var(--muted);
     padding: 1rem;
@@ -936,14 +932,14 @@
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    border-radius: var(--radius-md);
+    border-radius: var(--ax-radius-md);
     padding: 0.25rem 0.5rem;
     color: var(--foreground);
-    transition: color var(--duration-fast) var(--ease-out-expo);
+    transition: color var(--ax-duration-fast) var(--ax-ease-out-expo);
   }
   .marquee-item:focus-visible {
     outline: none;
-    box-shadow: var(--ring-focus);
+    box-shadow: var(--ax-ring-focus);
   }
 
   .marquee-logo-wrap {
@@ -958,7 +954,7 @@
     position: relative;
     height: 2.75rem;
     width: 2.75rem;
-    transition: transform var(--duration-base) var(--ease-out-expo);
+    transition: transform var(--ax-duration-base) var(--ax-ease-out-expo);
   }
   .marquee-item:hover .marquee-logo-img {
     transform: scale(1.1);
@@ -970,7 +966,7 @@
     border-radius: 9999px;
     opacity: 0.4;
     filter: blur(16px);
-    transition: opacity var(--duration-base) var(--ease-out-expo);
+    transition: opacity var(--ax-duration-base) var(--ax-ease-out-expo);
     pointer-events: none;
   }
   .marquee-item:hover .marquee-logo-glow {
@@ -982,7 +978,7 @@
     font-weight: 500;
     letter-spacing: 0.05em;
     color: var(--muted-foreground);
-    transition: color var(--duration-fast) var(--ease-out-expo);
+    transition: color var(--ax-duration-fast) var(--ax-ease-out-expo);
   }
   .marquee-item:hover .marquee-logo-label {
     color: var(--foreground);
@@ -1075,8 +1071,8 @@
     text-underline-offset: 0.25em;
     text-decoration-color: color-mix(in oklch, var(--primary) 60%, transparent);
     transition:
-      color var(--duration-fast) var(--ease-out-expo),
-      text-decoration-color var(--duration-fast) var(--ease-out-expo);
+      color var(--ax-duration-fast) var(--ax-ease-out-expo),
+      text-decoration-color var(--ax-duration-fast) var(--ax-ease-out-expo);
   }
   .back-link:hover {
     color: var(--foreground);
@@ -1096,23 +1092,23 @@
 
   /* ── Hero: firma shimmer ─────────────────────────── */
   .hero-signature--shimmer {
-    background: var(--accent-shimmer);
+    background: var(--ax-accent-shimmer);
     background-size: 100% 200%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    animation: hero-shimmer 6s var(--ease-in-out) infinite alternate;
+    animation: hero-shimmer 6s var(--ax-ease-in-out) infinite alternate;
   }
 
   /* Motion: nav link underline + FAB con spring */
   .site-nav__link::after {
-    transition: transform var(--duration-base) var(--ease-spring);
+    transition: transform var(--ax-duration-base) var(--ax-ease-spring);
   }
   .fab-btn {
     transition:
-      background-color var(--duration-fast) var(--ease-out-expo),
-      border-color var(--duration-fast) var(--ease-out-expo),
-      transform var(--duration-base) var(--ease-spring);
+      background-color var(--ax-duration-fast) var(--ax-ease-out-expo),
+      border-color var(--ax-duration-fast) var(--ax-ease-out-expo),
+      transform var(--ax-duration-base) var(--ax-ease-spring);
   }
 }
 

@@ -1,5 +1,5 @@
 /* base.css — global element resets & document-level defaults.
-   Aesthetic VAP: dark-first, sepia-bronce cálido, glow Vergina sutil.
+   Aesthetic axds: dark-first, sepia-bronce cálido, glow Alexendros.me Design System sutil.
    Nothing here is component-specific; component styling lives in components.css. */
 
 @layer base {
@@ -23,7 +23,7 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* Ambient backdrop glow — halo dorado Vergina, un solo glow por viewport.
+  /* Ambient backdrop glow — halo dorado Alexendros.me Design System, un solo glow por viewport.
      Radial muy sutil, diagonal descendente desde la esquina superior izquierda. */
   body::before {
     content: "";
@@ -34,26 +34,26 @@
     background:
       radial-gradient(
         ellipse 60% 50% at 20% 0%,
-        color-mix(in oklch, var(--color-brand-primary) 12%, transparent),
+        color-mix(in oklch, var(--ax-brand-primary) 12%, transparent),
         transparent 60%
       ),
       radial-gradient(
         ellipse 55% 45% at 85% 100%,
-        color-mix(in oklch, var(--color-brand-accent) 8%, transparent),
+        color-mix(in oklch, var(--ax-brand-accent) 8%, transparent),
         transparent 60%
       );
   }
 
   ::selection {
-    background: color-mix(in oklch, var(--color-brand-primary) 35%, transparent);
-    color: var(--color-text-primary);
+    background: color-mix(in oklch, var(--ax-brand-primary) 35%, transparent);
+    color: var(--ax-text-primary);
   }
 
-  /* Focus ring VAP — 2px brand + 2px offset surface-0. Solo :focus-visible. */
+  /* Focus ring axds — 2px brand + 2px offset surface-0. Solo :focus-visible. */
   :focus-visible {
     outline: none;
-    box-shadow: var(--ring-focus);
-    border-radius: var(--radius-sm);
+    box-shadow: var(--ax-ring-focus);
+    border-radius: var(--ax-radius-sm);
   }
 
   /* Grain noise sutil — textura de pergamino, no ruido digital */

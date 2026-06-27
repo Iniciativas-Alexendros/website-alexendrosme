@@ -4,11 +4,11 @@ import { Slot } from "radix-ui";
 
 import { cn } from "@/lib/utils";
 
-/* Badge · Patrón VAP §9.3 + estados semánticos.
+/* Badge · Patrón axds §9.3 + estados semánticos.
    Sin hover por opacidad; tokens semánticos para success/warning/error/info. */
 
 const badgeVariants = cva(
-  "group/badge inline-flex h-5 w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium whitespace-nowrap [transition:background-color_var(--duration-fast)_var(--ease-out-expo),color_var(--duration-fast)_var(--ease-out-expo),border-color_var(--duration-fast)_var(--ease-out-expo)] focus-visible:[box-shadow:var(--ring-focus)] has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 aria-invalid:border-destructive [&>svg]:pointer-events-none [&>svg]:size-3!",
+  "group/badge inline-flex h-5 w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium whitespace-nowrap [transition:background-color_var(--ax-duration-fast)_var(--ax-ease-out-expo),color_var(--ax-duration-fast)_var(--ax-ease-out-expo),border-color_var(--ax-duration-fast)_var(--ax-ease-out-expo)] focus-visible:[box-shadow:var(--ax-ring-focus)] has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 aria-invalid:border-destructive [&>svg]:pointer-events-none [&>svg]:size-3!",
   {
     variants: {
       variant: {
@@ -17,12 +17,12 @@ const badgeVariants = cva(
         outline: "border-border text-foreground [a]:hover:bg-muted",
         ghost: "text-muted-foreground [a]:hover:bg-muted [a]:hover:text-foreground",
         success:
-          "[background:var(--color-success-bg)] [color:var(--color-success-fg)] [border-color:var(--color-success-border)]",
+          "[background:var(--ax-success-bg)] [color:var(--ax-success-fg)] [border-color:var(--ax-success-border)]",
         warning:
-          "[background:var(--color-warning-bg)] [color:var(--color-warning-fg)] [border-color:var(--color-warning-border)]",
+          "[background:var(--ax-warning-bg)] [color:var(--ax-warning-fg)] [border-color:var(--ax-warning-border)]",
         destructive:
-          "[background:var(--color-error-bg)] [color:var(--color-error-fg)] [border-color:var(--color-error-border)]",
-        info: "[background:var(--color-info-bg)] [color:var(--color-info-fg)] [border-color:var(--color-info-border)]",
+          "[background:var(--ax-error-bg)] [color:var(--ax-error-fg)] [border-color:var(--ax-error-border)]",
+        info: "[background:var(--ax-info-bg)] [color:var(--ax-info-fg)] [border-color:var(--ax-info-border)]",
         link: "text-primary underline-offset-4 hover:underline",
       },
     },

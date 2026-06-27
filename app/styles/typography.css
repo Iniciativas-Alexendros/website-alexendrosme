@@ -1,9 +1,9 @@
-/* typography.css — escala fluid VAP + identity classes + clases ds-*
+/* typography.css — escala fluid axds + identity classes + clases ds-*
    Jerarquía por tamaño + peso + color. Nunca underline ni italic para jerarquía.
    Tracking: negativo en display/heading, cero en small/mono. */
 
 @theme {
-  /* Escala fluid VAP (patrón §4). Clamp(min, preferred, max), sin media queries. */
+  /* Escala fluid axds (patrón §4). Clamp(min, preferred, max), sin media queries. */
   --text-xs: clamp(0.8rem, 0.77rem + 0.12vw, 0.813rem);
   --text-sm: clamp(0.813rem, 0.79rem + 0.14vw, 0.875rem);
   --text-base: clamp(0.938rem, 0.9rem + 0.18vw, 1rem);
@@ -51,7 +51,7 @@
 }
 
 @layer components {
-  /* ── Identity classes (VAP §4.3) ─────────────────────────────────────── */
+  /* ── Identity classes (axds §4.3) ─────────────────────────────────────── */
   .ds-display,
   .display {
     font-family: var(--font-sans);
@@ -104,7 +104,7 @@
     font-size: var(--text-base);
     line-height: 1.6;
     color: var(--muted-foreground);
-    max-width: var(--measure-prose);
+    max-width: var(--ax-measure);
   }
 
   .ds-body-sm {

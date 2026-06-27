@@ -4,15 +4,15 @@ import { Slot } from "radix-ui";
 
 import { cn } from "@/lib/utils";
 
-/* Button · Patrón VAP §8.2
+/* Button · Patrón axds §8.2
    - Hover: shift de luminosidad vía color-mix (nunca opacidad)
    - Press: shift oscuro + translateY(1px) en icon-only
    - Focus-visible: outline 2px brand + 2px offset surface-0
-   - Radius: --radius-md
-   - Transitions: --duration-fast --ease-out-expo */
+   - Radius: --ax-radius-md
+   - Transitions: --ax-duration-fast --ax-ease-out-expo */
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-md border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap outline-none select-none [transition:background-color_var(--duration-fast)_var(--ease-out-expo),color_var(--duration-fast)_var(--ease-out-expo),border-color_var(--duration-fast)_var(--ease-out-expo)] focus-visible:[box-shadow:var(--ring-focus)] disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button inline-flex shrink-0 items-center justify-center rounded-md border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap outline-none select-none [transition:background-color_var(--ax-duration-fast)_var(--ax-ease-out-expo),color_var(--ax-duration-fast)_var(--ax-ease-out-expo),border-color_var(--ax-duration-fast)_var(--ax-ease-out-expo)] focus-visible:[box-shadow:var(--ax-ring-focus)] disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
@@ -31,14 +31,14 @@ const buttonVariants = cva(
       size: {
         default:
           "h-11 gap-1.5 px-4 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3",
-        xs: "h-6 gap-1 rounded-[min(var(--radius-md),8px)] px-2 text-xs in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-8 gap-1 rounded-[min(var(--radius-md),10px)] px-2.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5",
+        xs: "h-6 gap-1 rounded-[min(var(--ax-radius-md),8px)] px-2 text-xs in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
+        sm: "h-8 gap-1 rounded-[min(var(--ax-radius-md),10px)] px-2.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5",
         lg: "h-10 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
         icon: "size-11 active:translate-y-px",
         "icon-xs":
-          "size-6 rounded-[min(var(--radius-md),8px)] in-data-[slot=button-group]:rounded-md [&_svg:not([class*='size-'])]:size-3 active:translate-y-px",
+          "size-6 rounded-[min(var(--ax-radius-md),8px)] in-data-[slot=button-group]:rounded-md [&_svg:not([class*='size-'])]:size-3 active:translate-y-px",
         "icon-sm":
-          "size-8 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-md active:translate-y-px",
+          "size-8 rounded-[min(var(--ax-radius-md),10px)] in-data-[slot=button-group]:rounded-md active:translate-y-px",
         "icon-lg": "size-10 active:translate-y-px",
         touch:
           "h-11 gap-1.5 px-4 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3",

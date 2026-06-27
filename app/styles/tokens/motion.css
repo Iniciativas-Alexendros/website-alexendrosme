@@ -1,20 +1,20 @@
-/* motion.css — Vergina Imperial v0.2.2 · Durations + Easings + Keyframes */
+/* motion.css — Alexendros.me Design System v1 · Durations + Easings + Keyframes */
 
 :root {
   /* =====================================================================
      1. MOTION — 5 durations + easings custom (nunca ease-in-out nativo)
      ===================================================================== */
-  --duration-instant: 80ms;
-  --duration-fast: 120ms;
-  --duration-base: 180ms;
-  --duration-slow: 240ms;
-  --duration-slower: 400ms;
+  --ax-duration-instant: 80ms;
+  --ax-duration-fast: 120ms;
+  --ax-duration-base: 180ms;
+  --ax-duration-slow: 240ms;
+  --ax-duration-slower: 400ms;
 
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
-  --ease-in-quart: cubic-bezier(0.5, 0, 0.75, 0);
-  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --ease-spring: linear(
+  --ax-ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ax-ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ax-ease-in-quart: cubic-bezier(0.5, 0, 0.75, 0);
+  --ax-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ax-ease-spring: linear(
     0,
     0.009,
     0.035 2.1%,
@@ -37,7 +37,7 @@
   );
 
   /* Alias legados apuntando a los canónicos — no romper components.css */
-  --ease-smooth: var(--ease-out-expo);
+  --ax-ease-smooth: var(--ax-ease-out-expo);
 }
 
 /* =====================================================================

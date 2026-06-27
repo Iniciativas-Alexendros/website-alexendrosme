@@ -59,5 +59,5 @@ Convenciones para el código y la documentación.
 - Imperativo en READMEs (`Instala`, `Configura`).
 - Primera persona plural en `CONTRIBUTING.md`.
 - Tercera persona objetiva en `ARCHITECTURE.md` y `SECURITY.md`.
-- Marcas (Vergina Imperial, Iniciativas-Alexendros, Apsys) tratadas como
+- Marcas (Alexendros.me Design System, Alexendros.me, Apsys) tratadas como
   nombres propios.
