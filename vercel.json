@@ -1,4 +1,6 @@
 {
+  "installCommand": "npm install",
+  "buildCommand": "npm run build",
   "redirects": [
     { "source": "/autobiografia", "destination": "/#biografia", "permanent": true },
     { "source": "/proyectos", "destination": "/#misiones", "permanent": true },
