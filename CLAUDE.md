@@ -25,17 +25,17 @@ package_manager: pnpm@10+
 
 ## 3. STACK
 
-| Capa      | Tecnologia                                                                                                                       |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| Framework | Next.js 16 App Router · React 19 · TypeScript strict                                                                             |
-| UI        | Tailwind CSS v4 CSS-first · shadcn/ui (inline en `components/ui/`)                                                               |
-| Tokens    | Design system **Vergina Imperial v0.2.2** · oklch dark-first · modular en `app/styles/*.css` (`globals.css` = índice de imports) |
-| Fonts     | Geist Sans + Mono (locales en `public/fonts/`) · **Inter** (next/font/google) para hero `h1.display`                             |
-| Headers   | Security headers via `vercel.json` (CSP strict, HSTS preload, X-Frame-Options DENY)                                              |
-| Build     | `next build` con static export a `out/`                                                                                          |
-| Deploy    | Vercel (region mad1) — **en producción** (apex + www)                                                                            |
-| Calidad   | ESLint flat + Prettier 3 + depcheck + ts-prune · TS `noUncheckedIndexedAccess`                                                   |
-| Pair dev  | [Claude Code](https://claude.com/claude-code) — asistente CLI / VS Code del autor                                                |
+| Capa      | Tecnologia                                                                                                                              |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| Framework | Next.js 16 App Router · React 19 · TypeScript strict                                                                                    |
+| UI        | Tailwind CSS v4 CSS-first · shadcn/ui (inline en `components/ui/`)                                                                      |
+| Tokens    | Design system **Alexendros.me Design System v1** · oklch dark-first · modular en `app/styles/*.css` (`globals.css` = índice de imports) |
+| Fonts     | Geist Sans + Mono (locales en `public/fonts/`) · **Inter** (next/font/google) para hero `h1.display`                                    |
+| Headers   | Security headers via `vercel.json` (CSP strict, HSTS preload, X-Frame-Options DENY)                                                     |
+| Build     | `next build` con static export a `out/`                                                                                                 |
+| Deploy    | Vercel (region mad1) — **en producción** (apex + www)                                                                                   |
+| Calidad   | ESLint flat + Prettier 3 + depcheck + ts-prune · TS `noUncheckedIndexedAccess`                                                          |
+| Pair dev  | [Claude Code](https://claude.com/claude-code) — asistente CLI / VS Code del autor                                                       |
 
 ## 4. REGLAS ABSOLUTAS
 
@@ -57,7 +57,7 @@ package_manager: pnpm@10+
 - Helper `cn()` en `lib/utils.ts`.
 - Iconos: `lucide-react` unicamente.
 - Dark-first por defecto (`className="dark"` en `<html>`).
-- Colores SOLO via CSS vars del design system **Vergina Imperial** (definidas en `app/styles/tokens.css`). No hardcodear oklch en componentes.
+- Colores SOLO via CSS vars del design system **Alexendros.me Design System** (definidas en `app/styles/tokens.css`). No hardcodear oklch en componentes.
 
 ### SEO & Rendimiento
 

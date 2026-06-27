@@ -47,7 +47,7 @@ Lista viva de pendientes del repositorio standalone `alexendros-me`.
 - [ ] Link real al hub `alexendros.dev` cuando esté deployado (bloqueado externo).
 - [x] Microanimaciones en hero con `tw-animate-css` (2026-06-13): entrada `animate-in fade-in slide-in-from-bottom`, motion-safe.
 - [x] **StackMarquee integrado** (2026-06-13): banda "Mi caja de herramientas" entre Misiones y Experiencias (antes huérfano).
-- [x] **Subida visual** (2026-06-13, rama feat/visual-craft): shimmer oro en hero, biografía en tarjetas glass, micro-interacciones con `--ease-spring`. Dentro de Vergina Imperial, reduced-motion intacto.
+- [x] **Subida visual** (2026-06-13, rama feat/visual-craft): shimmer oro en hero, biografía en tarjetas glass, micro-interacciones con `--ease-spring`. Dentro de Alexendros.me Design System, reduced-motion intacto.
 
 ## 6. Higiene del repo ✅ (2026-04-12)
 

@@ -32,9 +32,9 @@ export function ParticleBg() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     const styles = getComputedStyle(document.documentElement);
-    // Fallbacks alineados a Patrón VAP gama Vergina (oro + ámbar profundo).
+    // Fallbacks alineados a Patrón axds gama Alexendros.me Design System (oro + ámbar profundo).
     const primary: string = styles.getPropertyValue("--primary").trim() || "oklch(0.80 0.16 85)";
-    const accent: string = styles.getPropertyValue("--accent").trim() || "oklch(0.66 0.14 65)";
+    const accent: string = styles.getPropertyValue("--ax-accent").trim() || "oklch(0.66 0.14 65)";
 
     let particles: Particle[] = [];
     let raf = 0;

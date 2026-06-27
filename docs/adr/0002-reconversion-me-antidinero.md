@@ -2,7 +2,7 @@
 
 - Estado: proposed
 - Fecha: 2026-06-07
-- Decisores: Alejandro · Iniciativas Alexendros
+- Decisores: Alexendros
 - Etiquetas: arquitectura, contenido, identidad
 
 > **Actualización 2026-06-15**: el dominio comercial de referencia pasó de
