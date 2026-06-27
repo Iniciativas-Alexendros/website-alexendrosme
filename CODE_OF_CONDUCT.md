@@ -3,7 +3,7 @@
 ## Nuestro compromiso
 
 Como participantes, contribuyentes y mantenedores nos comprometemos a hacer
-de la participación en mi-website-personal y en su comunidad una experiencia
+de la participación en website-alexendrosme y en su comunidad una experiencia
 libre de acoso para todas las personas, con independencia de la edad, la
 complexión, la discapacidad visible o invisible, el origen étnico, las
 características sexuales, la identidad y expresión de género, el nivel

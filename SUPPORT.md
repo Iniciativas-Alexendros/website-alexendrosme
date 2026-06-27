@@ -1,4 +1,4 @@
-# Soporte para mi-website-personal
+# Soporte para website-alexendrosme
 
 Antes de abrir un issue revisa estas vías:
 
@@ -11,7 +11,7 @@ Antes de abrir un issue revisa estas vías:
 ## 2. Issues
 
 Para preguntas y conversaciones de uso utiliza la sección
-[Issues del repositorio](https://github.com/Alexendros/mi-website-personal/issues)
+[Issues del repositorio](https://github.com/Alexendros/website-alexendrosme/issues)
 (plantillas en `.github/ISSUE_TEMPLATE/`).
 
 ## 3. Issues

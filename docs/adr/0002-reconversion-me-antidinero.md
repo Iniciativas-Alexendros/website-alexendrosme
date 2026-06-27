@@ -113,5 +113,5 @@ Ejecución por fases (detalle en `docs/reconversion-me.md`):
 ## Más información
 
 - Plan operativo: [`docs/reconversion-me.md`](../reconversion-me.md).
-- PR de la fase 1: Alexendros/mi-website-personal#54.
+- PR de la fase 1: Alexendros/website-alexendrosme#54.
 - Convención: `CONTRIBUTING.md` §14-15 (ADR/MADR para decisiones de arquitectura).

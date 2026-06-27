@@ -1,4 +1,4 @@
-# Cómo contribuir a mi-website-personal
+# Cómo contribuir a website-alexendrosme
 
 Gracias por interesarte en el proyecto. En este documento describimos cómo
 trabajamos para mantener el código limpio, las decisiones trazables y las
@@ -26,8 +26,8 @@ Usamos las siguientes herramientas:
 Pasos típicos:
 
 ```bash
-git clone git@github.com:Alexendros/mi-website-personal.git
-cd mi-website-personal
+git clone git@github.com:Alexendros/website-alexendrosme.git
+cd website-alexendrosme
 pnpm install
 pnpm test
 ```

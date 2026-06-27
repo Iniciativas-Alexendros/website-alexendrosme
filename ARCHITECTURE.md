@@ -1,4 +1,4 @@
-# Arquitectura de mi-website-personal
+# Arquitectura de website-alexendrosme
 
 Documento de "cómo y por qué". Describe la forma del sistema, las
 decisiones cardinales y los puntos de extensión. Para el "qué", revisa el

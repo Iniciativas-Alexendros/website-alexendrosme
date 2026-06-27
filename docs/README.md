@@ -1,4 +1,4 @@
-# Documentación de mi-website-personal
+# Documentación de website-alexendrosme
 
 Esta carpeta agrupa la documentación del proyecto. Encontrarás:
 

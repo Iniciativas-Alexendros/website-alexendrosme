@@ -1,4 +1,4 @@
-# Guía de estilo de mi-website-personal
+# Guía de estilo de website-alexendrosme
 
 Convenciones para el código y la documentación.
 

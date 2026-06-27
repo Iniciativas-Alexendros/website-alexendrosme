@@ -1,4 +1,4 @@
-# Procedimiento de release de mi-website-personal
+# Procedimiento de release de website-alexendrosme
 
 Las releases siguen [SemVer 2.0.0](https://semver.org/lang/es/) y se
 publican a través de tags firmados.
