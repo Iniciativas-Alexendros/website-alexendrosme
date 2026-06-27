@@ -66,11 +66,36 @@ y este proyecto se adhiere a [SemVer 2.0.0](https://semver.org/lang/es/).
 
 - (pendiente)
 
+## [0.2.0] - 2026-06-27
+
+### Added
+
+- Design system completo con 75+ tokens CSS con prefijo `--ax-*`
+- `DESIGN.md` con documentación YAML frontmatter + markdown del sistema de diseño
+- Tokens: colores (5 semánticos + 3 neutrales + accent), motion (3 durations + 3 easings), spacing (radius, z-index, layout)
+- Triple cadena de aliases: `--ax-accent` → `--ax-brand-primary` → `--primary` (shadcn)
+- DOCUMENTATION.md: guía de uso de tokens en componentes
+
+### Changed
+
+- Migración completa de tokens `--*` a `--ax-*` en 27 archivos (256 ocurrencias)
+- `package.json`: name → `website-alexendrosme`, version → `0.2.0`, license → MIT
+- CI workflow: pnpm → npm (pnpm incompatible con entorno)
+- Repo renombrado: `mi-website-personal` → `website-alexendrosme`
+- 22 referencias actualizadas en 16 archivos de documentación
+
+### Fixed
+
+- `gray-matter` build crash: pin `js-yaml@~3.14.1` (v5.x eliminó `safeLoad`)
+- npm override para resolver vulnerabilidad moderada en postcss
+
 ## [0.1.0] — 2026-MM-DD
 
 ### Añadido
 
 - Versión inicial del repositorio con canon de documentación aplicado.
 
-[Sin publicar]: https://github.com/Alexendros/website-alexendrosme/compare/v0.1.0...HEAD
+[Sin publicar]: https://github.com/Alexendros/website-alexendrosme/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/Alexendros/website-alexendrosme/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/Alexendros/website-alexendrosme/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/Alexendros/website-alexendrosme/releases/tag/v0.1.0
