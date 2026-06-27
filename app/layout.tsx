@@ -24,7 +24,7 @@ const geistMono = localFont({
   preload: false,
 });
 
-// Vergina Imperial v0.2.2 · Inter weight 700/800 para hero h1.display.
+// Alexendros.me Design System v1 · Inter weight 700/800 para hero h1.display.
 // Inter aprobado en otro hilo como reemplazo definitivo de la familia
 // neogrotesque (Outfit/Bricolage/Manrope descatalogados). Geist sigue
 // como sans body (doctrina alexendros.me CLAUDE.md §3).

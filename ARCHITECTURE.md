@@ -30,8 +30,7 @@ flowchart LR
 
 ### `components/`
 
-- Componentes de presentación que consumen el design system Vergina
-  Imperial v0.2.0.
+- Componentes de presentación que consumen el design system Alexendros.me Design System.
 - Iconografía: Lucide. Las atmósferas se controlan con `data-mode` y
   `data-accent`.
 
@@ -47,7 +46,7 @@ flowchart LR
 
 - **Next.js App Router** por SSR/Static Generation híbrido y RSC nativo.
 - **Tailwind v4 + tokens OKLCH** para una atmósfera consistente con
-  Vergina Imperial.
+  Alexendros.me Design System.
 - **Vercel** por la integración nativa con Next.js y previews por PR.
 - **Hostinger** para DNS por consolidar en un único proveedor el dominio,
   los nameservers y la facturación.
@@ -57,7 +56,7 @@ Detalles individuales en `docs/adr/`.
 ## Puntos de extensión
 
 - Nuevas rutas: añadir bajo `app/` siguiendo el patrón existente.
-- Componentes Vergina Imperial: importar desde el design system en lugar
+- Componentes Alexendros.me Design System: importar desde el design system en lugar
   de duplicar.
 - Telemetría: si se activa Sentry, configurar en `instrumentation.ts`.
 

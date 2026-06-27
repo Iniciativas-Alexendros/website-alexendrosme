@@ -1,4 +1,4 @@
-/* index.css — Vergina Imperial v0.2.2 · Entry point
+/* index.css — Alexendros.me Design System v1 · Entry point
    Re-exporta todos los tokens atómicos + capa semántica shadcn + @theme inline. */
 
 @import "./colors.css";
@@ -6,35 +6,35 @@
 @import "./motion.css";
 
 /* ===========================================================================
-   CAPA DE CONSUMO SEMÁNTICO shadcn → apunta a tokens canónicos Vergina Imperial.
+   CAPA DE CONSUMO SEMÁNTICO shadcn → apunta a tokens canónicos Alexendros.me Design System.
    Permite que components/ui/* y clases Tailwind (bg-card, text-foreground)
    mantengan su API sin conocer los nombres internos.
    =========================================================================== */
 :root {
-  --background: var(--color-surface-0);
-  --foreground: var(--color-text-primary);
-  --card: var(--color-surface-100);
-  --card-foreground: var(--color-text-primary);
-  --popover: var(--color-surface-200);
-  --popover-foreground: var(--color-text-primary);
-  --primary: var(--color-brand-primary);
-  --primary-foreground: var(--color-brand-primary-fg);
-  --secondary: var(--color-surface-300);
-  --secondary-foreground: var(--color-text-primary);
-  --muted: var(--color-surface-200);
-  --muted-foreground: var(--color-text-tertiary);
-  --accent-shadcn: var(--color-brand-accent);
-  --accent-foreground: var(--color-brand-accent-fg);
-  --destructive: var(--color-error-fg);
-  --destructive-foreground: var(--color-text-primary);
-  --border: var(--color-border-default);
-  --input: var(--color-border-default);
-  --ring: var(--color-brand-primary);
+  --background: var(--ax-surface-0);
+  --foreground: var(--ax-text-primary);
+  --card: var(--ax-surface-100);
+  --card-foreground: var(--ax-text-primary);
+  --popover: var(--ax-surface-200);
+  --popover-foreground: var(--ax-text-primary);
+  --primary: var(--ax-brand-primary);
+  --primary-foreground: var(--ax-brand-primary-fg);
+  --secondary: var(--ax-surface-300);
+  --secondary-foreground: var(--ax-text-primary);
+  --muted: var(--ax-surface-200);
+  --muted-foreground: var(--ax-text-tertiary);
+  --accent-shadcn: var(--ax-brand-accent);
+  --accent-foreground: var(--ax-brand-accent-fg);
+  --destructive: var(--ax-error-fg);
+  --destructive-foreground: var(--ax-text-primary);
+  --border: var(--ax-border-default);
+  --input: var(--ax-border-default);
+  --ring: var(--ax-brand-primary);
 }
 
 /* ===========================================================================
    @theme inline — expone tokens al generador de Tailwind v4.
-   Incluye tanto la nomenclatura canónica Vergina Imperial (bg-surface-100,
+   Incluye tanto la nomenclatura canónica Alexendros.me Design System (bg-surface-100,
    text-text-primary) como la semántica shadcn (bg-card, text-foreground).
    =========================================================================== */
 @theme inline {
@@ -60,10 +60,10 @@
   --color-ring: var(--ring);
 
   /* Radii */
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --ax-radius-sm: calc(var(--radius) - 4px);
+  --ax-radius-md: calc(var(--radius) - 2px);
+  --ax-radius-lg: var(--radius);
+  --ax-radius-xl: calc(var(--radius) + 4px);
 
   /* Fonts — consumidos por next/font vía --font-geist-sans + --font-display (Inter v0.2.2) */
   --font-sans: var(--font-geist-sans);
@@ -73,14 +73,14 @@
   /* Keyframes para Tailwind v4 animate-* utilities */
   --animate-marquee: marquee 40s linear infinite;
   --animate-atm-drift: atm-drift 18s ease-in-out infinite alternate;
-  --animate-pulse-dot: pulse-dot 2s var(--ease-smooth) infinite;
-  --animate-hero-shimmer: hero-shimmer 6s var(--ease-in-out) infinite alternate;
-  --animate-accordion-down: accordion-down var(--duration-base) var(--ease-out-expo);
-  --animate-accordion-up: accordion-up var(--duration-base) var(--ease-out-expo);
+  --animate-pulse-dot: pulse-dot 2s var(--ax-ease-smooth) infinite;
+  --animate-hero-shimmer: hero-shimmer 6s var(--ax-ease-in-out) infinite alternate;
+  --animate-accordion-down: accordion-down var(--ax-duration-base) var(--ax-ease-out-expo);
+  --animate-accordion-up: accordion-up var(--ax-duration-base) var(--ax-ease-out-expo);
 }
 
 /* =====================================================================
-   H1 hero · doctrina Vergina Imperial v0.2.2 · fade vertical color→semi-transparente.
+   H1 hero · doctrina Alexendros.me Design System v1 · fade vertical color→semi-transparente.
    Sólido hasta 55%, transición al 80%, baseline 35% al 100% — NUNCA fade total.
    ===================================================================== */
 h1.display,
@@ -92,14 +92,14 @@ h1.display,
   text-wrap: balance;
   background: linear-gradient(
     180deg,
-    var(--color-text-primary) 0%,
-    var(--color-text-primary) 55%,
-    color-mix(in oklch, var(--color-text-primary) 78%, transparent) 80%,
-    color-mix(in oklch, var(--color-text-primary) 35%, transparent) 100%
+    var(--ax-text-primary) 0%,
+    var(--ax-text-primary) 55%,
+    color-mix(in oklch, var(--ax-text-primary) 78%, transparent) 80%,
+    color-mix(in oklch, var(--ax-text-primary) 35%, transparent) 100%
   );
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 36px color-mix(in oklch, var(--accent) 18%, transparent));
+  filter: drop-shadow(0 0 36px color-mix(in oklch, var(--ax-accent) 18%, transparent));
 }

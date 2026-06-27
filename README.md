@@ -113,10 +113,10 @@ libre de la lógica del dinero. Plan completo en
 
 ## Licencia
 
-Pendiente de decisión formal. El código fuente del sitio y su contenido textual
-se publicarán bajo una licencia abierta (previsiblemente Creative Commons).
-Mientras tanto: puedes leer, inspeccionar y aprender de este código. Si lo
-reutilizas, cita la fuente.
+Todos los derechos reservados. Copyright (c) 2026 Alejandro Domingo Agustí.
+
+Puedes leer, inspeccionar y aprender de este código. Para cualquier otro uso
+(contacto@alexendros.me).
 
 ## Contacto
 

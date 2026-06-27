@@ -1,16 +1,16 @@
-/* spacing.css — Vergina Imperial v0.2.2 · Radii, Z-index, Layout & A11y */
+/* spacing.css — Alexendros.me Design System v1 · Radii, Z-index, Layout & A11y */
 
 :root {
   /* =====================================================================
      1. RADII
      ===================================================================== */
-  --radius-xs: 4px;
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 24px;
-  --radius-full: 9999px;
+  --ax-radius-xs: 4px;
+  --ax-radius-sm: 6px;
+  --ax-radius-md: 8px;
+  --ax-radius-lg: 12px;
+  --ax-radius-xl: 16px;
+  --ax-radius-2xl: 24px;
+  --ax-radius-full: 9999px;
 
   /* Alias shadcn consume --radius */
   --radius: 0.5rem;
@@ -18,21 +18,21 @@
   /* =====================================================================
      2. Z-INDEX semántico
      ===================================================================== */
-  --z-base: 0;
-  --z-dropdown: 1000;
-  --z-sticky: 1100;
-  --z-overlay: 1200;
-  --z-modal: 1300;
-  --z-popover: 1400;
-  --z-toast: 1500;
-  --z-tooltip: 1600;
+  --ax-z-base: 0;
+  --ax-z-dropdown: 1000;
+  --ax-z-sticky: 1100;
+  --ax-z-overlay: 1200;
+  --ax-z-modal: 1300;
+  --ax-z-popover: 1400;
+  --ax-z-toast: 1500;
+  --ax-z-tooltip: 1600;
 
   /* =====================================================================
      3. LAYOUT & A11Y
      ===================================================================== */
-  --tap-target-min: 2.75rem; /* 44px — WCAG 2.1 AA */
-  --measure-prose: 65ch;
-  --safe-inset-x: max(1rem, env(safe-area-inset-left));
+  --ax-tap-target: 2.75rem; /* 44px — WCAG 2.1 AA */
+  --ax-measure: 65ch;
+  --ax-safe-inset: max(1rem, env(safe-area-inset-left));
 
   color-scheme: dark;
 }
