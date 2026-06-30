@@ -23,7 +23,7 @@ export default defineConfig({
     { name: "desktop", use: { viewport: { width: 1440, height: 900 } } },
   ],
   webServer: {
-    command: "pnpm build && python3 -m http.server 3000 -d out",
+    command: "npm run build && python3 -m http.server 3000 -d out",
     url: "http://localhost:3000",
     reuseExistingServer: !process.env["CI"],
     timeout: 120_000,
