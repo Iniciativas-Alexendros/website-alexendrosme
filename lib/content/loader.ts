@@ -1,7 +1,49 @@
 import fs from "fs/promises";
 import path from "path";
-import matter from "gray-matter";
 import { FrontmatterSchema, type ContentItem, type CollectionType } from "./types";
+
+const FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---\r?\n/;
+
+function parseFrontmatter(raw: string): {
+  attributes: Record<string, unknown>;
+  body: string;
+} {
+  const match = raw.match(FRONTMATTER_RE);
+  if (!match) return { attributes: {}, body: raw };
+
+  const yamlBlock = match[1] ?? "";
+  const body = raw.slice(match[0].length);
+  const attributes: Record<string, unknown> = {};
+  let currentKey = "";
+
+  for (const line of yamlBlock.split("\n")) {
+    const kvMatch = line.match(/^(\w[\w-]*):\s*(.*)/);
+    if (kvMatch) {
+      currentKey = kvMatch[1] ?? "";
+      const val = (kvMatch[2] ?? "").trim();
+      if (val === "true") attributes[currentKey] = true;
+      else if (val === "false") attributes[currentKey] = false;
+      else if (val.startsWith("[") && val.endsWith("]")) {
+        attributes[currentKey] = val
+          .slice(1, -1)
+          .split(",")
+          .map((s) => s.trim().replace(/^["']|["']$/g, ""));
+      } else {
+        attributes[currentKey] = val.replace(/^["']|["']$/g, "");
+      }
+    } else if (line.startsWith("  - ") && currentKey) {
+      if (!Array.isArray(attributes[currentKey])) attributes[currentKey] = [];
+      (attributes[currentKey] as string[]).push(
+        line
+          .slice(4)
+          .trim()
+          .replace(/^["']|["']$/g, ""),
+      );
+    }
+  }
+
+  return { attributes, body };
+}
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
 
@@ -18,8 +60,8 @@ export async function getContentCollection(
       mdxFiles.map(async (file) => {
         const filePath = path.join(dir, file);
         const source = await fs.readFile(filePath, "utf-8");
-        const { data } = matter(source);
-        const parsed = FrontmatterSchema.parse(data);
+        const { attributes } = parseFrontmatter(source);
+        const parsed = FrontmatterSchema.parse(attributes);
 
         if (parsed.draft) return null;
 
@@ -54,12 +96,12 @@ export async function getRawContent(
     const filePath = path.join(dir, `${slug}${ext}`);
     try {
       const source = await fs.readFile(filePath, "utf-8");
-      const { data, content } = matter(source);
-      const parsed = FrontmatterSchema.parse(data);
+      const { attributes, body } = parseFrontmatter(source);
+      const parsed = FrontmatterSchema.parse(attributes);
 
       if (parsed.draft) return null;
 
-      return { slug, frontmatter: parsed, content };
+      return { slug, frontmatter: parsed, content: body };
     } catch {
       continue;
     }

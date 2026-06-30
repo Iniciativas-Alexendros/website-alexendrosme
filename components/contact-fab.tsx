@@ -35,7 +35,7 @@ export function ContactFab() {
           aria-hidden="true"
         >
           <Send className="icn-sm icn-disabled" aria-hidden="true" />
-          <span className="fab-item__label">
+          <span className="fab-item__label" aria-hidden="true">
             <span className="fab-item__name fab-item__name--disabled">Telegram</span>
             <span className="fab-item__desc">{contact.telegram.handle} · en preparación</span>
           </span>
@@ -49,7 +49,7 @@ export function ContactFab() {
           aria-hidden="true"
         >
           <Hash className="icn-sm icn-disabled" aria-hidden="true" />
-          <span className="fab-item__label">
+          <span className="fab-item__label" aria-hidden="true">
             <span className="fab-item__name fab-item__name--disabled">Matrix / Element</span>
             <span className="fab-item__desc">{contact.matrix.handle} · próximamente</span>
           </span>

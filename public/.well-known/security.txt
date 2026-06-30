@@ -2,5 +2,4 @@ Contact: mailto:security@alexendros.me
 Preferred-Languages: es, en
 Canonical: https://alexendros.me/.well-known/security.txt
 Policy: https://alexendros.me/legal/seguridad
-Hiring: https://alexendros.me/empleo
 Expires: 2027-12-31T23:59:59.000Z

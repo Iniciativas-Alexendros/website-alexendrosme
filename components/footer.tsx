@@ -58,8 +58,8 @@ export function Footer() {
         </div>
 
         <div className="footer-email">
-          <a href="mailto:contacto@alexendros.me" className="footer-link">
-            contacto@alexendros.me
+          <a href={`mailto:${siteConfig.contact.email}`} className="footer-link">
+            {siteConfig.contact.email}
           </a>
         </div>
 
