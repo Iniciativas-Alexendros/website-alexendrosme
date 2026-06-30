@@ -215,9 +215,7 @@ Esto significa que **cada visita revalida con el servidor**. Para un sitio 100% 
 ```json
 {
   "source": "/_next/static/(.*)",
-  "headers": [
-    { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
-  ]
+  "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
 }
 ```
 
