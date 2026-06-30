@@ -73,3 +73,18 @@ es una excepción al principio de defensa en profundidad, pero es
 **Si en el futuro se añadiese input de usuario** (comentarios, forms,
 búsqueda), este trade-off debería reevaluarse y migrarse a un framework
 que soporte nonces o eliminar `unsafe-inline`.
+
+### `dangerouslySetInnerHTML` en JSON-LD
+
+El componente `JsonLd` y las páginas de artículos usan
+`dangerouslySetInnerHTML` para renderizar JSON-LD estático. Esto es
+**seguro** porque:
+
+- El contenido proviene de archivos JSON en `/public/schema/` o se
+  genera en build time.
+- No hay input de usuario que pueda inyectar scripts.
+- El sitio es 100% estático (export HTML).
+
+**Si en el futuro se permitiese contenido dinámico en JSON-LD**, este
+patrón debería reemplazarse por `JSON.stringify()` directo en el
+atributo `children` del `<script>`.

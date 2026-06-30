@@ -131,7 +131,7 @@ export default function PrivacidadPage() {
           y libertades de las personas.
         </p>
         <p>
-          <em>Última actualización: mayo de 2026.</em>
+          <em>Última actualización: junio de 2026.</em>
         </p>
       </section>
     </>
