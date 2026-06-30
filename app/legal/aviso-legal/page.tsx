@@ -122,7 +122,7 @@ export default function AvisoLegalPage() {
           controversia, las partes se someten a los juzgados y tribunales de Valencia.
         </p>
         <p>
-          <em>Última actualización: mayo de 2026.</em>
+          <em>Última actualización: junio de 2026.</em>
         </p>
       </section>
     </>

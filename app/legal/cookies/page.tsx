@@ -160,7 +160,7 @@ export default function CookiesPage() {
           <a href="mailto:contacto@alexendros.me">contacto@alexendros.me</a>.
         </p>
         <p>
-          <em>Última actualización: mayo de 2026.</em>
+          <em>Última actualización: junio de 2026.</em>
         </p>
       </section>
     </>

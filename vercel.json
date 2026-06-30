@@ -1,8 +1,18 @@
 {
+  "buildCommand": "npm run build",
+  "installCommand": "npm ci",
   "redirects": [
-    { "source": "/autobiografia", "destination": "/#biografia", "permanent": true },
+    {
+      "source": "/autobiografia",
+      "destination": "/#biografia",
+      "permanent": true
+    },
     { "source": "/proyectos", "destination": "/#misiones", "permanent": true },
-    { "source": "/experiencia", "destination": "/#experiencias", "permanent": true },
+    {
+      "source": "/experiencia",
+      "destination": "/#experiencias",
+      "permanent": true
+    },
     { "source": "/contacto", "destination": "/", "permanent": true },
     { "source": "/bitacora", "destination": "/", "permanent": true },
     { "source": "/uses", "destination": "/#experiencias", "permanent": true },
@@ -10,9 +20,22 @@
     { "source": "/about", "destination": "/#biografia", "permanent": true },
     { "source": "/projects", "destination": "/#misiones", "permanent": true },
     { "source": "/contact", "destination": "/", "permanent": true },
-    { "source": "/herramientas", "destination": "/#experiencias", "permanent": true }
+    {
+      "source": "/herramientas",
+      "destination": "/#experiencias",
+      "permanent": true
+    }
   ],
   "headers": [
+    {
+      "source": "/_next/static/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
     {
       "source": "/.well-known/openpgpkey/policy",
       "headers": [{ "key": "Content-Type", "value": "application/octet-stream" }]
@@ -29,7 +52,10 @@
       "headers": [
         { "key": "X-Frame-Options", "value": "DENY" },
         { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
         {
           "key": "Permissions-Policy",
           "value": "camera=(), microphone=(), geolocation=()"
