@@ -39,12 +39,13 @@ colors:
   accent-bright: oklch(0.92 0.1 88)
   accent-fg: oklch(0.12 0.014 50)
 
-  # --- Brand aliases ---
   brand-primary: "{colors.accent}"
   brand-primary-hc: "{colors.accent}"
   brand-primary-fg: "{colors.accent-fg}"
   brand-accent: "{colors.accent-dim}"
   brand-accent-fg: "{colors.accent-fg}"
+
+  Los tokens canónicos viven en el sistema de diseño Vergina Imperial (repositorio privado en preparación).
 
   # --- Semantic states ---
   success-fg: oklch(0.78 0.16 130)

@@ -38,3 +38,5 @@ playwright/.cache/
 
 # Lighthouse CI local output
 .lighthouseci/
+.vercel
+.env*
