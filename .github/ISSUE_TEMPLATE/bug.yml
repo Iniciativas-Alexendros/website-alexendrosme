@@ -1,7 +1,7 @@
-name: "Bug · informe de error"
-description: "Reporta un fallo reproducible en website-alexendrosme"
-title: "bug: "
-labels: ["bug", "triage"]
+name: 'Bug · informe de error'
+description: 'Reporta un fallo reproducible en website-alexendrosme'
+title: 'bug: '
+labels: ['bug', 'triage']
 assignees: []
 body:
   - type: markdown
@@ -9,7 +9,7 @@ body:
       value: |
         Gracias por reportar. Antes de continuar, comprueba que no exista
         un issue similar en
-        https://github.com/Alexendros/website-alexendrosme/issues.
+        https://github.com/Iniciativas-Alexendros/website-alexendrosme/issues.
         Para vulnerabilidades de seguridad consulta `SECURITY.md` y NO uses
         este formulario.
   - type: input
@@ -17,7 +17,7 @@ body:
     attributes:
       label: Descripción
       description: ¿Qué ocurre? Resume el problema en una frase.
-      placeholder: "Al hacer X, ocurre Y, en lugar de Z."
+      placeholder: 'Al hacer X, ocurre Y, en lugar de Z.'
     validations:
       required: true
   - type: textarea
