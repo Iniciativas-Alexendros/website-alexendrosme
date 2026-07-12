@@ -214,7 +214,6 @@
   }
 
   .section-below-fold {
-    content-visibility: auto;
     contain-intrinsic-size: auto 40rem;
 
     .legal-doc {
@@ -1063,7 +1062,7 @@
 
   /* ── Sección StackMarquee en home ────────────────── */
   .marquee-section {
-    content-visibility: auto;
+    contain-intrinsic-size: auto 40rem;
     contain-intrinsic-size: auto 40rem;
     padding-top: 1rem;
   }
