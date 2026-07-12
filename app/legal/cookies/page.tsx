@@ -11,7 +11,9 @@ export const metadata: Metadata = {
 export default function CookiesPage() {
   return (
     <>
-      <BreadcrumbJsonLd items={[{ name: "Política de cookies", href: `${siteConfig.url}/legal/cookies` }]} />
+      <BreadcrumbJsonLd
+        items={[{ name: "Política de cookies", href: `${siteConfig.url}/legal/cookies` }]}
+      />
       <h1>Política de cookies</h1>
 
       {/* ── CAPA MANIFIESTO — divulgativa, para el humano ── */}

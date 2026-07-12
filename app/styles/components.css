@@ -1273,135 +1273,134 @@
   }
 }
 
-  /* ── Anti-monetization banner ───────────────────────── */
+/* ── Anti-monetization banner ───────────────────────── */
+.anti-monetization-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: calc(var(--ax-z-overlay) + 100);
+  width: 100%;
+  border-bottom: 1px solid var(--ax-border-default);
+  background: color-mix(in oklch, var(--ax-surface-100) 95%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--ax-shadow-glass);
+  animation: anti-monetization-banner--slide-down var(--ax-duration-base) var(--ax-ease-out-expo);
+}
+
+@media (prefers-reduced-motion: reduce) {
   .anti-monetization-banner {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: calc(var(--ax-z-overlay) + 100);
-    width: 100%;
-    border-bottom: 1px solid var(--ax-border-default);
-    background: color-mix(in oklch, var(--ax-surface-100) 95%, transparent);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: var(--ax-shadow-glass);
-    animation: anti-monetization-banner--slide-down var(--ax-duration-base) var(--ax-ease-out-expo);
+    animation: none;
   }
+}
 
-  @media (prefers-reduced-motion: reduce) {
-    .anti-monetization-banner {
-      animation: none;
-    }
+.anti-monetization-banner__content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem var(--ax-safe-inset);
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.anti-monetization-banner__icon {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--ax-brand-primary);
+}
+
+.anti-monetization-banner__text {
+  flex: 1;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--ax-text-primary);
+  line-height: 1.5;
+}
+
+.anti-monetization-banner__link {
+  flex-shrink: 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ax-brand-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  text-decoration-color: color-mix(in oklch, var(--ax-brand-primary) 60%, transparent);
+  transition:
+    color var(--ax-duration-fast) var(--ax-ease-out-expo),
+    text-decoration-color var(--ax-duration-fast) var(--ax-ease-out-expo);
+}
+.anti-monetization-banner__link:hover {
+  color: var(--ax-accent-bright);
+  text-decoration-color: var(--ax-brand-primary);
+}
+.anti-monetization-banner__link:focus-visible {
+  outline: none;
+  box-shadow: var(--ax-ring-focus);
+  border-radius: var(--ax-radius-sm);
+}
+
+.anti-monetization-banner__dismiss {
+  position: absolute;
+  right: var(--ax-safe-inset);
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  background: transparent;
+  color: var(--ax-text-tertiary);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: var(--ax-radius-full);
+  transition:
+    color var(--ax-duration-fast) var(--ax-ease-out-expo),
+    background-color var(--ax-duration-fast) var(--ax-ease-out-expo);
+}
+.anti-monetization-banner__dismiss:hover {
+  color: var(--ax-text-primary);
+  background: color-mix(in oklch, var(--foreground) 8%, transparent);
+}
+.anti-monetization-banner__dismiss:focus-visible {
+  outline: none;
+  box-shadow: var(--ax-ring-focus);
+  color: var(--ax-text-primary);
+}
+
+@keyframes anti-monetization-banner--slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+@media (max-width: 40rem) {
   .anti-monetization-banner__content {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem var(--ax-safe-inset);
-    max-width: 72rem;
-    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
-
-  .anti-monetization-banner__icon {
-    flex-shrink: 0;
-    width: 1.25rem;
-    height: 1.25rem;
-    color: var(--ax-brand-primary);
-  }
-
   .anti-monetization-banner__text {
-    flex: 1;
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--ax-text-primary);
-    line-height: 1.5;
+    order: 1;
+    width: 100%;
+    font-size: var(--text-xs);
   }
-
   .anti-monetization-banner__link {
-    flex-shrink: 0;
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--ax-brand-primary);
-    text-decoration: underline;
-    text-underline-offset: 0.15em;
-    text-decoration-color: color-mix(in oklch, var(--ax-brand-primary) 60%, transparent);
-    transition:
-      color var(--ax-duration-fast) var(--ax-ease-out-expo),
-      text-decoration-color var(--ax-duration-fast) var(--ax-ease-out-expo);
+    order: 2;
+    width: 100%;
+    text-align: center;
+    padding-top: 0.25rem;
+    border-top: 1px solid var(--ax-border-subtle);
   }
-  .anti-monetization-banner__link:hover {
-    color: var(--ax-accent-bright);
-    text-decoration-color: var(--ax-brand-primary);
-  }
-  .anti-monetization-banner__link:focus-visible {
-    outline: none;
-    box-shadow: var(--ax-ring-focus);
-    border-radius: var(--ax-radius-sm);
-  }
-
   .anti-monetization-banner__dismiss {
-    position: absolute;
-    right: var(--ax-safe-inset);
-    top: 50%;
-    transform: translateY(-50%);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    border: none;
-    background: transparent;
-    color: var(--ax-text-tertiary);
-    font-size: 1.5rem;
-    line-height: 1;
-    cursor: pointer;
-    border-radius: var(--ax-radius-full);
-    transition:
-      color var(--ax-duration-fast) var(--ax-ease-out-expo),
-      background-color var(--ax-duration-fast) var(--ax-ease-out-expo);
+    right: 0.75rem;
   }
-  .anti-monetization-banner__dismiss:hover {
-    color: var(--ax-text-primary);
-    background: color-mix(in oklch, var(--foreground) 8%, transparent);
-  }
-  .anti-monetization-banner__dismiss:focus-visible {
-    outline: none;
-    box-shadow: var(--ax-ring-focus);
-    color: var(--ax-text-primary);
-  }
-
-  @keyframes anti-monetization-banner--slide-down {
-    from {
-      opacity: 0;
-      transform: translateY(-100%);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @media (max-width: 40rem) {
-    .anti-monetization-banner__content {
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    .anti-monetization-banner__text {
-      order: 1;
-      width: 100%;
-      font-size: var(--text-xs);
-    }
-    .anti-monetization-banner__link {
-      order: 2;
-      width: 100%;
-      text-align: center;
-      padding-top: 0.25rem;
-      border-top: 1px solid var(--ax-border-subtle);
-    }
-    .anti-monetization-banner__dismiss {
-      right: 0.75rem;
-    }
-  }
-
+}

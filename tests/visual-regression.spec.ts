@@ -1,17 +1,17 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from "@playwright/test";
 
 const testPages = [
-  { name: 'home', path: '/' },
-  { name: 'aviso-legal', path: '/legal/aviso-legal' },
-]
+  { name: "home", path: "/" },
+  { name: "aviso-legal", path: "/legal/aviso-legal" },
+];
 
-const themes: Array<'light' | 'dark'> = ['light', 'dark']
+const themes: Array<"light" | "dark"> = ["light", "dark"];
 
 const viewports = [
-  { name: 'mobile', width: 390, height: 844 },
-  { name: 'tablet', width: 768, height: 1024 },
-  { name: 'desktop', width: 1440, height: 900 },
-]
+  { name: "mobile", width: 390, height: 844 },
+  { name: "tablet", width: 768, height: 1024 },
+  { name: "desktop", width: 1440, height: 900 },
+];
 
 for (const testPage of testPages) {
   for (const theme of themes) {
@@ -22,23 +22,21 @@ for (const testPage of testPages) {
         await page.setViewportSize({
           width: viewport.width,
           height: viewport.height,
-        })
+        });
 
         // Set theme via localStorage before navigation to avoid FOUC
         await page.addInitScript((theme) => {
-          localStorage.setItem('theme', theme)
-          document.documentElement.classList.add(theme)
-          document.documentElement.setAttribute('data-theme', theme)
-          document.documentElement.classList.remove(
-            theme === 'light' ? 'dark' : 'light',
-          )
-        }, theme)
+          localStorage.setItem("theme", theme);
+          document.documentElement.classList.add(theme);
+          document.documentElement.setAttribute("data-theme", theme);
+          document.documentElement.classList.remove(theme === "light" ? "dark" : "light");
+        }, theme);
 
-        await page.goto(testPage.path, { waitUntil: 'networkidle' })
+        await page.goto(testPage.path, { waitUntil: "networkidle" });
 
         // Wait for fonts to load
-        await page.waitForLoadState('networkidle')
-        await page.evaluate(() => document.fonts.ready)
+        await page.waitForLoadState("networkidle");
+        await page.evaluate(() => document.fonts.ready);
 
         // Hide dynamic elements that cause flaky screenshots
         await page.addStyleTag({
@@ -53,22 +51,19 @@ for (const testPage of testPages) {
               transition-duration: 0.01ms !important;
             }
           `,
-        })
+        });
 
         // Wait a bit for styles to apply
-        await page.waitForTimeout(100)
+        await page.waitForTimeout(100);
 
         // Take screenshot
-        await expect(page).toHaveScreenshot(
-          `${testPage.name}-${theme}-${viewport.name}.png`,
-          {
-            fullPage: true,
-            animations: 'disabled',
-            threshold: 0.2,
-            maxDiffPixels: 1000,
-          },
-        )
-      })
+        await expect(page).toHaveScreenshot(`${testPage.name}-${theme}-${viewport.name}.png`, {
+          fullPage: true,
+          animations: "disabled",
+          threshold: 0.2,
+          maxDiffPixels: 1000,
+        });
+      });
     }
   }
 }

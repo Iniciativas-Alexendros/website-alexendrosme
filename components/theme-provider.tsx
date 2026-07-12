@@ -1,91 +1,83 @@
-'use client'
+"use client";
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from 'react'
+import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 
-type Theme = 'light' | 'dark' | 'system'
+type Theme = "light" | "dark" | "system";
 
 interface ThemeContextType {
-  theme: Theme
-  resolvedTheme: 'light' | 'dark'
-  setTheme: (theme: Theme) => void
+  theme: Theme;
+  resolvedTheme: "light" | "dark";
+  setTheme: (theme: Theme) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType>({
-  theme: 'system',
-  resolvedTheme: 'dark',
+  theme: "system",
+  resolvedTheme: "dark",
   setTheme: () => {},
-})
+});
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('system')
-  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('dark')
-  const [mounted, setMounted] = useState(false)
+  const [theme, setTheme] = useState<Theme>("system");
+  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("dark");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true)
-    const stored = localStorage.getItem('theme') as Theme | null
+    setMounted(true);
+    const stored = localStorage.getItem("theme") as Theme | null;
     if (stored) {
-      setTheme(stored)
+      setTheme(stored);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    if (!mounted) return
+    if (!mounted) return;
 
-    const root = window.document.documentElement
-    root.classList.remove('light', 'dark')
+    const root = window.document.documentElement;
+    root.classList.remove("light", "dark");
 
-    let resolved: 'light' | 'dark'
+    let resolved: "light" | "dark";
 
-    if (theme === 'system') {
-      resolved = window.matchMedia('(prefers-color-scheme: light)').matches
-        ? 'light'
-        : 'dark'
+    if (theme === "system") {
+      resolved = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
     } else {
-      resolved = theme
+      resolved = theme;
     }
 
-    root.classList.add(resolved)
-    root.setAttribute('data-theme', resolved)
-    setResolvedTheme(resolved)
-    localStorage.setItem('theme', theme)
-  }, [theme, mounted])
+    root.classList.add(resolved);
+    root.setAttribute("data-theme", resolved);
+    setResolvedTheme(resolved);
+    localStorage.setItem("theme", theme);
+  }, [theme, mounted]);
 
   useEffect(() => {
-    if (!mounted || theme !== 'system') return
+    if (!mounted || theme !== "system") return;
 
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: light)')
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: light)");
     const handleChange = () => {
-      const root = window.document.documentElement
-      const resolved = mediaQuery.matches ? 'light' : 'dark'
-      root.classList.remove('light', 'dark')
-      root.classList.add(resolved)
-      root.setAttribute('data-theme', resolved)
-      setResolvedTheme(resolved)
-    }
+      const root = window.document.documentElement;
+      const resolved = mediaQuery.matches ? "light" : "dark";
+      root.classList.remove("light", "dark");
+      root.classList.add(resolved);
+      root.setAttribute("data-theme", resolved);
+      setResolvedTheme(resolved);
+    };
 
-    mediaQuery.addEventListener('change', handleChange)
-    return () => mediaQuery.removeEventListener('change', handleChange)
-  }, [theme, mounted])
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, [theme, mounted]);
 
   if (!mounted) {
-    return <>{children}</>
+    return <>{children}</>;
   }
 
   return (
     <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme }}>
       {children}
     </ThemeContext.Provider>
-  )
+  );
 }
 
 export function useTheme() {
-  const context = useContext(ThemeContext)
-  return context
+  const context = useContext(ThemeContext);
+  return context;
 }

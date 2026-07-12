@@ -121,10 +121,10 @@ export default async function Home() {
             </p>
             <p>
               Este sitio es mi espacio libre de dinero: aquí no se vende nada, solo se piensa en voz
-              alta sobre soberanía digital, privacidad, software libre y crítica tecnológica. No creo
-              en la tecnología neutral, ni en la inevitabilidad del progreso. Creo en elegir con
-              criterio, autohospedar lo crítico y mantener la libertad como variable de diseño. Si
-              quieres lo comercial, está en{" "}
+              alta sobre soberanía digital, privacidad, software libre y crítica tecnológica. No
+              creo en la tecnología neutral, ni en la inevitabilidad del progreso. Creo en elegir
+              con criterio, autohospedar lo crítico y mantener la libertad como variable de diseño.
+              Si quieres lo comercial, está en{" "}
               <a
                 href="https://alexendros.dev"
                 target="_blank"
@@ -138,8 +138,9 @@ export default async function Home() {
             <p>
               Mi trabajo técnico gira en torno a Next.js, TypeScript, Supabase y Stripe, pero este
               proyecto es un acto de racionalidad límite: un sitio estático, sin analytics invasivos
-              ni dependencias que no pueda justificar. Escribo para quienes sospechan de la narrativa
-              oficial de la innovación y prefieren protocolos abiertos a plataformas cerradas.
+              ni dependencias que no pueda justificar. Escribo para quienes sospechan de la
+              narrativa oficial de la innovación y prefieren protocolos abiertos a plataformas
+              cerradas.
             </p>
           </div>
         </div>

@@ -29,7 +29,10 @@ function escapeXml(unsafe: string): string {
 export function generateFeeds({ site, collections }: FeedOptions): { rss: string; atom: string } {
   const items = (Object.entries(collections) as [CollectionType, FeedItem[]][])
     .flatMap(([type, list]) => list.map((item) => ({ type, item })))
-    .sort((a, b) => new Date(b.item.frontmatter.date).getTime() - new Date(a.item.frontmatter.date).getTime());
+    .sort(
+      (a, b) =>
+        new Date(b.item.frontmatter.date).getTime() - new Date(a.item.frontmatter.date).getTime(),
+    );
 
   const lastBuildDate = new Date().toUTCString();
   const lastBuildIso = new Date().toISOString();

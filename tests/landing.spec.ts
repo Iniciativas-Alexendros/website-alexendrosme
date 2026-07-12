@@ -45,7 +45,10 @@ test.describe("Landing · smoke + anchors + FABs", () => {
     }
   });
 
-  test("nav desktop: enlace Productos visible con href/target/rel correctos", async ({ page, viewport }) => {
+  test("nav desktop: enlace Productos visible con href/target/rel correctos", async ({
+    page,
+    viewport,
+  }) => {
     const isMobile = !viewport || viewport.width < 768;
     if (!isMobile) {
       const productosLink = page.locator("header nav a[href='https://alexendros.dev']").first();
@@ -86,7 +89,9 @@ test.describe("Landing · smoke + anchors + FABs", () => {
     await expect(fab).toBeFocused();
   });
 
-  test("footer: enlace Hub de productos visible con href/target/rel correctos", async ({ page }) => {
+  test("footer: enlace Hub de productos visible con href/target/rel correctos", async ({
+    page,
+  }) => {
     const footerLink = page.locator("footer a[href='https://alexendros.dev']").first();
     await expect(footerLink).toBeVisible();
     await expect(footerLink).toHaveText(/Hub de productos.*alexendros\.dev/);

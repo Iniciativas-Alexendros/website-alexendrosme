@@ -36,7 +36,7 @@
 ```css
 /* En app/styles/tokens/colors.css — AÑADIR al final */
 @media (prefers-color-scheme: light) {
-  :root:not([data-theme='dark']) {
+  :root:not([data-theme="dark"]) {
     /* Superficies: hue 85 (dorado cálido) → escala luminosa */
     --ax-surface-0: oklch(0.98 0.004 85);
     --ax-surface-50: oklch(0.96 0.006 85);
@@ -75,11 +75,11 @@
 }
 
 /* Override explícito via toggle */
-[data-theme='dark'] {
+[data-theme="dark"] {
   /* tokens dark actuales (ya en :root) */
 }
 
-[data-theme='light'] {
+[data-theme="light"] {
   /* duplicar tokens light aquí para override forzado */
 }
 ```
@@ -89,7 +89,7 @@
 ```css
 /* En @theme inline — añadir media query para light */
 @media (prefers-color-scheme: light) {
-  :root:not([data-theme='dark']) {
+  :root:not([data-theme="dark"]) {
     --background: var(--ax-surface-0);
     --foreground: var(--ax-text-primary);
     --card: var(--ax-surface-100);
@@ -112,11 +112,11 @@
   }
 }
 
-[data-theme='light'] {
+[data-theme="light"] {
   /* mismo bloque que arriba */
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   /* tokens dark actuales (ya por defecto) */
 }
 ```
@@ -125,55 +125,45 @@
 
 ```tsx
 // components/theme-toggle.tsx (nuevo)
-'use client'
-import { useEffect, useState } from 'react'
-import { Moon, Sun } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+"use client";
+import { useEffect, useState } from "react";
+import { Moon, Sun } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<'light' | 'dark' | 'system'>('system')
-  const [resolved, setResolved] = useState<'light' | 'dark'>('dark')
+  const [theme, setTheme] = useState<"light" | "dark" | "system">("system");
+  const [resolved, setResolved] = useState<"light" | "dark">("dark");
 
   useEffect(() => {
-    const stored = localStorage.getItem('theme') as typeof theme | null
-    if (stored) setTheme(stored)
-  }, [])
+    const stored = localStorage.getItem("theme") as typeof theme | null;
+    if (stored) setTheme(stored);
+  }, []);
 
   useEffect(() => {
-    const root = document.documentElement
-    let resolvedTheme: 'light' | 'dark'
+    const root = document.documentElement;
+    let resolvedTheme: "light" | "dark";
 
-    if (theme === 'system') {
-      resolvedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light'
-      root.removeAttribute('data-theme')
+    if (theme === "system") {
+      resolvedTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      root.removeAttribute("data-theme");
     } else {
-      resolvedTheme = theme
-      root.setAttribute('data-theme', theme)
+      resolvedTheme = theme;
+      root.setAttribute("data-theme", theme);
     }
-    setResolved(resolvedTheme)
-    localStorage.setItem('theme', theme)
-  }, [theme])
+    setResolved(resolvedTheme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   return (
     <Button
       variant="ghost"
       size="icon"
-      onClick={() =>
-        setTheme((t) =>
-          t === 'dark' ? 'light' : t === 'light' ? 'system' : 'dark',
-        )
-      }
-      aria-label={`Tema actual: ${theme === 'system' ? `sistema (${resolved})` : theme}`}
+      onClick={() => setTheme((t) => (t === "dark" ? "light" : t === "light" ? "system" : "dark"))}
+      aria-label={`Tema actual: ${theme === "system" ? `sistema (${resolved})` : theme}`}
     >
-      {resolved === 'dark' ? (
-        <Sun className="h-5 w-5" />
-      ) : (
-        <Moon className="h-5 w-5" />
-      )}
+      {resolved === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
     </Button>
-  )
+  );
 }
 ```
 
@@ -217,25 +207,25 @@ export function ThemeToggle() {
 
 ```tsx
 // components/anti-monetization-banner.tsx
-'use client'
-import { useEffect, useState } from 'react'
-import { X, Shield } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+"use client";
+import { useEffect, useState } from "react";
+import { X, Shield } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-const BANNER_KEY = 'anti-monetization-dismissed'
-const LINK_DEV = 'https://alexendros.dev'
+const BANNER_KEY = "anti-monetization-dismissed";
+const LINK_DEV = "https://alexendros.dev";
 
 export function AntiMonetizationBanner() {
-  const [dismissed, setDismissed] = useState(false)
-  const [mounted, setMounted] = useState(false)
+  const [dismissed, setDismissed] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true)
-    const stored = localStorage.getItem(BANNER_KEY)
-    if (stored === 'true') setDismissed(true)
-  }, [])
+    setMounted(true);
+    const stored = localStorage.getItem(BANNER_KEY);
+    if (stored === "true") setDismissed(true);
+  }, []);
 
-  if (!mounted || dismissed) return null
+  if (!mounted || dismissed) return null;
 
   return (
     <div className="anti-monetization-banner" role="status" aria-live="polite">
@@ -244,7 +234,7 @@ export function AntiMonetizationBanner() {
         <div className="banner-text">
           <strong>Este espacio es libre de dinero.</strong>
           <span>
-            Sin anuncios, sin afiliados, sin tracking. Lo comercial vive en{' '}
+            Sin anuncios, sin afiliados, sin tracking. Lo comercial vive en{" "}
             <a href={LINK_DEV} target="_blank" rel="noopener noreferrer">
               alexendros.dev
             </a>
@@ -256,15 +246,15 @@ export function AntiMonetizationBanner() {
         variant="ghost"
         size="sm"
         onClick={() => {
-          localStorage.setItem(BANNER_KEY, 'true')
-          setDismissed(true)
+          localStorage.setItem(BANNER_KEY, "true");
+          setDismissed(true);
         }}
         aria-label="Descartar aviso"
       >
         <X className="h-4 w-4" aria-hidden="true" />
       </Button>
     </div>
-  )
+  );
 }
 ```
 
@@ -298,15 +288,15 @@ export function AntiMonetizationBanner() {
 
 ```tsx
 // app/layout.tsx — dentro de <body>, antes de <main>
-import { AntiMonetizationBanner } from '@/components/anti-monetization-banner'
+import { AntiMonetizationBanner } from "@/components/anti-monetization-banner";
 
-;<body className="dark">
-  {' '}
+<body className="dark">
+  {" "}
   {/* quitar 'dark' hardcoded cuando modo 7 listo */}
   <AntiMonetizationBanner />
   <header>...</header>
   <main>...</main>
-</body>
+</body>;
 ```
 
 ### Tests
@@ -330,7 +320,7 @@ import { AntiMonetizationBanner } from '@/components/anti-monetization-banner'
 {
   /* Nuevo item al final */
 }
-;<li>
+<li>
   <a
     href={siteConfig.links.dev}
     target="_blank"
@@ -341,7 +331,7 @@ import { AntiMonetizationBanner } from '@/components/anti-monetization-banner'
     <ExternalLink className="icn-sm mr-1" aria-hidden="true" />
     Productos
   </a>
-</li>
+</li>;
 ```
 
 **components/footer.tsx** — añadir en flex-row
@@ -380,11 +370,11 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Versión (semver: major/minor/patch o X.Y.Z)'
+        description: "Versión (semver: major/minor/patch o X.Y.Z)"
         required: true
         type: string
       tag_message:
-        description: 'Mensaje del tag firmado'
+        description: "Mensaje del tag firmado"
         required: false
         type: string
 
@@ -404,7 +394,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
           cache: npm
 
       - run: npm ci

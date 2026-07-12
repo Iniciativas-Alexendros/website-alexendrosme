@@ -99,8 +99,7 @@
   );
   --ax-glass-border: oklch(1 0 0 / 0.08);
   --ax-glass-blur: blur(20px) saturate(140%);
-  --ax-glass-shadow:
-    inset 0 1px 0 oklch(1 0 0 / 0.1), 0 30px 80px -20px oklch(0 0 0 / 0.55);
+  --ax-glass-shadow: inset 0 1px 0 oklch(1 0 0 / 0.1), 0 30px 80px -20px oklch(0 0 0 / 0.55);
 
   /* =====================================================================
      7. SHADOWS — solo para overlays (Dialog, Popover, Toast, Tooltip).
@@ -122,8 +121,7 @@
   --ax-shadow-inner-highlight: inset 0 1px 0 0 oklch(1 0 0 / 0.04);
 
   /* Glow de marca — permitido detrás del CTA hero o badges destacados */
-  --ax-shadow-glow-brand: 0 0 56px
-    color-mix(in oklch, var(--ax-accent) 32%, transparent);
+  --ax-shadow-glow-brand: 0 0 56px color-mix(in oklch, var(--ax-accent) 32%, transparent);
   --ax-shadow-glow-accent: var(--ax-shadow-glow-brand);
 
   /* Focus ring 2px brand + 2px offset surface-0, vía box-shadow */
@@ -137,7 +135,7 @@
    =========================================================================== */
 
 @media (prefers-color-scheme: light) {
-  :root:not([data-theme='dark']) {
+  :root:not([data-theme="dark"]) {
     /* ----- Superficies: oro cálido (hue 85), L 0.98 → 0.42 ----- */
     --ax-surface-0: oklch(0.98 0.01 85);
     --ax-surface-50: oklch(0.96 0.012 85);
@@ -161,9 +159,7 @@
     --ax-accent: oklch(0.55 0.15 85);
     --ax-accent-dim: oklch(0.62 0.13 85);
     --ax-accent-bright: oklch(0.48 0.17 85); /* hover: más oscuro */
-    --ax-accent-fg: oklch(
-      0.08 0.01 315
-    ); /* texto oscuro violeta sobre acento */
+    --ax-accent-fg: oklch(0.08 0.01 315); /* texto oscuro violeta sobre acento */
 
     --ax-brand-primary: var(--ax-accent);
     --ax-brand-primary-hc: var(--ax-accent);
@@ -222,8 +218,7 @@
     );
     --ax-glass-border: oklch(0 0 0 / 0.06);
     --ax-glass-blur: blur(20px) saturate(140%);
-    --ax-glass-shadow:
-      inset 0 1px 0 oklch(1 0 0 / 0.5), 0 20px 50px -15px oklch(0 0 0 / 0.15);
+    --ax-glass-shadow: inset 0 1px 0 oklch(1 0 0 / 0.5), 0 20px 50px -15px oklch(0 0 0 / 0.15);
 
     /* ----- Shadows para overlays en light mode ----- */
     --ax-shadow-overlay:
@@ -240,8 +235,7 @@
 
     --ax-shadow-inner-highlight: inset 0 1px 0 0 oklch(1 0 0 / 0.3);
 
-    --ax-shadow-glow-brand: 0 0 40px
-      color-mix(in oklch, var(--ax-accent) 25%, transparent);
+    --ax-shadow-glow-brand: 0 0 40px color-mix(in oklch, var(--ax-accent) 25%, transparent);
     --ax-shadow-glow-accent: var(--ax-shadow-glow-brand);
 
     --ax-ring-focus: 0 0 0 2px var(--ax-surface-0), 0 0 0 4px var(--ax-accent);
@@ -251,7 +245,7 @@
 }
 
 /* Selector manual para forzar light mode (data-theme="light" en <html>) */
-[data-theme='light'] {
+[data-theme="light"] {
   --ax-surface-0: oklch(0.98 0.01 85);
   --ax-surface-50: oklch(0.96 0.012 85);
   --ax-surface-100: oklch(0.93 0.014 85);
@@ -322,8 +316,7 @@
   );
   --ax-glass-border: oklch(0 0 0 / 0.06);
   --ax-glass-blur: blur(20px) saturate(140%);
-  --ax-glass-shadow:
-    inset 0 1px 0 oklch(1 0 0 / 0.5), 0 20px 50px -15px oklch(0 0 0 / 0.15);
+  --ax-glass-shadow: inset 0 1px 0 oklch(1 0 0 / 0.5), 0 20px 50px -15px oklch(0 0 0 / 0.15);
 
   --ax-shadow-overlay:
     0 1px 2px 0 oklch(0 0 0 / 0.1), 0 12px 32px -8px oklch(0 0 0 / 0.15),
@@ -339,8 +332,7 @@
 
   --ax-shadow-inner-highlight: inset 0 1px 0 0 oklch(1 0 0 / 0.3);
 
-  --ax-shadow-glow-brand: 0 0 40px
-    color-mix(in oklch, var(--ax-accent) 25%, transparent);
+  --ax-shadow-glow-brand: 0 0 40px color-mix(in oklch, var(--ax-accent) 25%, transparent);
   --ax-shadow-glow-accent: var(--ax-shadow-glow-brand);
 
   --ax-ring-focus: 0 0 0 2px var(--ax-surface-0), 0 0 0 4px var(--ax-accent);
@@ -349,7 +341,7 @@
 }
 
 /* Forzar dark mode manual (data-theme="dark" en <html>) */
-[data-theme='dark'] {
+[data-theme="dark"] {
   --ax-surface-0: oklch(0.1 0.014 315);
   --ax-surface-50: oklch(0.12 0.016 315);
   --ax-surface-100: oklch(0.14 0.018 315);
@@ -420,8 +412,7 @@
   );
   --ax-glass-border: oklch(1 0 0 / 0.08);
   --ax-glass-blur: blur(20px) saturate(140%);
-  --ax-glass-shadow:
-    inset 0 1px 0 oklch(1 0 0 / 0.1), 0 30px 80px -20px oklch(0 0 0 / 0.55);
+  --ax-glass-shadow: inset 0 1px 0 oklch(1 0 0 / 0.1), 0 30px 80px -20px oklch(0 0 0 / 0.55);
 
   --ax-shadow-overlay:
     0 1px 2px 0 oklch(0 0 0 / 0.3), 0 12px 32px -8px oklch(0 0 0 / 0.5),
@@ -437,8 +428,7 @@
 
   --ax-shadow-inner-highlight: inset 0 1px 0 0 oklch(1 0 0 / 0.04);
 
-  --ax-shadow-glow-brand: 0 0 56px
-    color-mix(in oklch, var(--ax-accent) 32%, transparent);
+  --ax-shadow-glow-brand: 0 0 56px color-mix(in oklch, var(--ax-accent) 32%, transparent);
   --ax-shadow-glow-accent: var(--ax-shadow-glow-brand);
 
   --ax-ring-focus: 0 0 0 2px var(--ax-surface-0), 0 0 0 4px var(--ax-accent);

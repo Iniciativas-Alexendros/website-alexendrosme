@@ -11,7 +11,9 @@ export const metadata: Metadata = {
 export default function AvisoLegalPage() {
   return (
     <>
-      <BreadcrumbJsonLd items={[{ name: "Aviso legal", href: `${siteConfig.url}/legal/aviso-legal` }]} />
+      <BreadcrumbJsonLd
+        items={[{ name: "Aviso legal", href: `${siteConfig.url}/legal/aviso-legal` }]}
+      />
       <h1>Aviso legal</h1>
 
       {/* BLOQUE 1 — Lo esencial */}
