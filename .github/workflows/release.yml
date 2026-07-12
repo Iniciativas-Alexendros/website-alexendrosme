@@ -4,11 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Versión (semver: major/minor/patch o X.Y.Z)'
+        description: "Versión (semver: major/minor/patch o X.Y.Z)"
         required: true
         type: string
       tag_message:
-        description: 'Mensaje del tag firmado'
+        description: "Mensaje del tag firmado"
         required: false
         type: string
 
@@ -30,7 +30,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
           cache: npm
 
       - name: Install dependencies

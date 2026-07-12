@@ -1149,11 +1149,18 @@
   z-index: calc(var(--ax-z-overlay) + 100);
   width: 100%;
   border-bottom: 1px solid var(--ax-border-default);
-  background: color-mix(in oklch, var(--ax-surface-100) 95%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: var(--ax-shadow-glass);
-  animation: anti-monetization-banner--slide-down var(--ax-duration-base) var(--ax-ease-out-expo);
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklch, var(--ax-surface-100) 98%, transparent),
+    color-mix(in oklch, var(--ax-brand-primary) 3%, var(--ax-surface-100) 95%),
+    color-mix(in oklch, var(--ax-surface-100) 98%, transparent)
+  );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    var(--ax-shadow-glass),
+    0 1px 0 color-mix(in oklch, var(--ax-brand-primary) 15%, transparent) inset;
+  animation: anti-monetization-banner--slide-down var(--ax-duration-slow) var(--ax-ease-spring);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1165,17 +1172,19 @@
 .anti-monetization-banner__content {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem var(--ax-safe-inset);
+  gap: 0.875rem;
+  padding: 0.875rem var(--ax-safe-inset);
   max-width: 72rem;
   margin: 0 auto;
+  pointer-events: none;
 }
 
 .anti-monetization-banner__icon {
   flex-shrink: 0;
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1.375rem;
+  height: 1.375rem;
   color: var(--ax-brand-primary);
+  filter: drop-shadow(0 0 4px color-mix(in oklch, var(--ax-brand-primary) 40%, transparent));
 }
 
 .anti-monetization-banner__text {
@@ -1183,7 +1192,8 @@
   font-size: var(--text-sm);
   font-weight: 500;
   color: var(--ax-text-primary);
-  line-height: 1.5;
+  line-height: 1.55;
+  pointer-events: none;
 }
 
 .anti-monetization-banner__link {
@@ -1193,19 +1203,24 @@
   color: var(--ax-brand-primary);
   text-decoration: underline;
   text-underline-offset: 0.15em;
-  text-decoration-color: color-mix(in oklch, var(--ax-brand-primary) 60%, transparent);
+  text-decoration-color: color-mix(in oklch, var(--ax-brand-primary) 40%, transparent);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--ax-radius-sm);
+  pointer-events: auto;
   transition:
     color var(--ax-duration-fast) var(--ax-ease-out-expo),
-    text-decoration-color var(--ax-duration-fast) var(--ax-ease-out-expo);
+    text-decoration-color var(--ax-duration-fast) var(--ax-ease-out-expo),
+    background-color var(--ax-duration-fast) var(--ax-ease-out-expo);
 }
 .anti-monetization-banner__link:hover {
   color: var(--ax-accent-bright);
   text-decoration-color: var(--ax-brand-primary);
+  background: color-mix(in oklch, var(--ax-brand-primary) 8%, transparent);
 }
 .anti-monetization-banner__link:focus-visible {
   outline: none;
   box-shadow: var(--ax-ring-focus);
-  border-radius: var(--ax-radius-sm);
+  background: color-mix(in oklch, var(--ax-brand-primary) 12%, transparent);
 }
 
 .anti-monetization-banner__dismiss {
@@ -1216,8 +1231,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  width: 2.25rem;
+  height: 2.25rem;
   border: none;
   background: transparent;
   color: var(--ax-text-tertiary);
@@ -1225,13 +1240,16 @@
   line-height: 1;
   cursor: pointer;
   border-radius: var(--ax-radius-full);
+  pointer-events: auto;
   transition:
     color var(--ax-duration-fast) var(--ax-ease-out-expo),
-    background-color var(--ax-duration-fast) var(--ax-ease-out-expo);
+    background-color var(--ax-duration-fast) var(--ax-ease-out-expo),
+    transform var(--ax-duration-fast) var(--ax-ease-spring);
 }
 .anti-monetization-banner__dismiss:hover {
   color: var(--ax-text-primary);
-  background: color-mix(in oklch, var(--foreground) 8%, transparent);
+  background: color-mix(in oklch, var(--foreground) 10%, transparent);
+  transform: translateY(-50%) scale(1.05);
 }
 .anti-monetization-banner__dismiss:focus-visible {
   outline: none;
@@ -1272,20 +1290,31 @@
   }
 }
 
-/* ── Anti-monetization banner ───────────────────────── */
-.anti-monetization-banner {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: calc(var(--ax-z-overlay) + 100);
-  width: 100%;
-  border-bottom: 1px solid var(--ax-border-default);
-  background: color-mix(in oklch, var(--ax-surface-100) 95%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: var(--ax-shadow-glass);
-  animation: anti-monetization-banner--slide-down var(--ax-duration-base) var(--ax-ease-out-expo);
+/* Light mode adjustments */
+@media (prefers-color-scheme: light) {
+  .anti-monetization-banner {
+    background: linear-gradient(
+      90deg,
+      color-mix(in oklch, var(--ax-surface-100) 98%, transparent),
+      color-mix(in oklch, var(--ax-brand-primary) 5%, var(--ax-surface-100) 93%),
+      color-mix(in oklch, var(--ax-surface-100) 98%, transparent)
+    );
+    box-shadow:
+      var(--ax-shadow-glass),
+      0 1px 0 color-mix(in oklch, var(--ax-brand-primary) 20%, transparent) inset;
+  }
+}
+
+[data-theme="light"] .anti-monetization-banner {
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklch, var(--ax-surface-100) 98%, transparent),
+    color-mix(in oklch, var(--ax-brand-primary) 5%, var(--ax-surface-100) 93%),
+    color-mix(in oklch, var(--ax-surface-100) 98%, transparent)
+  );
+  box-shadow:
+    var(--ax-shadow-glass),
+    0 1px 0 color-mix(in oklch, var(--ax-brand-primary) 20%, transparent) inset;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1293,113 +1322,7 @@
     animation: none;
   }
 }
-
-.anti-monetization-banner__content {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem var(--ax-safe-inset);
-  max-width: 72rem;
-  margin: 0 auto;
-}
-
-.anti-monetization-banner__icon {
-  flex-shrink: 0;
-  width: 1.25rem;
-  height: 1.25rem;
-  color: var(--ax-brand-primary);
-}
-
-.anti-monetization-banner__text {
-  flex: 1;
-  font-size: var(--text-sm);
-  font-weight: 500;
-  color: var(--ax-text-primary);
-  line-height: 1.5;
-}
-
-.anti-monetization-banner__link {
-  flex-shrink: 0;
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--ax-brand-primary);
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
-  text-decoration-color: color-mix(in oklch, var(--ax-brand-primary) 60%, transparent);
-  transition:
-    color var(--ax-duration-fast) var(--ax-ease-out-expo),
-    text-decoration-color var(--ax-duration-fast) var(--ax-ease-out-expo);
-}
-.anti-monetization-banner__link:hover {
-  color: var(--ax-accent-bright);
-  text-decoration-color: var(--ax-brand-primary);
-}
-.anti-monetization-banner__link:focus-visible {
-  outline: none;
-  box-shadow: var(--ax-ring-focus);
-  border-radius: var(--ax-radius-sm);
-}
-
-.anti-monetization-banner__dismiss {
-  position: absolute;
-  right: var(--ax-safe-inset);
-  top: 50%;
-  transform: translateY(-50%);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  border: none;
-  background: transparent;
-  color: var(--ax-text-tertiary);
-  font-size: 1.5rem;
-  line-height: 1;
-  cursor: pointer;
-  border-radius: var(--ax-radius-full);
-  transition:
-    color var(--ax-duration-fast) var(--ax-ease-out-expo),
-    background-color var(--ax-duration-fast) var(--ax-ease-out-expo);
-}
-.anti-monetization-banner__dismiss:hover {
-  color: var(--ax-text-primary);
-  background: color-mix(in oklch, var(--foreground) 8%, transparent);
-}
-.anti-monetization-banner__dismiss:focus-visible {
-  outline: none;
-  box-shadow: var(--ax-ring-focus);
-  color: var(--ax-text-primary);
-}
-
-@keyframes anti-monetization-banner--slide-down {
-  from {
-    opacity: 0;
-    transform: translateY(-100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 40rem) {
-  .anti-monetization-banner__content {
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  .anti-monetization-banner__text {
-    order: 1;
-    width: 100%;
-    font-size: var(--text-xs);
-  }
-  .anti-monetization-banner__link {
-    order: 2;
-    width: 100%;
-    text-align: center;
-    padding-top: 0.25rem;
-    border-top: 1px solid var(--ax-border-subtle);
-  }
-  .anti-monetization-banner__dismiss {
-    right: 0.75rem;
-  }
-}
+width: 2rem;
+height: 2rem;
+border: none;
+background: transparent;

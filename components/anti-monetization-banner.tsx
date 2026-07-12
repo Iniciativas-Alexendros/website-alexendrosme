@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Shield } from "lucide-react";
+import { Shield, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function AntiMonetizationBanner() {
   const [dismissed, setDismissed] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -34,6 +35,7 @@ export function AntiMonetizationBanner() {
   const bannerClass = cn(
     "anti-monetization-banner",
     reduceMotion && "anti-monetization-banner--reduced-motion",
+    isHovered && "anti-monetization-banner--hovered",
   );
 
   const handleDismiss = () => {
@@ -47,11 +49,14 @@ export function AntiMonetizationBanner() {
       role="status"
       aria-live="polite"
       data-reduced-motion={reduceMotion ? "true" : "false"}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <div className="anti-monetization-banner__content">
         <Shield className="anti-monetization-banner__icon" aria-hidden="true" />
         <p className="anti-monetization-banner__text">
-          Este espacio es libre de dinero. Sin anuncios, sin afiliados, sin tracking.
+          Este espacio es libre de <strong>monetización</strong>. Sin anuncios, sin afiliados, sin
+          tracking.
         </p>
         <a
           href="https://alexendros.dev"
@@ -60,15 +65,16 @@ export function AntiMonetizationBanner() {
           className="anti-monetization-banner__link"
         >
           Lo comercial vive en alexendros.dev
+          <X className="anti-monetization-banner__link-icon" aria-hidden="true" size={14} />
         </a>
       </div>
       <button
         type="button"
         className="anti-monetization-banner__dismiss"
         onClick={handleDismiss}
-        aria-label="Cerrar aviso de espacio libre de dinero"
+        aria-label="Cerrar aviso de espacio libre de monetización"
       >
-        ×
+        <X className="anti-monetization-banner__dismiss-icon" aria-hidden="true" size={16} />
       </button>
     </div>
   );

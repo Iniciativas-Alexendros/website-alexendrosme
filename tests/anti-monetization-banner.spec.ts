@@ -20,7 +20,7 @@ test.describe("Anti-monetization banner", () => {
 
     // Check text content
     await expect(banner.locator(".anti-monetization-banner__text")).toContainText(
-      "Este espacio es libre de dinero. Sin anuncios, sin afiliados, sin tracking.",
+      "Este espacio es libre de monetización. Sin anuncios, sin afiliados, sin tracking.",
     );
 
     // Check link
