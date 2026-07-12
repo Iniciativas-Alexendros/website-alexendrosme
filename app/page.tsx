@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ContactFab } from "@/components/contact-fab";
 import { StackMarquee } from "@/components/stack-marquee";
 import { siteConfig } from "@/lib/site";
+import { getContentCollection } from "@/lib/content/loader";
 
 export const metadata: Metadata = {
   description: siteConfig.description,
@@ -54,7 +56,17 @@ const experiencias = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const [espensar, esposible] = await Promise.all([
+    getContentCollection("espensar"),
+    getContentCollection("esposible"),
+  ]);
+
+  const latestArticles = [
+    ...espensar.slice(0, 3).map((item) => ({ ...item, type: "espensar" as const })),
+    ...esposible.slice(0, 3).map((item) => ({ ...item, type: "esposible" as const })),
+  ].sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
+
   return (
     <>
       <section className="site-shell hero-section">
@@ -62,7 +74,7 @@ export default function Home() {
           <p className="hero-eyebrow">Valencia · pensamiento, soberanía digital y libertades</p>
         </div>
         <h1 className="hero-signature hero-signature--shimmer hero-animate">
-          Grandes soluciones de un ingenio no previsto.
+          Alexendros. Grandes soluciones de un ingenio no previsto.
         </h1>
         <p className="prose-lead">
           Espacio personal y libre de dinero: humanismo, soberanía digital y crítica tecnológica. Lo
@@ -100,8 +112,35 @@ export default function Home() {
             (Auto)biografía
           </h2>
 
-          <div className="stack-md">
-            <p className="empty-state">Autobiografía en construcción.</p>
+          <div className="stack-md prose">
+            <p>
+              Me llamo Alejandro Domingo Agustí, aunque en la red respondo a Alexendros. Nací en
+              Valencia y he pasado de la hostelería y la gestión al desarrollo de software, sin
+              título intermedio que lo justifique: aprendí a leer negocios antes que a escribir
+              código, y luego escribí código para entender los negocios.
+            </p>
+            <p>
+              Este sitio es mi espacio libre de dinero: aquí no se vende nada, solo se piensa en voz
+              alta sobre soberanía digital, privacidad, software libre y crítica tecnológica. No creo
+              en la tecnología neutral, ni en la inevitabilidad del progreso. Creo en elegir con
+              criterio, autohospedar lo crítico y mantener la libertad como variable de diseño. Si
+              quieres lo comercial, está en{" "}
+              <a
+                href="https://alexendros.dev"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="brand-link"
+              >
+                alexendros.dev
+              </a>
+              ; si quieres lo que pienso sin filtro, quédate aquí.
+            </p>
+            <p>
+              Mi trabajo técnico gira en torno a Next.js, TypeScript, Supabase y Stripe, pero este
+              proyecto es un acto de racionalidad límite: un sitio estático, sin analytics invasivos
+              ni dependencias que no pueda justificar. Escribo para quienes sospechan de la narrativa
+              oficial de la innovación y prefieren protocolos abiertos a plataformas cerradas.
+            </p>
           </div>
         </div>
       </section>
@@ -193,6 +232,50 @@ export default function Home() {
               </ul>
             </div>
           ))}
+        </div>
+      </section>
+
+      <hr className="site-shell shrink-0 bg-border h-px w-full border-0" />
+
+      <section
+        id="publicaciones"
+        className="site-shell section section-below-fold scroll-section"
+        aria-labelledby="h2-publicaciones"
+      >
+        <div className="content-container stack-lg">
+          <div className="section-head">
+            <h2 id="h2-publicaciones" className="headline">
+              Últimos ensayos
+            </h2>
+            <p className="section-desc">
+              Lo último en <Link href="/espensar">Es pensar</Link> y{" "}
+              <Link href="/esposible">Es posible</Link>.
+            </p>
+          </div>
+
+          {latestArticles.length === 0 ? (
+            <p className="empty-state">No hay publicaciones aún.</p>
+          ) : (
+            <div className="stack-lg">
+              {latestArticles.map((article) => (
+                <article key={`${article.type}-${article.slug}`}>
+                  <Link href={`/${article.type}/${article.slug}`} className="article-item">
+                    <time dateTime={article.frontmatter.date} className="ds-caption">
+                      {new Date(article.frontmatter.date).toLocaleDateString("es-ES", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </time>
+                    <h3 className="article-item__title">{article.frontmatter.title}</h3>
+                    {article.frontmatter.description && (
+                      <p className="article-item__desc">{article.frontmatter.description}</p>
+                    )}
+                  </Link>
+                </article>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

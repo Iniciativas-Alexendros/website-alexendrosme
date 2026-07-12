@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getRawContent, getContentCollection } from "@/lib/content/loader";
 import { MarkdownRenderer } from "@/components/mdx";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { siteConfig } from "@/lib/site";
 
 interface Props {
@@ -70,6 +71,12 @@ export default async function EsPosibleArticle({ params }: Props) {
         type="application/ld+json"
         id="article-json-ld"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Es posible", href: `${siteConfig.url}/esposible` },
+          { name: article.frontmatter.title, href: `${siteConfig.url}/esposible/${slug}` },
+        ]}
       />
 
       <div className="site-shell article-shell">

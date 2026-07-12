@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
   title: "404 — Página no encontrada",
+  description: "La página que buscas no existe o ha sido movida.",
+  robots: { index: false },
 };
 
 export default function NotFound() {

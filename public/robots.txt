@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://alexendros.me/sitemap.xml
+RSS: https://alexendros.me/feed.xml
+Atom: https://alexendros.me/feed.atom

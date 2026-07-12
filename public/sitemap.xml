@@ -25,6 +25,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://alexendros.me/espensar/manifiesto-eligete-a-ti</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://alexendros.me/esposible</loc>
     <lastmod>2026-06-25</lastmod>
     <changefreq>weekly</changefreq>

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getContentCollection } from "@/lib/content/loader";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
+import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Es posible",
@@ -18,8 +20,10 @@ export default async function EsPosiblePage() {
   const articles = await getContentCollection("esposible");
 
   return (
-    <div className="site-shell article-shell">
-      <header className="collection-header">
+    <>
+      <BreadcrumbJsonLd items={[{ name: "Es posible", href: `${siteConfig.url}/esposible` }]} />
+      <div className="site-shell article-shell">
+        <header className="collection-header">
         <p className="ds-label collection-label">Colección</p>
         <h1 className="headline">Es posible</h1>
         <p className="prose-lead collection-desc">
@@ -67,5 +71,6 @@ export default async function EsPosiblePage() {
         </Link>
       </footer>
     </div>
+    </>
   );
 }

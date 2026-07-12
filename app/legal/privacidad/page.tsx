@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
+import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Política de privacidad",
@@ -9,6 +11,7 @@ export const metadata: Metadata = {
 export default function PrivacidadPage() {
   return (
     <>
+      <BreadcrumbJsonLd items={[{ name: "Política de privacidad", href: `${siteConfig.url}/legal/privacidad` }]} />
       <h1>Política de privacidad</h1>
 
       {/* BLOQUE 1 — Lo esencial */}

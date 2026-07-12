@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
+import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Política de seguridad",
@@ -10,6 +12,7 @@ export const metadata: Metadata = {
 export default function SeguridadPage() {
   return (
     <>
+      <BreadcrumbJsonLd items={[{ name: "Política de seguridad", href: `${siteConfig.url}/legal/seguridad` }]} />
       <h1>Política de seguridad</h1>
 
       <section aria-labelledby="seg-esencial">

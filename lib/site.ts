@@ -1,9 +1,9 @@
 export const siteConfig = {
   name: "Alexendros",
   fullName: "Alejandro, Domingo y Agustí",
-  title: "Alexendros. Pensador, tecnólogo, investigador, amante. Yo me hice así.",
+  title: "Alexendros · pensador, tecnólogo, investigador",
   description:
-    "Espacio digital de humanismo y libertades creado por Alexendros: pensador, tecnólogo, investigador, estimulante. Procesando desde Valencia.",
+    "Espacio de Alexendros sobre soberanía digital, privacidad, software libre y crítica tecnológica. Descubre ensayos, guías y provocaciones desde Valencia.",
   url: "https://alexendros.me",
   email: "contacto@alexendros.me",
   location: "Valencia, España",

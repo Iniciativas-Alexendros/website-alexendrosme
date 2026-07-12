@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
+import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Aviso legal",
@@ -9,6 +11,7 @@ export const metadata: Metadata = {
 export default function AvisoLegalPage() {
   return (
     <>
+      <BreadcrumbJsonLd items={[{ name: "Aviso legal", href: `${siteConfig.url}/legal/aviso-legal` }]} />
       <h1>Aviso legal</h1>
 
       {/* BLOQUE 1 — Lo esencial */}

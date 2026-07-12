@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
+import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Política de cookies",
@@ -9,6 +11,7 @@ export const metadata: Metadata = {
 export default function CookiesPage() {
   return (
     <>
+      <BreadcrumbJsonLd items={[{ name: "Política de cookies", href: `${siteConfig.url}/legal/cookies` }]} />
       <h1>Política de cookies</h1>
 
       {/* ── CAPA MANIFIESTO — divulgativa, para el humano ── */}
