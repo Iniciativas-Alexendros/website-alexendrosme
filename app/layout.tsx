@@ -10,6 +10,7 @@ import { JsonLd } from "@/components/json-ld";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AntiMonetizationBanner } from "@/components/anti-monetization-banner";
 import { siteConfig } from "@/lib/site";
+import { Analytics } from "@vercel/analytics/next";
 
 const ParticleBg = dynamic(() => import("@/components/particle-bg").then((m) => m.ParticleBg));
 
@@ -120,6 +121,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {children}
           </main>
           <Footer />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
