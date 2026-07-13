@@ -1,6 +1,6 @@
-# website-alexendrosme
+# Mi propio portal de contenido personal con código abierto accesible desde internet.
 
-> Espacio libre de dinero — ideas, ensayos y crítica tecnológica.
+> Espacio personal con datos biográficos, ideas, ensayos y crítica tecnológica.
 
 [![Deployed on Vercel](https://img.shields.io/badge/vercel-%23000000?logo=vercel&logoColor=white)](https://alexendros.me)
 [![Next.js](https://img.shields.io/badge/next.js-16-black?logo=next.js)](https://nextjs.org)
