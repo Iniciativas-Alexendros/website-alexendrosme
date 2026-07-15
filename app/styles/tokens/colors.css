@@ -159,7 +159,7 @@
     --ax-accent: oklch(0.55 0.15 85);
     --ax-accent-dim: oklch(0.62 0.13 85);
     --ax-accent-bright: oklch(0.48 0.17 85); /* hover: más oscuro */
-    --ax-accent-fg: oklch(0.08 0.01 315); /* texto oscuro violeta sobre acento */
+    --ax-accent-fg: oklch(0.05 0.01 315); /* texto oscuro violeta ≥4.5:1 sobre acento */
 
     --ax-brand-primary: var(--ax-accent);
     --ax-brand-primary-hc: var(--ax-accent);
@@ -265,7 +265,7 @@
   --ax-accent: oklch(0.55 0.15 85);
   --ax-accent-dim: oklch(0.62 0.13 85);
   --ax-accent-bright: oklch(0.48 0.17 85);
-  --ax-accent-fg: oklch(0.08 0.01 315);
+  --ax-accent-fg: oklch(0.05 0.01 315);
 
   --ax-brand-primary: var(--ax-accent);
   --ax-brand-primary-hc: var(--ax-accent);
