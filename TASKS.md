@@ -93,6 +93,7 @@ _Última actualización: 2026-07-15 — Auditoría PROFUNDA completada, 6/6 defe
 > 6 defectos encontrados, 6 corregidos. 3 fases de magnificación (8 ítems).
 
 ### Defectos corregidos
+
 - [x] DEFECTO-001: Shell injection en release.yml (inputs → env)
 - [x] DEFECTO-002: CSS huérfano en components.css (4 declaraciones sueltas)
 - [x] DEFECTO-003: Dependabot sin cooldown (añadido 7 días)
@@ -102,20 +103,24 @@ _Última actualización: 2026-07-15 — Auditoría PROFUNDA completada, 6/6 defe
 - [x] DEFECTO-007: Descartado — JSON-LD presente y válido (falso positivo)
 
 ### Magnificación fase 1 — código
+
 - [x] Migrar frontmatter parser a `gray-matter` (lib/content/loader.ts)
 - [x] Extraer script anti-flash a `public/theme.js` (app/layout.tsx usa Next.js Script)
 - [x] Añadir `content-visibility: auto` a secciones below-fold (components.css)
 
 ### Magnificación fase 2 — CI + SEO
+
 - [x] Tighten Lighthouse CI budgets (LCP 2.5s, CLS 0.1, TBT 200ms, resource budgets)
 - [x] Sitemap segmentado: index + pages + espensar + esposible (scripts/generate-sitemap.ts)
 - [x] Validación JSON-LD en CI (scripts/validate-jsonld.ts, 44 bloques, 0 errores)
 
 ### Magnificación fase 3 — a11y + monitorización
+
 - [x] Activar tests a11y en CI (un-exclude de playwright.config.ts, 5 páginas, WCAG 2.1 AA)
 - [x] Script de monitorización sintética (scripts/health-check.sh, compatible cron-job.org)
 
 ### Verificación final
+
 - [x] Build: ✅ 0 errores
 - [x] Tests unitarios: ✅ 38/38
 - [x] ESLint: ✅ 0/0

@@ -31,8 +31,7 @@ function findHtmlFiles(dir: string): string[] {
 
 function extractJsonLd(html: string): Array<{ id: string; json: unknown }> {
   const results: Array<{ id: string; json: unknown }> = [];
-  const regex =
-    /<script type="application\/ld\+json"[^>]*id="([^"]*)"[^>]*>([\s\S]*?)<\/script>/g;
+  const regex = /<script type="application\/ld\+json"[^>]*id="([^"]*)"[^>]*>([\s\S]*?)<\/script>/g;
   let match;
   while ((match = regex.exec(html)) !== null) {
     const id = match[1] ?? "unknown";

