@@ -9,7 +9,6 @@ export default defineConfig({
     ? [
         /visual-regression\.spec\.ts$/,
         /a11y-baseline\.spec\.ts$/,
-        /a11y\.spec\.ts$/,
         /seo-home\.spec\.ts$/,
         /responsive\.spec\.ts$/,
       ]

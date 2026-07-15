@@ -16,7 +16,7 @@ on:
           - ubuntu-latest
           - self-hosted
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "0 */6 * * *"
 
 # Cancela ejecuciones en curso de la misma rama cuando llega un push nuevo.
 concurrency:
@@ -74,8 +74,8 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version-file: ".nvmrc"
           cache: npm
@@ -94,8 +94,8 @@ jobs:
       contents: read
       actions: write
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version-file: ".nvmrc"
           cache: npm
@@ -106,7 +106,7 @@ jobs:
         run: npm run test:e2e
         env:
           CI: true
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         if: failure()
         with:
           name: playwright-report
@@ -120,13 +120,15 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version-file: ".nvmrc"
           cache: npm
       - run: npm ci
       - run: npm run build
+      - name: Validate JSON-LD
+        run: npm run validate-jsonld
       - name: Run Lighthouse CI
         run: npx @lhci/cli@0.14.x autorun
         env:
