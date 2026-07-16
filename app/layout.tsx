@@ -11,7 +11,7 @@ import { JsonLd } from "@/components/json-ld";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AntiMonetizationBanner } from "@/components/anti-monetization-banner";
 import { siteConfig } from "@/lib/site";
-import { Analytics } from "@vercel/analytics/next";
+import { Analytics } from "@vercel/analytics/react";
 
 const ParticleBg = dynamic(() => import("@/components/particle-bg").then((m) => m.ParticleBg));
 
