@@ -214,8 +214,6 @@
   }
 
   .section-below-fold {
-    contain-intrinsic-size: auto 40rem;
-
     .legal-doc {
       max-width: var(--ax-measure);
       font-size: var(--text-body);
@@ -1062,8 +1060,6 @@
 
   /* ── Sección StackMarquee en home ────────────────── */
   .marquee-section {
-    contain-intrinsic-size: auto 40rem;
-    contain-intrinsic-size: auto 40rem;
     padding-top: 1rem;
   }
   .marquee-heading {
@@ -1322,7 +1318,3 @@
     animation: none;
   }
 }
-width: 2rem;
-height: 2rem;
-border: none;
-background: transparent;
