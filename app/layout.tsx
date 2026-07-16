@@ -1,3 +1,4 @@
+import Script from "next/script";
 import localFont from "next/font/local";
 import { Inter } from "next/font/google";
 import dynamic from "next/dynamic";
@@ -84,27 +85,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${geistSans.variable} ${geistMono.variable} ${interDisplay.variable}`}
     >
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var theme = localStorage.getItem('theme');
-                  var root = document.documentElement;
-                  if (theme === 'light' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-                    root.classList.add('light');
-                    root.classList.remove('dark');
-                    root.setAttribute('data-theme', 'light');
-                  } else {
-                    root.classList.add('dark');
-                    root.classList.remove('light');
-                    root.setAttribute('data-theme', 'dark');
-                  }
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
+        <Script src="/theme.js" strategy="beforeInteractive" />
       </head>
       <body className="body-layout">
         <a href="#main" className="skip-link">
