@@ -1,4 +1,3 @@
-import Script from "next/script";
 import localFont from "next/font/local";
 import { Inter } from "next/font/google";
 import dynamic from "next/dynamic";
@@ -83,7 +82,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="es"
       data-accent="gold"
-      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${interDisplay.variable}`}
     >
       <head>
@@ -118,7 +116,6 @@ h1.display,.hero h1{font-family:var(--font-display);font-weight:700;letter-spaci
 @media(prefers-reduced-motion:reduce){.hero-animate{animation:none;opacity:1;transform:none}}`,
           }}
         />
-        <Script src="/theme.js" strategy="beforeInteractive" />
       </head>
       <body className="body-layout">
         <a href="#main" className="skip-link">

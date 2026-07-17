@@ -4,6 +4,12 @@ import { createContext, useContext, useEffect, useState, ReactNode } from "react
 
 type Theme = "light" | "dark" | "system";
 
+const VALID_THEMES: ReadonlySet<string> = new Set(["light", "dark", "system"]);
+
+function isTheme(value: string): value is Theme {
+  return VALID_THEMES.has(value);
+}
+
 interface ThemeContextType {
   theme: Theme;
   resolvedTheme: "light" | "dark";
@@ -23,8 +29,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     setMounted(true);
-    const stored = localStorage.getItem("theme") as Theme | null;
-    if (stored) {
+    const stored = localStorage.getItem("theme");
+    if (stored && isTheme(stored)) {
       setTheme(stored);
     }
   }, []);
@@ -65,10 +71,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, [theme, mounted]);
-
-  if (!mounted) {
-    return <>{children}</>;
-  }
 
   return (
     <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme }}>
