@@ -90,8 +90,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Critical above-the-fold CSS — paints nav + hero before stylesheet loads.
             Only ~2KB of layout, nav, hero, skip-link, and base typography.
             Below-fold sections use content-visibility: auto and load lazily. */}
-        <style dangerouslySetInnerHTML={{
-          __html: `html,body{font-family:var(--font-sans);font-size:var(--text-base);line-height:1.5;letter-spacing:var(--tracking-body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;margin:0;padding:0;font-feature-settings:"ss01","cv11","calt"}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `html,body{font-family:var(--font-sans);font-size:var(--text-base);line-height:1.5;letter-spacing:var(--tracking-body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;margin:0;padding:0;font-feature-settings:"ss01","cv11","calt"}
 html{color-scheme:dark light}
 body{background:var(--ax-surface-0);color:var(--ax-text-primary)}
 .skip-link{position:absolute;left:-9999px;top:auto;width:0;height:0;overflow:hidden}
@@ -114,8 +115,9 @@ body{background:var(--ax-surface-0);color:var(--ax-text-primary)}
 .theme-toggle-trigger{min-height:var(--ax-tap-target,2.75rem);min-width:var(--ax-tap-target,2.75rem)}
 h1.display,.hero h1{font-family:var(--font-display);font-weight:700;letter-spacing:-.025em;line-height:.98;text-wrap:balance;background:linear-gradient(180deg,var(--ax-text-primary) 0%,var(--ax-text-primary) 55%,color-mix(in oklch,var(--ax-text-primary) 78%,transparent) 80%,color-mix(in oklch,var(--ax-text-primary) 35%,transparent) 100%);background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
 @keyframes hero-fade-in{from{opacity:0;transform:translateY(.75rem)}to{opacity:1;transform:translateY(0)}}
-@media(prefers-reduced-motion:reduce){.hero-animate{animation:none;opacity:1;transform:none}}`
-        }} />
+@media(prefers-reduced-motion:reduce){.hero-animate{animation:none;opacity:1;transform:none}}`,
+          }}
+        />
         <Script src="/theme.js" strategy="beforeInteractive" />
       </head>
       <body className="body-layout">
