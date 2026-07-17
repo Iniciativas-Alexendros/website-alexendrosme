@@ -8,7 +8,10 @@ const perfThresholds = {
 };
 
 test("home page performance baseline", async ({ page }) => {
-  test.skip(!process.env["CI"], "Perf baseline solo en CI (static export); next dev TTFB no es representativo");
+  test.skip(
+    !process.env["CI"],
+    "Perf baseline solo en CI (static export); next dev TTFB no es representativo",
+  );
   const start = Date.now();
 
   await page.goto("/");
