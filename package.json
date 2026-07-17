@@ -19,6 +19,7 @@
     "deadcode:exports": "ts-prune",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
+    "audit:hydration": "tsx scripts/hydration-warning-audit.ts",
     "prepare": "husky || true",
     "release": "standard-version"
   },
@@ -27,6 +28,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "gray-matter": "^4.0.3",
+    "idb-keyval": "^6.2.2",
     "lucide-react": "^1.24.0",
     "next": "^16.2.10",
     "radix-ui": "^1.6.2",
@@ -51,6 +53,7 @@
     "@types/react-dom": "^19.1.0",
     "depcheck": "^1.4.7",
     "eslint": "^10.7.0",
+    "happy-dom": "^20.10.6",
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.9.5",
     "serve": "^14.2.6",
