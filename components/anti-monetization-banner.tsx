@@ -11,11 +11,13 @@ export function AntiMonetizationBanner() {
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    // Leer localStorage ANTES de setMounted para evitar que el banner
+    // se renderice brevemente entre setMounted(true) y setDismissed(true).
     const dismissedValue = localStorage.getItem("anti-monetization-dismissed");
     if (dismissedValue === "true") {
       setDismissed(true);
     }
+    setMounted(true);
 
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     setReduceMotion(mediaQuery.matches);
