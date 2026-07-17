@@ -28,6 +28,12 @@ test.describe("Landing · smoke + anchors + FABs", () => {
   });
 
   test("logo hace scroll al top", async ({ page }) => {
+    // El banner debería estar ya oculto vía localStorage, pero en CI puede
+    // haber race conditions con React hydration. Esperar a que no esté visible.
+    await page
+      .locator(".anti-monetization-banner")
+      .waitFor({ state: "hidden", timeout: 5000 })
+      .catch(() => {});
     await page.evaluate(() => window.scrollTo(0, 800));
     await page.locator("header nav a[href='/']").first().click();
     // Esperar hasta que el scroll termine (smooth puede tardar >600ms; CI más lento)
