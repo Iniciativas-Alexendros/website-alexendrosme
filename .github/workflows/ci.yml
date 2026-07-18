@@ -162,3 +162,72 @@ jobs:
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+  pr-summary:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    needs: [build, e2e, lhci]
+    timeout-minutes: 5
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962d410 # v7
+        env:
+          BUILD_RESULT: ${{ needs.build.result }}
+          E2E_RESULT: ${{ needs.e2e.result }}
+          LHCI_RESULT: ${{ needs.lhci.result }}
+        with:
+          script: |
+            const statusIcon = (r) => {
+              if (r === 'success') return '✅';
+              if (r === 'failure') return '❌';
+              if (r === 'cancelled') return '⏭️';
+              return '❓';
+            };
+
+            const checks = [
+              { name: '**Build** (format:check, typecheck, lint, test, build)', result: process.env.BUILD_RESULT },
+              { name: '**E2E Tests** (Playwright)', result: process.env.E2E_RESULT },
+              { name: '**Lighthouse CI** (rendimiento, accesibilidad, SEO)', result: process.env.LHCI_RESULT },
+            ];
+
+            const allPassed = checks.every(c => c.result === 'success');
+
+            let body = `## CI Checklist\n\n`;
+            body += `| Check | Status |\n`;
+            body += `|---|---|\n`;
+            for (const c of checks) {
+              body += `| ${c.name} | ${statusIcon(c.result)} |\n`;
+            }
+            body += `\n**Resultado:** ${allPassed ? '✅ Todos los checks pasaron — listo para merge.' : '❌ Algunos checks fallaron — revisa antes de mergear.'}\n`;
+            body += `\n---\n_Actualizado automáticamente por el workflow CI._\n`;
+
+            const issueNumber = context.issue.number || context.payload.pull_request?.number;
+            if (!issueNumber) {
+              console.log('Not a pull request — skipping comment.');
+              return;
+            }
+
+            const { data: comments } = await github.rest.issues.listComments({
+              ...context.repo,
+              issue_number: issueNumber,
+            });
+
+            const existing = comments.find(c =>
+              c.body.includes('## CI Checklist') &&
+              c.user.type === 'Bot'
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                ...context.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                ...context.repo,
+                issue_number: issueNumber,
+                body,
+              });
+            }
