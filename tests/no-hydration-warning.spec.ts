@@ -74,7 +74,7 @@ test.describe("no-hydration-warning · regression guard", () => {
     // either way.
     await expect(page.locator("html")).toHaveAttribute("data-theme", /dark|light/);
 
-    const trigger = page.locator(".theme-toggle-trigger");
+    const trigger = page.locator(".theme-toggle-trigger").first();
     const menuItems = page.getByRole("menuitemradio");
 
     // Warm-up click: confirms the popover opens & closes correctly and
