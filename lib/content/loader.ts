@@ -4,6 +4,19 @@ import matter from "gray-matter";
 import { FrontmatterSchema, type ContentItem, type CollectionType } from "./types";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
+const WORDS_PER_MINUTE = 200;
+
+export function calculateReadingTime(content: string): number {
+  const stripped = content
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`[^`]*`/g, " ")
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
+    .replace(/\[[^\]]*\]\([^)]*\)/g, " $& ")
+    .replace(/[#*_~>-]/g, " ");
+
+  const words = stripped.trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.ceil(words / WORDS_PER_MINUTE));
+}
 
 export async function getContentCollection(
   type: CollectionType,
@@ -18,7 +31,7 @@ export async function getContentCollection(
       mdxFiles.map(async (file) => {
         const filePath = path.join(dir, file);
         const source = await fs.readFile(filePath, "utf-8");
-        const { data: attributes } = matter(source);
+        const { data: attributes, content: body } = matter(source);
         const parsed = FrontmatterSchema.parse(attributes);
 
         if (parsed.draft) return null;
@@ -26,6 +39,7 @@ export async function getContentCollection(
         return {
           slug: file.replace(/\.mdx?$/, ""),
           frontmatter: parsed,
+          readingTime: calculateReadingTime(body),
         };
       }),
     );
@@ -59,7 +73,12 @@ export async function getRawContent(
 
       if (parsed.draft) return null;
 
-      return { slug, frontmatter: parsed, content: body };
+      return {
+        slug,
+        frontmatter: parsed,
+        content: body,
+        readingTime: calculateReadingTime(body),
+      };
     } catch {
       continue;
     }
@@ -93,4 +112,47 @@ export async function getRelatedContent(
     .sort((a, b) => b.score - a.score)
     .slice(0, limit)
     .map(({ item }) => item);
+}
+
+export interface TagArticle {
+  type: CollectionType;
+  slug: string;
+  frontmatter: ContentItem["frontmatter"];
+  readingTime: number;
+}
+
+export async function getAllTags(): Promise<string[]> {
+  const [espensar, esposible] = await Promise.all([
+    getContentCollection("espensar"),
+    getContentCollection("esposible"),
+  ]);
+  const tags = new Set<string>();
+  for (const item of [...espensar, ...esposible]) {
+    for (const tag of item.frontmatter.tags) tags.add(tag);
+  }
+  return Array.from(tags).sort((a, b) => a.localeCompare(b, "es"));
+}
+
+export async function getArticlesByTag(tag: string): Promise<TagArticle[]> {
+  const [espensar, esposible] = await Promise.all([
+    getContentCollection("espensar"),
+    getContentCollection("esposible"),
+  ]);
+  const tagged: TagArticle[] = [
+    ...espensar
+      .filter((a) => a.frontmatter.tags.includes(tag))
+      .map((a) => ({
+        ...a,
+        type: "espensar" as const,
+      })),
+    ...esposible
+      .filter((a) => a.frontmatter.tags.includes(tag))
+      .map((a) => ({
+        ...a,
+        type: "esposible" as const,
+      })),
+  ];
+  return tagged.sort(
+    (a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime(),
+  );
 }

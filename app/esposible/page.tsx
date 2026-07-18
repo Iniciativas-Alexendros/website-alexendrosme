@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getContentCollection } from "@/lib/content/loader";
 import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { siteConfig } from "@/lib/site";
+import { CollectionLabel, CollectionEmpty, BackHomeLabel } from "@/components/translated-labels";
 
 export const metadata: Metadata = {
   title: "Es posible",
@@ -24,7 +25,9 @@ export default async function EsPosiblePage() {
       <BreadcrumbJsonLd items={[{ name: "Es posible", href: `${siteConfig.url}/esposible` }]} />
       <div className="site-shell article-shell">
         <header className="collection-header">
-          <p className="ds-label collection-label">Colección</p>
+          <p className="ds-label collection-label">
+            <CollectionLabel />
+          </p>
           <h1 className="headline">Es posible</h1>
           <p className="prose-lead collection-desc">
             Guías prácticas, alternativas reales y caminos concretos hacia la soberanía digital y la
@@ -33,7 +36,9 @@ export default async function EsPosiblePage() {
         </header>
 
         {articles.length === 0 ? (
-          <p className="empty-state">No hay artículos publicados aún.</p>
+          <p className="empty-state">
+            <CollectionEmpty />
+          </p>
         ) : (
           <div className="stack-lg">
             {articles.map((article) => (
@@ -53,12 +58,19 @@ export default async function EsPosiblePage() {
                   {article.frontmatter.tags.length > 0 && (
                     <div className="cluster-sm">
                       {article.frontmatter.tags.map((tag) => (
-                        <span key={tag} className="tag-pill">
+                        <Link
+                          key={tag}
+                          href={`/tags/${encodeURIComponent(tag)}`}
+                          className="tag-pill no-underline hover:bg-muted transition-colors"
+                        >
                           #{tag}
-                        </span>
+                        </Link>
                       ))}
                     </div>
                   )}
+                  <span className="ds-caption" aria-label="Tiempo de lectura">
+                    · {article.readingTime} min de lectura
+                  </span>
                 </Link>
               </article>
             ))}
@@ -67,7 +79,7 @@ export default async function EsPosiblePage() {
 
         <footer className="section-footer">
           <Link href="/" className="back-link">
-            ← Volver al inicio
+            <BackHomeLabel />
           </Link>
         </footer>
       </div>

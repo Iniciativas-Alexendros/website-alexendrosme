@@ -15,6 +15,7 @@ export interface ContentItem {
   slug: string;
   frontmatter: Frontmatter;
   content: string;
+  readingTime: number;
 }
 
 export type CollectionType = "espensar" | "esposible";

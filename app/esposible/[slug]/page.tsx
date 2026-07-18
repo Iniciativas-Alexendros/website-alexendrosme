@@ -4,7 +4,11 @@ import { notFound } from "next/navigation";
 import { getRawContent, getContentCollection } from "@/lib/content/loader";
 import { MarkdownRenderer } from "@/components/mdx";
 import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
+import { ArticleMeta } from "@/components/article-meta";
+import { ArticleToc } from "@/components/article-toc";
+import { extractToc } from "@/lib/content/toc";
 import { siteConfig } from "@/lib/site";
+import { BackEsposibleLabel } from "@/components/translated-labels";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -41,6 +45,8 @@ export default async function EsPosibleArticle({ params }: Props) {
   const article = await getRawContent("esposible", slug);
 
   if (!article) notFound();
+
+  const tocItems = extractToc(article.content);
 
   const articleJsonLd = {
     "@context": "https://schema.org",
@@ -82,39 +88,30 @@ export default async function EsPosibleArticle({ params }: Props) {
       <div className="site-shell article-shell">
         <nav className="article-nav">
           <Link href="/esposible" className="ds-caption back-link">
-            ← Volver a Es posible
+            <BackEsposibleLabel />
           </Link>
         </nav>
 
-        <article>
-          <header className="article-head">
-            <h1 className="headline article-title">{article.frontmatter.title}</h1>
-            <div className="article-meta">
-              <time dateTime={article.frontmatter.date}>
-                {new Date(article.frontmatter.date).toLocaleDateString("es-ES", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </time>
-              {article.frontmatter.tags.length > 0 && (
-                <span className="cluster-sm" role="list" aria-label="Etiquetas">
-                  {article.frontmatter.tags.map((tag) => (
-                    <span key={tag} role="listitem" className="tag-pill">
-                      #{tag}
-                    </span>
-                  ))}
-                </span>
-              )}
-            </div>
-          </header>
+        <div className="article-layout">
+          <article className="article-main">
+            <header className="article-head">
+              <h1 className="headline article-title">{article.frontmatter.title}</h1>
+              <ArticleMeta
+                date={article.frontmatter.date}
+                readingTime={article.readingTime}
+                tags={article.frontmatter.tags}
+              />
+            </header>
 
-          <MarkdownRenderer content={article.content} />
-        </article>
+            <MarkdownRenderer content={article.content} />
+          </article>
+
+          <ArticleToc items={tocItems} />
+        </div>
 
         <footer className="section-footer">
           <Link href="/esposible" className="back-link">
-            ← Volver a Es posible
+            <BackEsposibleLabel />
           </Link>
         </footer>
       </div>
