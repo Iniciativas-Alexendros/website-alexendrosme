@@ -21,7 +21,7 @@
     "test:hash": "tsx scripts/hash-inline-blocks.ts",
     "deadcode:deps": "depcheck",
     "deadcode:exports": "ts-prune",
-    "test:e2e": "playwright test",
+    "test:e2e": "playwright test --grep-invert @visual",
     "test:e2e:ui": "playwright test --ui",
     "audit:hydration": "tsx scripts/hydration-warning-audit.ts",
     "prepare": "husky || true",

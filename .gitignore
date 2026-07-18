@@ -43,3 +43,6 @@ playwright/.cache/
 .lighthouseci/
 .vercel
 .env*
+
+# Vitest coverage (regenerated on each `npm run test:coverage`)
+coverage/
