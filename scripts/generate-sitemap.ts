@@ -15,9 +15,30 @@ function urlEntry(loc: string, lastmod: string, changefreq: string, priority: st
   </url>`;
 }
 
-function sitemapXml(urls: string) {
+function urlEntryWithImage(
+  loc: string,
+  lastmod: string,
+  changefreq: string,
+  priority: string,
+  imageUrl: string,
+) {
+  return `  <url>
+    <loc>${loc}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>
+    <image:image>
+      <image:loc>${imageUrl}</image:loc>
+    </image:image>
+  </url>`;
+}
+
+function sitemapXml(urls: string, withImageNamespace = false) {
+  const ns = withImageNamespace
+    ? ' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"'
+    : "";
   return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"${ns}>
 ${urls}
 </urlset>
 `;
@@ -37,9 +58,13 @@ async function main() {
     getContentCollection("esposible"),
   ]);
 
-  // ── Static pages ──────────────────────────────────────────────
+  // ── Static pages ───────────────────────────────────
   const pages = [
     urlEntry(`${BASE}/`, NOW, "monthly", "1.0"),
+    urlEntry(`${BASE}/now`, NOW, "weekly", "0.7"),
+    urlEntry(`${BASE}/espensar`, NOW, "weekly", "0.8"),
+    urlEntry(`${BASE}/esposible`, NOW, "weekly", "0.8"),
+    urlEntry(`${BASE}/tags`, NOW, "monthly", "0.6"),
     urlEntry(`${BASE}/legal/aviso-legal`, NOW, "yearly", "0.2"),
     urlEntry(`${BASE}/legal/privacidad`, NOW, "yearly", "0.2"),
     urlEntry(`${BASE}/legal/cookies`, NOW, "yearly", "0.2"),
@@ -52,35 +77,47 @@ async function main() {
     "utf-8",
   );
 
-  // ── Es pensar ─────────────────────────────────────────────────
+  // ── Es pensar (con OG por artículo) ───────────────
   const espensarUrls = [
     urlEntry(`${BASE}/espensar`, NOW, "weekly", "0.8"),
     ...espensar.map((a) =>
-      urlEntry(`${BASE}/espensar/${a.slug}`, a.frontmatter.date ?? NOW, "monthly", "0.7"),
+      urlEntryWithImage(
+        `${BASE}/espensar/${a.slug}`,
+        a.frontmatter.date ?? NOW,
+        "monthly",
+        "0.7",
+        `${BASE}/espensar/${a.slug}/opengraph-image.png`,
+      ),
     ),
   ].join("\n");
 
   await fs.writeFile(
     path.join(process.cwd(), "public", "sitemap-espensar.xml"),
-    sitemapXml(espensarUrls),
+    sitemapXml(espensarUrls, true),
     "utf-8",
   );
 
-  // ── Es posible ────────────────────────────────────────────────
+  // ── Es posible (con OG por artículo) ─────────────
   const esposibleUrls = [
     urlEntry(`${BASE}/esposible`, NOW, "weekly", "0.8"),
     ...esposible.map((a) =>
-      urlEntry(`${BASE}/esposible/${a.slug}`, a.frontmatter.date ?? NOW, "monthly", "0.7"),
+      urlEntryWithImage(
+        `${BASE}/esposible/${a.slug}`,
+        a.frontmatter.date ?? NOW,
+        "monthly",
+        "0.7",
+        `${BASE}/esposible/${a.slug}/opengraph-image.png`,
+      ),
     ),
   ].join("\n");
 
   await fs.writeFile(
     path.join(process.cwd(), "public", "sitemap-esposible.xml"),
-    sitemapXml(esposibleUrls),
+    sitemapXml(esposibleUrls, true),
     "utf-8",
   );
 
-  // ── Sitemap index ─────────────────────────────────────────────
+  // ── Sitemap index ────────────────────────────────
   const index = [
     `<sitemap><loc>${BASE}/sitemap-pages.xml</loc><lastmod>${NOW}</lastmod></sitemap>`,
     `<sitemap><loc>${BASE}/sitemap-espensar.xml</loc><lastmod>${NOW}</lastmod></sitemap>`,
@@ -95,11 +132,12 @@ async function main() {
 
   // eslint-disable-next-line no-console
   console.log(
-    "Sitemaps generated:\n  public/sitemap.xml (index)\n  public/sitemap-pages.xml\n  public/sitemap-espensar.xml\n  public/sitemap-esposible.xml",
+    "Sitemaps generated:\n  public/sitemap.xml (index)\n  public/sitemap-pages.xml\n  public/sitemap-espensar.xml (with images)\n  public/sitemap-esposible.xml (with images)",
   );
 }
 
 main().catch((error) => {
+  // eslint-disable-next-line no-console
   console.error(error);
   process.exit(1);
 });
