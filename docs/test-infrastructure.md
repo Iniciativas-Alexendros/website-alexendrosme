@@ -21,10 +21,10 @@ tests in `tests/*.spec.ts` are excluded by the `include` glob.
 
 ### Cost (measured)
 
-| Run | Tests | Wall-clock | Files |
-| --- | --- | --- | --- |
-| Before Plan H (env=node, 35 theme-storage failing) | 49 / 84 | ~996ms | 5 |
-| After Plan H (env=happy-dom, all pass) | 161 / 161 | ~1.80s | 15 |
+| Run                                                | Tests     | Wall-clock | Files |
+| -------------------------------------------------- | --------- | ---------- | ----- |
+| Before Plan H (env=node, 35 theme-storage failing) | 49 / 84   | ~996ms     | 5     |
+| After Plan H (env=happy-dom, all pass)             | 161 / 161 | ~1.80s     | 15    |
 
 Net cost: **~+800ms total wall-clock** (~+80%). Of that, ~7.7s of cumulative
 "environment" time across 15 files = ~510ms avg per file for happy-dom init.
@@ -46,13 +46,13 @@ The following approaches were explored and abandoned because the local
 Vitest 4.1.10 build does not support them. Recorded so future maintainers
 don't burn time on them:
 
-| Approach | Failure mode |
-| --- | --- |
-| `vitest.workspace.ts` autoload at root | Vitest 4.1.10 has no `defineWorkspace` export from `vitest/config`, no `--workspace` CLI flag, no autoload of `vitest.workspace.{ts,js,json}`. Silently ignored. |
-| `import { defineWorkspace } from "vitest/config"` | `TS2305: Module '"vitest/config"' has no exported member 'defineWorkspace'`. |
-| `test.environmentMatchGlobs: [[file, env]]` | `TS2769: 'environmentMatchGlobs' does not exist in type 'InlineConfig'` — field not in Vitest 4.1.10's `InlineConfig`. |
-| `test.projects: [...]` array | (a) `TS2769: 'coverage' does not exist in type 'ProjectConfig'` — per-project coverage not allowed. (b) `resolve.tsconfigPaths` at root does NOT propagate to child projects → `@/lib/utils` import resolution fails. |
-| Per-file pragma `// @vitest-environment happy-dom` | Works for the file it's in, but you have to manually add it to every DOM-needing test (`theme-storage` + `theme-cookie` + `theme-pre-paint`). Easy to forget when adding new tests. |
+| Approach                                           | Failure mode                                                                                                                                                                                                          |
+| -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `vitest.workspace.ts` autoload at root             | Vitest 4.1.10 has no `defineWorkspace` export from `vitest/config`, no `--workspace` CLI flag, no autoload of `vitest.workspace.{ts,js,json}`. Silently ignored.                                                      |
+| `import { defineWorkspace } from "vitest/config"`  | `TS2305: Module '"vitest/config"' has no exported member 'defineWorkspace'`.                                                                                                                                          |
+| `test.environmentMatchGlobs: [[file, env]]`        | `TS2769: 'environmentMatchGlobs' does not exist in type 'InlineConfig'` — field not in Vitest 4.1.10's `InlineConfig`.                                                                                                |
+| `test.projects: [...]` array                       | (a) `TS2769: 'coverage' does not exist in type 'ProjectConfig'` — per-project coverage not allowed. (b) `resolve.tsconfigPaths` at root does NOT propagate to child projects → `@/lib/utils` import resolution fails. |
+| Per-file pragma `// @vitest-environment happy-dom` | Works for the file it's in, but you have to manually add it to every DOM-needing test (`theme-storage` + `theme-cookie` + `theme-pre-paint`). Easy to forget when adding new tests.                                   |
 
 ## Migration path (when vitest 4.2+ lands or a workspace file is honored)
 
@@ -72,8 +72,8 @@ previously-broken tests pass.
 
 ## Conventions for new tests
 
-| Need | Where to put it |
-| --- | --- |
-| Pure logic, parsers, loaders | `__tests__/lib/*.test.ts` (works out of the box; happy-dom is global) |
-| `localStorage`, `document.cookie`, `window.*` | `__tests__/lib/*.test.ts` (also works out of the box) |
-| Playwright e2e specs | `tests/*.spec.ts` (separate runner; not vitest) |
+| Need                                          | Where to put it                                                       |
+| --------------------------------------------- | --------------------------------------------------------------------- |
+| Pure logic, parsers, loaders                  | `__tests__/lib/*.test.ts` (works out of the box; happy-dom is global) |
+| `localStorage`, `document.cookie`, `window.*` | `__tests__/lib/*.test.ts` (also works out of the box)                 |
+| Playwright e2e specs                          | `tests/*.spec.ts` (separate runner; not vitest)                       |

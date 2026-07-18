@@ -3,7 +3,12 @@ import Link from "next/link";
 import { getContentCollection } from "@/lib/content/loader";
 import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { siteConfig } from "@/lib/site";
-import { CollectionLabel, CollectionEmpty, BackHomeLabel, ReadingTime } from "@/components/translated-labels";
+import {
+  CollectionLabel,
+  CollectionEmpty,
+  BackHomeLabel,
+  ReadingTime,
+} from "@/components/translated-labels";
 
 export const metadata: Metadata = {
   title: "Es pensar",

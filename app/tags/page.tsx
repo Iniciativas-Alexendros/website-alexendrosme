@@ -25,9 +25,7 @@ export default async function TagsIndexPage() {
   if (tags.length === 0) {
     return (
       <>
-        <BreadcrumbJsonLd
-          items={[{ name: "Etiquetas", href: `${siteConfig.url}/tags` }]}
-        />
+        <BreadcrumbJsonLd items={[{ name: "Etiquetas", href: `${siteConfig.url}/tags` }]} />
         <div className="site-shell article-shell">
           <TagsIndexHeader count={0} />
           <p className="empty-state">

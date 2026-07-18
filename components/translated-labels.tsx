@@ -43,8 +43,7 @@ export function ReadingTime({ minutes }: { minutes: number }) {
   const { t } = useI18n();
   return (
     <span>
-      <span aria-hidden="true">·</span>{" "}
-      {minutes} {t("article.minutesShort")}
+      <span aria-hidden="true">·</span> {minutes} {t("article.minutesShort")}
     </span>
   );
 }
@@ -53,11 +52,7 @@ export function ReadingTime({ minutes }: { minutes: number }) {
  *  keyPathOne and keyPathMany are full dotted paths into the dictionaries.
  *  Always includes the numeric count; only the label switches between
  *  singular ("tag") and plural ("tags"). Caller composes surrounding sentence. */
-export function pluralizeWithCount(
-  count: number,
-  keyPathOne: string,
-  keyPathMany: string,
-): string {
+export function pluralizeWithCount(count: number, keyPathOne: string, keyPathMany: string): string {
   const { t } = useI18n();
   return `${count} ${count === 1 ? t(keyPathOne) : t(keyPathMany)}`;
 }

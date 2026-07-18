@@ -8,7 +8,7 @@
   `/home/alexendros/projects/website-alexendrosme`
   - Git repo, branch `main` at `4c169d4 feat(scripts): add hydration-warning-audit standalone Playwright tool`.
   - Has `package.json` + `node_modules/` (✓ ready, no install needed).
-  - Has uncommitted modifications + ~8 untracked new files (lib/theme-*.ts, adr/0003/0004, __tests__/lib/theme-*.test.ts). These are real working-tree changes from prior interrupted work — `next dev` builds over them fine; do **not** auto-clean.
+  - Has uncommitted modifications + ~8 untracked new files (lib/theme-_.ts, adr/0003/0004, **tests**/lib/theme-_.test.ts). These are real working-tree changes from prior interrupted work — `next dev` builds over them fine; do **not** auto-clean.
 - **Worktree subdir intended by Freebuff** (`/home/alexendros/projects/website-alexendrosme/.freebuff/worktrees/thmrme7j7qvya8`):
   - **NOT a real `git worktree`** — it is an empty subdirectory inside the primary checkout's working tree, containing only a leftover `.next/` cache from a prior run. `git worktree add` cannot register it as a new worktree because the path is already inside primary's tree.
   - Git commands executed from inside this path resolve to primary's HEAD, not a worktree-specific one. Do **not** try `git restore`/`git checkout -- .` from inside it — they will fail with "ruta no concuerda con ningún archivo".
@@ -17,13 +17,13 @@
 
 ## How to reproduce the artifacts a fresh checkout needs
 
-| Step | Command | Notes |
-|------|---------|-------|
-| 1. Identify primary checkout | `ls -la /home/alexendros/projects/website-alexendrosme/package.json` | This thread's CWD-as-worktree is a stale orphan; the actual server root is primary. |
-| 2. Verify deps | `test -d /home/alexendros/projects/website-alexendrosme/node_modules` | If absent: `cd /home/alexendros/projects/website-alexendrosme && npm install` (~30 s). |
-| 3. Verify Node + npm versions | `node --version` (≥ 22 required by `engines.node`) and `npm --version` (10 per `packageManager`). | |
-| 4. Pick a free port | `for p in 3000 3001 3002; do lsof -i:$p 2>/dev/null && echo "$p taken" || echo "$p free"; done` | Other workspaces can already occupy `:3000` and `:3001`; the convention in this repo is to escalate to the next free port. **Never assume `:3000` is free.** |
-| 5. (Optional) Copy `.env.local` from primary if your worktree hosted the server separately | `cp /home/alexendros/projects/website-alexendrosme/.env.local /path/to/worktree/.env.local` | **Never symlink.** Values such as ports may need adapting per worktree. As of 2026-07-17 neither primary nor any worktree has `.env.local` — Vercel Analytics env (if any) is set elsewhere. |
+| Step                                                                                       | Command                                                                                           | Notes                                                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. Identify primary checkout                                                               | `ls -la /home/alexendros/projects/website-alexendrosme/package.json`                              | This thread's CWD-as-worktree is a stale orphan; the actual server root is primary.                                                                                                          |
+| 2. Verify deps                                                                             | `test -d /home/alexendros/projects/website-alexendrosme/node_modules`                             | If absent: `cd /home/alexendros/projects/website-alexendrosme && npm install` (~30 s).                                                                                                       |
+| 3. Verify Node + npm versions                                                              | `node --version` (≥ 22 required by `engines.node`) and `npm --version` (10 per `packageManager`). |                                                                                                                                                                                              |
+| 4. Pick a free port                                                                        | `for p in 3000 3001 3002; do lsof -i:$p 2>/dev/null && echo "$p taken"                            |                                                                                                                                                                                              | echo "$p free"; done` | Other workspaces can already occupy `:3000` and `:3001`; the convention in this repo is to escalate to the next free port. **Never assume `:3000` is free.** |
+| 5. (Optional) Copy `.env.local` from primary if your worktree hosted the server separately | `cp /home/alexendros/projects/website-alexendrosme/.env.local /path/to/worktree/.env.local`       | **Never symlink.** Values such as ports may need adapting per worktree. As of 2026-07-17 neither primary nor any worktree has `.env.local` — Vercel Analytics env (if any) is set elsewhere. |
 
 ## How to run the server (DETACHED)
 

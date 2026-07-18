@@ -11,11 +11,7 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       include: ["lib/**/*.ts"],
-      exclude: [
-        "lib/**/*.test.ts",
-        "lib/**/index.ts",
-        "lib/i18n/dictionaries/*.ts",
-      ],
+      exclude: ["lib/**/*.test.ts", "lib/**/index.ts", "lib/i18n/dictionaries/*.ts"],
       reporter: ["text", "lcov", "html", "json-summary"],
       // Baseline measured 2026-07-18: lines 60.77, statements 59.37,
       // functions 56.33, branches 51.40. Floor = baseline - 5.

@@ -80,7 +80,9 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     );
   }
 
-  return <I18nContext.Provider value={buildValue(locale, setLocale)}>{children}</I18nContext.Provider>;
+  return (
+    <I18nContext.Provider value={buildValue(locale, setLocale)}>{children}</I18nContext.Provider>
+  );
 }
 
 export function useI18n() {

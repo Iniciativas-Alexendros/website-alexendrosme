@@ -1,9 +1,6 @@
 export type Locale = "es" | "en";
 
-export type TranslationValue =
-  | string
-  | string[]
-  | { [key: string]: TranslationValue };
+export type TranslationValue = string | string[] | { [key: string]: TranslationValue };
 
 export type TranslationDict = { [key: string]: TranslationValue };
 

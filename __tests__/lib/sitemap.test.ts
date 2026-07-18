@@ -10,10 +10,7 @@ function runSitemapScript(): void {
 }
 
 function readFile(name: string): string {
-  return fs.readFileSync(
-    path.join(process.cwd(), "public", name),
-    "utf-8",
-  );
+  return fs.readFileSync(path.join(process.cwd(), "public", name), "utf-8");
 }
 
 describe("generate-sitemap", () => {
@@ -68,11 +65,7 @@ describe("generate-sitemap", () => {
     expect(indexXml).toMatch(/<sitemapindex[^>]*>/);
     expect(indexXml.endsWith("</sitemapindex>\n")).toBe(true);
 
-    for (const f of [
-      "sitemap-pages.xml",
-      "sitemap-espensar.xml",
-      "sitemap-esposible.xml",
-    ]) {
+    for (const f of ["sitemap-pages.xml", "sitemap-espensar.xml", "sitemap-esposible.xml"]) {
       const xml = readFile(f);
       expect(xml).toMatch(/^<\?xml version="1\.0" encoding="UTF-8"\?>/);
       expect(xml).toMatch(/<urlset[^>]*>/);

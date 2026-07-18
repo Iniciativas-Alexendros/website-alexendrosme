@@ -89,9 +89,7 @@ export function Nav() {
           <li>
             <Link
               href="/now"
-              className={
-                onNowPage ? "site-nav__link site-nav__link--active" : "site-nav__link"
-              }
+              className={onNowPage ? "site-nav__link site-nav__link--active" : "site-nav__link"}
               aria-current={onNowPage ? "page" : undefined}
             >
               {t("nav.now")}

@@ -90,11 +90,7 @@ export function MobileMenu({ activeHash }: { activeHash: string }) {
                 </li>
               ))}
               <li>
-                <Link
-                  href="/now"
-                  onClick={() => setOpen(false)}
-                  className="sidebar-link"
-                >
+                <Link href="/now" onClick={() => setOpen(false)} className="sidebar-link">
                   {t("nav.now")}
                 </Link>
               </li>

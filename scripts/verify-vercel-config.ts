@@ -45,14 +45,17 @@ if (!buildCmd) {
 }
 
 // ── 2. Local consistency: vercel.json installCommand vs package.json ──
-const validInstallCommands = ["npm ci", "npm install", "pnpm install --frozen-lockfile", "yarn install --frozen-lockfile"];
+const validInstallCommands = [
+  "npm ci",
+  "npm install",
+  "pnpm install --frozen-lockfile",
+  "yarn install --frozen-lockfile",
+];
 if (!installCmd) {
   console.error("❌ vercel.json: missing 'installCommand'");
   exitCode = 1;
 } else if (!validInstallCommands.includes(installCmd)) {
-  console.error(
-    `❌ vercel.json installCommand ("${installCmd}") is not a recognized command`,
-  );
+  console.error(`❌ vercel.json installCommand ("${installCmd}") is not a recognized command`);
   exitCode = 1;
 }
 
@@ -76,9 +79,7 @@ if (vercelToken && vercelOrgId && vercelProjectId) {
     let remoteExit = 0;
 
     if (remoteBuild && remoteBuild !== buildCmd) {
-      console.error(
-        `❌ Remote Build Command ("${remoteBuild}") ≠ vercel.json ("${buildCmd}")`,
-      );
+      console.error(`❌ Remote Build Command ("${remoteBuild}") ≠ vercel.json ("${buildCmd}")`);
       remoteExit = 2;
     } else if (remoteBuild) {
       console.log(`✅ Remote Build Command matches: "${remoteBuild}"`);
@@ -103,12 +104,8 @@ if (vercelToken && vercelOrgId && vercelProjectId) {
     console.warn("   Skipping remote check (local checks still apply).");
   }
 } else {
-  console.log(
-    "ℹ️  VERCEL_TOKEN not set — skipping remote Vercel dashboard check.",
-  );
-  console.log(
-    "   Set VERCEL_TOKEN, VERCEL_ORG_ID, and VERCEL_PROJECT_ID to enable.",
-  );
+  console.log("ℹ️  VERCEL_TOKEN not set — skipping remote Vercel dashboard check.");
+  console.log("   Set VERCEL_TOKEN, VERCEL_ORG_ID, and VERCEL_PROJECT_ID to enable.");
 }
 
 // ── Summary ──

@@ -11,6 +11,7 @@
 **Architecture:** Aprovechamos el **file convention estático** de Next.js App Router: un archivo `app/opengraph-image.png` se publica automáticamente como `/opengraph-image.png` en el `output: "export"` — sin código runtime, sin `next/og`, sin necesidad de API edge. Next.js añade también `<meta property="og:image">` automáticamente a todas las rutas que no lo sobrescriban.
 
 **Premisa corregida registrada:**
+
 - ❌ Plan original asumía `next/og ImageResponse` con `force-static` en `app/opengraph-image.tsx` para OG dinámica por ruta. **FALLÓ en static export de Next.js 16**: build logs dijeron `○ /opengraph-image` (route static) pero el output real fue el directorio `out/opengraph-image/` (vacío) en lugar de `out/opengraph-image.png`. También falló en dynamic-segment routes: `app/<col>/[slug]/opengraph-image.tsx` rompe la fase de collect-page-data con `Cannot find module for page` (ENOENT en Turbopack worker).
 - ✅ La convención de archivos estáticos resuelve ambos casos: cualquier imagen en `app/<route>.png` se publica como `/<route>.png` y se enlaza automáticamente a `<meta property="og:image">`.
 
@@ -47,11 +48,13 @@ mv public/og/opengraph-image.png app/opengraph-image.png
 ```
 
 Next.js detecta `app/opengraph-image.png` automáticamente y:
+
 1. Publica el archivo en `out/opengraph-image.png` (raíz)
 2. Inyecta `<meta property="og:image" content="/opengraph-image.png">` en todas las rutas que no sobrescriban
 3. Cache-Control desde vercel.json (Plan A3) cubre `/opengraph-image.png`
 
 **Evidencia binaria:**
+
 ```
 $ file out/opengraph-image.png
 out/opengraph-image.png: PNG image data, 1200 x 630, 16-bit/color RGBA, non-int
@@ -82,7 +85,7 @@ urlEntryWithImage(
   a.frontmatter.date ?? NOW,
   "monthly",
   "0.7",
-  `${BASE}/opengraph-image.png`,  // ← root, all articles share
+  `${BASE}/opengraph-image.png`, // ← root, all articles share
 );
 ```
 
@@ -90,6 +93,7 @@ urlEntryWithImage(
 
 **Test (Plan C2 step 1, finalmente creado):**
 `__tests__/lib/sitemap.test.ts` valida:
+
 - 4 archivos generados (sitemap + 3 segmentos)
 - Index referencia los 3 sub-sitemaps
 - Pages sitemap incluye `/now`, `/tags`, todas las legales
@@ -123,12 +127,14 @@ Per-artículo OG dinámica **requeriría** una de:
 ## Self-Review
 
 **Spec coverage (Phase 1):**
+
 - OG image servida en `/opengraph-image.png` ✅ (binary evidence: 1200×630 PNG)
 - `next/og` evaluado y descartado con razonamiento documentado ✅
 - Sitemap con `image:loc` root por artículo ✅ (caveat: duplicate-image)
 - Build verde end-to-end ✅
 
 **Spec coverage (Phase 2):**
+
 - ❌ Per-artículo OG unique images — **OUT OF SCOPE**
 
 **Placeholder scan:** Sin placeholders en Phase 1.
@@ -136,6 +142,7 @@ Per-artículo OG dinámica **requeriría** una de:
 **Type consistency:** Sin type changes (solo archivos binarios y config).
 
 **Lessons learned (registradas para futuro):**
+
 1. En Next.js 16 + `output: "export"`, **nunca** usar `app/<col>/[slug]/opengraph-image.tsx` con `next/og ImageResponse`. El collect-page-data falla con ENOENT.
 2. Para OG images en static export, preferir **file convention** `app/<route>.png` sobre dynamic generation.
 3. Si se requiere per-artículo gold standard, usar satori+@resvg/resvg-wasm en script de build pre-render (Plan E.2).
