@@ -1,32 +1,34 @@
 "use client";
 
 import { useTheme } from "@/components/theme-provider";
+import { useI18n } from "@/lib/i18n";
 import { PopoverRoot, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { Monitor, Sun, Moon, Check } from "lucide-react";
 
 type ThemeValue = "system" | "light" | "dark";
 
-const themes: readonly {
-  value: ThemeValue;
-  label: string;
-  icon: React.ReactNode;
-}[] = [
-  {
-    value: "system" as const,
-    label: "Sistema",
-    icon: <Monitor className="size-4" />,
-  },
-  { value: "light" as const, label: "Claro", icon: <Sun className="size-4" /> },
-  {
-    value: "dark" as const,
-    label: "Oscuro",
-    icon: <Moon className="size-4" />,
-  },
-];
-
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+  const { t } = useI18n();
+
+  const themes: readonly {
+    value: ThemeValue;
+    label: string;
+    icon: React.ReactNode;
+  }[] = [
+    {
+      value: "system" as const,
+      label: t("theme.system"),
+      icon: <Monitor className="size-4" />,
+    },
+    { value: "light" as const, label: t("theme.light"), icon: <Sun className="size-4" /> },
+    {
+      value: "dark" as const,
+      label: t("theme.dark"),
+      icon: <Moon className="size-4" />,
+    },
+  ];
 
   const currentTheme = (themes.find((t) => t.value === theme) ?? themes[0]) as (typeof themes)[0];
 
@@ -43,7 +45,7 @@ export function ThemeToggle() {
             "data-[state=open]:bg-muted",
             "aria-invalid:border-destructive",
           )}
-          aria-label={`Tema actual: ${currentTheme.label}. Click para cambiar.`}
+          aria-label={t("theme.ariaLabel").replace("{theme}", currentTheme.label)}
         >
           {currentTheme.icon}
           <span className="hidden sm:inline">{currentTheme.label}</span>

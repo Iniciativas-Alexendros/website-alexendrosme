@@ -18,6 +18,37 @@ export default tseslint.config(
   },
   prettier,
   {
+    files: ["public/sw.js"],
+    languageOptions: {
+      globals: {
+        self: "readonly",
+        caches: "readonly",
+        fetch: "readonly",
+        Request: "readonly",
+        Response: "readonly",
+        URL: "readonly",
+        URLSearchParams: "readonly",
+        Headers: "readonly",
+        clients: "readonly",
+        skipWaiting: "readonly",
+        clients_claim: "readonly",
+        registration: "readonly",
+        addEventListener: "readonly",
+        navigator: "readonly",
+        console: "readonly",
+      },
+    },
+    rules: {
+      "no-console": "off",
+    },
+  },
+  {
+    files: ["scripts/**/*.ts"],
+    rules: {
+      "no-console": "off",
+    },
+  },
+  {
     files: ["**/*.cjs"],
     languageOptions: {
       sourceType: "commonjs",

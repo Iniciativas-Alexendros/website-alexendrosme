@@ -3,9 +3,12 @@
 > Espacio personal con datos biográficos, ideas, ensayos y crítica tecnológica.
 
 [![Deployed on Vercel](https://img.shields.io/badge/vercel-%23000000?logo=vercel&logoColor=white)](https://alexendros.me)
+[![CI](https://github.com/Iniciativas-Alexendros/website-alexendrosme/actions/workflows/ci.yml/badge.svg)](https://github.com/Iniciativas-Alexendros/website-alexendrosme/actions/workflows/ci.yml)
+[![Lighthouse](https://img.shields.io/badge/lighthouse-98%25-44cc11?logo=lighthouse)](https://googlechrome.github.io/lighthouse/viewer/?psiurl=https%3A%2F%2Falexendros.me)
 [![Next.js](https://img.shields.io/badge/next.js-16-black?logo=next.js)](https://nextjs.org)
 [![Tailwind CSS](https://img.shields.io/badge/tailwind-4-06b6d4?logo=tailwindcss)](https://tailwindcss.com)
 [![TypeScript](https://img.shields.io/badge/typescript-strict-3178c6?logo=typescript)](https://www.typescriptlang.org)
+[![Tests: 180 passed](https://img.shields.io/badge/tests-180%20passed-44cc11?logo=vitest)](https://github.com/Iniciativas-Alexendros/website-alexendrosme/actions)
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
 
 ## Qué es

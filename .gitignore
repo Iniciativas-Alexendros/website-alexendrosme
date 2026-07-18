@@ -6,6 +6,9 @@ node_modules
 .next
 out
 
+# audit tools (transient output, regenerated on each run)
+artifacts
+
 # builds
 dist
 *.tsbuildinfo
@@ -40,3 +43,6 @@ playwright/.cache/
 .lighthouseci/
 .vercel
 .env*
+
+# Vitest coverage (regenerated on each `npm run test:coverage`)
+coverage/

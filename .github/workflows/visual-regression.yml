@@ -1,0 +1,61 @@
+name: Visual Regression
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Snapshots are inherently flaky (font rendering, sub-pixel anti-alias, browser
+# version drift). Hard-blocking PRs on visual diffs traps the repo in
+# churn. Allow mirror-run + soft-fail so reviewers see the diff but a merge
+# can still happen.
+concurrency:
+  group: visual-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  visual:
+    name: Playwright visual
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+      actions: write
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+      - name: Serve out/ + run visual specs
+        run: |
+          set +e
+          npx serve out -s -l 3000 &
+          SERVE_PID=$!
+          trap "kill $SERVE_PID 2>/dev/null || true" EXIT
+          npx wait-on --timeout 60000 http://localhost:3000 || { echo "::error::serve out no arrancó en 60s"; kill $SERVE_PID 2>/dev/null || true; exit 1; }
+          npx playwright test --grep @visual
+          TEST_EXIT=$?
+          kill $SERVE_PID 2>/dev/null || true
+          exit $TEST_EXIT
+        env:
+          CI: true
+      - name: Upload visual failure artifacts
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: visual-diff
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 7
+      - name: Soft-fail notice
+        if: failure()
+        run: |
+          echo "::warning::Visual regression failed. Review the diff at the action run and either snap-update or fix the regression. This does NOT block merge."

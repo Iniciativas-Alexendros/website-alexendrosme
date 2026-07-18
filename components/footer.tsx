@@ -1,17 +1,28 @@
+"use client";
+
 import Link from "next/link";
 import { siteConfig } from "@/lib/site";
 import { ExternalLink } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const { t } = useI18n();
+
+  const legalNav = [
+    { label: t("footer.avisoLegal"), href: "/legal/aviso-legal" },
+    { label: t("footer.privacidad"), href: "/legal/privacidad" },
+    { label: t("footer.cookies"), href: "/legal/cookies" },
+    { label: t("footer.seguridad"), href: "/legal/seguridad" },
+  ];
 
   return (
     <footer className="site-footer">
       <div className="site-shell max-w-3xl">
         <div className="site-footer__inner">
-          <nav aria-label="Navegación legal">
+          <nav aria-label={t("footer.legalNavLabel")}>
             <ul className="legal-nav-list">
-              {siteConfig.legalNav.map((item) => (
+              {legalNav.map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="footer-link">
                     {item.label}
@@ -26,10 +37,10 @@ export function Footer() {
               href={siteConfig.links.dev}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Hub de productos — alexendros.dev"
+              aria-label={t("footer.hubLabel")}
               className="footer-link"
             >
-              Hub de productos → alexendros.dev
+              {t("footer.hubProductos")}
               <ExternalLink className="icn-sm" aria-hidden="true" />
             </a>
             <a
@@ -78,12 +89,9 @@ export function Footer() {
           <span title="Comercial (€) tachado por lo anticomercial; Ç = C comercial quebrada">
             <span className="strike-coin">€</span>Ç
           </span>{" "}
-          · {year} Alejandro Domingo Agustí · Anticomercial: cópialo, úsalo, compártelo. No
-          comercies con ello. F.A.F.O.
+          · {year} {t("footer.copyright")}
         </p>
-        <p className="footer-quote">
-          ¿De qué sirve el dinero a quien no sabe usarlo? Ya lo tengo yo.
-        </p>
+        <p className="footer-quote">{t("footer.quote")}</p>
       </div>
     </footer>
   );

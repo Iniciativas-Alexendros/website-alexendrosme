@@ -1,5 +1,6 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeSlug from "rehype-slug";
 
 interface MarkdownRendererProps {
   content: string;
@@ -10,6 +11,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
     <div className="prose">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeSlug]}
         components={{
           a: ({ children, href, ...props }) => (
             <a
@@ -20,6 +22,16 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             >
               {children}
             </a>
+          ),
+          h2: ({ children, ...props }) => (
+            <h2 tabIndex={-1} {...props}>
+              {children}
+            </h2>
+          ),
+          h3: ({ children, ...props }) => (
+            <h3 tabIndex={-1} {...props}>
+              {children}
+            </h3>
           ),
         }}
       >

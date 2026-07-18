@@ -3,6 +3,12 @@ import Link from "next/link";
 import { getContentCollection } from "@/lib/content/loader";
 import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { siteConfig } from "@/lib/site";
+import {
+  CollectionLabel,
+  CollectionEmpty,
+  BackHomeLabel,
+  ReadingTime,
+} from "@/components/translated-labels";
 
 export const metadata: Metadata = {
   title: "Es pensar",
@@ -24,7 +30,9 @@ export default async function EsPensarPage() {
       <BreadcrumbJsonLd items={[{ name: "Es pensar", href: `${siteConfig.url}/espensar` }]} />
       <div className="site-shell article-shell">
         <header className="collection-header">
-          <p className="ds-label collection-label">Colección</p>
+          <p className="ds-label collection-label">
+            <CollectionLabel />
+          </p>
           <h1 className="headline">Es pensar</h1>
           <p className="prose-lead collection-desc">
             Reflexiones sobre soberanía digital, crítica tecnológica y filosofía práctica para el
@@ -33,7 +41,9 @@ export default async function EsPensarPage() {
         </header>
 
         {articles.length === 0 ? (
-          <p className="empty-state">No hay artículos publicados aún.</p>
+          <p className="empty-state">
+            <CollectionEmpty />
+          </p>
         ) : (
           <div className="stack-lg">
             {articles.map((article) => (
@@ -53,12 +63,19 @@ export default async function EsPensarPage() {
                   {article.frontmatter.tags.length > 0 && (
                     <div className="cluster-sm">
                       {article.frontmatter.tags.map((tag) => (
-                        <span key={tag} className="tag-pill">
+                        <Link
+                          key={tag}
+                          href={`/tags/${encodeURIComponent(tag)}`}
+                          className="tag-pill no-underline hover:bg-muted transition-colors"
+                        >
                           #{tag}
-                        </span>
+                        </Link>
                       ))}
                     </div>
                   )}
+                  <span className="ds-caption">
+                    <ReadingTime minutes={article.readingTime} />
+                  </span>
                 </Link>
               </article>
             ))}
@@ -67,7 +84,7 @@ export default async function EsPensarPage() {
 
         <footer className="section-footer">
           <Link href="/" className="back-link">
-            ← Volver al inicio
+            <BackHomeLabel />
           </Link>
         </footer>
       </div>

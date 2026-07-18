@@ -6,12 +6,7 @@ export default defineConfig({
   testDir: "./tests",
   testMatch: /.*\.spec\.ts$/,
   testIgnore: isCI
-    ? [
-        /visual-regression\.spec\.ts$/,
-        /a11y-baseline\.spec\.ts$/,
-        /seo-home\.spec\.ts$/,
-        /responsive\.spec\.ts$/,
-      ]
+    ? [/a11y-baseline\.spec\.ts$/, /seo-home\.spec\.ts$/, /responsive\.spec\.ts$/]
     : [],
   fullyParallel: true,
   forbidOnly: !!process.env["CI"],

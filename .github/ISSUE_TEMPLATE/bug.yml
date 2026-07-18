@@ -47,18 +47,21 @@ body:
     id: entorno
     attributes:
       label: Entorno
-      description: Versión del proyecto, sistema operativo, runtime.
+      description: Versión del proyecto, sistema operativo, runtime, navegador.
       placeholder: |
         - Versión: vX.Y.Z
         - SO: ...
-        - Node / runtime: ...
+        - Navegador: ...
+        - Node: `node --version`
+        - npm: `npm --version`
+        - CI run link: (si el bug se reproduce en CI, pega el enlace al workflow)
     validations:
       required: true
   - type: textarea
     id: logs
     attributes:
       label: Logs y trazas
-      description: Pega salidas relevantes. Sustituye datos sensibles por `[REDACTADO]`.
+      description: Pega salidas relevantes. Incluye logs de build/CI si el bug ocurre en CI (npm run build, npm test, etc.). Sustituye datos sensibles por `[REDACTADO]`.
       render: text
   - type: checkboxes
     id: previo
@@ -68,6 +71,8 @@ body:
         - label: He buscado issues abiertos y cerrados con el mismo problema.
           required: true
         - label: He probado con la última versión publicada.
+          required: false
+        - label: He adjuntado el enlace al workflow de CI donde se reproduce (si aplica).
           required: false
         - label: No estoy reportando una vulnerabilidad de seguridad.
           required: true

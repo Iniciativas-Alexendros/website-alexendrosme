@@ -8,9 +8,11 @@ import { Footer } from "@/components/footer";
 import { Atmosphere } from "@/components/atmosphere";
 import { JsonLd } from "@/components/json-ld";
 import { ThemeProvider } from "@/components/theme-provider";
+import { I18nProvider } from "@/lib/i18n";
 import { AntiMonetizationBanner } from "@/components/anti-monetization-banner";
 import { siteConfig } from "@/lib/site";
 import { Analytics } from "@vercel/analytics/react";
+import { SwRegister } from "@/components/sw-register";
 
 const ParticleBg = dynamic(() => import("@/components/particle-bg").then((m) => m.ParticleBg));
 
@@ -56,7 +58,7 @@ export const metadata: Metadata = {
     url: siteConfig.url,
     images: [
       {
-        url: "/og/opengraph-image.png",
+        url: "/opengraph-image.png",
         width: 1200,
         height: 630,
         alt: siteConfig.title,
@@ -65,7 +67,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    images: ["/og/opengraph-image.png"],
+    images: ["/opengraph-image.png"],
   },
   robots: { index: true, follow: true },
 };
@@ -83,11 +85,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="es"
       data-accent="gold"
       className={`${geistSans.variable} ${geistMono.variable} ${interDisplay.variable}`}
+      suppressHydrationWarning
     >
       <head>
-        {/* Critical above-the-fold CSS — paints nav + hero before stylesheet loads.
-            Only ~2KB of layout, nav, hero, skip-link, and base typography.
-            Below-fold sections use content-visibility: auto and load lazily. */}
+        {/* Critical above-the-fold CSS — paints nav + hero before stylesheet loads. */}
         <style
           dangerouslySetInnerHTML={{
             __html: `html,body{font-family:var(--font-sans);font-size:var(--text-base);line-height:1.5;letter-spacing:var(--tracking-body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;margin:0;padding:0;font-feature-settings:"ss01","cv11","calt"}
@@ -116,24 +117,41 @@ h1.display,.hero h1{font-family:var(--font-display);font-weight:700;letter-spaci
 @media(prefers-reduced-motion:reduce){.hero-animate{animation:none;opacity:1;transform:none}}`,
           }}
         />
+
+        {/* PWA: manifest + apple touch icon */}
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#17130f" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="mobile-web-app-capable" content="yes" />
+
+        {/* Pre-paint locale: read localStorage and set lang before paint */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var l=null;try{l=localStorage.getItem('ax-locale')}catch(e){};if(l==='en'){document.documentElement.lang='en'}}catch(e){}})()`,
+          }}
+        />
       </head>
       <body className="body-layout">
         <a href="#main" className="skip-link">
           Saltar al contenido
         </a>
-        <ThemeProvider>
-          <JsonLd />
-          <Atmosphere />
-          <ParticleBg />
-          <AntiMonetizationBanner />
-          <Nav />
-          <main id="main" className="main-content">
-            {children}
-          </main>
-          <Footer />
-          {/* Vercel Web Analytics — privacy-first, no cookies. Activate in Vercel Dashboard → Analytics → Enable */}
-          <Analytics />
-        </ThemeProvider>
+        <I18nProvider>
+          <ThemeProvider>
+            <JsonLd />
+            <Atmosphere />
+            <ParticleBg />
+            <AntiMonetizationBanner />
+            <Nav />
+            <main id="main" className="main-content">
+              {children}
+            </main>
+            <Footer />
+            {/* Vercel Web Analytics — privacy-first, no cookies. Activate in Vercel Dashboard → Analytics → Enable */}
+            <Analytics />
+            <SwRegister />
+          </ThemeProvider>
+        </I18nProvider>
       </body>
     </html>
   );
