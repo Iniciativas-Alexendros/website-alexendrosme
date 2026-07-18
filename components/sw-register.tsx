@@ -37,7 +37,6 @@ export function SwRegister() {
         await reg.update();
       } catch (err) {
         // SW opcional — no bloquear UX
-        // eslint-disable-next-line no-console
         console.warn("[SW] registration failed:", err);
       }
     };

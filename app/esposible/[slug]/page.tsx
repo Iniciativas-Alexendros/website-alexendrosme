@@ -36,6 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: article.frontmatter.date,
       tags: article.frontmatter.tags,
       url: `${siteConfig.url}/esposible/${slug}`,
+      images: [`${siteConfig.url}/opengraph-image.png`],
     },
   };
 }

@@ -68,8 +68,9 @@ export default async function EsPosiblePage() {
                       ))}
                     </div>
                   )}
-                  <span className="ds-caption" aria-label="Tiempo de lectura">
-                    · {article.readingTime} min de lectura
+                  <span className="ds-caption">
+                    <span aria-hidden="true">·</span>{" "}
+                    {article.readingTime} min de lectura
                   </span>
                 </Link>
               </article>

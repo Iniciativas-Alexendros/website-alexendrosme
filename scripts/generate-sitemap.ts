@@ -77,7 +77,11 @@ async function main() {
     "utf-8",
   );
 
-  // ── Es pensar (con OG por artículo) ───────────────
+  // ── Es pensar (todos los artículos comparten /opengraph-image.png root) ─────
+  // next/og con force-static funciona en static export solo para rutas estáticas
+  // (app/icon.tsx, app/opengraph-image.tsx). Las dynamic-segment OG fallan en
+  // collect-page-data con 'Cannot find module' (verificado en Next.js 16).
+  // Fallback: todos los artículos referencian la OG root en metadata + sitemap.
   const espensarUrls = [
     urlEntry(`${BASE}/espensar`, NOW, "weekly", "0.8"),
     ...espensar.map((a) =>
@@ -86,7 +90,7 @@ async function main() {
         a.frontmatter.date ?? NOW,
         "monthly",
         "0.7",
-        `${BASE}/espensar/${a.slug}/opengraph-image.png`,
+        `${BASE}/opengraph-image.png`,
       ),
     ),
   ].join("\n");
@@ -97,7 +101,7 @@ async function main() {
     "utf-8",
   );
 
-  // ── Es posible (con OG por artículo) ─────────────
+  // ── Es posible (todos los artículos comparten /opengraph-image.png root) ──
   const esposibleUrls = [
     urlEntry(`${BASE}/esposible`, NOW, "weekly", "0.8"),
     ...esposible.map((a) =>
@@ -106,7 +110,7 @@ async function main() {
         a.frontmatter.date ?? NOW,
         "monthly",
         "0.7",
-        `${BASE}/esposible/${a.slug}/opengraph-image.png`,
+        `${BASE}/opengraph-image.png`,
       ),
     ),
   ].join("\n");
@@ -130,14 +134,12 @@ async function main() {
     "utf-8",
   );
 
-  // eslint-disable-next-line no-console
   console.log(
     "Sitemaps generated:\n  public/sitemap.xml (index)\n  public/sitemap-pages.xml\n  public/sitemap-espensar.xml (with images)\n  public/sitemap-esposible.xml (with images)",
   );
 }
 
 main().catch((error) => {
-  // eslint-disable-next-line no-console
   console.error(error);
   process.exit(1);
 });

@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* eslint-disable no-console */
 /**
  * Valida JSON-LD en archivos HTML generados por la build.
  * Busca <script type="application/ld+json"> y verifica estructura mínima.
