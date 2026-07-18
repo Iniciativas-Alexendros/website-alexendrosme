@@ -57,12 +57,31 @@ const es: TranslationDict = {
     },
     expFormacion: {
       category: "Formación de base",
+      items: [
+        "Años en hostelería, gestión y atención al cliente — aprendí a leer negocios antes que a escribir código.",
+        "Transición al software: autodidacta intensivo. Next.js, Supabase, Stripe, Docker.",
+        "Primer proyecto freelance. Apertura del repositorio público. Decisión firme de trabajar en abierto.",
+      ],
     },
     expStack: {
       category: "Stack actual",
+      items: [
+        "Next.js 16 App Router · TypeScript strict · React 19",
+        "Supabase (Postgres + Auth + Storage + RLS)",
+        "Stripe (Subscriptions + Connect Express)",
+        "Tailwind CSS v4 · shadcn/ui · Radix UI",
+        "Turborepo · Vercel · GitHub Actions",
+        "Playwright · Vitest",
+      ],
     },
     expHerramientas: {
       category: "Herramientas de mi día a día",
+      items: [
+        "Claude Code y OpenCode — Mi apoyo en el desarrollo de código y producción de proyectos.",
+        "Proton.me — Mail, VPN, Drive, IA... todo un ecosistema privado alojado en Suiza con cifrado de alta seguridad.",
+        "Hostinger — Dominios cuando necesito control total y precio honesto.",
+        "GitHub — Aquí encontrarás casi todos mis trabajos y proyectos de software, los cuales trato de tratar con la máxima profesionalidad sin pérdida de contenido original y soluciones creativas.",
+      ],
     },
     publicaciones: {
       title: "Últimos ensayos",

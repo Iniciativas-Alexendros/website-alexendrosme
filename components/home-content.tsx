@@ -29,64 +29,28 @@ function formatDate(dateStr: string, locale: string) {
   });
 }
 
+interface ExperienceSection {
+  key: string;
+  categoryKey: string;
+  itemsKey: string;
+}
+
+const EXPERIENCE_SECTIONS: ExperienceSection[] = [
+  {
+    key: "formacion",
+    categoryKey: "sections.expFormacion.category",
+    itemsKey: "sections.expFormacion.items",
+  },
+  { key: "stack", categoryKey: "sections.expStack.category", itemsKey: "sections.expStack.items" },
+  {
+    key: "herramientas",
+    categoryKey: "sections.expHerramientas.category",
+    itemsKey: "sections.expHerramientas.items",
+  },
+];
+
 export function HomeContent({ latestArticles, years }: HomeContentProps) {
-  const { t, locale } = useI18n();
-
-  // Experience items by locale
-  const expItems = {
-    es: {
-      formacion: [
-        "Años en hostelería, gestión y atención al cliente — aprendí a leer negocios antes que a escribir código.",
-        "Transición al software: autodidacta intensivo. Next.js, Supabase, Stripe, Docker.",
-        "Primer proyecto freelance. Apertura del repositorio público. Decisión firme de trabajar en abierto.",
-      ],
-      stack: [
-        "Next.js 16 App Router · TypeScript strict · React 19",
-        "Supabase (Postgres + Auth + Storage + RLS)",
-        "Stripe (Subscriptions + Connect Express)",
-        "Tailwind CSS v4 · shadcn/ui · Radix UI",
-        "Turborepo · Vercel · GitHub Actions",
-        "Playwright · Vitest",
-      ],
-      herramientas: [
-        "Claude Code y OpenCode — Mi apoyo en el desarrollo de código y producción de proyectos.",
-        "Proton.me — Mail, VPN, Drive, IA... todo un ecosistema privado alojado en Suiza con cifrado de alta seguridad.",
-        "Hostinger — Dominios cuando necesito control total y precio honesto.",
-        "GitHub — Aquí encontrarás casi todos mis trabajos y proyectos de software, los cuales trato de tratar con la máxima profesionalidad sin pérdida de contenido original y soluciones creativas.",
-      ],
-    },
-    en: {
-      formacion: [
-        "Years in hospitality, management and customer service — I learned to read businesses before writing code.",
-        "Transition to software: intensive self-taught. Next.js, Supabase, Stripe, Docker.",
-        "First freelance project. Opened public repository. Firm decision to work in the open.",
-      ],
-      stack: [
-        "Next.js 16 App Router · TypeScript strict · React 19",
-        "Supabase (Postgres + Auth + Storage + RLS)",
-        "Stripe (Subscriptions + Connect Express)",
-        "Tailwind CSS v4 · shadcn/ui · Radix UI",
-        "Turborepo · Vercel · GitHub Actions",
-        "Playwright · Vitest",
-      ],
-      herramientas: [
-        "Claude Code and OpenCode — My coding and project production companions.",
-        "Proton.me — Mail, VPN, Drive, AI... a complete private ecosystem hosted in Switzerland with high-security encryption.",
-        "Hostinger — Domains when I need full control and honest pricing.",
-        "GitHub — You'll find almost all my work and software projects here, which I strive to handle with maximum professionalism without losing original content and creative solutions.",
-      ],
-    },
-  };
-
-  type ExpKey = "formacion" | "stack" | "herramientas";
-
-  const experienceSections: { key: ExpKey; categoryKey: string }[] = [
-    { key: "formacion", categoryKey: "sections.expFormacion.category" },
-    { key: "stack", categoryKey: "sections.expStack.category" },
-    { key: "herramientas", categoryKey: "sections.expHerramientas.category" },
-  ];
-
-  const currentExpItems = locale === "en" ? expItems.en : expItems.es;
+  const { t, tArray, locale } = useI18n();
 
   return (
     <>
@@ -209,11 +173,11 @@ export function HomeContent({ latestArticles, years }: HomeContentProps) {
             <p className="section-desc">{t("sections.experiencias.desc")}</p>
           </div>
 
-          {experienceSections.map(({ key, categoryKey }) => (
+          {EXPERIENCE_SECTIONS.map(({ key, categoryKey, itemsKey }) => (
             <div key={key} className="exp-category">
               <h3 className="title">{t(categoryKey)}</h3>
               <ul className="exp-list">
-                {(currentExpItems[key] ?? []).map((item: string, i: number) => (
+                {tArray(itemsKey).map((item, i) => (
                   <li key={i} className="exp-item">
                     <span className="exp-arrow" aria-hidden="true">
                       ›

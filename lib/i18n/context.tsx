@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from "react";
-import type { Locale, I18nContextType, TranslationDict } from "./types";
+import type { Locale, I18nContextType, TranslationDict, TranslationValue } from "./types";
 import es from "./dictionaries/es";
 import en from "./dictionaries/en";
 
@@ -14,21 +14,40 @@ function isLocale(value: string): value is Locale {
 
 const dictionaries: Record<Locale, TranslationDict> = { es, en };
 
-function resolveFromDict(dict: TranslationDict, path: string): string {
+function resolveFromDict(dict: TranslationDict, path: string): TranslationValue {
   const keys = path.split(".");
-  let current: unknown = dict;
+  let current: TranslationValue | undefined = dict;
   for (const key of keys) {
-    if (typeof current !== "object" || current === null) return path;
-    current = (current as Record<string, unknown>)[key];
+    if (typeof current !== "object" || current === null || Array.isArray(current)) {
+      return path;
+    }
+    current = (current as Record<string, TranslationValue>)[key];
   }
-  return typeof current === "string" ? current : path;
+  return current ?? path;
 }
 
 const I18nContext = createContext<I18nContextType>({
   locale: "es",
   t: (path: string) => path,
+  tArray: () => [],
   setLocale: () => {},
 });
+
+function buildValue(locale: Locale, setLocaleFn: (l: Locale) => void): I18nContextType {
+  const dict = dictionaries[locale];
+  return {
+    locale,
+    t: (path: string) => {
+      const v = resolveFromDict(dict, path);
+      return typeof v === "string" ? v : path;
+    },
+    tArray: (path: string) => {
+      const v = resolveFromDict(dict, path);
+      return Array.isArray(v) ? v : [];
+    },
+    setLocale: setLocaleFn,
+  };
+}
 
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>("es");
@@ -54,27 +73,14 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const t = useCallback(
-    (path: string): string => {
-      const dict = dictionaries[locale];
-      const value = resolveFromDict(dict, path);
-      return value;
-    },
-    [locale],
-  );
-
   // Prevent hydration mismatch — render children only after mount
   if (!mounted) {
     return (
-      <I18nContext.Provider
-        value={{ locale: "es", t: (p: string) => resolveFromDict(dictionaries.es, p), setLocale }}
-      >
-        {children}
-      </I18nContext.Provider>
+      <I18nContext.Provider value={buildValue("es", setLocale)}>{children}</I18nContext.Provider>
     );
   }
 
-  return <I18nContext.Provider value={{ locale, t, setLocale }}>{children}</I18nContext.Provider>;
+  return <I18nContext.Provider value={buildValue(locale, setLocale)}>{children}</I18nContext.Provider>;
 }
 
 export function useI18n() {
