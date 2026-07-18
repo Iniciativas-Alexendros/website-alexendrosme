@@ -80,6 +80,8 @@ jobs:
           node-version-file: ".nvmrc"
           cache: npm
       - run: npm ci
+      - name: Verify vercel.json config consistency
+        run: npm run verify:vercel
       - run: npm run format:check
       - run: npm run typecheck
       - run: npm run lint
@@ -133,3 +135,30 @@ jobs:
         run: npx @lhci/cli@0.14.x autorun
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ${{ (github.event_name == 'workflow_dispatch' && inputs.runner) || 'ubuntu-latest' }}
+    needs: [build, e2e, lhci]
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+      - run: npm ci
+      - name: Deploy to Vercel (production)
+        run: |
+          if [ -n "${{ secrets.VERCEL_TOKEN }}" ]; then
+            npx vercel deploy --prod --token "${{ secrets.VERCEL_TOKEN }}" --scope alexendros-team --yes
+          else
+            echo "::warning::VERCEL_TOKEN not set in repo secrets. Skipping deploy."
+            echo "::warning::Set VERCEL_TOKEN at https://github.com/Iniciativas-Alexendros/website-alexendrosme/settings/secrets/actions"
+            echo "::warning::Token can be created at https://vercel.com/account/tokens"
+          fi
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
