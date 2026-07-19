@@ -50,8 +50,7 @@ export function ThemeToggle() {
           {currentTheme.icon}
           <span className="hidden sm:inline">{currentTheme.label}</span>
           <svg
-            className="size-4 opacity-60 transition-transform duration-fast"
-            style={{ transform: "rotate(0deg)" }}
+            className="size-4 opacity-60 transition-transform duration-fast chevron-icon"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="none"

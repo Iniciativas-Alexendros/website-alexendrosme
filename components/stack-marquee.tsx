@@ -60,13 +60,13 @@ function LogoRow({ count = 1, startIndex = 0 }: { count?: number; startIndex?: n
     <>
       {Array.from({ length: count }, (_, i) => i + startIndex).map((rowIndex) => (
         <div key={rowIndex} className="marquee-row" aria-hidden={rowIndex > 0}>
-          {items.map(({ icon, label, color, href }): React.ReactElement => {
+          {items.map(({ icon, label, href }): React.ReactElement => {
             const content = (
               <>
                 <span
                   aria-hidden
+                  data-glow-color={label.toLowerCase().replace(/[\s.]+/g, "")}
                   className="marquee-logo-glow"
-                  style={{ background: `radial-gradient(circle, ${color} 0%, transparent 65%)` }}
                 />
                 <svg
                   role="img"
@@ -88,7 +88,7 @@ function LogoRow({ count = 1, startIndex = 0 }: { count?: number; startIndex?: n
                 target="_blank"
                 rel="noopener noreferrer"
                 className="marquee-item"
-                style={{ color }}
+                data-brand={label.toLowerCase().replace(/[\s.]+/g, "")}
                 aria-label={`${icon.title} — ${href}`}
                 {...linkProps}
               >

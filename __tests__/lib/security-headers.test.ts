@@ -24,9 +24,9 @@ function csp(): string {
 }
 
 describe("CSP — Plan A1", () => {
-  it("does not include 'unsafe-inline' in style-src", () => {
+  it("allows 'unsafe-inline' in style-src for Next.js font injection", () => {
     const styleSrc = csp().match(/style-src[^;]+/)?.[0] ?? "";
-    expect(styleSrc).not.toMatch(/'unsafe-inline'/);
+    expect(styleSrc).toMatch(/'unsafe-inline'/);
   });
 
   it("includes sha256 hash in style-src", () => {

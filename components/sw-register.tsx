@@ -62,53 +62,20 @@ export function SwRegister() {
   if (!updateReady || dismissed) return null;
 
   return (
-    <div
-      role="status"
-      aria-live="polite"
-      style={{
-        position: "fixed",
-        bottom: "1rem",
-        right: "1rem",
-        zIndex: 60,
-        padding: "0.75rem 1rem",
-        background: "var(--ax-surface-2, #1f1a14)",
-        border: "1px solid var(--border, #444)",
-        borderRadius: "var(--ax-radius-md, 8px)",
-        boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
-        maxWidth: "20rem",
-      }}
-    >
-      <p style={{ marginBottom: "0.5rem", fontSize: "0.875rem", margin: 0 }}>
-        {t("pwa.updateReady")}
-      </p>
-      <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.5rem" }}>
+    <div role="status" aria-live="polite" className="sw-toast">
+      <p className="sw-toast__text">{t("pwa.updateReady")}</p>
+      <div className="sw-toast__actions">
         <button
           type="button"
           onClick={applyUpdate}
-          style={{
-            padding: "0.25rem 0.75rem",
-            fontSize: "0.75rem",
-            background: "var(--primary, #d9b267)",
-            color: "var(--primary-foreground, #17130f)",
-            border: "none",
-            borderRadius: "var(--ax-radius-sm, 4px)",
-            cursor: "pointer",
-          }}
+          className="sw-toast__btn sw-toast__btn--primary"
         >
           {t("pwa.updateApply")}
         </button>
         <button
           type="button"
           onClick={() => setDismissed(true)}
-          style={{
-            padding: "0.25rem 0.75rem",
-            fontSize: "0.75rem",
-            background: "transparent",
-            color: "var(--muted-foreground, #888)",
-            border: "1px solid var(--border, #444)",
-            borderRadius: "var(--ax-radius-sm, 4px)",
-            cursor: "pointer",
-          }}
+          className="sw-toast__btn sw-toast__btn--secondary"
         >
           {t("pwa.updateDismiss")}
         </button>

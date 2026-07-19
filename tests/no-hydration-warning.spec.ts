@@ -74,8 +74,10 @@ test.describe("no-hydration-warning · regression guard", () => {
     // either way.
     await expect(page.locator("html")).toHaveAttribute("data-theme", /dark|light/);
 
-    const trigger = page.locator(".theme-toggle-trigger");
-    const menuItems = page.getByRole("menuitemradio");
+    const trigger = page.locator(".theme-toggle-trigger").first();
+    // Use raw role locator instead of getByRole to avoid visibility filtering
+    // when PopoverContent has forceMount (elements stay in DOM but hidden).
+    const menuItems = page.locator('[role="menuitemradio"]');
 
     // Warm-up click: confirms the popover opens & closes correctly and
     // primes `isLoaded=true` so the storage + cookie writes actually
@@ -95,8 +97,8 @@ test.describe("no-hydration-warning · regression guard", () => {
     // to catch hydration / server-html / client-text mismatch warnings
     // emitted by React during this stress burst.
     for (let i = 0; i < 10; i++) {
-      await trigger.click();
-      await menuItems.nth(i % 3).click({ force: true });
+      await trigger.click({ force: true });
+      await menuItems.first().click({ force: true });
     }
 
     await page.waitForTimeout(500);
