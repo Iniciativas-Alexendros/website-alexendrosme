@@ -83,7 +83,7 @@ jobs:
           echo "LHCI results uploaded to temporary-public-storage (see LHCI dashboard)."
 
       - name: Update Lighthouse badge gist (dynamic shields.io endpoint)
-        uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962d410 # v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
         env:
           PERF: ${{ steps.scores.outputs.perf }}
           A11Y: ${{ steps.scores.outputs.a11y }}
