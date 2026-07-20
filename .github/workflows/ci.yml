@@ -171,7 +171,7 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962d410 # v7
+      - uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
         env:
           BUILD_RESULT: ${{ needs.build.result }}
           E2E_RESULT: ${{ needs.e2e.result }}
