@@ -98,6 +98,7 @@ export default tseslint.config(
       ".turbo/",
       "next-env.d.ts",
       ".git-worktrees/**",
+      ".freebuff/**",
       ".claude/**",
       "public/theme.js",
     ],
