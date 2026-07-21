@@ -9,7 +9,7 @@ export default tseslint.config(
   {
     languageOptions: {
       parserOptions: {
-        tsconfigRootDir: import.meta.dirname,
+        tsconfigRootDir: new URL(".", import.meta.url).pathname.replace(/\/$/, ""),
       },
     },
   },
