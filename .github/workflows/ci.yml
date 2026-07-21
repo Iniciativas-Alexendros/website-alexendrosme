@@ -80,6 +80,8 @@ jobs:
           node-version-file: ".nvmrc"
           cache: npm
       - run: npm ci
+      - name: Validate GH Action SHAs exist in their repos
+        run: npm run verify:action-shas
       - name: Verify vercel.json config consistency
         run: npm run verify:vercel
       - run: npm run format:check

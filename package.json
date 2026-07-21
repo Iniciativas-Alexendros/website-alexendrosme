@@ -22,12 +22,13 @@
     "deploy": "vercel deploy --prod --yes",
     "deploy:preview": "vercel deploy --yes",
     "verify:vercel": "tsx scripts/verify-vercel-config.ts",
+    "verify:action-shas": "tsx scripts/validate-action-shas.ts",
     "deadcode:deps": "depcheck",
     "deadcode:exports": "ts-prune",
     "test:e2e": "playwright test --grep-invert @visual",
     "test:e2e:ui": "playwright test --ui",
     "audit:hydration": "tsx scripts/hydration-warning-audit.ts",
-    "prepare": "husky || true",
+    "prepare": "husky",
     "release": "standard-version"
   },
   "dependencies": {
@@ -64,6 +65,8 @@
     "eslint": "^10.7.0",
     "eslint-config-prettier": "^10.1.8",
     "happy-dom": "^20.10.6",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.1.0",
     "prettier": "^3.9.5",
     "serve": "^14.2.6",
     "ts-prune": "^0.10.3",
@@ -95,6 +98,17 @@
     "static-site",
     "alexendros"
   ],
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{js,mjs,cjs}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{json,md,css}": "prettier --write"
+  },
   "overrides": {
     "postcss@<8.5.10": ">=8.5.10"
   }
