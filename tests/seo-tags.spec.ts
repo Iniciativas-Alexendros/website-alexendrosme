@@ -21,17 +21,22 @@ test.describe("Tags navigation", () => {
     // La página de tag muestra un h1 con el nombre del tag
     await expect(page.locator("h1")).toBeVisible();
     // Debería listar al menos un artículo
-    await expect(page.locator("article").first()).toBeVisible({ timeout: 5000 }).catch(() => {
-      // Si no hay artículos visibles (posible en CI lento), al menos la URL es correcta
-      expect(page.url()).toMatch(/\/tags\//);
-    });
+    await expect(page.locator("article").first())
+      .toBeVisible({ timeout: 5000 })
+      .catch(() => {
+        // Si no hay artículos visibles (posible en CI lento), al menos la URL es correcta
+        expect(page.url()).toMatch(/\/tags\//);
+      });
   });
 
   test("tag detail heading muestra #tag-name", async ({ page }) => {
     await page.goto("/tags");
     const firstPill = page.locator(".tag-pill").first();
     const pillText = (await firstPill.textContent()) ?? "";
-    const tagName = pillText.replace(/\(.*\)/, "").replace("#", "").trim();
+    const tagName = pillText
+      .replace(/\(.*\)/, "")
+      .replace("#", "")
+      .trim();
     await firstPill.click();
     await expect(page).toHaveURL(/\/tags\/[^/]+$/);
     // El h1 debe contener el nombre del tag (con o sin #)

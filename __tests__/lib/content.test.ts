@@ -112,9 +112,11 @@ describe("getRawContent", () => {
   });
 
   it("returns null for draft articles", async () => {
-    const spy = vi.spyOn(fs, "readFile").mockResolvedValue(
-      `---\ntitle: Draft Article\ndate: 2026-06-15T00:00:00.000Z\ndescription: A draft\ntags: [test]\ndraft: true\n---\nThis is a draft.`,
-    );
+    const spy = vi
+      .spyOn(fs, "readFile")
+      .mockResolvedValue(
+        `---\ntitle: Draft Article\ndate: 2026-06-15T00:00:00.000Z\ndescription: A draft\ntags: [test]\ndraft: true\n---\nThis is a draft.`,
+      );
 
     const result = await getRawContent("espensar", "__test-draft-999__");
     expect(result).toBeNull();
@@ -123,9 +125,11 @@ describe("getRawContent", () => {
   });
 
   it("handles invalid frontmatter by returning null", async () => {
-    const spy = vi.spyOn(fs, "readFile").mockResolvedValue(
-      `---\ndate: 2026-06-15T00:00:00.000Z\ntags: []\ndraft: false\n---\nContent without title field`,
-    );
+    const spy = vi
+      .spyOn(fs, "readFile")
+      .mockResolvedValue(
+        `---\ndate: 2026-06-15T00:00:00.000Z\ntags: []\ndraft: false\n---\nContent without title field`,
+      );
 
     const result = await getRawContent("espensar", "__test-invalid-999__");
     expect(result).toBeNull();

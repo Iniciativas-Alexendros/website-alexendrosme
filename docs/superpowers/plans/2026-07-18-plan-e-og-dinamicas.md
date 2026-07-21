@@ -27,20 +27,20 @@ Un helper compartido en `lib/og-image.ts` elimina la duplicación de código.
 
 ### Archivos creados
 
-| Archivo | Propósito |
-|---|---|
-| `app/espensar/[slug]/opengraph-image.tsx` | OG dinámica por artículo espensar |
-| `app/esposible/[slug]/opengraph-image.tsx` | OG dinámica por artículo esposible |
-| `lib/og-image.ts` | Helper compartido (`ogImageResponse`, `OG_SIZE`, temas tipados) |
-| `tests/seo-og-image.spec.ts` | E2E: verifica que cada artículo tenga `<meta og:image>` per-article |
+| Archivo                                    | Propósito                                                           |
+| ------------------------------------------ | ------------------------------------------------------------------- |
+| `app/espensar/[slug]/opengraph-image.tsx`  | OG dinámica por artículo espensar                                   |
+| `app/esposible/[slug]/opengraph-image.tsx` | OG dinámica por artículo esposible                                  |
+| `lib/og-image.ts`                          | Helper compartido (`ogImageResponse`, `OG_SIZE`, temas tipados)     |
+| `tests/seo-og-image.spec.ts`               | E2E: verifica que cada artículo tenga `<meta og:image>` per-article |
 
 ### Archivos modificados
 
-| Archivo | Cambio |
-|---|---|
-| `app/espensar/[slug]/page.tsx` | `openGraph.images` → per-article path |
-| `app/esposible/[slug]/page.tsx` | Idem |
-| `scripts/generate-sitemap.ts` | Sitemaps referencian OG per-article |
+| Archivo                         | Cambio                                |
+| ------------------------------- | ------------------------------------- |
+| `app/espensar/[slug]/page.tsx`  | `openGraph.images` → per-article path |
+| `app/esposible/[slug]/page.tsx` | Idem                                  |
+| `scripts/generate-sitemap.ts`   | Sitemaps referencian OG per-article   |
 
 ### Diseño de las OG images
 
@@ -79,6 +79,7 @@ con static export. Se usó un PNG pre-generado en `app/opengraph-image.png` para
 como permanente.
 
 **Evidencia del error (2026-07-18):**
+
 ```
 Error [PageNotFoundError]: Cannot find module for page: /esposible/[slug]/opengraph-image
 ```
@@ -101,6 +102,7 @@ Error [PageNotFoundError]: Cannot find module for page: /esposible/[slug]/opengr
 ### Refactor (2026-07-21)
 
 Extracción del helper compartido `lib/og-image.ts` con:
+
 - `ogImageResponse()` — función generadora única
 - `OG_SIZE`, `CONTENT_TYPE` — constantes compartidas
 - `OGTheme` interface — tema tipado (background, accent, title, description, muted)
@@ -112,13 +114,13 @@ Cada archivo de ruta se redujo de ~85 líneas a ~16.
 
 ## Verificación
 
-| Check | Método | Resultado |
-|---|---|---|
-| **Build** | `npm run build` | ✅ 5 OG images (3+2) |
-| **Typecheck** | `tsc --noEmit` | ✅ 0 errores |
-| **Tests unitarios** | `vitest run` | ✅ 180/180 |
-| **E2E OG metadata** | `playwright test seo-og-image` | ✅ 15/15 |
-| **Sitemap** | `scripts/generate-sitemap.ts` | ✅ per-article `image:loc` |
+| Check               | Método                         | Resultado                  |
+| ------------------- | ------------------------------ | -------------------------- |
+| **Build**           | `npm run build`                | ✅ 5 OG images (3+2)       |
+| **Typecheck**       | `tsc --noEmit`                 | ✅ 0 errores               |
+| **Tests unitarios** | `vitest run`                   | ✅ 180/180                 |
+| **E2E OG metadata** | `playwright test seo-og-image` | ✅ 15/15                   |
+| **Sitemap**         | `scripts/generate-sitemap.ts`  | ✅ per-article `image:loc` |
 
 ### OG images generadas
 
@@ -134,11 +136,11 @@ esposible/
 
 ### Todos los meta tags verificados
 
-| Meta | Antes | Ahora |
-|---|---|---|
-| `og:image` | ✅ per-article | ✅ per-article |
-| `twitter:image` | ❌ root | ✅ per-article |
-| `twitter:card` | ❌ no se generaba | ✅ `summary_large_image` |
+| Meta            | Antes             | Ahora                    |
+| --------------- | ----------------- | ------------------------ |
+| `og:image`      | ✅ per-article    | ✅ per-article           |
+| `twitter:image` | ❌ root           | ✅ per-article           |
+| `twitter:card`  | ❌ no se generaba | ✅ `summary_large_image` |
 
 ---
 

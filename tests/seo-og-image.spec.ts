@@ -22,14 +22,10 @@ test.describe("OG and Twitter images per article", () => {
 
       const expected = `${BASE}/${collection}/${slug}/opengraph-image.png`;
 
-      const ogImage = await page
-        .locator('meta[property="og:image"]')
-        .getAttribute("content");
+      const ogImage = await page.locator('meta[property="og:image"]').getAttribute("content");
       expect(ogImage).toBe(expected);
 
-      const twitterImage = await page
-        .locator('meta[name="twitter:image"]')
-        .getAttribute("content");
+      const twitterImage = await page.locator('meta[name="twitter:image"]').getAttribute("content");
       expect(twitterImage).toBe(expected);
     });
   }
