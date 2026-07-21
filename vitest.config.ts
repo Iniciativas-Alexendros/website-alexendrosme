@@ -13,14 +13,16 @@ export default defineConfig({
       include: ["lib/**/*.ts"],
       exclude: ["lib/**/*.test.ts", "lib/**/index.ts", "lib/i18n/dictionaries/*.ts"],
       reporter: ["text", "lcov", "html", "json-summary"],
-      // Baseline measured 2026-07-18: lines 60.77, statements 59.37,
-      // functions 56.33, branches 51.40. Floor = baseline - 5.
+      // Baseline measured 2026-07-21 (after loader.ts coverage boost):
+      // lines 68.01, statements 67.15, functions 65.78, branches 54.95.
+      // Floor = baseline - 5.
+      // Coverage gaps: lib/hooks/ (0%), lib/i18n/ (12.5%),
+      // lib/feed.ts (55.88%), lib/site.ts (22.22%).
       thresholds: {
-        lines: 55,
-        statements: 54,
-        functions: 51,
-        // branches excluded intentionally (51.40 baseline < 60; tracked as
-        // TECH-DEBT: raise to ≥60 in v0.6 by adding tests for loader + context)
+        lines: 63,
+        statements: 62,
+        functions: 60,
+        branches: 49,
       },
     },
   },

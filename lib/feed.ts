@@ -92,3 +92,84 @@ ${atomItems}
 
   return { rss, atom };
 }
+
+function collectionFeedRss(
+  site: FeedSite,
+  type: CollectionType,
+  label: string,
+  items: FeedItem[],
+): string {
+  const lastBuildDate = new Date().toUTCString();
+  const rssItems = items
+    .map((item) => {
+      const url = `${site.url}/${type}/${item.slug}`;
+      const description = item.frontmatter.description ?? item.frontmatter.title;
+      const pubDate = new Date(item.frontmatter.date).toUTCString();
+      return `    <item>
+      <title>${escapeXml(item.frontmatter.title)}</title>
+      <link>${escapeXml(url)}</link>
+      <description>${escapeXml(description)}</description>
+      <pubDate>${pubDate}</pubDate>
+      <guid isPermaLink="true">${escapeXml(url)}</guid>
+    </item>`;
+    })
+    .join("\n");
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>${escapeXml(label)} · ${escapeXml(site.name)}</title>
+    <link>${escapeXml(site.url)}/${type}</link>
+    <description>${escapeXml(label)} — ${escapeXml(site.description)}</description>
+    <language>es</language>
+    <lastBuildDate>${lastBuildDate}</lastBuildDate>
+    <atom:link href="${escapeXml(site.url)}/feed-${type}.xml" rel="self" type="application/rss+xml" />
+${rssItems}
+  </channel>
+</rss>`;
+}
+
+function collectionFeedAtom(
+  site: FeedSite,
+  type: CollectionType,
+  label: string,
+  items: FeedItem[],
+): string {
+  const lastBuildIso = new Date().toISOString();
+  const atomItems = items
+    .map((item) => {
+      const url = `${site.url}/${type}/${item.slug}`;
+      const description = item.frontmatter.description ?? item.frontmatter.title;
+      const updated = new Date(item.frontmatter.date).toISOString();
+      return `  <entry>
+    <title>${escapeXml(item.frontmatter.title)}</title>
+    <link href="${escapeXml(url)}" />
+    <id>${escapeXml(url)}</id>
+    <updated>${updated}</updated>
+    <summary>${escapeXml(description)}</summary>
+  </entry>`;
+    })
+    .join("\n");
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>${escapeXml(label)} · ${escapeXml(site.name)}</title>
+  <link href="${escapeXml(site.url)}/${type}" />
+  <id>${escapeXml(site.url)}/${type}</id>
+  <updated>${lastBuildIso}</updated>
+  <subtitle>${escapeXml(label)} — ${escapeXml(site.description)}</subtitle>
+${atomItems}
+</feed>`;
+}
+
+export function generateCollectionFeeds(
+  site: FeedSite,
+  type: CollectionType,
+  label: string,
+  items: FeedItem[],
+): { rss: string; atom: string } {
+  return {
+    rss: collectionFeedRss(site, type, label, items),
+    atom: collectionFeedAtom(site, type, label, items),
+  };
+}

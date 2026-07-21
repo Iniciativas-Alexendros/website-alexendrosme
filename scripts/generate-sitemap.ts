@@ -77,11 +77,9 @@ async function main() {
     "utf-8",
   );
 
-  // ── Es pensar (todos los artículos comparten /opengraph-image.png root) ─────
-  // next/og con force-static funciona en static export solo para rutas estáticas
-  // (app/icon.tsx, app/opengraph-image.tsx). Las dynamic-segment OG fallan en
-  // collect-page-data con 'Cannot find module' (verificado en Next.js 16).
-  // Fallback: todos los artículos referencian la OG root en metadata + sitemap.
+  // ── Es pensar ────────────────────────────────────────
+  // Cada artículo tiene su propia OG image generada por next/og
+  // (app/espensar/[slug]/opengraph-image.tsx).
   const espensarUrls = [
     urlEntry(`${BASE}/espensar`, NOW, "weekly", "0.8"),
     ...espensar.map((a) =>
@@ -90,7 +88,7 @@ async function main() {
         a.frontmatter.date ?? NOW,
         "monthly",
         "0.7",
-        `${BASE}/opengraph-image.png`,
+        `${BASE}/espensar/${a.slug}/opengraph-image.png`,
       ),
     ),
   ].join("\n");
@@ -101,7 +99,7 @@ async function main() {
     "utf-8",
   );
 
-  // ── Es posible (todos los artículos comparten /opengraph-image.png root) ──
+  // ── Es posible ──────────────────────────────────────
   const esposibleUrls = [
     urlEntry(`${BASE}/esposible`, NOW, "weekly", "0.8"),
     ...esposible.map((a) =>
@@ -110,7 +108,7 @@ async function main() {
         a.frontmatter.date ?? NOW,
         "monthly",
         "0.7",
-        `${BASE}/opengraph-image.png`,
+        `${BASE}/esposible/${a.slug}/opengraph-image.png`,
       ),
     ),
   ].join("\n");

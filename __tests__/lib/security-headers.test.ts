@@ -24,9 +24,10 @@ function csp(): string {
 }
 
 describe("CSP — Plan A1", () => {
-  it("allows 'unsafe-inline' in style-src for Next.js font injection", () => {
+  it("replaces 'unsafe-inline' with sha256 hash in style-src", () => {
     const styleSrc = csp().match(/style-src[^;]+/)?.[0] ?? "";
-    expect(styleSrc).toMatch(/'unsafe-inline'/);
+    expect(styleSrc).not.toMatch(/'unsafe-inline'/);
+    expect(styleSrc).toMatch(/'sha256-[A-Za-z0-9+/=]+'/);
   });
 
   it("includes sha256 hash in style-src", () => {

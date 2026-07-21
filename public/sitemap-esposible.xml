@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://alexendros.me/esposible</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -12,7 +12,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
-      <image:loc>https://alexendros.me/opengraph-image.png</image:loc>
+      <image:loc>https://alexendros.me/esposible/protocolos-vs-plataformas/opengraph-image.png</image:loc>
     </image:image>
   </url>
   <url>
@@ -21,7 +21,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
-      <image:loc>https://alexendros.me/opengraph-image.png</image:loc>
+      <image:loc>https://alexendros.me/esposible/escape-del-feudo-algoritmico/opengraph-image.png</image:loc>
     </image:image>
   </url>
 </urlset>

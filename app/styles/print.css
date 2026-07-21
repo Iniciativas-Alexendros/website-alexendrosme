@@ -37,9 +37,47 @@
   canvas:not(.prose canvas),
   header[role="banner"],
   nav.site-nav,
+  .mobile-menu,
+  .search-dialog,
+  .sw-toast,
   .skip-link,
   [data-nextjs-dialog-overlay],
-  [data-nextjs-toast] {
+  [data-nextjs-toast],
+  script,
+  style:not(.prose style),
+  noscript {
+    display: none !important;
+  }
+
+  /* ── Layout: eliminar constrain para máximo espacio ── */
+  .site-shell {
+    max-width: none !important;
+    padding-inline: 0 !important;
+  }
+
+  .article-shell {
+    padding-block: 0 !important;
+  }
+
+  .article-layout {
+    display: block !important;
+  }
+
+  .article-main {
+    max-width: none !important;
+  }
+
+  .body-layout {
+    display: block !important;
+    min-height: auto !important;
+  }
+
+  .main-content {
+    padding-bottom: 0 !important;
+  }
+
+  /* ── Article nav (back link superior) ──────────────── */
+  .article-nav {
     display: none !important;
   }
 
@@ -211,6 +249,8 @@
     margin-top: 2em;
     padding-top: 0.5em;
     border-top: 1px solid #cccccc;
+    page-break-inside: avoid;
+    break-inside: avoid;
   }
 
   .back-link {
@@ -218,13 +258,74 @@
     text-decoration: none !important;
   }
 
+  /* ── Collection pages (tags, /now, colecciones) ───── */
+  .collection-header {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  .collection-desc {
+    color: #333333 !important;
+    font-size: 10pt !important;
+  }
+
+  .article-item {
+    text-decoration: none !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .article-item__title {
+    font-size: 14pt !important;
+    color: #000000 !important;
+    margin-block: 0.25em 0.25em;
+  }
+
+  .article-item__desc {
+    font-size: 10pt !important;
+    color: #333333 !important;
+  }
+
+  /* ── Now page sections ─────────────────────────────── */
+  .stack-lg.prose section {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
   /* ── Page setup ────────────────────────────────────── */
   @page {
     margin: 2cm 1.5cm;
+    orphans: 3;
+    widows: 3;
+  }
+
+  @page :first {
+    margin-top: 2.5cm;
   }
 
   * {
     -webkit-print-color-adjust: economy !important;
     print-color-adjust: economy !important;
+  }
+
+  /* ── Fix para <pre> overflow en print ──────────────── */
+  .prose pre {
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+    max-width: 100% !important;
+  }
+
+  /* ── Fix imágenes grandes ──────────────────────────── */
+  .prose img,
+  .prose svg,
+  .prose video {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* ── No separar bloques de código de su título ─────── */
+  .prose pre + pre,
+  .prose :has(+ pre) {
+    page-break-after: avoid;
   }
 }
