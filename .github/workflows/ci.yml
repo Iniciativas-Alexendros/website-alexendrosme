@@ -300,6 +300,7 @@ jobs:
         if: steps.check-all.outputs.all-passed == 'true'
         run: |
           gh pr merge --auto --merge "${{ github.event.pull_request.number }}" \
+            --repo "${{ github.repository }}" \
             --subject "${{ github.event.pull_request.title }}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
