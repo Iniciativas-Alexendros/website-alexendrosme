@@ -56,6 +56,8 @@ function parseOklch(raw: string): [number, number, number] {
   const cleaned = raw.replace(/\s*\/\s*[\d.]+/, ""); // strip alpha
   const match = cleaned.match(/oklch\(([\d.]+)\s+([\d.]+)\s+([\d.]+)\)/);
   if (!match) throw new Error(`Cannot parse oklch: ${raw}`);
+  // SAFE: guard clause ensures match is truthy and capture groups exist
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return [parseFloat(match[1]!), parseFloat(match[2]!), parseFloat(match[3]!)];
 }
 
@@ -87,6 +89,8 @@ type TokenMap = Record<string, string>;
 function resolve(token: string, map: TokenMap): string {
   const varRef = token.match(/^var\((--[\w-]+)\)$/);
   if (varRef) {
+    // SAFE: regex guarantees varRef[1] exists when varRef is truthy
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const resolved = map[varRef[1]!];
     if (resolved) return resolve(resolved, map);
   }

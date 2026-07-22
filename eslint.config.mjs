@@ -49,6 +49,24 @@ export default tseslint.config(
     },
   },
   {
+    files: ["scripts/**/*.mjs"],
+    languageOptions: {
+      sourceType: "module",
+      globals: {
+        console: "readonly",
+        process: "readonly",
+        URL: "readonly",
+        performance: "readonly",
+        setTimeout: "readonly",
+        document: "readonly",
+        PerformanceObserver: "readonly",
+      },
+    },
+    rules: {
+      "no-console": "off",
+    },
+  },
+  {
     files: ["**/*.cjs"],
     languageOptions: {
       sourceType: "commonjs",

@@ -135,7 +135,6 @@ async function main() {
             let fcp = null,
               lcp = null,
               cls = 0;
-            let clsSession = 0;
             let resolved = false;
 
             const finish = () => {
@@ -155,7 +154,7 @@ async function main() {
                 }
                 if (entry.entryType === "layout-shift") {
                   if (!(/** @type {any} */ (entry).hadRecentInput)) {
-                    clsSession += /** @type {any} */ (entry).value;
+                    cls += /** @type {any} */ (entry).value;
                   }
                 }
               }
@@ -165,7 +164,9 @@ async function main() {
               po.observe({ type: "paint", buffered: true });
               po.observe({ type: "largest-contentful-paint", buffered: true });
               po.observe({ type: "layout-shift", buffered: true });
-            } catch {}
+            } catch {
+              /* PerformanceObserver not supported or buffered unavailable */
+            }
 
             // Timeout after 3s for all metrics
             setTimeout(finish, 3000);
