@@ -80,3 +80,6 @@ Tokens con prefijo `--ax-*` para colores, motion, spacing y layout. Triple caden
 ## Licencia
 
 [MIT](LICENSE)
+
+<!-- RELEASE_SECTION_START -->
+<!-- RELEASE_SECTION_END -->
