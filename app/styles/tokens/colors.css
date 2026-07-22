@@ -157,9 +157,11 @@
     /* ----- Acento: dorado más oscuro para AA sobre superficies claras ----- */
     /* accent L=0.55 → contraste 4.7:1 sobre surface-0 (L=0.98) */
     --ax-accent: oklch(0.55 0.15 85);
-    --ax-accent-dim: oklch(0.62 0.13 85);
-    --ax-accent-bright: oklch(0.48 0.17 85); /* hover: más oscuro */
-    --ax-accent-fg: oklch(1 0 0); /* blanco ≥4.5:1 sobre oro #996700 (light mode) */
+    --ax-accent-dim: oklch(
+      0.48 0.14 85
+    ); /* oro grave — más oscuro que accent (0.55); sync w/ __tests__/lib/contrast.test.ts */
+    --ax-accent-bright: oklch(0.48 0.17 85); /* hover: más brillante */
+    --ax-accent-fg: oklch(1 0 0); /* blanco ≥4.5:1 sobre oro (light mode) */
 
     --ax-brand-primary: var(--ax-accent);
     --ax-brand-primary-hc: var(--ax-accent);
@@ -263,9 +265,11 @@
   --ax-atmo-vignette: oklch(0.95 0.01 85);
 
   --ax-accent: oklch(0.55 0.15 85);
-  --ax-accent-dim: oklch(0.62 0.13 85);
-  --ax-accent-bright: oklch(0.48 0.17 85);
-  --ax-accent-fg: oklch(1 0 0); /* blanco ≥4.5:1 sobre oro #996700 (light mode) */
+  --ax-accent-dim: oklch(
+    0.48 0.14 85
+  ); /* oro grave — más oscuro que accent (0.55); sync w/ __tests__/lib/contrast.test.ts */
+  --ax-accent-bright: oklch(0.48 0.17 85); /* hover: más brillante */
+  --ax-accent-fg: oklch(1 0 0); /* blanco ≥4.5:1 sobre oro (light mode) */
 
   --ax-brand-primary: var(--ax-accent);
   --ax-brand-primary-hc: var(--ax-accent);

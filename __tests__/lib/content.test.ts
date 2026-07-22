@@ -140,10 +140,10 @@ describe("getRawContent", () => {
   it("caches article data with content", async () => {
     const result = await getRawContent("espensar", "critica-tecnologica");
     expect(result).not.toBeNull();
-    expect(result!.content).toBeTruthy();
-    expect(typeof result!.content).toBe("string");
-    expect(result!.slug).toBe("critica-tecnologica");
-    expect(result!.frontmatter.title).toBeTruthy();
+    expect(result?.content).toBeTruthy();
+    expect(typeof result?.content).toBe("string");
+    expect(result?.slug).toBe("critica-tecnologica");
+    expect(result?.frontmatter.title).toBeTruthy();
   });
 });
 
@@ -177,7 +177,7 @@ describe("getRelatedContent", () => {
   it("excludes the current article from results", async () => {
     const items = await getContentCollection("espensar");
     if (items.length === 0) return;
-    const target = items[0]!;
+    const target = items[0] as (typeof items)[number];
     const result = await getRelatedContent("espensar", target.slug);
     expect(result.find((r) => r.slug === target.slug)).toBeUndefined();
   });
@@ -185,7 +185,7 @@ describe("getRelatedContent", () => {
   it("returns articles sorted by tag overlap descending", async () => {
     const items = await getContentCollection("espensar");
     if (items.length === 0) return;
-    const target = items[0]!;
+    const target = items[0] as (typeof items)[number];
     const result = await getRelatedContent("espensar", target.slug);
     if (result.length < 2) return; // skip if not enough articles to sort
 
@@ -201,7 +201,7 @@ describe("getRelatedContent", () => {
   it("respects the limit parameter", async () => {
     const items = await getContentCollection("esposible");
     if (items.length === 0) return;
-    const target = items[0]!;
+    const target = items[0] as (typeof items)[number];
     const result = await getRelatedContent("esposible", target.slug, 1);
     expect(result.length).toBeLessThanOrEqual(1);
   });
@@ -209,7 +209,7 @@ describe("getRelatedContent", () => {
   it("defaults to limit of 3", async () => {
     const items = await getContentCollection("espensar");
     if (items.length === 0) return;
-    const target = items[0]!;
+    const target = items[0] as (typeof items)[number];
     const result = await getRelatedContent("espensar", target.slug);
     expect(result.length).toBeLessThanOrEqual(3);
   });

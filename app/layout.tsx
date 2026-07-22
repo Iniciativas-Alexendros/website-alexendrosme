@@ -13,6 +13,7 @@ import { AntiMonetizationBanner } from "@/components/anti-monetization-banner";
 import { siteConfig } from "@/lib/site";
 import { Analytics } from "@vercel/analytics/react";
 import { SwRegister } from "@/components/sw-register";
+import { prePaintScriptString } from "@/lib/theme-pre-paint";
 
 const ParticleBg = dynamic(() => import("@/components/particle-bg").then((m) => m.ParticleBg));
 
@@ -124,6 +125,9 @@ h1.display,.hero h1{font-family:var(--font-display);font-weight:700;letter-spaci
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="mobile-web-app-capable" content="yes" />
+
+        {/* Pre-paint theme: read cookie + localStorage, set class + data-theme before paint */}
+        <script dangerouslySetInnerHTML={{ __html: prePaintScriptString() }} />
 
         {/* Pre-paint locale: read localStorage and set lang before paint */}
         <script

@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { getRawContent, getContentCollection } from "@/lib/content/loader";
+import { getRawContent } from "@/lib/content/loader";
 
 export const OG_SIZE = { width: 1200, height: 630 };
 export const CONTENT_TYPE = "image/png";

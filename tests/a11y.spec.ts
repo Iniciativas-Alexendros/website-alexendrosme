@@ -3,10 +3,22 @@ import AxeBuilder from "@axe-core/playwright";
 
 const pages = [
   { name: "home", path: "/" },
-  { name: "aviso-legal", path: "/legal/aviso-legal" },
-  { name: "privacidad", path: "/legal/privacidad" },
-  { name: "cookies", path: "/legal/cookies" },
-  { name: "seguridad", path: "/legal/seguridad" },
+  { name: "espensar (collection)", path: "/espensar" },
+  { name: "espensar: crítica tecnológica", path: "/espensar/critica-tecnologica" },
+  { name: "espensar: manifiesto elígete a ti", path: "/espensar/manifiesto-eligete-a-ti" },
+  { name: "espensar: soberanía digital", path: "/espensar/soberania-digital" },
+  { name: "esposible (collection)", path: "/esposible" },
+  { name: "esposible: escape del feudo", path: "/esposible/escape-del-feudo-algoritmico" },
+  { name: "esposible: protocolos vs plataformas", path: "/esposible/protocolos-vs-plataformas" },
+  { name: "now", path: "/now" },
+  { name: "tags (index)", path: "/tags" },
+  { name: "tags: Alexendros", path: "/tags/Alexendros" },
+  { name: "tags: algoritmos", path: "/tags/algoritmos" },
+  { name: "legal: aviso legal", path: "/legal/aviso-legal" },
+  { name: "legal: privacidad", path: "/legal/privacidad" },
+  { name: "legal: cookies", path: "/legal/cookies" },
+  { name: "legal: seguridad", path: "/legal/seguridad" },
+  { name: "error 404", path: "/nonexistent-page" },
 ];
 
 for (const { name, path } of pages) {

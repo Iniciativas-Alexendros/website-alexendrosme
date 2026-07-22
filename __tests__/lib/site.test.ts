@@ -1,5 +1,8 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { siteConfig } from "@/lib/site";
+
+// Preserve original env (cast to mutable for test manipulation)
+const ORIGINAL_NODE_ENV = process.env.NODE_ENV;
 
 describe("siteConfig", () => {
   describe("campos básicos", () => {
@@ -96,6 +99,84 @@ describe("siteConfig", () => {
 
     it("tiene matrix con handle que contiene :", () => {
       expect(siteConfig.contact.matrix.handle).toContain(":");
+    });
+  });
+
+  describe("desarrollo: deep freeze en NODE_ENV=development", () => {
+    beforeEach(() => {
+      process.env = { ...process.env, NODE_ENV: "development" };
+      vi.resetModules();
+    });
+
+    afterEach(() => {
+      process.env = { ...process.env, NODE_ENV: ORIGINAL_NODE_ENV };
+    });
+
+    it("lanza TypeError al mutar siteConfig en desarrollo", async () => {
+      const { siteConfig: devConfig } = await import("@/lib/site");
+      expect(() => {
+        (devConfig as unknown as Record<string, unknown>).name = "mutated";
+      }).toThrow(TypeError);
+    });
+
+    it("lanza TypeError al mutar siteConfig.nav en desarrollo", async () => {
+      const { siteConfig: devConfig } = await import("@/lib/site");
+      expect(() => {
+        (devConfig.nav as unknown as unknown[]).push({} as never);
+      }).toThrow(TypeError);
+    });
+
+    it("lanza TypeError al mutar siteConfig.legalNav en desarrollo", async () => {
+      const { siteConfig: devConfig } = await import("@/lib/site");
+      expect(() => {
+        (devConfig.legalNav as unknown as unknown[]).push({} as never);
+      }).toThrow(TypeError);
+    });
+
+    it("lanza TypeError al mutar siteConfig.links en desarrollo", async () => {
+      const { siteConfig: devConfig } = await import("@/lib/site");
+      expect(() => {
+        (devConfig.links as unknown as Record<string, string>).extra = "https://evil.com";
+      }).toThrow(TypeError);
+    });
+
+    it("lanza TypeError al mutar siteConfig.contact en desarrollo", async () => {
+      const { siteConfig: devConfig } = await import("@/lib/site");
+      expect(() => {
+        (devConfig.contact as unknown as Record<string, unknown>).extra = {};
+      }).toThrow(TypeError);
+    });
+
+    it("lanza TypeError al mutar siteConfig.contact.telegram en desarrollo", async () => {
+      const { siteConfig: devConfig } = await import("@/lib/site");
+      expect(() => {
+        (devConfig.contact.telegram as unknown as Record<string, unknown>).handle = "mutated";
+      }).toThrow(TypeError);
+    });
+
+    it("lanza TypeError al mutar siteConfig.contact.matrix en desarrollo", async () => {
+      const { siteConfig: devConfig } = await import("@/lib/site");
+      expect(() => {
+        (devConfig.contact.matrix as unknown as Record<string, unknown>).handle = "mutated";
+      }).toThrow(TypeError);
+    });
+  });
+
+  describe("producción: no freeze en NODE_ENV=production", () => {
+    beforeEach(() => {
+      process.env = { ...process.env, NODE_ENV: "production" };
+      vi.resetModules();
+    });
+
+    afterEach(() => {
+      process.env = { ...process.env, NODE_ENV: ORIGINAL_NODE_ENV };
+    });
+
+    it("permite mutar siteConfig en producción", async () => {
+      const { siteConfig: prodConfig } = await import("@/lib/site");
+      expect(() => {
+        (prodConfig as unknown as Record<string, unknown>).name = "mutated";
+      }).not.toThrow();
     });
   });
 });

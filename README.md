@@ -3,7 +3,7 @@
 > Espacio personal con datos biográficos, ideas, ensayos y crítica tecnológica.
 
 [![Deployed on Vercel](https://img.shields.io/badge/vercel-%23000000?logo=vercel&logoColor=white)](https://alexendros.me)
-[![CI](https://github.com/Iniciativas-Alexendros/website-alexendrosme/actions/workflows/ci.yml/badge.svg)](https://github.com/Iniciativas-Alexendros/website-alexendrosme/actions/workflows/ci.yml)
+[![CI: build · e2e · lhci · a11y · perf](https://img.shields.io/github/actions/workflow/status/Iniciativas-Alexendros/website-alexendrosme/ci.yml?branch=main&logo=github&label=CI&style=flat-square)](https://github.com/Iniciativas-Alexendros/website-alexendrosme/actions/workflows/ci.yml)
 [![Lighthouse](https://img.shields.io/endpoint?url=https%3A%2F%2Fgist.githubusercontent.com%2FAlexendros%2Fff3b2a0e0c6ea0a662af759b1fc5de14%2Fraw%2Flighthouse.json&logo=lighthouse&style=flat)](https://googlechrome.github.io/lighthouse/viewer/?psiurl=https%3A%2F%2Falexendros.me)
 [![Next.js](https://img.shields.io/badge/next.js-16-black?logo=next.js)](https://nextjs.org)
 [![Tailwind CSS](https://img.shields.io/badge/tailwind-4-06b6d4?logo=tailwindcss)](https://tailwindcss.com)
