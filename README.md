@@ -5,6 +5,7 @@
 [![Deployed on Vercel](https://img.shields.io/badge/vercel-%23000000?logo=vercel&logoColor=white)](https://alexendros.me)
 [![CI: build · e2e · lhci · a11y · perf](https://img.shields.io/github/actions/workflow/status/Iniciativas-Alexendros/website-alexendrosme/ci.yml?branch=main&logo=github&label=CI&style=flat-square)](https://github.com/Iniciativas-Alexendros/website-alexendrosme/actions/workflows/ci.yml)
 [![Lighthouse](https://img.shields.io/endpoint?url=https%3A%2F%2Fgist.githubusercontent.com%2FAlexendros%2Fff3b2a0e0c6ea0a662af759b1fc5de14%2Fraw%2Flighthouse.json&logo=lighthouse&style=flat)](https://googlechrome.github.io/lighthouse/viewer/?psiurl=https%3A%2F%2Falexendros.me)
+[![Release: v0.6.0](https://img.shields.io/github/v/release/Iniciativas-Alexendros/website-alexendrosme?logo=github&label=Release&style=flat-square)](https://github.com/Iniciativas-Alexendros/website-alexendrosme/releases)
 [![Next.js](https://img.shields.io/badge/next.js-16-black?logo=next.js)](https://nextjs.org)
 [![Tailwind CSS](https://img.shields.io/badge/tailwind-4-06b6d4?logo=tailwindcss)](https://tailwindcss.com)
 [![TypeScript](https://img.shields.io/badge/typescript-strict-3178c6?logo=typescript)](https://www.typescriptlang.org)

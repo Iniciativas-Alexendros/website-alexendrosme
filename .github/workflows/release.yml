@@ -21,29 +21,26 @@ permissions:
   id-token: write
 
 jobs:
-  release:
+  check-version:
     if: >
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     runs-on: [self-hosted, ts]
-    timeout-minutes: 10
+    timeout-minutes: 5
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      skip: ${{ steps.version.outputs.skip }}
     steps:
-      - name: Checkout (full history for tagging)
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
           fetch-depth: 0
 
-      - name: Setup Node
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version-file: ".nvmrc"
           cache: npm
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
+      - run: npm ci
 
       - name: Determine version
         id: version
@@ -65,15 +62,53 @@ jobs:
             echo "skip=false" >> "$GITHUB_OUTPUT"
           fi
 
+  do-release:
+    if: needs.check-version.outputs.skip != 'true'
+    runs-on: [self-hosted, ts]
+    needs: check-version
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: site-build-${{ needs.check-version.outputs.version }}
+          path: out/
+          if-no-files-found: error
+
       - name: Configure Git
-        if: steps.version.outputs.skip != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreferrer.github.com"
 
+      - name: Update package.json version
+        env:
+          VERSION: ${{ needs.check-version.outputs.version }}
+        run: |
+          node -e "
+            const pkg = require('./package.json');
+            const old = pkg.version;
+            pkg.version = process.env.VERSION;
+            require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+            console.log('package.json: ' + old + ' → ' + pkg.version);
+          "
+          git add package.json
+          git commit -m "chore(release): v${VERSION}" || true
+
       - name: Check GPG key
         id: gpg-check
-        if: steps.version.outputs.skip != 'true'
         run: |
           if [ -n "${{ secrets.GPG_PRIVATE_KEY }}" ]; then
             echo "has_gpg=true" >> "$GITHUB_OUTPUT"
@@ -82,9 +117,7 @@ jobs:
           fi
 
       - name: Import GPG key
-        if: >
-          steps.version.outputs.skip != 'true' &&
-          steps.gpg-check.outputs.has_gpg == 'true'
+        if: steps.gpg-check.outputs.has_gpg == 'true'
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
@@ -95,12 +128,10 @@ jobs:
 
       - name: Extract changelog section
         id: changelog
-        if: steps.version.outputs.skip != 'true'
         env:
-          VERSION: ${{ steps.version.outputs.version }}
+          VERSION: ${{ needs.check-version.outputs.version }}
         run: |
           BODY=$(bash scripts/extract-changelog.sh "$VERSION" 2>/dev/null) || true
-          # Always create the file, even if empty (body_path always referenced)
           echo "${BODY:-}" > /tmp/release-body.md
           if [ -n "$BODY" ]; then
             echo "found=true" >> "$GITHUB_OUTPUT"
@@ -110,12 +141,9 @@ jobs:
       - name: Update README with latest release
         if: steps.changelog.outputs.found == 'true'
         env:
-          VERSION: ${{ steps.version.outputs.version }}
+          VERSION: ${{ needs.check-version.outputs.version }}
         run: |
           SNIPPET=$(bash scripts/extract-changelog.sh "$VERSION" --readme)
-          # Replace content between RELEASE_SECTION markers in README.md
-          # NOTE: snippet already includes its own markers, so we don't print
-          # the original START marker — just the snippet replaces the block.
           awk -v snippet="$SNIPPET" '
             /<!-- RELEASE_SECTION_START -->/ { print snippet; found=1; next }
             /<!-- RELEASE_SECTION_END -->/ { found=0; next }
@@ -126,9 +154,8 @@ jobs:
           git commit -m "docs: update README with v${VERSION} changelog" || true
 
       - name: Create tag
-        if: steps.version.outputs.skip != 'true'
         env:
-          VERSION: ${{ steps.version.outputs.version }}
+          VERSION: ${{ needs.check-version.outputs.version }}
           TAG_MESSAGE: ${{ inputs.tag_message || '' }}
           HAS_GPG: ${{ steps.gpg-check.outputs.has_gpg }}
         run: |
@@ -141,20 +168,38 @@ jobs:
           fi
           echo "Created tag: $TAG (signed=$HAS_GPG)"
 
-      - name: Push tag
-        if: steps.version.outputs.skip != 'true'
+      - name: Validate package.json version matches tag
+        env:
+          TAG_VERSION: ${{ needs.check-version.outputs.version }}
         run: |
-          TAG="v${{ steps.version.outputs.version }}"
+          PKG_VERSION=$(node -e "console.log(require('./package.json').version)")
+          if [ "$PKG_VERSION" != "$TAG_VERSION" ]; then
+            echo "::error::MISMATCH: package.json ($PKG_VERSION) ≠ tag (v$TAG_VERSION)"
+            exit 1
+          fi
+          echo "::notice::✅ package.json ($PKG_VERSION) coincide con el tag (v$TAG_VERSION)"
+
+      - name: Push tag
+        run: |
+          TAG="v${{ needs.check-version.outputs.version }}"
           git push origin main --follow-tags
 
       - name: Create GitHub Release
-        if: steps.version.outputs.skip != 'true'
         uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228 # v3
         with:
-          tag_name: v${{ steps.version.outputs.version }}
+          tag_name: v${{ needs.check-version.outputs.version }}
           body_path: /tmp/release-body.md
           generate_release_notes: ${{ steps.changelog.outputs.found != 'true' }}
-          files: |
-            out/**/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Validate package.json version matches tag
+        env:
+          TAG_VERSION: ${{ needs.check-version.outputs.version }}
+        run: |
+          PKG_VERSION=$(node -e "console.log(require('./package.json').version)")
+          if [ "$PKG_VERSION" != "$TAG_VERSION" ]; then
+            echo "::error::MISMATCH: package.json version ($PKG_VERSION) ≠ tag version (v$TAG_VERSION)"
+            exit 1
+          fi
+          echo "::notice::✅ package.json version ($PKG_VERSION) coincide con el tag (v$TAG_VERSION)"
