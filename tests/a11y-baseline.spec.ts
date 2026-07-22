@@ -3,10 +3,22 @@ import AxeBuilder from "@axe-core/playwright";
 
 const pages = [
   { name: "home", path: "/" },
+  { name: "espensar", path: "/espensar" },
+  { name: "critica-tecnologica", path: "/espensar/critica-tecnologica" },
+  { name: "manifiesto-eligete-a-ti", path: "/espensar/manifiesto-eligete-a-ti" },
+  { name: "soberania-digital", path: "/espensar/soberania-digital" },
+  { name: "esposible", path: "/esposible" },
+  { name: "escape-del-feudo", path: "/esposible/escape-del-feudo-algoritmico" },
+  { name: "protocolos-vs-plataformas", path: "/esposible/protocolos-vs-plataformas" },
+  { name: "now", path: "/now" },
+  { name: "tags", path: "/tags" },
+  { name: "tags-alexendros", path: "/tags/Alexendros" },
+  { name: "tags-algoritmos", path: "/tags/algoritmos" },
   { name: "aviso-legal", path: "/legal/aviso-legal" },
   { name: "privacidad", path: "/legal/privacidad" },
   { name: "cookies", path: "/legal/cookies" },
   { name: "seguridad", path: "/legal/seguridad" },
+  { name: "error-404", path: "/nonexistent-page" },
 ];
 
 for (const { name, path } of pages) {

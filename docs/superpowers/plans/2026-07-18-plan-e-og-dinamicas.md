@@ -1,148 +1,177 @@
-# Plan E: OG Images — Outcome real
+# Plan E: OG Dinámicas
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task.
+> **Estado:** Implementado al 100%
 >
-> **Estado:** Phase 1 entregada · Phase 2 fuera de scope
->
-> **Última revisión:** 2026-07-18 — evidencia binaria validada con `npx next build`: `out/opengraph-image.png` es **PNG real 1200×630 16-bit/color RGBA** (verificado con `file(1)`).
+> **Última revisión:** 2026-07-21 — `npx next build` genera 5 OG images por artículo
+> (3 espensar + 2 esposible) via `next/og` + `force-static` + `generateStaticParams`.
 
-**Goal:** Servir una imagen OpenGraph PNG en `/opengraph-image.png` que next/og file convention publique automáticamente.
+**Goal:** Cada artículo de espensar y esposible tiene su propia OG image (1200×630 PNG) con
+título, descripción y fecha, generada en build-time via `next/og ImageResponse`.
 
-**Architecture:** Aprovechamos el **file convention estático** de Next.js App Router: un archivo `app/opengraph-image.png` se publica automáticamente como `/opengraph-image.png` en el `output: "export"` — sin código runtime, sin `next/og`, sin necesidad de API edge. Next.js añade también `<meta property="og:image">` automáticamente a todas las rutas que no lo sobrescriban.
+**Architecture:** Dos archivos `opengraph-image.tsx` en rutas dinámicas (`[slug]/`) usan
+`next/og` + `force-static` + `generateStaticParams` para pre-renderizar las imágenes en build.
+Un helper compartido en `lib/og-image.ts` elimina la duplicación de código.
 
-**Premisa corregida registrada:**
-
-- ❌ Plan original asumía `next/og ImageResponse` con `force-static` en `app/opengraph-image.tsx` para OG dinámica por ruta. **FALLÓ en static export de Next.js 16**: build logs dijeron `○ /opengraph-image` (route static) pero el output real fue el directorio `out/opengraph-image/` (vacío) en lugar de `out/opengraph-image.png`. También falló en dynamic-segment routes: `app/<col>/[slug]/opengraph-image.tsx` rompe la fase de collect-page-data con `Cannot find module for page` (ENOENT en Turbopack worker).
-- ✅ La convención de archivos estáticos resuelve ambos casos: cualquier imagen en `app/<route>.png` se publica como `/<route>.png` y se enlaza automáticamente a `<meta property="og:image">`.
-
-**Tech Stack:** Solo PNG estático en `app/`. Sin satori, sin @vercel/og, sin next/og, sin runtime.
+**Tech Stack:** `next/og`, Satori (incluido en next/og), React JSX para diseño.
 
 ## Global Constraints
 
-- Static export — `output: "export"` confirmado en `next.config.ts:3`.
-- CERO dependencias runtime/producción nuevas.
-- La imagen PNG debe estar en `app/` antes de cada build.
-- La URL pública debe ser `/opengraph-image.png` (raíz) o subpath según convención.
-- La OG image debe ser 1200×630 px para máxima compatibilidad con OpenGraph.
+- Static export — `output: "export"` confirmado en `next.config.ts:3`
+- Cero dependencias runtime nuevas (next/og ya incluido en Next.js)
+- Las imágenes se generan en build-time, no en runtime
+- No usar fuentes WOFF2 (Satori no las soporta — solo TTF/OTF)
 
 ---
 
-## Phase 1 — Entregada ✅
+## Implementación ✅
 
-### Task E1: Verificar baseline (apple-icon.tsx como prueba de file convention)
+### Archivos creados
 
-Verificado por lectura directa de `out/apple-icon`:
+| Archivo                                    | Propósito                                                           |
+| ------------------------------------------ | ------------------------------------------------------------------- |
+| `app/espensar/[slug]/opengraph-image.tsx`  | OG dinámica por artículo espensar                                   |
+| `app/esposible/[slug]/opengraph-image.tsx` | OG dinámica por artículo esposible                                  |
+| `lib/og-image.ts`                          | Helper compartido (`ogImageResponse`, `OG_SIZE`, temas tipados)     |
+| `tests/seo-og-image.spec.ts`               | E2E: verifica que cada artículo tenga `<meta og:image>` per-article |
 
-```
-out/apple-icon: PNG image data, 180 x 180, 8-bit/color RGBA, non-interlaced
-```
+### Archivos modificados
 
-**Hallazgo:** `app/apple-icon.tsx` con `next/og + ImageResponse + force-static` **sí produce PNG estático** en `out/apple-icon` para rutas sin dynamic segments. La premisa general es válida para static-segment routes.
+| Archivo                         | Cambio                                |
+| ------------------------------- | ------------------------------------- |
+| `app/espensar/[slug]/page.tsx`  | `openGraph.images` → per-article path |
+| `app/esposible/[slug]/page.tsx` | Idem                                  |
+| `scripts/generate-sitemap.ts`   | Sitemaps referencian OG per-article   |
 
-### Task E2: OG branded — mover PNG estático a `app/`
-
-**Decision:** En lugar de generar dinámicamente (que falla en static export), colocamos el PNG preexistente directamente en `app/` para que Next.js lo publique.
-
-```bash
-mv public/og/opengraph-image.png app/opengraph-image.png
-```
-
-Next.js detecta `app/opengraph-image.png` automáticamente y:
-
-1. Publica el archivo en `out/opengraph-image.png` (raíz)
-2. Inyecta `<meta property="og:image" content="/opengraph-image.png">` en todas las rutas que no sobrescriban
-3. Cache-Control desde vercel.json (Plan A3) cubre `/opengraph-image.png`
-
-**Evidencia binaria:**
+### Diseño de las OG images
 
 ```
-$ file out/opengraph-image.png
-out/opengraph-image.png: PNG image data, 1200 x 630, 16-bit/color RGBA, non-int
-$ ls -la out/opengraph-image.png
--rw-rw-r-- 1 alexendros alexendros 63003 Jul 18 20:32 out/opengraph-image.png
+┌──────────────────────────────────────┐
+│  ALEXENDROS · Es pensar              │ ← branding sección (gold #d9b267)
+│                                      │
+│  La falsa dicotomía                  │ ← título (56px, bold)
+│  entre tradición                     │
+│  y modernidad                        │
+│                                      │
+│  Una exploración sobre cómo          │ ← descripción (24px, muted)
+│  el pensamiento binario...           │
+│                                      │
+│  15 junio 2026                       │ ← fecha, abajo
+└──────────────────────────────────────┘
+   1200×630px — gradiente oscuro
+   Tono distintivo por colección:
+     espensar → dorado (#d9b267) sobre fondo cálido
+     esposible → teal (#67d9b2) sobre fondo frío
+   Sin fuentes custom (Satori no soporta WOFF2)
 ```
 
-### Task E3-E4: OG per-artículo → **NO IMPLEMENTADO, revertido**
+---
 
-Las rutas `app/espensar/[slug]/opengraph-image.tsx` y `app/esposible/[slug]/opengraph-image.tsx` se crearon inicialmente pero **rompieron el build** durante la fase de `Collecting page data`:
+## Historial de implementación
+
+### Intento 1: Static PNG en `app/` (2026-07-18)
+
+**Premisa original (incorrecta):** `next/og` con `force-static` NO funciona en dynamic segments
+con static export. Se usó un PNG pre-generado en `app/opengraph-image.png` para la OG root.
+
+**Lo que falló:** En la versión de Next.js del 2026-07-18, el build con
+`app/<col>/[slug]/opengraph-image.tsx` rompía `collect-page-data` con
+`Cannot find module for page` (ENOENT). El plan documentó la restricción
+como permanente.
+
+**Evidencia del error (2026-07-18):**
 
 ```
 Error [PageNotFoundError]: Cannot find module for page: /esposible/[slug]/opengraph-image
-    at ignore-listed frames { code: 'ENOENT' }
-Export encountered an error on /esposible/[slug]/opengraph-image, exiting the build.
 ```
 
-**Causa raíz:** Turbopack worker en Next.js 16 + static export no resuelve correctamente módulos en dynamic segments con `next/og ImageResponse`. El error NO menciona restricciones conocidas, pero la combinación `output: "export" + dynamic-segment + opengraph-image.tsx + generateImageMetadata/generateStaticParams returning sync data with fs reads` falla consistentemente.
+### Intento 2: next/og con `force-static` en Next.js 16.2.10 (2026-07-21)
 
-**Fix aplicado:** revertir los archivos y aceptar fallback todas-las-rutas → root OG. `scripts/generate-sitemap.ts` actualizado para que el `image:loc` per-artículo apunte a `/opengraph-image.png` (root) en lugar de `/<col>/<slug>/opengraph-image.png`.
+**Nuevo intento exitoso:** Al migrar a Next.js 16.2.10, se probó de nuevo y el build
+**funcionó correctamente**. Las 5 OG images se generaron sin errores.
 
-### Task E5: Sitemap con image:loc por artículo → implementado con URL root
+**Lecciones:**
 
-```ts
-// scripts/generate-sitemap.ts (post-fix)
-urlEntryWithImage(
-  `${BASE}/espensar/${a.slug}`,
-  a.frontmatter.date ?? NOW,
-  "monthly",
-  "0.7",
-  `${BASE}/opengraph-image.png`, // ← root, all articles share
-);
-```
+1. **WOFF2 no soportado por Satori**: El primer build falló con
+   `Unsupported OpenType signature wOF2`. La solución fue eliminar la carga de fuentes
+   custom y usar la fuente default que incluye `next/og`.
+2. **CSS Satori-compatible**: Satori no soporta `WebkitLineClamp`, `WebkitBoxOrient`
+   ni `textOverflow: "ellipsis"`. El diseño usa wrapping natural.
+3. **Metadata desactualizado**: El `generateMetadata` en las páginas de artículo seguía
+   apuntando a la OG root. Hubo que actualizar `images` al per-article path.
 
-**Caveat SEO:** Tener 5 artículos (3 espensar + 2 esposible) apuntando todos al mismo `image:loc` puede interpretarse como duplicate-image signal por Google Images. Aceptable para v0.5.0; será reemplazado en Phase 2.
+### Refactor (2026-07-21)
 
-**Test (Plan C2 step 1, finalmente creado):**
-`__tests__/lib/sitemap.test.ts` valida:
+Extracción del helper compartido `lib/og-image.ts` con:
 
-- 4 archivos generados (sitemap + 3 segmentos)
-- Index referencia los 3 sub-sitemaps
-- Pages sitemap incluye `/now`, `/tags`, todas las legales
-- Espensar/esposible sitemaps tienen `xmlns:image="..."`
-- Per-artículo `image:loc` apunta a `/opengraph-image.png`
+- `ogImageResponse()` — función generadora única
+- `OG_SIZE`, `CONTENT_TYPE` — constantes compartidas
+- `OGTheme` interface — tema tipado (background, accent, title, description, muted)
+- `ESPENSAR_THEME`, `ESPOSIBLE_THEME` — temas concretos
+
+Cada archivo de ruta se redujo de ~85 líneas a ~16.
 
 ---
 
-## Phase 2 — OUT OF SCOPE
+## Verificación
 
-Per-artículo OG dinámica **requeriría** una de:
+| Check               | Método                         | Resultado                  |
+| ------------------- | ------------------------------ | -------------------------- |
+| **Build**           | `npm run build`                | ✅ 5 OG images (3+2)       |
+| **Typecheck**       | `tsc --noEmit`                 | ✅ 0 errores               |
+| **Tests unitarios** | `vitest run`                   | ✅ 180/180                 |
+| **E2E OG metadata** | `playwright test seo-og-image` | ✅ 15/15                   |
+| **Sitemap**         | `scripts/generate-sitemap.ts`  | ✅ per-article `image:loc` |
 
-1. **Build-time pre-render via satori + @resvg/resvg-wasm** (~80 líneas en `scripts/generate-og-images.ts`):
-   - Lee MDX frontmatter via `getContentCollection`
-   - Renderiza React JSX → SVG (satori)
-   - Convierte SVG → PNG (@resvg/resvg-wasm)
-   - Escribe `<col>/<slug>/opengraph-image.png` directamente en `public/`
-   - El build de Next.js copia automáticamente al output vía static-export
-   - DevDeps a añadir: `satori`, `@resvg/resvg-wasm`, opcionalmente `@types/node` ya presente
+### OG images generadas
 
-2. **Edge function runtime** (satori en runtime, no aplica a static export sin service worker específico)
+```
+espensar/
+  critica-tecnologica/opengraph-image ✓
+  manifiesto-eligete-a-ti/opengraph-image ✓
+  soberania-digital/opengraph-image ✓
+esposible/
+  protocolos-vs-plataformas/opengraph-image ✓
+  escape-del-feudo-algoritmico/opengraph-image ✓
+```
 
-3. **Renombrar `content.coleccion/[slug]/index/route.tsx`** que devuelve raw bytes — exploratorio, no recomendado.
+### Todos los meta tags verificados
 
-**Rec. estimada Phase 2:** 2-3h implementación + tests. Dependencias totales: 2 paquetes dev nuevos.
-
-**Tracking:** Task futura → `Plan E.2: per-article OG via satori+resvg build pre-render`.
+| Meta            | Antes             | Ahora                    |
+| --------------- | ----------------- | ------------------------ |
+| `og:image`      | ✅ per-article    | ✅ per-article           |
+| `twitter:image` | ❌ root           | ✅ per-article           |
+| `twitter:card`  | ❌ no se generaba | ✅ `summary_large_image` |
 
 ---
 
 ## Self-Review
 
-**Spec coverage (Phase 1):**
+**Spec coverage:**
 
-- OG image servida en `/opengraph-image.png` ✅ (binary evidence: 1200×630 PNG)
-- `next/og` evaluado y descartado con razonamiento documentado ✅
-- Sitemap con `image:loc` root por artículo ✅ (caveat: duplicate-image)
-- Build verde end-to-end ✅
+- OG image por artículo ✅
+- Título + descripción + fecha dinámicos ✅
+- Build-time pre-render sin runtime ✅
+- Sitemap con `image:loc` per-article ✅
+- Sin dependencias nuevas ✅
+- Helper compartido eliminando duplicación ✅
+- Test E2E que verifica el metadata HTML ✅
 
-**Spec coverage (Phase 2):**
+**Type consistency:**
 
-- ❌ Per-artículo OG unique images — **OUT OF SCOPE**
-
-**Placeholder scan:** Sin placeholders en Phase 1.
-
-**Type consistency:** Sin type changes (solo archivos binarios y config).
+- `OGTheme` interface tipa todos los valores de color (5 campos)
+- `OGImageProps` usa union type `"espensar" | "esposible"` para collection
+- `ogImageResponse` devuelve `Promise<ImageResponse>` — compatible con route handler de Next.js
+- `generateStaticParams` exportado por archivo (necesario por ruta)
 
 **Lessons learned (registradas para futuro):**
 
-1. En Next.js 16 + `output: "export"`, **nunca** usar `app/<col>/[slug]/opengraph-image.tsx` con `next/og ImageResponse`. El collect-page-data falla con ENOENT.
-2. Para OG images en static export, preferir **file convention** `app/<route>.png` sobre dynamic generation.
-3. Si se requiere per-artículo gold standard, usar satori+@resvg/resvg-wasm en script de build pre-render (Plan E.2).
+1. En Next.js 16.2.10 + `output: "export"`, `app/<col>/[slug]/opengraph-image.tsx`
+   con `next/og ImageResponse` + `force-static` **SÍ funciona**.
+2. Satori **no soporta WOFF2**. Usar solo TTF/OTF vía `fonts` option de ImageResponse,
+   o no cargar fuentes custom y usar las defaults de `next/og`.
+3. Satori no soporta `textOverflow: "ellipsis"` ni propiedades prefijadas WebKit.
+   Usar wrapping natural.
+4. El `generateMetadata` en la página de artículo debe actualizarse explícitamente
+   al per-article path — Next.js no lo infiere automáticamente del route handler OG.
+5. `twitter:image` no se deriva automáticamente de `openGraph.images` — hay que
+   definirlo explícitamente en `generateMetadata`.

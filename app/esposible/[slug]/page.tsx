@@ -36,7 +36,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: article.frontmatter.date,
       tags: article.frontmatter.tags,
       url: `${siteConfig.url}/esposible/${slug}`,
-      images: [`${siteConfig.url}/opengraph-image.png`],
+      images: [`${siteConfig.url}/esposible/${slug}/opengraph-image.png`],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${article.frontmatter.title} · Alexendros`,
+      description: article.frontmatter.description ?? article.frontmatter.title,
+      images: [`${siteConfig.url}/esposible/${slug}/opengraph-image.png`],
     },
   };
 }

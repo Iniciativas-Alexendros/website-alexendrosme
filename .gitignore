@@ -46,3 +46,6 @@ playwright/.cache/
 
 # Vitest coverage (regenerated on each `npm run test:coverage`)
 coverage/
+
+# Performance audit reports (regenerated on each run)
+perf-reports/
