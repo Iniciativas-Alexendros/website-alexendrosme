@@ -182,7 +182,7 @@ jobs:
       - name: Push tag
         run: |
           TAG="v${{ needs.check-version.outputs.version }}"
-          git push origin main --follow-tags
+          git push origin "$TAG"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228 # v3
