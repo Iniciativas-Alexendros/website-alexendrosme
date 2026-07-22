@@ -63,7 +63,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No snapshot changes to commit"
           else
-            git commit -m "test: auto-update visual snapshots [skip ci]"
+            git commit -m "test: auto-update visual snapshots"
             git push
           fi
 
