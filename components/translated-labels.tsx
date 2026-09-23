@@ -20,16 +20,16 @@ export function BackHomeLabel() {
   return <>{t("collection.backHome")}</>;
 }
 
-/** Renders "← Volver a Ideas" / "← Back to Ideas" */
-export function BackIdeasLabel() {
+/** Renders "← Volver a Proyectos" / "← Back to Projects" */
+export function BackProyectosLabel() {
   const { t } = useI18n();
-  return <>{t("article.backIdeas")}</>;
+  return <>{t("article.backProyectos")}</>;
 }
 
-/** Renders "← Volver a Acciones" / "← Back to Acciones" */
-export function BackAccionesLabel() {
+/** Renders "← Volver a Opinión" / "← Back to Opinion" */
+export function BackOpinionLabel() {
   const { t } = useI18n();
-  return <>{t("article.backAcciones")}</>;
+  return <>{t("article.backOpinion")}</>;
 }
 
 /** Renders the aria-label for tags */

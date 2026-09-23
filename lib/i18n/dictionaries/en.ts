@@ -6,11 +6,10 @@ const en: TranslationDict = {
     short: "EN",
   },
 
-  // ── Nav ────────────────────────────────────────────────
   nav: {
     biografia: "(Auto)biography",
-    misiones: "Missions",
-    experiencias: "Experiences",
+    proyectos: "Projects",
+    opinion: "Opinion",
     productos: "Products",
     productosLabel: "Product hub — alexendros.dev",
     menuLabel: "Open menu",
@@ -21,82 +20,33 @@ const en: TranslationDict = {
     now: "Now",
   },
 
-  // ── Hero ────────────────────────────────────────────────
   hero: {
-    eyebrow: "Valencia · thought, digital sovereignty & freedoms",
+    eyebrow: "Valencia · thought, freedom & digital life",
     signature: "Alexendros. Great solutions from unforeseen ingenuity.",
-    lead: "Personal, money-free space: humanism, digital sovereignty and technological critique. The commercial stuff lives at {link}; here I only think, write, and share.",
+    lead: "A personal, money-free space. I write and think out loud here. The commercial side lives at {link}.",
     leadLink: "alexendros.dev",
     tagline: "All kinds of spirit. Profit — no idea who that is.",
-    ctaContact: "Summon me",
+    ctaContact: "Write to me",
     ctaAbout: "Get to know me",
   },
 
-  // ── Home sections ───────────────────────────────────────
   sections: {
     biografia: {
       title: "(Auto)biography",
-      p1: "My name is Alejandro Domingo Agustí, though online I go by Alexendros. Born in Valencia, I went from hospitality and management to software development, with no degree in between to justify it: I learned to read businesses before writing code, and then wrote code to understand businesses.",
-      p2: "This site is my money-free space: nothing is sold here, I just think out loud about digital sovereignty, privacy, free software, and technological critique. I don't believe in neutral technology, nor in the inevitability of progress. I believe in choosing with criteria, self-hosting what's critical, and keeping freedom as a design variable. If you want the commercial side, it's at {link}; if you want what I think unfiltered, stay here.",
+      p1: "My name is Alejandro Domingo Agustí. Online I go by Alexendros. I was born in Valencia and have worked in different trades: hospitality, management, and later screen work. I learned to read people and businesses before talking about tools.",
+      p2: "This site is my money-free space: nothing is sold here. I write about freedom, attention, personal sovereignty and digital life without filters. If you want the commercial side, it's at {link}. If you want what I think, stay.",
       p2Link: "alexendros.dev",
-      p3: "My technical work revolves around Next.js, TypeScript, Supabase and Stripe, but this project is an act of bounded rationality: a static site, without invasive analytics or dependencies I can't justify. I write for those who suspect the official innovation narrative and prefer open protocols over closed platforms.",
-    },
-    misiones: {
-      title: "Missions",
-      desc: "Real commitments. Public when there's something operational, not before.",
-    },
-    misionAlexendrosDev: {
-      title: "alexendros.dev",
-      status: "Under construction",
-      description:
-        "My commercial project, deliberately outside this space: what's charged and sold lives there, not on the .me.",
-    },
-    experiencias: {
-      title: "Experiences",
-      desc: "The non-work experiences that shaped me, the stack I use, and the allies I recommend.",
-    },
-    expFormacion: {
-      category: "Foundational training",
-      items: [
-        "Years in hospitality, management and customer service — I learned to read businesses before writing code.",
-        "Transition to software: intensive self-taught. Next.js, Supabase, Stripe, Docker.",
-        "First freelance project. Opened public repository. Firm decision to work in the open.",
-      ],
-    },
-    expStack: {
-      category: "Current stack",
-      items: [
-        "Next.js 16 App Router · TypeScript strict · React 19",
-        "Supabase (Postgres + Auth + Storage + RLS)",
-        "Stripe (Subscriptions + Connect Express)",
-        "Tailwind CSS v4 · shadcn/ui · Radix UI",
-        "Turborepo · Vercel · GitHub Actions",
-        "Playwright · Vitest",
-      ],
-    },
-    expHerramientas: {
-      category: "My daily tools",
-      items: [
-        "Claude Code and OpenCode — My coding and project production companions.",
-        "Proton.me — Mail, VPN, Drive, AI... a complete private ecosystem hosted in Switzerland with high-security encryption.",
-        "Hostinger — Domains when I need full control and honest pricing.",
-        "GitHub — You'll find almost all my work and software projects here, which I strive to handle with maximum professionalism without losing original content and creative solutions.",
-      ],
+      p3: "I believe in choosing with criteria, in not handing what's critical to strangers, and in writing for those who distrust comfortable narratives. This project is deliberately simple: a clear site, without noise, asking for nothing in return.",
     },
     publicaciones: {
-      title: "Latest essays",
-      desc: "The latest from {ideasLink} and {accionesLink}.",
-      ideasLabel: "Ideas",
-      accionesLabel: "Acciones",
+      title: "Latest pieces",
+      desc: "The latest from {proyectosLink} and {opinionLink}.",
+      proyectosLabel: "Projects",
+      opinionLabel: "Opinion",
       empty: "No posts yet.",
-    },
-    stackMarquee: {
-      title: "My favorite technologies",
-      desc: "The stack I build with, in motion.",
     },
   },
 
-  // ── Footer ──────────────────────────────────────────────
   footer: {
     legalNavLabel: "Legal navigation",
     avisoLegal: "Legal notice",
@@ -110,7 +60,6 @@ const en: TranslationDict = {
     quote: "What use is money to those who don't know how to use it? I already have it.",
   },
 
-  // ── Anti-monetization banner ────────────────────────────
   antiMonetization: {
     text: "This space is free of {strong}. No ads, no affiliates, no tracking.",
     strong: "monetization",
@@ -118,7 +67,6 @@ const en: TranslationDict = {
     dismissLabel: "Close monetization-free notice",
   },
 
-  // ── Theme toggle ────────────────────────────────────────
   theme: {
     system: "System",
     light: "Light",
@@ -126,45 +74,40 @@ const en: TranslationDict = {
     ariaLabel: "Current theme: {theme}. Click to change.",
   },
 
-  // ── Locale toggle ───────────────────────────────────────
   localeToggle: {
     ariaLabel: "Current language: {locale}. Change language.",
   },
 
-  // ── Collection pages ────────────────────────────────────
   collection: {
     label: "Collection",
     empty: "No articles published yet.",
     backHome: "← Back to home",
   },
 
-  // ── Article pages ────────────────────────────────────────
   article: {
-    backIdeas: "← Back to Ideas",
-    backAcciones: "← Back to Acciones",
+    backProyectos: "← Back to Projects",
+    backOpinion: "← Back to Opinion",
     tagsLabel: "Tags",
     minutesShort: "min read",
     tocTitle: "On this page",
   },
 
-  // ── /now page ──────────────────────────────────────────
   now: {
     title: "/now",
     desc: "What I'm doing now. Inspired by Derek Sivers' idea (sive.rs/now).",
     lastUpdatedPrefix: "Updated:",
-    sectionBuilding: "Building",
+    sectionBuilding: "In progress",
     buildingItems:
-      "alexendros.dev — My commercial products hub (Next.js, Supabase, Stripe) · website-alexendros.me — This site, always evolving",
+      "This site, always evolving · The commercial hub at alexendros.dev, outside this space",
     sectionReading: "Reading",
     readingItems: "La renta básica — Daniel Raventós · Technopoly — Neil Postman",
     sectionFocus: "Focus",
     focusItems:
-      "Digital sovereignty and open protocols · Materialist tech critique · Ethical and sustainable software development",
+      "Writing in a human voice · Personal digital sovereignty · Less noise, more judgment",
     footerBack: "← Back to home",
     empty: "Update in progress — check back soon.",
   },
 
-  // ── Tags page ───────────────────────────────────────────
   tags: {
     indexTitle: "Tags",
     detailLabel: "Tag",
@@ -176,29 +119,26 @@ const en: TranslationDict = {
     detailCountMany: "articles with this tag",
   },
 
-  // ── PWA ─────────────────────────────────────────────────
   pwa: {
     updateReady: "New version available",
     updateApply: "Update",
     updateDismiss: "Later",
   },
 
-  // ── Search ───────────────────────────────────────────────
   search: {
     trigger: "Search",
     triggerAria: "Open search",
     placeholder: "Search articles...",
     noResults: 'No results found for "{query}".',
     results: '{count} result(s) for "{query}"',
-    sectionIdeas: "Ideas",
-    sectionAcciones: "Acciones",
+    sectionProyectos: "Projects",
+    sectionOpinion: "Opinion",
     shortcut: "Search (⌘K)",
     loadError: "Could not load the search index. Please try again later.",
     loading: "Loading search index...",
     clear: "Clear search",
   },
 
-  // ── Errors ──────────────────────────────────────────────
   errors: {
     notFoundTitle: "Page not found",
     notFoundDesc: "This page doesn't exist or has moved.",
@@ -208,7 +148,6 @@ const en: TranslationDict = {
     errorCta: "Back to home",
   },
 
-  // ── Contact ─────────────────────────────────────────────
   contact: {
     fabLabel: "Contact actions",
     emailLabel: "Send email",

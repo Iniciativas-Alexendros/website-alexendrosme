@@ -129,7 +129,7 @@ describe("I18nProvider hydrated (createRoot)", () => {
     );
   });
 
-  it("tArray() devuelve string[] para paths de tipo string[]", async () => {
+  it("tArray() devuelve array vacío para paths inexistentes", async () => {
     await renderApp(
       <I18nProvider>
         <Consumer path="sections.expStack.items" />
@@ -137,7 +137,7 @@ describe("I18nProvider hydrated (createRoot)", () => {
     );
     const lenEl = container.querySelector('[data-testid="tArray-length"]');
     const isArrEl = container.querySelector('[data-testid="is-array"]');
-    expect(parseInt(lenEl?.textContent ?? "0", 10)).toBeGreaterThan(0);
+    expect(parseInt(lenEl?.textContent ?? "-1", 10)).toBe(0);
     expect(isArrEl?.textContent).toBe("yes");
   });
 
@@ -153,24 +153,23 @@ describe("I18nProvider hydrated (createRoot)", () => {
     expect(lenEl?.textContent).toBe("0");
   });
 
-  it("tArray() devuelve conteo correcto para expStack.items (6)", async () => {
-    await renderApp(
-      <I18nProvider>
-        <Consumer path="sections.expStack.items" />
-      </I18nProvider>,
-    );
-    const lenEl = container.querySelector('[data-testid="tArray-length"]');
-    expect(lenEl?.textContent).toBe("6");
-  });
-
-  it("tArray() devuelve conteo correcto para expHerramientas.items (4)", async () => {
+  it("tArray() trata paths eliminados como vacíos", async () => {
     await renderApp(
       <I18nProvider>
         <Consumer path="sections.expHerramientas.items" />
       </I18nProvider>,
     );
     const lenEl = container.querySelector('[data-testid="tArray-length"]');
-    expect(lenEl?.textContent).toBe("4");
+    expect(lenEl?.textContent).toBe("0");
+  });
+
+  it("t() resuelve nav.proyectos y nav.opinion", async () => {
+    await renderApp(
+      <I18nProvider>
+        <Consumer path="nav.proyectos" />
+      </I18nProvider>,
+    );
+    expect(container.querySelector('[data-testid="t-result"]')?.textContent).toBe("Proyectos");
   });
 
   it("actualiza locale al llamar setLocale('en')", async () => {

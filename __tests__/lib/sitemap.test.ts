@@ -19,8 +19,8 @@ describe("generate-sitemap", () => {
     for (const f of [
       "sitemap.xml",
       "sitemap-pages.xml",
-      "sitemap-ideas.xml",
-      "sitemap-acciones.xml",
+      "sitemap-proyectos.xml",
+      "sitemap-opinion.xml",
     ]) {
       expect(fs.existsSync(path.join(process.cwd(), "public", f))).toBe(true);
     }
@@ -29,8 +29,8 @@ describe("generate-sitemap", () => {
   it("index references all three sub-sitemaps", () => {
     const xml = readFile("sitemap.xml");
     expect(xml).toContain("sitemap-pages.xml");
-    expect(xml).toContain("sitemap-ideas.xml");
-    expect(xml).toContain("sitemap-acciones.xml");
+    expect(xml).toContain("sitemap-proyectos.xml");
+    expect(xml).toContain("sitemap-opinion.xml");
   });
 
   it("pages sitemap includes /now and /tags", () => {
@@ -42,16 +42,16 @@ describe("generate-sitemap", () => {
   });
 
   it("article sitemaps include image: namespace", () => {
-    const esp = readFile("sitemap-ideas.xml");
-    expect(esp).toContain('xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"');
-    expect(esp).toMatch(/<image:image>[\s\S]*<\/image:image>/);
-    const spos = readFile("sitemap-acciones.xml");
-    expect(spos).toContain('xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"');
+    const proy = readFile("sitemap-proyectos.xml");
+    expect(proy).toContain('xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"');
+    expect(proy).toMatch(/<image:image>[\s\S]*<\/image:image>/);
+    const opinion = readFile("sitemap-opinion.xml");
+    expect(opinion).toContain('xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"');
   });
 
   it("article image:loc points to /opengraph-image.png (root OG)", () => {
-    const esp = readFile("sitemap-ideas.xml");
-    const locations = esp.match(/<image:loc>([^<]+)<\/image:loc>/g) ?? [];
+    const proy = readFile("sitemap-proyectos.xml");
+    const locations = proy.match(/<image:loc>([^<]+)<\/image:loc>/g) ?? [];
     expect(locations.length).toBeGreaterThan(0);
     for (const loc of locations) {
       expect(loc).toContain("/opengraph-image.png");
@@ -65,7 +65,7 @@ describe("generate-sitemap", () => {
     expect(indexXml).toMatch(/<sitemapindex[^>]*>/);
     expect(indexXml.endsWith("</sitemapindex>\n")).toBe(true);
 
-    for (const f of ["sitemap-pages.xml", "sitemap-ideas.xml", "sitemap-acciones.xml"]) {
+    for (const f of ["sitemap-pages.xml", "sitemap-proyectos.xml", "sitemap-opinion.xml"]) {
       const xml = readFile(f);
       expect(xml).toMatch(/^<\?xml version="1\.0" encoding="UTF-8"\?>/);
       expect(xml).toMatch(/<urlset[^>]*>/);

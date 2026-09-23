@@ -8,48 +8,48 @@ import { ArticleMeta } from "@/components/article-meta";
 import { ArticleToc } from "@/components/article-toc";
 import { extractToc } from "@/lib/content/toc";
 import { siteConfig } from "@/lib/site";
-import { BackIdeasLabel } from "@/components/translated-labels";
+import { BackOpinionLabel } from "@/components/translated-labels";
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const articles = await getContentCollection("ideas");
+  const articles = await getContentCollection("opinion");
   return articles.map((article) => ({ slug: article.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const article = await getRawContent("ideas", slug);
+  const article = await getRawContent("opinion", slug);
 
   if (!article) return {};
 
   return {
     title: article.frontmatter.title,
     description: article.frontmatter.description ?? article.frontmatter.title,
-    alternates: { canonical: `/ideas/${slug}` },
+    alternates: { canonical: `/opinion/${slug}` },
     openGraph: {
       title: `${article.frontmatter.title} · Alexendros`,
       description: article.frontmatter.description ?? article.frontmatter.title,
       type: "article",
       publishedTime: article.frontmatter.date,
       tags: article.frontmatter.tags,
-      url: `${siteConfig.url}/ideas/${slug}`,
-      images: [`${siteConfig.url}/ideas/${slug}/opengraph-image.png`],
+      url: `${siteConfig.url}/opinion/${slug}`,
+      images: [`${siteConfig.url}/opinion/${slug}/opengraph-image.png`],
     },
     twitter: {
       card: "summary_large_image",
       title: `${article.frontmatter.title} · Alexendros`,
       description: article.frontmatter.description ?? article.frontmatter.title,
-      images: [`${siteConfig.url}/ideas/${slug}/opengraph-image.png`],
+      images: [`${siteConfig.url}/opinion/${slug}/opengraph-image.png`],
     },
   };
 }
 
-export default async function IdeasArticle({ params }: Props) {
+export default async function OpinionArticle({ params }: Props) {
   const { slug } = await params;
-  const article = await getRawContent("ideas", slug);
+  const article = await getRawContent("opinion", slug);
 
   if (!article) notFound();
 
@@ -71,10 +71,10 @@ export default async function IdeasArticle({ params }: Props) {
       name: siteConfig.name,
       url: siteConfig.url,
     },
-    url: `${siteConfig.url}/ideas/${slug}`,
+    url: `${siteConfig.url}/opinion/${slug}`,
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `${siteConfig.url}/ideas/${slug}`,
+      "@id": `${siteConfig.url}/opinion/${slug}`,
     },
   };
 
@@ -87,15 +87,15 @@ export default async function IdeasArticle({ params }: Props) {
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "Ideas", href: `${siteConfig.url}/ideas` },
-          { name: article.frontmatter.title, href: `${siteConfig.url}/ideas/${slug}` },
+          { name: "Opinión", href: `${siteConfig.url}/opinion` },
+          { name: article.frontmatter.title, href: `${siteConfig.url}/opinion/${slug}` },
         ]}
       />
 
       <div className="site-shell article-shell">
         <nav className="article-nav">
-          <Link href="/ideas" className="ds-caption back-link">
-            <BackIdeasLabel />
+          <Link href="/opinion" className="ds-caption back-link">
+            <BackOpinionLabel />
           </Link>
         </nav>
 
@@ -117,8 +117,8 @@ export default async function IdeasArticle({ params }: Props) {
         </div>
 
         <footer className="section-footer">
-          <Link href="/ideas" className="back-link">
-            <BackIdeasLabel />
+          <Link href="/opinion" className="back-link">
+            <BackOpinionLabel />
           </Link>
         </footer>
       </div>

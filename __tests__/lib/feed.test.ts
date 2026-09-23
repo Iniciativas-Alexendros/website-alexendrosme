@@ -15,9 +15,14 @@ function escapeXml(unsafe: string): string {
 
 describe("generateFeeds", () => {
   it("genera RSS y Atom con todos los artículos públicos", async () => {
-    const ideas = await getContentCollection("ideas");
-    const acciones = await getContentCollection("acciones");
-    const { rss, atom } = generateFeeds({ site: siteConfig, collections: { ideas, acciones } });
+    const [proyectos, opinion] = await Promise.all([
+      getContentCollection("proyectos"),
+      getContentCollection("opinion"),
+    ]);
+    const { rss, atom } = generateFeeds({
+      site: siteConfig,
+      collections: { proyectos, opinion },
+    });
 
     expect(rss).toContain("<?xml");
     expect(rss).toContain("<rss");
@@ -29,7 +34,7 @@ describe("generateFeeds", () => {
     expect(atom).toContain("<feed");
     expect(atom).toContain("</feed>");
 
-    const total = ideas.length + acciones.length;
+    const total = proyectos.length + opinion.length;
     expect(rss.match(/<item>/g)?.length).toBe(total);
     expect(atom.match(/<entry>/g)?.length).toBe(total);
 
@@ -38,16 +43,20 @@ describe("generateFeeds", () => {
   });
 
   it("incluye el atom:link de autoreferencia en RSS", async () => {
-    const ideas = await getContentCollection("ideas");
-    const acciones = await getContentCollection("acciones");
-    const { rss } = generateFeeds({ site: siteConfig, collections: { ideas, acciones } });
+    const [proyectos, opinion] = await Promise.all([
+      getContentCollection("proyectos"),
+      getContentCollection("opinion"),
+    ]);
+    const { rss } = generateFeeds({ site: siteConfig, collections: { proyectos, opinion } });
     expect(rss).toContain('atom:link href="https://alexendros.me/feed.xml" rel="self"');
   });
 
   it("ordena artículos por fecha descendente", async () => {
-    const ideas = await getContentCollection("ideas");
-    const acciones = await getContentCollection("acciones");
-    const { rss } = generateFeeds({ site: siteConfig, collections: { ideas, acciones } });
+    const [proyectos, opinion] = await Promise.all([
+      getContentCollection("proyectos"),
+      getContentCollection("opinion"),
+    ]);
+    const { rss } = generateFeeds({ site: siteConfig, collections: { proyectos, opinion } });
     const dates = [...rss.matchAll(/<pubDate>([^<]+)<\/pubDate>/g)].map((m) =>
       new Date((m[1] as string | undefined) ?? "").getTime(),
     );
@@ -96,38 +105,38 @@ describe("escapeXml", () => {
 });
 
 describe("generateCollectionFeeds", () => {
-  it("genera RSS y Atom para ideas", async () => {
-    const ideas = await getContentCollection("ideas");
-    const { rss, atom } = generateCollectionFeeds(siteConfig, "ideas", "Ideas", ideas);
+  it("genera RSS y Atom para opinión", async () => {
+    const opinion = await getContentCollection("opinion");
+    const { rss, atom } = generateCollectionFeeds(siteConfig, "opinion", "Opinión", opinion);
 
     expect(rss).toContain("<?xml");
     expect(rss).toContain("<rss");
-    expect(rss).toContain("Ideas");
-    expect(rss).toContain("/ideas");
-    expect(rss).toContain("/feed-ideas.xml");
+    expect(rss).toContain("Opinión");
+    expect(rss).toContain("/opinion");
+    expect(rss).toContain("/feed-opinion.xml");
 
     expect(atom).toContain("<?xml");
     expect(atom).toContain("<feed");
-    expect(atom).toContain("Ideas");
+    expect(atom).toContain("Opinión");
 
-    expect(rss.match(/<item>/g)?.length).toBe(ideas.length);
-    expect(atom.match(/<entry>/g)?.length).toBe(ideas.length);
+    expect(rss.match(/<item>/g)?.length).toBe(opinion.length);
+    expect(atom.match(/<entry>/g)?.length).toBe(opinion.length);
   });
 
-  it("genera RSS y Atom para acciones", async () => {
-    const acciones = await getContentCollection("acciones");
-    const { rss, atom } = generateCollectionFeeds(siteConfig, "acciones", "Acciones", acciones);
+  it("genera RSS y Atom para proyectos", async () => {
+    const proyectos = await getContentCollection("proyectos");
+    const { rss, atom } = generateCollectionFeeds(siteConfig, "proyectos", "Proyectos", proyectos);
 
-    expect(rss).toContain("Acciones");
-    expect(rss).toContain("/acciones");
-    expect(rss).toContain("/feed-acciones.xml");
+    expect(rss).toContain("Proyectos");
+    expect(rss).toContain("/proyectos");
+    expect(rss).toContain("/feed-proyectos.xml");
 
-    expect(rss.match(/<item>/g)?.length).toBe(acciones.length);
-    expect(atom.match(/<entry>/g)?.length).toBe(acciones.length);
+    expect(rss.match(/<item>/g)?.length).toBe(proyectos.length);
+    expect(atom.match(/<entry>/g)?.length).toBe(proyectos.length);
   });
 
   it("maneja colección vacía sin errores", () => {
-    const { rss, atom } = generateCollectionFeeds(siteConfig, "ideas", "Ideas", []);
+    const { rss, atom } = generateCollectionFeeds(siteConfig, "opinion", "Opinión", []);
     expect(rss).toContain("<?xml");
     expect(atom).toContain("<?xml");
     expect(rss.match(/<item>/g)).toBeNull();
@@ -146,9 +155,8 @@ describe("generateCollectionFeeds", () => {
         },
       },
     ];
-    const { rss } = generateCollectionFeeds(siteConfig, "ideas", "Ideas", items);
+    const { rss } = generateCollectionFeeds(siteConfig, "opinion", "Opinión", items);
     expect(rss).toContain("Test Title");
-    // description should fall back to title
     expect(rss.match(/<description>Test Title<\/description>/)).toBeTruthy();
   });
 
@@ -165,7 +173,7 @@ describe("generateCollectionFeeds", () => {
         },
       },
     ];
-    const { rss } = generateCollectionFeeds(siteConfig, "ideas", "Ideas", items);
+    const { rss } = generateCollectionFeeds(siteConfig, "opinion", "Opinión", items);
     expect(rss).toContain("Custom description");
     expect(rss).not.toContain("<description>Test Title</description>");
   });

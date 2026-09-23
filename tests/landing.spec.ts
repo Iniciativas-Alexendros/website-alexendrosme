@@ -2,8 +2,6 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Landing · smoke + anchors + FABs", () => {
   test.beforeEach(async ({ page }) => {
-    // Pre-dismiss anti-monetization banner via localStorage so it never renders.
-    // Click-based dismissal races with the banner's CSS slide-down animation.
     await page.addInitScript(() => {
       localStorage.setItem("anti-monetization-dismissed", "true");
     });
@@ -28,32 +26,30 @@ test.describe("Landing · smoke + anchors + FABs", () => {
   });
 
   test("logo hace scroll al top", async ({ page }) => {
-    // El banner debería estar ya oculto vía localStorage, pero en CI puede
-    // haber race conditions con React hydration. Esperar a que no esté visible.
     await page
       .locator(".anti-monetization-banner")
       .waitFor({ state: "hidden", timeout: 5000 })
       .catch(() => {});
     await page.evaluate(() => window.scrollTo(0, 800));
     await page.locator("header nav a[href='/']").first().click();
-    // Esperar hasta que el scroll termine (smooth puede tardar >600ms; CI más lento)
     await page.waitForFunction(() => window.scrollY < 100, { timeout: 5000 });
     const scrollY = await page.evaluate(() => window.scrollY);
     expect(scrollY).toBeLessThan(100);
   });
 
-  test("nav contiene los 3 anchors correctos", async ({ page, viewport }) => {
+  test("nav contiene biografía, proyectos, opinión y ahora", async ({ page, viewport }) => {
     const isMobile = !viewport || viewport.width < 768;
     if (isMobile) {
-      // En mobile los anchors están dentro del Sheet — verificar que existen en el DOM
       await expect(page.locator("a[href='#biografia']").first()).toBeAttached();
-      await expect(page.locator("a[href='#misiones']").first()).toBeAttached();
-      await expect(page.locator("a[href='#experiencias']").first()).toBeAttached();
+      await expect(page.locator("a[href='/proyectos']").first()).toBeAttached();
+      await expect(page.locator("a[href='/opinion']").first()).toBeAttached();
+      await expect(page.locator("a[href='/now']").first()).toBeAttached();
     } else {
       const nav = page.locator("header nav ul").first();
       await expect(nav.locator("a[href='#biografia']")).toBeVisible();
-      await expect(nav.locator("a[href='#misiones']")).toBeVisible();
-      await expect(nav.locator("a[href='#experiencias']")).toBeVisible();
+      await expect(nav.locator("a[href='/proyectos']")).toBeVisible();
+      await expect(nav.locator("a[href='/opinion']")).toBeVisible();
+      await expect(nav.locator("a[href='/now']")).toBeVisible();
     }
   });
 
@@ -68,7 +64,6 @@ test.describe("Landing · smoke + anchors + FABs", () => {
       await expect(productosLink).toHaveText(/Productos/);
       await expect(productosLink).toHaveAttribute("target", "_blank");
       await expect(productosLink).toHaveAttribute("rel", "noopener noreferrer");
-      // Verificar icono ExternalLink presente
       await expect(productosLink.locator("svg")).toBeAttached();
     }
   });
@@ -81,21 +76,20 @@ test.describe("Landing · smoke + anchors + FABs", () => {
     }
   });
 
-  test("secciones id existen en el DOM", async ({ page }) => {
+  test("sección biografía existe en el DOM", async ({ page }) => {
     await expect(page.locator("#biografia")).toBeAttached();
-    await expect(page.locator("#misiones")).toBeAttached();
-    await expect(page.locator("#experiencias")).toBeAttached();
+    await expect(page.locator("#publicaciones")).toBeAttached();
   });
 
-  test("FAB Convócame es visible y abre el popover", async ({ page }) => {
-    const fab = page.locator("button", { hasText: "Convócame" });
+  test("FAB Escríbeme es visible y abre el popover", async ({ page }) => {
+    const fab = page.locator("button", { hasText: "Escríbeme" });
     await expect(fab).toBeVisible();
     await fab.click();
     await expect(page.locator("a[href^='mailto:']").first()).toBeVisible();
   });
 
   test("FABs: Escape cierra el popover y devuelve foco al trigger", async ({ page }) => {
-    const fab = page.locator("button", { hasText: "Convócame" });
+    const fab = page.locator("button", { hasText: "Escríbeme" });
     await fab.click();
     await page.keyboard.press("Escape");
     await expect(fab).toBeFocused();
@@ -109,7 +103,6 @@ test.describe("Landing · smoke + anchors + FABs", () => {
     await expect(footerLink).toHaveText(/Hub de productos.*alexendros\.dev/);
     await expect(footerLink).toHaveAttribute("target", "_blank");
     await expect(footerLink).toHaveAttribute("rel", "noopener noreferrer");
-    // Verificar icono ExternalLink presente
     await expect(footerLink.locator("svg")).toBeAttached();
   });
 });

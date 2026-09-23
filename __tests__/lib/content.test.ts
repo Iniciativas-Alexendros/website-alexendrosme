@@ -42,7 +42,7 @@ describe("calculateReadingTime", () => {
 
 describe("getContentCollection", () => {
   it("assigns readingTime to each item", async () => {
-    const items = await getContentCollection("ideas");
+    const items = await getContentCollection("opinion");
     expect(items.length).toBeGreaterThan(0);
     for (const item of items) {
       expect(typeof item.readingTime).toBe("number");
@@ -51,7 +51,7 @@ describe("getContentCollection", () => {
   });
 
   it("returns items sorted newest first", async () => {
-    const items = await getContentCollection("ideas");
+    const items = await getContentCollection("opinion");
     expect(items.length).toBeGreaterThan(0);
     for (let i = 1; i < items.length; i++) {
       const prev = items[i - 1]?.frontmatter.date ?? "";
@@ -61,14 +61,14 @@ describe("getContentCollection", () => {
   });
 
   it("filters out draft articles", async () => {
-    const items = await getContentCollection("ideas");
+    const items = await getContentCollection("opinion");
     for (const item of items) {
       expect(item.frontmatter.draft).toBe(false);
     }
   });
 
   it("returns items with slug derived from filename", async () => {
-    const items = await getContentCollection("ideas");
+    const items = await getContentCollection("opinion");
     expect(items.length).toBeGreaterThan(0);
     for (const item of items) {
       expect(typeof item.slug).toBe("string");
@@ -85,7 +85,7 @@ describe("getContentCollection error paths", () => {
       message: "ENOENT: no such file or directory",
     } as NodeJS.ErrnoException);
 
-    const result = await getContentCollection("ideas");
+    const result = await getContentCollection("opinion");
     expect(result).toEqual([]);
 
     spy.mockRestore();
@@ -94,7 +94,7 @@ describe("getContentCollection error paths", () => {
   it("re-throws non-ENOENT errors", async () => {
     const spy = vi.spyOn(fs, "readdir").mockRejectedValue(new Error("disk failure"));
 
-    await expect(getContentCollection("ideas")).rejects.toThrow("disk failure");
+    await expect(getContentCollection("opinion")).rejects.toThrow("disk failure");
 
     spy.mockRestore();
   });
@@ -102,12 +102,12 @@ describe("getContentCollection error paths", () => {
 
 describe("getRawContent", () => {
   it("returns null for non-existent slug", async () => {
-    const result = await getRawContent("ideas", "this-slug-does-not-exist-xyz-99999");
+    const result = await getRawContent("opinion", "this-slug-does-not-exist-xyz-99999");
     expect(result).toBeNull();
   });
 
   it("returns null for non-existent slug in other collection", async () => {
-    const result = await getRawContent("acciones", "this-slug-does-not-exist-xyz-99999");
+    const result = await getRawContent("proyectos", "this-slug-does-not-exist-xyz-99999");
     expect(result).toBeNull();
   });
 
@@ -118,7 +118,7 @@ describe("getRawContent", () => {
         `---\ntitle: Draft Article\ndate: "2026-06-15T00:00:00.000Z"\ndescription: A draft\ntags: [test]\ndraft: true\n---\nThis is a draft.`,
       );
 
-    const result = await getRawContent("ideas", "__test-draft-999__");
+    const result = await getRawContent("opinion", "__test-draft-999__");
     expect(result).toBeNull();
 
     spy.mockRestore();
@@ -131,7 +131,7 @@ describe("getRawContent", () => {
         `---\ndate: 2026-06-15T00:00:00.000Z\ntags: []\ndraft: false\n---\nContent without title field`,
       );
 
-    await expect(getRawContent("ideas", "__test-invalid-999__")).rejects.toThrow();
+    await expect(getRawContent("opinion", "__test-invalid-999__")).rejects.toThrow();
 
     spy.mockRestore();
   });
@@ -139,13 +139,13 @@ describe("getRawContent", () => {
   it("propagates non-ENOENT read errors instead of falling through to null", async () => {
     const spy = vi.spyOn(fs, "readFile").mockRejectedValue(new Error("disk failure"));
 
-    await expect(getRawContent("ideas", "__test-io-fail-999__")).rejects.toThrow("disk failure");
+    await expect(getRawContent("opinion", "__test-io-fail-999__")).rejects.toThrow("disk failure");
 
     spy.mockRestore();
   });
 
   it("caches article data with content", async () => {
-    const result = await getRawContent("ideas", "critica-tecnologica");
+    const result = await getRawContent("opinion", "critica-tecnologica");
     expect(result).not.toBeNull();
     expect(result?.content).toBeTruthy();
     expect(typeof result?.content).toBe("string");
@@ -156,7 +156,7 @@ describe("getRawContent", () => {
 
 describe("getAllSlugs", () => {
   it("returns all slugs for a collection", async () => {
-    const slugs = await getAllSlugs("ideas");
+    const slugs = await getAllSlugs("opinion");
     expect(slugs.length).toBeGreaterThan(0);
     for (const slug of slugs) {
       expect(typeof slug).toBe("string");
@@ -164,36 +164,36 @@ describe("getAllSlugs", () => {
   });
 
   it("returns unique slugs", async () => {
-    const slugs = await getAllSlugs("ideas");
+    const slugs = await getAllSlugs("opinion");
     expect(new Set(slugs).size).toBe(slugs.length);
   });
 
   it("returns different slugs per collection", async () => {
-    const ideas = await getAllSlugs("ideas");
-    const acciones = await getAllSlugs("acciones");
-    expect(ideas).not.toEqual(acciones);
+    const opinion = await getAllSlugs("opinion");
+    const proyectos = await getAllSlugs("proyectos");
+    expect(opinion).not.toEqual(proyectos);
   });
 });
 
 describe("getRelatedContent", () => {
   it("returns empty for non-existent slug", async () => {
-    const result = await getRelatedContent("ideas", "non-existent-slug");
+    const result = await getRelatedContent("opinion", "non-existent-slug");
     expect(result).toEqual([]);
   });
 
   it("excludes the current article from results", async () => {
-    const items = await getContentCollection("ideas");
+    const items = await getContentCollection("opinion");
     if (items.length === 0) return;
     const target = items[0] as (typeof items)[number];
-    const result = await getRelatedContent("ideas", target.slug);
+    const result = await getRelatedContent("opinion", target.slug);
     expect(result.find((r) => r.slug === target.slug)).toBeUndefined();
   });
 
   it("returns articles sorted by tag overlap descending", async () => {
-    const items = await getContentCollection("ideas");
+    const items = await getContentCollection("opinion");
     if (items.length === 0) return;
     const target = items[0] as (typeof items)[number];
-    const result = await getRelatedContent("ideas", target.slug);
+    const result = await getRelatedContent("opinion", target.slug);
     if (result.length < 2) return; // skip if not enough articles to sort
 
     const currentTags = new Set(target.frontmatter.tags);
@@ -206,18 +206,18 @@ describe("getRelatedContent", () => {
   });
 
   it("respects the limit parameter", async () => {
-    const items = await getContentCollection("acciones");
+    const items = await getContentCollection("proyectos");
     if (items.length === 0) return;
     const target = items[0] as (typeof items)[number];
-    const result = await getRelatedContent("acciones", target.slug, 1);
+    const result = await getRelatedContent("proyectos", target.slug, 1);
     expect(result.length).toBeLessThanOrEqual(1);
   });
 
   it("defaults to limit of 3", async () => {
-    const items = await getContentCollection("ideas");
+    const items = await getContentCollection("opinion");
     if (items.length === 0) return;
     const target = items[0] as (typeof items)[number];
-    const result = await getRelatedContent("ideas", target.slug);
+    const result = await getRelatedContent("opinion", target.slug);
     expect(result.length).toBeLessThanOrEqual(3);
   });
 });

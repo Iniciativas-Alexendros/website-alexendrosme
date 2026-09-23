@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X, Search } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -21,12 +22,8 @@ export function MobileMenu({ activeHash }: { activeHash: string }) {
   const [open, setOpen] = useState(false);
   const { openSearch } = useSearch();
   const { t } = useI18n();
-
-  const navItems = [
-    { label: t("nav.biografia"), href: "#biografia" },
-    { label: t("nav.misiones"), href: "#misiones" },
-    { label: t("nav.experiencias"), href: "#experiencias" },
-  ];
+  const pathname = usePathname();
+  const onHome = pathname === "/";
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -51,7 +48,9 @@ export function MobileMenu({ activeHash }: { activeHash: string }) {
             className="sheet-logo"
             onClick={() => {
               setOpen(false);
-              window.scrollTo({ top: 0, behavior: "smooth" });
+              if (onHome) {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
             }}
           >
             Alexendros
@@ -71,22 +70,36 @@ export function MobileMenu({ activeHash }: { activeHash: string }) {
               </button>
             </li>
 
-            {navItems.map((item) => (
-              <li key={item.href}>
+            <li>
+              {onHome ? (
                 <a
-                  href={item.href}
+                  href="#biografia"
                   onClick={(e) => {
                     e.preventDefault();
                     setOpen(false);
-                    setTimeout(() => scrollToAnchor(item.href), 150);
+                    setTimeout(() => scrollToAnchor("#biografia"), 150);
                   }}
-                  aria-current={activeHash === item.href ? "page" : undefined}
-                  className={`sidebar-link${activeHash === item.href ? " sidebar-link--active" : ""}`}
+                  aria-current={activeHash === "#biografia" ? "page" : undefined}
+                  className={`sidebar-link${activeHash === "#biografia" ? " sidebar-link--active" : ""}`}
                 >
-                  {item.label}
+                  {t("nav.biografia")}
                 </a>
-              </li>
-            ))}
+              ) : (
+                <Link href="/#biografia" onClick={() => setOpen(false)} className="sidebar-link">
+                  {t("nav.biografia")}
+                </Link>
+              )}
+            </li>
+            <li>
+              <Link href="/proyectos" onClick={() => setOpen(false)} className="sidebar-link">
+                {t("nav.proyectos")}
+              </Link>
+            </li>
+            <li>
+              <Link href="/opinion" onClick={() => setOpen(false)} className="sidebar-link">
+                {t("nav.opinion")}
+              </Link>
+            </li>
             <li>
               <Link href="/now" onClick={() => setOpen(false)} className="sidebar-link">
                 {t("nav.now")}

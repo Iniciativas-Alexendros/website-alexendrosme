@@ -52,7 +52,7 @@ while IFS= read -r line; do
 done < <(git log "$LAST_TAG..HEAD" --format="%s%n%b" 2>/dev/null || echo "")
 
 if [ "$MAJOR_BUMP" -eq 0 ] && [ "$MINOR_BUMP" -eq 0 ] && [ "$PATCH_BUMP" -eq 0 ]; then
-  echo "::notice::No se detectaron cambios que requieran release (solo chore/docs/ci/style)"
+  echo "::notice::No se detectaron cambios que requieran release (solo chore/docs/ci/style)" >&2
   exit 1
 fi
 

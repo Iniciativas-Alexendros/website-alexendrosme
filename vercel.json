@@ -7,34 +7,21 @@
       "destination": "/#biografia",
       "permanent": true
     },
-    { "source": "/proyectos", "destination": "/#misiones", "permanent": true },
     {
       "source": "/experiencia",
-      "destination": "/#experiencias",
+      "destination": "/#biografia",
       "permanent": true
     },
     { "source": "/contacto", "destination": "/", "permanent": true },
     { "source": "/bitacora", "destination": "/", "permanent": true },
-    { "source": "/uses", "destination": "/#experiencias", "permanent": true },
+    { "source": "/uses", "destination": "/#biografia", "permanent": true },
     { "source": "/empleo", "destination": "/", "permanent": false },
     { "source": "/about", "destination": "/#biografia", "permanent": true },
-    { "source": "/projects", "destination": "/#misiones", "permanent": true },
+    { "source": "/projects", "destination": "/", "permanent": true },
     { "source": "/contact", "destination": "/", "permanent": true },
     {
       "source": "/herramientas",
-      "destination": "/#experiencias",
-      "permanent": true
-    },
-    { "source": "/espensar", "destination": "/ideas", "permanent": true },
-    {
-      "source": "/espensar/:slug",
-      "destination": "/ideas/:slug",
-      "permanent": true
-    },
-    { "source": "/esposible", "destination": "/acciones", "permanent": true },
-    {
-      "source": "/esposible/:slug",
-      "destination": "/acciones/:slug",
+      "destination": "/#biografia",
       "permanent": true
     }
   ],

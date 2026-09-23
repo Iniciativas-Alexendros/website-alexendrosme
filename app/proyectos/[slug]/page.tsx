@@ -8,48 +8,48 @@ import { ArticleMeta } from "@/components/article-meta";
 import { ArticleToc } from "@/components/article-toc";
 import { extractToc } from "@/lib/content/toc";
 import { siteConfig } from "@/lib/site";
-import { BackAccionesLabel } from "@/components/translated-labels";
+import { BackProyectosLabel } from "@/components/translated-labels";
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const articles = await getContentCollection("acciones");
+  const articles = await getContentCollection("proyectos");
   return articles.map((article) => ({ slug: article.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const article = await getRawContent("acciones", slug);
+  const article = await getRawContent("proyectos", slug);
 
   if (!article) return {};
 
   return {
     title: article.frontmatter.title,
     description: article.frontmatter.description ?? article.frontmatter.title,
-    alternates: { canonical: `/acciones/${slug}` },
+    alternates: { canonical: `/proyectos/${slug}` },
     openGraph: {
       title: `${article.frontmatter.title} · Alexendros`,
       description: article.frontmatter.description ?? article.frontmatter.title,
       type: "article",
       publishedTime: article.frontmatter.date,
       tags: article.frontmatter.tags,
-      url: `${siteConfig.url}/acciones/${slug}`,
-      images: [`${siteConfig.url}/acciones/${slug}/opengraph-image.png`],
+      url: `${siteConfig.url}/proyectos/${slug}`,
+      images: [`${siteConfig.url}/proyectos/${slug}/opengraph-image.png`],
     },
     twitter: {
       card: "summary_large_image",
       title: `${article.frontmatter.title} · Alexendros`,
       description: article.frontmatter.description ?? article.frontmatter.title,
-      images: [`${siteConfig.url}/acciones/${slug}/opengraph-image.png`],
+      images: [`${siteConfig.url}/proyectos/${slug}/opengraph-image.png`],
     },
   };
 }
 
-export default async function AccionesArticle({ params }: Props) {
+export default async function ProyectosArticle({ params }: Props) {
   const { slug } = await params;
-  const article = await getRawContent("acciones", slug);
+  const article = await getRawContent("proyectos", slug);
 
   if (!article) notFound();
 
@@ -71,10 +71,10 @@ export default async function AccionesArticle({ params }: Props) {
       name: siteConfig.name,
       url: siteConfig.url,
     },
-    url: `${siteConfig.url}/acciones/${slug}`,
+    url: `${siteConfig.url}/proyectos/${slug}`,
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `${siteConfig.url}/acciones/${slug}`,
+      "@id": `${siteConfig.url}/proyectos/${slug}`,
     },
   };
 
@@ -87,15 +87,15 @@ export default async function AccionesArticle({ params }: Props) {
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "Acciones", href: `${siteConfig.url}/acciones` },
-          { name: article.frontmatter.title, href: `${siteConfig.url}/acciones/${slug}` },
+          { name: "Proyectos", href: `${siteConfig.url}/proyectos` },
+          { name: article.frontmatter.title, href: `${siteConfig.url}/proyectos/${slug}` },
         ]}
       />
 
       <div className="site-shell article-shell">
         <nav className="article-nav">
-          <Link href="/acciones" className="ds-caption back-link">
-            <BackAccionesLabel />
+          <Link href="/proyectos" className="ds-caption back-link">
+            <BackProyectosLabel />
           </Link>
         </nav>
 
@@ -117,8 +117,8 @@ export default async function AccionesArticle({ params }: Props) {
         </div>
 
         <footer className="section-footer">
-          <Link href="/acciones" className="back-link">
-            <BackAccionesLabel />
+          <Link href="/proyectos" className="back-link">
+            <BackProyectosLabel />
           </Link>
         </footer>
       </div>

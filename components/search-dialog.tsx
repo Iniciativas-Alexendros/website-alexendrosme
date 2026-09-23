@@ -9,7 +9,7 @@ import { useI18n } from "@/lib/i18n";
 
 interface SearchIndexItem {
   slug: string;
-  type: "ideas" | "acciones";
+  type: "proyectos" | "opinion";
   title: string;
   description: string;
   tags: string[];
@@ -130,8 +130,8 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
   };
 
   const scored = results();
-  const ideasResults = scored.filter((r) => r.item.type === "ideas");
-  const accionesResults = scored.filter((r) => r.item.type === "acciones");
+  const proyectosResults = scored.filter((r) => r.item.type === "proyectos");
+  const opinionResults = scored.filter((r) => r.item.type === "opinion");
 
   return (
     <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
@@ -215,14 +215,14 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
               </p>
             )}
 
-            {ideasResults.length > 0 && (
+            {proyectosResults.length > 0 && (
               <div className="mb-2">
                 <p className="px-3 py-1.5 text-xs font-mono uppercase tracking-wider text-muted-foreground">
-                  {t("search.sectionIdeas")}
+                  {t("search.sectionProyectos")}
                 </p>
-                {ideasResults.map(({ item }) => (
+                {proyectosResults.map(({ item }) => (
                   <button
-                    key={`ideas-${item.slug}`}
+                    key={`proyectos-${item.slug}`}
                     type="button"
                     onClick={() => handleSelect(item.slug, item.type)}
                     className={cn(
@@ -258,14 +258,14 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
               </div>
             )}
 
-            {accionesResults.length > 0 && (
+            {opinionResults.length > 0 && (
               <div>
                 <p className="px-3 py-1.5 text-xs font-mono uppercase tracking-wider text-muted-foreground">
-                  {t("search.sectionAcciones")}
+                  {t("search.sectionOpinion")}
                 </p>
-                {accionesResults.map(({ item }) => (
+                {opinionResults.map(({ item }) => (
                   <button
-                    key={`acciones-${item.slug}`}
+                    key={`opinion-${item.slug}`}
                     type="button"
                     onClick={() => handleSelect(item.slug, item.type)}
                     className={cn(

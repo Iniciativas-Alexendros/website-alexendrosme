@@ -134,7 +134,7 @@ describe("SearchDialog load error state", () => {
       json: async () => [
         {
           slug: "demo",
-          type: "ideas",
+          type: "opinion",
           title: "Demo title",
           description: "Demo description",
           tags: ["demo"],

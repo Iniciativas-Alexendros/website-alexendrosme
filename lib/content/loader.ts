@@ -125,34 +125,34 @@ export interface TagArticle {
 }
 
 export async function getAllTags(): Promise<string[]> {
-  const [ideas, acciones] = await Promise.all([
-    getContentCollection("ideas"),
-    getContentCollection("acciones"),
+  const [proyectos, opinion] = await Promise.all([
+    getContentCollection("proyectos"),
+    getContentCollection("opinion"),
   ]);
   const tags = new Set<string>();
-  for (const item of [...ideas, ...acciones]) {
+  for (const item of [...proyectos, ...opinion]) {
     for (const tag of item.frontmatter.tags) tags.add(tag);
   }
   return Array.from(tags).sort((a, b) => a.localeCompare(b, "es"));
 }
 
 export async function getArticlesByTag(tag: string): Promise<TagArticle[]> {
-  const [ideas, acciones] = await Promise.all([
-    getContentCollection("ideas"),
-    getContentCollection("acciones"),
+  const [proyectos, opinion] = await Promise.all([
+    getContentCollection("proyectos"),
+    getContentCollection("opinion"),
   ]);
   const tagged: TagArticle[] = [
-    ...ideas
+    ...proyectos
       .filter((a) => a.frontmatter.tags.includes(tag))
       .map((a) => ({
         ...a,
-        type: "ideas" as const,
+        type: "proyectos" as const,
       })),
-    ...acciones
+    ...opinion
       .filter((a) => a.frontmatter.tags.includes(tag))
       .map((a) => ({
         ...a,
-        type: "acciones" as const,
+        type: "opinion" as const,
       })),
   ];
   return tagged.sort(

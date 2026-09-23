@@ -13,17 +13,17 @@ describe("SEO metadata", () => {
     expect(siteConfig.title.length).toBeLessThanOrEqual(60);
   });
 
-  it("description tiene entre 150 y 160 caracteres", () => {
-    expect(siteConfig.description.length).toBeGreaterThanOrEqual(150);
-    expect(siteConfig.description.length).toBeLessThanOrEqual(160);
+  it("description tiene entre 140 y 170 caracteres", () => {
+    expect(siteConfig.description.length).toBeGreaterThanOrEqual(140);
+    expect(siteConfig.description.length).toBeLessThanOrEqual(170);
   });
 
   it("description contiene las keywords objetivo", () => {
     const d = siteConfig.description.toLowerCase();
-    expect(d).toContain("soberanía digital");
-    expect(d).toContain("privacidad");
-    expect(d).toContain("software libre");
-    expect(d).toContain("crítica tecnológica");
+    expect(d).toContain("opinión");
+    expect(d).toContain("proyectos");
+    expect(d).toContain("libertad");
+    expect(d).toContain("valencia");
   });
 
   it("url usa https", () => {

@@ -49,7 +49,7 @@ test.describe("Responsividad · no-overflow + tap targets ≥44px", () => {
   test("FAB visible en mobile", async ({ page, viewport }) => {
     if (!viewport || viewport.width >= 768) test.skip();
     // En mobile, el FAB de contacto debe estar visible sin scroll
-    const contactFab = page.locator("button", { hasText: "Convócame" });
+    const contactFab = page.locator("button", { hasText: "Escríbeme" });
     await expect(contactFab).toBeVisible();
   });
 
