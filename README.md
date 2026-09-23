@@ -21,15 +21,15 @@ Sitio web personal estático para [alexendros.me](https://alexendros.me). Conten
 
 ## Stack
 
-| Capa      | Tecnología                                                                                               |
-| --------- | -------------------------------------------------------------------------------------------------------- |
-| Framework | [Next.js 16](https://nextjs.org) (App Router, Turbopack)                                                 |
-| Estilos   | [Tailwind CSS v4](https://tailwindcss.com) + design system `--ax-*`                                      |
-| Tipado    | [TypeScript](https://www.typescriptlang.org) strict                                                      |
-| Contenido | MDX + [gray-matter](https://github.com/jonschlinkert/gray-matter) + Zod                                  |
-| UI        | [shadcn/ui](https://ui.shadcn.com) + [Radix UI](https://www.radix-ui.com) + [Lucide](https://lucide.dev) |
-| Deploy    | [Vercel](https://vercel.com) (export estático)                                                           |
-| Testing   | [Vitest](https://vitest.dev) + [Playwright](https://playwright.dev)                                      |
+| Capa      | Tecnología                                                                                                                                           |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Framework | [Next.js 16](https://nextjs.org) (App Router, Turbopack)                                                                                             |
+| Estilos   | [Tailwind CSS v4](https://tailwindcss.com) + design system `--ax-*`                                                                                  |
+| Tipado    | [TypeScript](https://www.typescriptlang.org) strict                                                                                                  |
+| Contenido | Markdown (`.mdx`) + [gray-matter](https://github.com/jonschlinkert/gray-matter) + Zod + [react-markdown](https://github.com/remarkjs/react-markdown) |
+| UI        | [shadcn/ui](https://ui.shadcn.com) + [Radix UI](https://www.radix-ui.com) + [Lucide](https://lucide.dev)                                             |
+| Deploy    | [Vercel](https://vercel.com) (export estático)                                                                                                       |
+| Testing   | [Vitest](https://vitest.dev) + [Playwright](https://playwright.dev)                                                                                  |
 
 ## Desarrollo local
 

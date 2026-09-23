@@ -18,7 +18,7 @@ revisiones rápidas.
 
 Usamos las siguientes herramientas:
 
-- Node.js >=24 y `npm` como gestor de paquetes.
+- Node.js **22** (`.nvmrc` / `engines`) y `npm` como gestor de paquetes.
 - Conventional Commits para los mensajes (`feat:`, `fix:`, `chore:`,
   `docs:`, `refactor:`, `test:`, `build:`, `ci:`).
 - Firmas de commit obligatorias (SSH o GPG).
@@ -26,7 +26,7 @@ Usamos las siguientes herramientas:
 Pasos típicos:
 
 ```bash
-git clone git@github.com:Alexendros/website-alexendrosme.git
+git clone git@github.com:Iniciativas-Alexendros/website-alexendrosme.git
 cd website-alexendrosme
 npm install
 npm run test
