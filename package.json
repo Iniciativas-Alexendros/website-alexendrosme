@@ -30,7 +30,7 @@
     "test:e2e:ui": "playwright test --ui",
     "audit:hydration": "tsx scripts/hydration-warning-audit.ts",
     "prepare": "husky",
-    "release": "standard-version"
+    "release": "echo 'Use GitHub Actions release.yml — standard-version removed'"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

@@ -1,6 +1,8 @@
-const CACHE_VERSION = "v1";
+const CACHE_VERSION = "v2";
 export const STATIC_CACHE = `ax-static-${CACHE_VERSION}`;
 export const NAV_CACHE = `ax-nav-${CACHE_VERSION}`;
+/** Exported for tests that assert SW ↔ strategy parity. */
+export { CACHE_VERSION };
 
 const STATIC_PATTERNS = [/^\/_next\/static\//, /^\/fonts\//, /^\/og\//, /^\/search-index\.json$/];
 
