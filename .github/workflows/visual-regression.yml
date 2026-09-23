@@ -15,6 +15,9 @@ concurrency:
   group: visual-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   visual:
     name: Playwright visual

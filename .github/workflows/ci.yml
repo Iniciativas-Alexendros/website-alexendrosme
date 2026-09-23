@@ -23,6 +23,9 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   runner-health:
     if: github.event_name == 'workflow_dispatch' && inputs.runner == 'self-hosted'
@@ -298,9 +301,12 @@ jobs:
 
       - name: Enable auto-merge
         if: steps.check-all.outputs.all-passed == 'true'
-        run: |
-          gh pr merge --auto --merge "${{ github.event.pull_request.number }}" \
-            --repo "${{ github.repository }}" \
-            --subject "${{ github.event.pull_request.title }}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          REPO: ${{ github.repository }}
+        run: |
+          gh pr merge --auto --merge "$PR_NUMBER" \
+            --repo "$REPO" \
+            --subject "$PR_TITLE"
