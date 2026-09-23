@@ -1,9 +1,9 @@
 export const siteConfig = {
   name: "Alexendros",
   fullName: "Alejandro, Domingo y Agustí",
-  title: "Alexendros · pensador, tecnólogo, investigador",
+  title: "Alexendros · pensamiento, libertad y vida digital",
   description:
-    "Espacio de Alexendros sobre soberanía digital, privacidad, software libre y crítica tecnológica. Descubre ensayos, guías y provocaciones desde Valencia.",
+    "Espacio personal y libre de dinero de Alexendros: opinión, proyectos y reflexiones sobre libertad y vida digital desde Valencia. Sin anuncios ni captación.",
   url: "https://alexendros.me",
   email: "contacto@alexendros.me",
   location: "Valencia, España",
@@ -13,11 +13,7 @@ export const siteConfig = {
     linkedin: "https://linkedin.com/in/alexendros",
     twitter: "https://x.com/alexendros",
   },
-  nav: [
-    { label: "(Auto)biografía", href: "#biografia" },
-    { label: "Misiones", href: "#misiones" },
-    { label: "Experiencias", href: "#experiencias" },
-  ],
+  nav: [{ label: "(Auto)biografía", href: "#biografia" }],
   legalNav: [
     { label: "Aviso legal", href: "/legal/aviso-legal" },
     { label: "Privacidad", href: "/legal/privacidad" },
@@ -31,7 +27,6 @@ export const siteConfig = {
   },
 } as const;
 
-// Development-only deep freeze for extra safety
 if (process.env.NODE_ENV === "development") {
   Object.freeze(siteConfig);
   Object.freeze(siteConfig.nav);

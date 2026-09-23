@@ -5,39 +5,48 @@ import { getContentCollection } from "@/lib/content/loader";
 import { siteConfig } from "@/lib/site";
 
 async function main() {
-  const [ideas, acciones] = await Promise.all([
-    getContentCollection("ideas"),
-    getContentCollection("acciones"),
+  const [proyectos, opinion] = await Promise.all([
+    getContentCollection("proyectos"),
+    getContentCollection("opinion"),
   ]);
 
-  // Master feed (all articles)
-  const { rss, atom } = generateFeeds({ site: siteConfig, collections: { ideas, acciones } });
+  const { rss, atom } = generateFeeds({
+    site: siteConfig,
+    collections: { proyectos, opinion },
+  });
   await fs.writeFile(path.join(process.cwd(), "public", "feed.xml"), rss, "utf-8");
   await fs.writeFile(path.join(process.cwd(), "public", "feed.atom"), atom, "utf-8");
 
-  // Per-collection feeds
-  const { rss: ideasRss, atom: ideasAtom } = generateCollectionFeeds(
+  const { rss: proyectosRss, atom: proyectosAtom } = generateCollectionFeeds(
     siteConfig,
-    "ideas",
-    "Ideas",
-    ideas,
+    "proyectos",
+    "Proyectos",
+    proyectos,
   );
-  await fs.writeFile(path.join(process.cwd(), "public", "feed-ideas.xml"), ideasRss, "utf-8");
-  await fs.writeFile(path.join(process.cwd(), "public", "feed-ideas.atom"), ideasAtom, "utf-8");
+  await fs.writeFile(
+    path.join(process.cwd(), "public", "feed-proyectos.xml"),
+    proyectosRss,
+    "utf-8",
+  );
+  await fs.writeFile(
+    path.join(process.cwd(), "public", "feed-proyectos.atom"),
+    proyectosAtom,
+    "utf-8",
+  );
 
-  const { rss: accRss, atom: accAtom } = generateCollectionFeeds(
+  const { rss: opinionRss, atom: opinionAtom } = generateCollectionFeeds(
     siteConfig,
-    "acciones",
-    "Acciones",
-    acciones,
+    "opinion",
+    "Opinión",
+    opinion,
   );
-  await fs.writeFile(path.join(process.cwd(), "public", "feed-acciones.xml"), accRss, "utf-8");
-  await fs.writeFile(path.join(process.cwd(), "public", "feed-acciones.atom"), accAtom, "utf-8");
+  await fs.writeFile(path.join(process.cwd(), "public", "feed-opinion.xml"), opinionRss, "utf-8");
+  await fs.writeFile(path.join(process.cwd(), "public", "feed-opinion.atom"), opinionAtom, "utf-8");
 
   console.log("Feeds generated:");
   console.log("  public/feed.xml + public/feed.atom (master)");
-  console.log("  public/feed-ideas.xml + public/feed-ideas.atom");
-  console.log("  public/feed-acciones.xml + public/feed-acciones.atom");
+  console.log("  public/feed-proyectos.xml + public/feed-proyectos.atom");
+  console.log("  public/feed-opinion.xml + public/feed-opinion.atom");
 }
 
 main().catch((error) => {

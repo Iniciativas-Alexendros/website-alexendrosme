@@ -53,17 +53,16 @@ ${entries}
 }
 
 async function main() {
-  const [ideas, acciones] = await Promise.all([
-    getContentCollection("ideas"),
-    getContentCollection("acciones"),
+  const [proyectos, opinion] = await Promise.all([
+    getContentCollection("proyectos"),
+    getContentCollection("opinion"),
   ]);
 
-  // ── Static pages ───────────────────────────────────
   const pages = [
     urlEntry(`${BASE}/`, NOW, "monthly", "1.0"),
     urlEntry(`${BASE}/now`, NOW, "weekly", "0.7"),
-    urlEntry(`${BASE}/ideas`, NOW, "weekly", "0.8"),
-    urlEntry(`${BASE}/acciones`, NOW, "weekly", "0.8"),
+    urlEntry(`${BASE}/proyectos`, NOW, "weekly", "0.8"),
+    urlEntry(`${BASE}/opinion`, NOW, "weekly", "0.8"),
     urlEntry(`${BASE}/tags`, NOW, "monthly", "0.6"),
     urlEntry(`${BASE}/legal/aviso-legal`, NOW, "yearly", "0.2"),
     urlEntry(`${BASE}/legal/privacidad`, NOW, "yearly", "0.2"),
@@ -77,53 +76,48 @@ async function main() {
     "utf-8",
   );
 
-  // ── Ideas ────────────────────────────────────────────
-  // Cada artículo tiene su propia OG image generada por next/og
-  // (app/ideas/[slug]/opengraph-image.tsx).
-  const ideasUrls = [
-    urlEntry(`${BASE}/ideas`, NOW, "weekly", "0.8"),
-    ...ideas.map((a) =>
+  const proyectosUrls = [
+    urlEntry(`${BASE}/proyectos`, NOW, "weekly", "0.8"),
+    ...proyectos.map((a) =>
       urlEntryWithImage(
-        `${BASE}/ideas/${a.slug}`,
+        `${BASE}/proyectos/${a.slug}`,
         a.frontmatter.date ?? NOW,
         "monthly",
         "0.7",
-        `${BASE}/ideas/${a.slug}/opengraph-image.png`,
+        `${BASE}/proyectos/${a.slug}/opengraph-image.png`,
       ),
     ),
   ].join("\n");
 
   await fs.writeFile(
-    path.join(process.cwd(), "public", "sitemap-ideas.xml"),
-    sitemapXml(ideasUrls, true),
+    path.join(process.cwd(), "public", "sitemap-proyectos.xml"),
+    sitemapXml(proyectosUrls, true),
     "utf-8",
   );
 
-  // ── Acciones ─────────────────────────────────────────
-  const accionesUrls = [
-    urlEntry(`${BASE}/acciones`, NOW, "weekly", "0.8"),
-    ...acciones.map((a) =>
+  const opinionUrls = [
+    urlEntry(`${BASE}/opinion`, NOW, "weekly", "0.8"),
+    ...opinion.map((a) =>
       urlEntryWithImage(
-        `${BASE}/acciones/${a.slug}`,
+        `${BASE}/opinion/${a.slug}`,
         a.frontmatter.date ?? NOW,
         "monthly",
         "0.7",
-        `${BASE}/acciones/${a.slug}/opengraph-image.png`,
+        `${BASE}/opinion/${a.slug}/opengraph-image.png`,
       ),
     ),
   ].join("\n");
 
   await fs.writeFile(
-    path.join(process.cwd(), "public", "sitemap-acciones.xml"),
-    sitemapXml(accionesUrls, true),
+    path.join(process.cwd(), "public", "sitemap-opinion.xml"),
+    sitemapXml(opinionUrls, true),
     "utf-8",
   );
 
-  // ── Sitemap index ────────────────────────────────
   const index = [
     `<sitemap><loc>${BASE}/sitemap-pages.xml</loc><lastmod>${NOW}</lastmod></sitemap>`,
-    `<sitemap><loc>${BASE}/sitemap-ideas.xml</loc><lastmod>${NOW}</lastmod></sitemap>`,
-    `<sitemap><loc>${BASE}/sitemap-acciones.xml</loc><lastmod>${NOW}</lastmod></sitemap>`,
+    `<sitemap><loc>${BASE}/sitemap-proyectos.xml</loc><lastmod>${NOW}</lastmod></sitemap>`,
+    `<sitemap><loc>${BASE}/sitemap-opinion.xml</loc><lastmod>${NOW}</lastmod></sitemap>`,
   ].join("\n");
 
   await fs.writeFile(
@@ -133,7 +127,7 @@ async function main() {
   );
 
   console.log(
-    "Sitemaps generated:\n  public/sitemap.xml (index)\n  public/sitemap-pages.xml\n  public/sitemap-ideas.xml (with images)\n  public/sitemap-acciones.xml (with images)",
+    "Sitemaps generated:\n  public/sitemap.xml (index)\n  public/sitemap-pages.xml\n  public/sitemap-proyectos.xml (with images)\n  public/sitemap-opinion.xml (with images)",
   );
 }
 

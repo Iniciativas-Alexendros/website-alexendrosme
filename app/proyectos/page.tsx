@@ -11,32 +11,31 @@ import {
 } from "@/components/translated-labels";
 
 export const metadata: Metadata = {
-  title: "Ideas",
-  description:
-    "Reflexiones sobre soberanía digital, crítica tecnológica y filosofía práctica para el siglo XXI.",
-  alternates: { canonical: "/ideas" },
+  title: "Proyectos",
+  description: "Cosas que estoy haciendo o cuidando, contadas sin jerga técnica.",
+  alternates: { canonical: "/proyectos" },
   openGraph: {
-    title: "Ideas · Alexendros",
-    description: "Reflexiones sobre soberanía digital, crítica tecnológica y filosofía práctica.",
-    url: "https://alexendros.me/ideas",
+    title: "Proyectos · Alexendros",
+    description: "Cosas que estoy haciendo o cuidando, contadas sin jerga técnica.",
+    url: "https://alexendros.me/proyectos",
   },
 };
 
-export default async function IdeasPage() {
-  const articles = await getContentCollection("ideas");
+export default async function ProyectosPage() {
+  const articles = await getContentCollection("proyectos");
 
   return (
     <>
-      <BreadcrumbJsonLd items={[{ name: "Ideas", href: `${siteConfig.url}/ideas` }]} />
+      <BreadcrumbJsonLd items={[{ name: "Proyectos", href: `${siteConfig.url}/proyectos` }]} />
       <div className="site-shell article-shell">
         <header className="collection-header">
           <p className="ds-label collection-label">
             <CollectionLabel />
           </p>
-          <h1 className="headline">Ideas</h1>
+          <h1 className="headline">Proyectos</h1>
           <p className="prose-lead collection-desc">
-            Reflexiones sobre soberanía digital, crítica tecnológica y filosofía práctica para el
-            siglo XXI.
+            Fichas cortas de lo que estoy construyendo o cuidando. Qué es, para qué sirve y en qué
+            punto está.
           </p>
         </header>
 
@@ -48,7 +47,7 @@ export default async function IdeasPage() {
           <div className="stack-lg">
             {articles.map((article) => (
               <article key={article.slug}>
-                <Link href={`/ideas/${article.slug}`} className="article-item">
+                <Link href={`/proyectos/${article.slug}`} className="article-item">
                   <time dateTime={article.frontmatter.date} className="ds-caption">
                     {new Date(article.frontmatter.date).toLocaleDateString("es-ES", {
                       year: "numeric",

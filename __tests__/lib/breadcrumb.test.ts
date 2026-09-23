@@ -5,8 +5,8 @@ import { siteConfig } from "@/lib/site";
 describe("buildBreadcrumbJsonLd", () => {
   it("devuelve un BreadcrumbList con Inicio como primer elemento", () => {
     const json = buildBreadcrumbJsonLd([
-      { name: "Ideas", href: `${siteConfig.url}/ideas` },
-      { name: "Crítica tecnológica", href: `${siteConfig.url}/ideas/critica-tecnologica` },
+      { name: "Opinión", href: `${siteConfig.url}/opinion` },
+      { name: "Crítica tecnológica", href: `${siteConfig.url}/opinion/critica-tecnologica` },
     ]);
 
     expect(json["@context"]).toBe("https://schema.org");

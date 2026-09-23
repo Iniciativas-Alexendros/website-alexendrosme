@@ -51,36 +51,22 @@ describe("resolveFromDict (string leaves)", () => {
 });
 
 describe("resolveFromDict (string[] leaves)", () => {
-  it("returns the array at sections.expFormacion.items (es)", () => {
-    const v = resolveFromDict(es, "sections.expFormacion.items");
-    expect(Array.isArray(v)).toBe(true);
-    expect(v).toHaveLength(3);
-  });
-
-  it("returns the array at sections.expStack.items (en)", () => {
-    const v = resolveFromDict(en, "sections.expStack.items");
-    expect(Array.isArray(v)).toBe(true);
-    expect(v).toHaveLength(6);
-  });
-
-  it("returns the array at sections.expHerramientas.items (es)", () => {
-    const v = resolveFromDict(es, "sections.expHerramientas.items");
-    expect(Array.isArray(v)).toBe(true);
-    expect(v).toHaveLength(4);
+  it("returns the path when a former array key was removed", () => {
+    expect(resolveFromDict(es, "sections.expFormacion.items")).toBe("sections.expFormacion.items");
   });
 
   it("returns the path when key is missing", () => {
-    expect(resolveFromDict(es, "sections.expFormacion.nonexistent")).toBe(
-      "sections.expFormacion.nonexistent",
+    expect(resolveFromDict(es, "sections.publicaciones.nonexistent")).toBe(
+      "sections.publicaciones.nonexistent",
     );
   });
 
-  it("does NOT confuse array leaves with string leaves", () => {
-    // `category` is a string; `items` is a string[]
-    const cat = resolveFromDict(es, "sections.expFormacion.category");
-    const items = resolveFromDict(es, "sections.expFormacion.items");
-    expect(typeof cat).toBe("string");
-    expect(Array.isArray(items)).toBe(true);
+  it("does NOT confuse string leaves with missing nested keys", () => {
+    const title = resolveFromDict(es, "sections.publicaciones.title");
+    const missing = resolveFromDict(es, "sections.publicaciones.items");
+    expect(typeof title).toBe("string");
+    expect(title).not.toBe("sections.publicaciones.title");
+    expect(missing).toBe("sections.publicaciones.items");
   });
 });
 

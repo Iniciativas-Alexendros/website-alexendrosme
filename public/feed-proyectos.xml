@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Proyectos · Alexendros</title>
+    <link>https://alexendros.me/proyectos</link>
+    <description>Proyectos — Espacio personal y libre de dinero de Alexendros: opinión, proyectos y reflexiones sobre libertad y vida digital desde Valencia. Sin anuncios ni captación.</description>
+    <language>es</language>
+    <lastBuildDate>Wed, 23 Sep 2026 17:05:42 GMT</lastBuildDate>
+    <atom:link href="https://alexendros.me/feed-proyectos.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Este sitio: un espacio sin dinero</title>
+      <link>https://alexendros.me/proyectos/espacio-libre-de-dinero</link>
+      <description>Por qué existe alexendros.me y qué no encontrarás aquí.</description>
+      <pubDate>Wed, 23 Sep 2026 10:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://alexendros.me/proyectos/espacio-libre-de-dinero</guid>
+    </item>
+    <item>
+      <title>Elegir con criterio</title>
+      <link>https://alexendros.me/proyectos/elegir-con-criterio</link>
+      <description>Una decisión de vida: recuperar el control de lo que importa, sin convertirla en una lista de herramientas.</description>
+      <pubDate>Wed, 23 Sep 2026 09:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://alexendros.me/proyectos/elegir-con-criterio</guid>
+    </item>
+  </channel>
+</rss>

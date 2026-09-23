@@ -8,11 +8,13 @@ interface Article {
 }
 
 const ARTICLES: Article[] = [
-  { collection: "ideas", slug: "critica-tecnologica" },
-  { collection: "ideas", slug: "manifiesto-eligete-a-ti" },
-  { collection: "ideas", slug: "soberania-digital" },
-  { collection: "acciones", slug: "protocolos-vs-plataformas" },
-  { collection: "acciones", slug: "escape-del-feudo-algoritmico" },
+  { collection: "opinion", slug: "critica-tecnologica" },
+  { collection: "opinion", slug: "manifiesto-eligete-a-ti" },
+  { collection: "opinion", slug: "soberania-digital" },
+  { collection: "opinion", slug: "protocolos-vs-plataformas" },
+  { collection: "opinion", slug: "escape-del-feudo-algoritmico" },
+  { collection: "proyectos", slug: "espacio-libre-de-dinero" },
+  { collection: "proyectos", slug: "elegir-con-criterio" },
 ];
 
 test.describe("OG and Twitter images per article", () => {

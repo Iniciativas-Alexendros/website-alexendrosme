@@ -32,7 +32,10 @@ export function Nav() {
   const pathname = usePathname();
 
   const activeHash = useScrollSpy(siteConfig.nav.map((item) => item.href.replace("#", "")));
+  const onHome = pathname === "/";
   const onNowPage = pathname === "/now";
+  const onProyectos = pathname.startsWith("/proyectos");
+  const onOpinion = pathname.startsWith("/opinion");
 
   useEffect(() => {
     const header = headerRef.current;
@@ -45,21 +48,17 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const navItems = [
-    { label: t("nav.biografia"), href: "#biografia" },
-    { label: t("nav.misiones"), href: "#misiones" },
-    { label: t("nav.experiencias"), href: "#experiencias" },
-  ];
-
   return (
     <header ref={headerRef} className="site-nav">
       <nav className="site-shell site-nav__inner" aria-label={t("nav.navLabel")}>
         <Link
           href="/"
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-            window.history.replaceState(null, "", "/");
+            if (onHome) {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+              window.history.replaceState(null, "", "/");
+            }
           }}
           className="nav-logo"
           aria-label={t("nav.logoLabel")}
@@ -68,24 +67,43 @@ export function Nav() {
         </Link>
 
         <ul className="site-nav__links" role="list">
-          {navItems.map((item) => {
-            const isActive = activeHash === item.href;
-            return (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToAnchor(item.href);
-                  }}
-                  aria-current={isActive ? "page" : undefined}
-                  className={`site-nav__link${isActive ? " site-nav__link--active" : ""}`}
-                >
-                  {item.label}
-                </a>
-              </li>
-            );
-          })}
+          <li>
+            {onHome ? (
+              <a
+                href="#biografia"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToAnchor("#biografia");
+                }}
+                aria-current={activeHash === "#biografia" ? "page" : undefined}
+                className={`site-nav__link${activeHash === "#biografia" ? " site-nav__link--active" : ""}`}
+              >
+                {t("nav.biografia")}
+              </a>
+            ) : (
+              <Link href="/#biografia" className="site-nav__link">
+                {t("nav.biografia")}
+              </Link>
+            )}
+          </li>
+          <li>
+            <Link
+              href="/proyectos"
+              className={onProyectos ? "site-nav__link site-nav__link--active" : "site-nav__link"}
+              aria-current={onProyectos ? "page" : undefined}
+            >
+              {t("nav.proyectos")}
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/opinion"
+              className={onOpinion ? "site-nav__link site-nav__link--active" : "site-nav__link"}
+              aria-current={onOpinion ? "page" : undefined}
+            >
+              {t("nav.opinion")}
+            </Link>
+          </li>
           <li>
             <Link
               href="/now"

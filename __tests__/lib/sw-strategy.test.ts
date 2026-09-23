@@ -26,16 +26,16 @@ describe("SW selectStrategy", () => {
     expect(selectStrategy("/search-index.json", "no-cors")).toBe("static-cache-first");
   });
 
-  it("/ideas with navigate mode → navigation", () => {
-    expect(selectStrategy("/ideas", "navigate")).toBe("navigation");
+  it("/opinion with navigate mode → navigation", () => {
+    expect(selectStrategy("/opinion", "navigate")).toBe("navigation");
   });
 
   it("/ with navigate mode → navigation", () => {
     expect(selectStrategy("/", "navigate")).toBe("navigation");
   });
 
-  it("/ideas without navigate mode → passthrough", () => {
-    expect(selectStrategy("/ideas", "no-cors")).toBe("passthrough");
+  it("/opinion without navigate mode → passthrough", () => {
+    expect(selectStrategy("/opinion", "no-cors")).toBe("passthrough");
   });
 
   it("/sw.js → never-cache (CRITICAL)", () => {

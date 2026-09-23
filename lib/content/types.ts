@@ -18,4 +18,4 @@ export interface ContentItem {
   readingTime: number;
 }
 
-export type CollectionType = "ideas" | "acciones";
+export type CollectionType = "proyectos" | "opinion";

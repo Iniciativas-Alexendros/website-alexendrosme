@@ -1,19 +1,19 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Article metadata", () => {
-  test("artículo de ideas tiene BreadcrumbList y metadatos", async ({ page }) => {
-    await page.goto("/ideas/critica-tecnologica");
+  test("artículo de opinión tiene BreadcrumbList y metadatos", async ({ page }) => {
+    await page.goto("/opinion/critica-tecnologica");
 
     await expect(page.locator("#breadcrumb-json-ld")).toHaveCount(1);
 
     const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
-    expect(canonical).toContain("/ideas/critica-tecnologica");
+    expect(canonical).toContain("/opinion/critica-tecnologica");
   });
 });
 
 test.describe("Article table of contents", () => {
   test("artículo con headings muestra ToC con hrefs en formato correcto", async ({ page }) => {
-    await page.goto("/ideas/critica-tecnologica");
+    await page.goto("/opinion/critica-tecnologica");
 
     const tocLinks = page.locator(".toc-link");
     const count = await tocLinks.count();
@@ -29,7 +29,7 @@ test.describe("Article table of contents", () => {
   });
 
   test("headings tienen id generado por rehype-slug", async ({ page }) => {
-    await page.goto("/ideas/critica-tecnologica");
+    await page.goto("/opinion/critica-tecnologica");
 
     const headings = page.locator(".prose h2, .prose h3");
     const count = await headings.count();
@@ -42,13 +42,12 @@ test.describe("Article table of contents", () => {
     for (let i = 0; i < count; i++) {
       const id = await headings.nth(i).getAttribute("id");
       expect(id).toBeTruthy();
-      // rehype-slug: lowercase, solo [a-z0-9-áéíóúñ] (preserva acentos)
       expect(id).toMatch(/^[a-z0-9-áéíóúñ]+$/i);
     }
   });
 
   test("navegar a artículo no crashea", async ({ page }) => {
-    await page.goto("/ideas/manifiesto-eligete-a-ti");
+    await page.goto("/opinion/manifiesto-eligete-a-ti");
     await page.waitForLoadState("networkidle");
     await expect(page.locator("h1")).toBeVisible();
   });

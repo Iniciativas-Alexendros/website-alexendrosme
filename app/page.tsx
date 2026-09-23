@@ -9,15 +9,15 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const [ideas, acciones] = await Promise.all([
-    getContentCollection("ideas"),
-    getContentCollection("acciones"),
+  const [proyectos, opinion] = await Promise.all([
+    getContentCollection("proyectos"),
+    getContentCollection("opinion"),
   ]);
 
   const latestArticles = [
-    ...ideas.slice(0, 3).map((item) => ({ ...item, type: "ideas" as const })),
-    ...acciones.slice(0, 3).map((item) => ({ ...item, type: "acciones" as const })),
+    ...proyectos.slice(0, 3).map((item) => ({ ...item, type: "proyectos" as const })),
+    ...opinion.slice(0, 3).map((item) => ({ ...item, type: "opinion" as const })),
   ].sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
 
-  return <HomeContent latestArticles={latestArticles} years={{ misionYear: "2024–" }} />;
+  return <HomeContent latestArticles={latestArticles} />;
 }
