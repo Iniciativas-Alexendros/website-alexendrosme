@@ -193,6 +193,9 @@ const en: TranslationDict = {
     sectionIdeas: "Ideas",
     sectionAcciones: "Acciones",
     shortcut: "Search (⌘K)",
+    loadError: "Could not load the search index. Please try again later.",
+    loading: "Loading search index...",
+    clear: "Clear search",
   },
 
   // ── Errors ──────────────────────────────────────────────

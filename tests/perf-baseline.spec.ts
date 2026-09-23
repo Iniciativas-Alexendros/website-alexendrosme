@@ -2,7 +2,6 @@ import { test, expect } from "@playwright/test";
 
 const perfThresholds = {
   lcp: 2500,
-  fid: 100,
   cls: 0.1,
   ttfb: process.env["CI"] ? 1500 : 5000,
 };
@@ -20,14 +19,38 @@ test("home page performance baseline", async ({ page }) => {
   const ttfb = Date.now() - start;
 
   const metrics = await page.evaluate(() => {
-    return new Promise<{ lcp: number | null }>((resolve) => {
+    return new Promise<{ lcp: number | null; cls: number }>((resolve) => {
+      let cls = 0;
+      const clsObserver = new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          const layoutShift = entry as PerformanceEntry & {
+            hadRecentInput?: boolean;
+            value?: number;
+          };
+          if (!layoutShift.hadRecentInput && typeof layoutShift.value === "number") {
+            cls += layoutShift.value;
+          }
+        }
+      });
+      try {
+        clsObserver.observe({ type: "layout-shift", buffered: true });
+      } catch {
+        // layout-shift unsupported
+      }
+
       new PerformanceObserver((list) => {
         const entries = list.getEntries();
         const lcp = entries.find((e) => e.entryType === "largest-contentful-paint");
-        if (lcp) resolve({ lcp: lcp.startTime });
+        if (lcp) {
+          clsObserver.disconnect();
+          resolve({ lcp: lcp.startTime, cls });
+        }
       }).observe({ entryTypes: ["largest-contentful-paint"] });
 
-      setTimeout(() => resolve({ lcp: null }), 5000);
+      setTimeout(() => {
+        clsObserver.disconnect();
+        resolve({ lcp: null, cls });
+      }, 5000);
     });
   });
 
@@ -45,4 +68,10 @@ test("home page performance baseline", async ({ page }) => {
     });
     expect(metrics.lcp).toBeLessThanOrEqual(perfThresholds.lcp);
   }
+
+  test.info().attach("cls", {
+    body: String(metrics.cls),
+    contentType: "text/plain",
+  });
+  expect(metrics.cls).toBeLessThanOrEqual(perfThresholds.cls);
 });

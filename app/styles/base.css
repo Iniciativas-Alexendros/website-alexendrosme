@@ -10,6 +10,17 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    --ax-banner-offset: 0px;
+  }
+
+  html[data-ax-banner="1"] {
+    --ax-banner-offset: 3.25rem;
+  }
+
+  @media (min-width: 40rem) {
+    html[data-ax-banner="1"] {
+      --ax-banner-offset: 3.5rem;
+    }
   }
 
   body {
@@ -21,6 +32,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    padding-top: var(--ax-banner-offset, 0px);
   }
 
   /* Ambient backdrop glow — halo dorado Alexendros.me Design System, un solo glow por viewport.

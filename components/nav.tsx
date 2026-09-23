@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { ExternalLink, Search } from "lucide-react";
 import { siteConfig } from "@/lib/site";
@@ -10,7 +10,7 @@ import { useScrollSpy } from "@/lib/hooks/useScrollSpy";
 import { useI18n } from "@/lib/i18n";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LocaleToggle } from "@/components/locale-toggle";
-import { SearchDialog } from "@/components/search-dialog";
+import { useSearch } from "@/components/search-provider";
 
 const MobileMenu = dynamic(() => import("@/components/mobile-menu").then((m) => m.MobileMenu), {
   ssr: false,
@@ -28,7 +28,7 @@ function scrollToAnchor(href: string) {
 export function Nav() {
   const headerRef = useRef<HTMLElement | null>(null);
   const { t } = useI18n();
-  const [searchOpen, setSearchOpen] = useState(false);
+  const { openSearch } = useSearch();
   const pathname = usePathname();
 
   const activeHash = useScrollSpy(siteConfig.nav.map((item) => item.href.replace("#", "")));
@@ -97,10 +97,9 @@ export function Nav() {
           </li>
         </ul>
 
-        {/* Search trigger */}
         <button
           type="button"
-          onClick={() => setSearchOpen(true)}
+          onClick={openSearch}
           className="desktop-only site-nav__link"
           aria-label={t("search.triggerAria")}
         >
@@ -108,7 +107,6 @@ export function Nav() {
           <span className="text-xs text-muted-foreground ml-1 font-mono">⌘K</span>
         </button>
 
-        {/* Products link - solo desktop */}
         <a
           href={siteConfig.links.dev}
           target="_blank"
@@ -124,8 +122,6 @@ export function Nav() {
         <ThemeToggle />
 
         <MobileMenu activeHash={activeHash} />
-
-        <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
       </nav>
     </header>
   );

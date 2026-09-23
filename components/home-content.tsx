@@ -59,7 +59,7 @@ export function HomeContent({ latestArticles, years }: HomeContentProps) {
         <div className="cluster-center">
           <p className="hero-eyebrow">{t("hero.eyebrow")}</p>
         </div>
-        <h1 className="hero-signature hero-signature--shimmer hero-animate">
+        <h1 className="hero-signature hero-signature--shimmer hero-animate display">
           {t("hero.signature")}
         </h1>
         <p

@@ -16,9 +16,10 @@ export function ParticleBg() {
   const ref = useRef<HTMLCanvasElement | null>(null);
   const [mounted, setMounted] = useState(false);
 
-  // Respetar prefers-reduced-motion: si el usuario reduce movimiento, no montamos el canvas.
+  // Respetar prefers-reduced-motion y viewports estrechos: sin canvas/rAF bajo 768px.
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.innerWidth < 768) return;
     setMounted(true);
   }, []);
 

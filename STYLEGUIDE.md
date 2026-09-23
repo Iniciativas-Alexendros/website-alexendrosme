@@ -22,7 +22,7 @@ Convenciones para el código y la documentación.
 
 - Tailwind v4. Evitar CSS suelto salvo en `globals.css` o tokens.
 - Variantes y átomos antes que `@apply`.
-- Tokens vienen del design system (`--vi-*`).
+- Tokens vienen del design system (`--ax-*`).
 
 ## Naming
 

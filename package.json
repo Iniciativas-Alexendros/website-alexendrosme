@@ -6,9 +6,10 @@
   "description": "Sitio web personal de Alexendros — espacio libre de dinero para ideas, ensayos y crítica tecnológica. Next.js 16, Tailwind v4, TypeScript strict, export estático.",
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "npm run generate-sitemap && npm run generate-search-index && next build",
+    "build": "npm run generate-sitemap && npm run generate-search-index && npm run generate-feeds && next build",
     "generate-search-index": "tsx scripts/generate-search-index.ts",
     "generate-sitemap": "tsx scripts/generate-sitemap.ts",
+    "generate-feeds": "tsx scripts/generate-feeds.ts",
     "validate-jsonld": "tsx scripts/validate-jsonld.ts",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",

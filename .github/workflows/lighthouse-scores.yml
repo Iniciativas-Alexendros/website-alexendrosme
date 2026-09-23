@@ -42,39 +42,39 @@ jobs:
       - name: Extract scores from LHCI results
         id: scores
         run: |
-          # LHCI saves results in .lighthouseci/ as JSON files
-          REPORT=$(ls .lighthouseci/assertion-results-*.json 2>/dev/null | head -1)
+          REPORT=$(find .lighthouseci -name 'assertion-results-*.json' 2>/dev/null | head -1)
           if [ -z "$REPORT" ]; then
-            # Fallback: run lighthouse directly
             npx lighthouse "https://alexendros.me/" --output json \
               --chrome-flags="--headless=new --no-sandbox" 2>/dev/null > /tmp/lh-direct.json
             REPORT="/tmp/lh-direct.json"
           fi
 
-          PERFORMANCE=$(python3 -c "
-            import json,sys
-            d=json.load(open('$REPORT'))
-            print(f\"{d['categories']['performance']['score']*100:.0f}\")
-          ")
-          ACCESSIBILITY=$(python3 -c "
-            import json,sys
-            d=json.load(open('$REPORT'))
-            print(f\"{d['categories']['accessibility']['score']*100:.0f}\")
-          ")
-          BP=$(python3 -c "
-            import json,sys
-            d=json.load(open('$REPORT'))
-            print(f\"{d['categories']['best-practices']['score']*100:.0f}\")
-          ")
-          SEO=$(python3 -c "
-            import json,sys
-            d=json.load(open('$REPORT'))
-            print(f\"{d['categories']['seo']['score']*100:.0f}\")
-          ")
-          echo "perf=$PERFORMANCE" >> "$GITHUB_OUTPUT"
-          echo "a11y=$ACCESSIBILITY" >> "$GITHUB_OUTPUT"
-          echo "bp=$BP" >> "$GITHUB_OUTPUT"
-          echo "seo=$SEO" >> "$GITHUB_OUTPUT"
+          {
+            PERFORMANCE=$(REPORT_PATH="$REPORT" python3 -c "
+              import json,os
+              d=json.load(open(os.environ['REPORT_PATH']))
+              print(f\"{d['categories']['performance']['score']*100:.0f}\")
+            ")
+            ACCESSIBILITY=$(REPORT_PATH="$REPORT" python3 -c "
+              import json,os
+              d=json.load(open(os.environ['REPORT_PATH']))
+              print(f\"{d['categories']['accessibility']['score']*100:.0f}\")
+            ")
+            BP=$(REPORT_PATH="$REPORT" python3 -c "
+              import json,os
+              d=json.load(open(os.environ['REPORT_PATH']))
+              print(f\"{d['categories']['best-practices']['score']*100:.0f}\")
+            ")
+            SEO=$(REPORT_PATH="$REPORT" python3 -c "
+              import json,os
+              d=json.load(open(os.environ['REPORT_PATH']))
+              print(f\"{d['categories']['seo']['score']*100:.0f}\")
+            ")
+            echo "perf=$PERFORMANCE"
+            echo "a11y=$ACCESSIBILITY"
+            echo "bp=$BP"
+            echo "seo=$SEO"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Print scores
         run: |

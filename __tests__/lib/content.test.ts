@@ -115,7 +115,7 @@ describe("getRawContent", () => {
     const spy = vi
       .spyOn(fs, "readFile")
       .mockResolvedValue(
-        `---\ntitle: Draft Article\ndate: 2026-06-15T00:00:00.000Z\ndescription: A draft\ntags: [test]\ndraft: true\n---\nThis is a draft.`,
+        `---\ntitle: Draft Article\ndate: "2026-06-15T00:00:00.000Z"\ndescription: A draft\ntags: [test]\ndraft: true\n---\nThis is a draft.`,
       );
 
     const result = await getRawContent("ideas", "__test-draft-999__");
@@ -124,15 +124,22 @@ describe("getRawContent", () => {
     spy.mockRestore();
   });
 
-  it("handles invalid frontmatter by returning null", async () => {
+  it("propagates Zod errors for invalid frontmatter instead of returning null", async () => {
     const spy = vi
       .spyOn(fs, "readFile")
       .mockResolvedValue(
         `---\ndate: 2026-06-15T00:00:00.000Z\ntags: []\ndraft: false\n---\nContent without title field`,
       );
 
-    const result = await getRawContent("ideas", "__test-invalid-999__");
-    expect(result).toBeNull();
+    await expect(getRawContent("ideas", "__test-invalid-999__")).rejects.toThrow();
+
+    spy.mockRestore();
+  });
+
+  it("propagates non-ENOENT read errors instead of falling through to null", async () => {
+    const spy = vi.spyOn(fs, "readFile").mockRejectedValue(new Error("disk failure"));
+
+    await expect(getRawContent("ideas", "__test-io-fail-999__")).rejects.toThrow("disk failure");
 
     spy.mockRestore();
   });
