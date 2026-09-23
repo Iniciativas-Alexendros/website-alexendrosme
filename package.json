@@ -1,6 +1,6 @@
 {
   "name": "website-alexendrosme",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "private": true,
   "type": "module",
   "description": "Sitio web personal de Alexendros — espacio libre de dinero para opinión, proyectos y pensamiento. Next.js 16, Tailwind v4, TypeScript strict, export estático.",
