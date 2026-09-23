@@ -79,8 +79,11 @@ export async function getRawContent(
         content: body,
         readingTime: calculateReadingTime(body),
       };
-    } catch {
-      continue;
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code === "ENOENT") {
+        continue;
+      }
+      throw error;
     }
   }
 

@@ -12,6 +12,7 @@ test("no eval() in client-side code", async ({ page }) => {
 });
 
 test("no inline event handlers", async ({ page }) => {
+  await page.goto("/");
   const inlineHandlers = await page.$$eval("[onclick], [onload], [onerror]", (els) => els.length);
   expect(inlineHandlers).toBe(0);
 });

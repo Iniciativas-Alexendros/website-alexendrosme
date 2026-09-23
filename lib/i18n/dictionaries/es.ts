@@ -193,6 +193,9 @@ const es: TranslationDict = {
     sectionIdeas: "Ideas",
     sectionAcciones: "Acciones",
     shortcut: "Buscar (⌘K)",
+    loadError: "No se pudo cargar el índice de búsqueda. Intenta de nuevo más tarde.",
+    loading: "Cargando índice de búsqueda...",
+    clear: "Limpiar búsqueda",
   },
 
   // ── Errors ──────────────────────────────────────────────

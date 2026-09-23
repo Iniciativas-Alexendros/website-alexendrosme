@@ -9,6 +9,7 @@ import { Atmosphere } from "@/components/atmosphere";
 import { JsonLd } from "@/components/json-ld";
 import { ThemeProvider } from "@/components/theme-provider";
 import { I18nProvider } from "@/lib/i18n";
+import { SearchProvider } from "@/components/search-provider";
 import { AntiMonetizationBanner } from "@/components/anti-monetization-banner";
 import { siteConfig } from "@/lib/site";
 import { Analytics } from "@vercel/analytics/react";
@@ -98,15 +99,18 @@ body{background:var(--ax-surface-0);color:var(--ax-text-primary)}
 .skip-link{position:absolute;left:-9999px;top:auto;width:0;height:0;overflow:hidden}
 .skip-link:focus,.skip-link:focus-visible{position:fixed;left:1rem;top:1rem;width:auto;height:auto;z-index:100;padding:.5rem 1rem;background:var(--primary);color:var(--primary-foreground);border-radius:var(--ax-radius-md)}
 .site-shell{margin-inline:auto;width:100%;max-width:72rem;padding-inline:var(--ax-safe-inset)}
-.site-nav{position:sticky;top:0;z-index:50;width:100%;height:3.5rem;border-bottom:1px solid var(--border);background:color-mix(in oklch, var(--background) 80%, transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-@media(min-width:40rem){.site-nav{height:4rem}}
+html{--ax-banner-offset:0px}
+html[data-ax-banner="1"]{--ax-banner-offset:3.25rem}
+body{padding-top:var(--ax-banner-offset)}
+.site-nav{position:sticky;top:var(--ax-banner-offset);z-index:50;width:100%;height:3.5rem;border-bottom:1px solid var(--border);background:color-mix(in oklch, var(--background) 80%, transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+@media(min-width:40rem){.site-nav{height:4rem}html[data-ax-banner="1"]{--ax-banner-offset:3.5rem}}
 .site-nav__inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:100%;max-width:48rem}
 .site-nav__links{display:none;align-items:center;gap:.5rem}
 @media(min-width:48rem){.site-nav__links{display:flex}}
 .site-nav__link{position:relative;display:inline-flex;align-items:center;min-height:var(--ax-tap-target);padding:.5rem .75rem;border-radius:var(--ax-radius-md);font-size:var(--text-sm);font-weight:500;color:var(--muted-foreground);text-decoration:none}
 .nav-logo{display:inline-flex;align-items:center;min-height:var(--ax-tap-target);font-family:var(--font-geist-sans,ui-sans-serif,system-ui,sans-serif);font-size:var(--text-lg);font-weight:700;letter-spacing:-.025em;color:var(--primary);text-decoration:none}
 .hero-section{position:relative;padding-block:clamp(3rem,8vw,6rem);display:flex;flex-direction:column;gap:clamp(1rem,2vw,1.5rem);max-width:52rem}
-.hero-signature{font-family:var(--font-sans);font-weight:700;font-size:var(--text-display);line-height:1.05;letter-spacing:-.02em;text-wrap:balance}
+.hero-signature{font-family:var(--font-display),var(--font-sans);font-weight:700;font-size:var(--text-display);line-height:.98;letter-spacing:-.025em;text-wrap:balance}
 .body-layout{display:flex;min-height:100vh;flex-direction:column}
 .main-content{flex:1;padding-bottom:7rem}
 @media(min-width:48rem){.main-content{padding-bottom:0}}
@@ -135,6 +139,12 @@ h1.display,.hero h1{font-family:var(--font-display);font-weight:700;letter-spaci
             __html: `(function(){try{var l=null;try{l=localStorage.getItem('ax-locale')}catch(e){};if(l==='en'){document.documentElement.lang='en'}}catch(e){}})()`,
           }}
         />
+        {/* Pre-paint banner offset: reserve nav space before first paint to avoid CLS */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var d=false;try{d=localStorage.getItem('anti-monetization-dismissed')==='true'}catch(e){}document.documentElement.setAttribute('data-ax-banner',d?'0':'1')}catch(e){document.documentElement.setAttribute('data-ax-banner','1')}})()`,
+          }}
+        />
       </head>
       <body className="body-layout">
         <a href="#main" className="skip-link">
@@ -142,18 +152,20 @@ h1.display,.hero h1{font-family:var(--font-display);font-weight:700;letter-spaci
         </a>
         <I18nProvider>
           <ThemeProvider>
-            <JsonLd />
-            <Atmosphere />
-            <ParticleBg />
-            <AntiMonetizationBanner />
-            <Nav />
-            <main id="main" className="main-content">
-              {children}
-            </main>
-            <Footer />
-            {/* Vercel Web Analytics — privacy-first, no cookies. Activate in Vercel Dashboard → Analytics → Enable */}
-            <Analytics />
-            <SwRegister />
+            <SearchProvider>
+              <JsonLd />
+              <Atmosphere />
+              <ParticleBg />
+              <AntiMonetizationBanner />
+              <Nav />
+              <main id="main" className="main-content">
+                {children}
+              </main>
+              <Footer />
+              {/* Vercel Web Analytics — privacy-first, no cookies. Activate in Vercel Dashboard → Analytics → Enable */}
+              <Analytics />
+              <SwRegister />
+            </SearchProvider>
           </ThemeProvider>
         </I18nProvider>
       </body>

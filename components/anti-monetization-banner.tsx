@@ -1,25 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { Shield, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useI18n } from "@/lib/i18n";
 
+const DISMISS_KEY = "anti-monetization-dismissed";
+
 export function AntiMonetizationBanner() {
+  // SSR + first client paint assume visible (matches pre-paint data-ax-banner=1) to avoid CLS.
   const [dismissed, setDismissed] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const { t } = useI18n();
 
-  useEffect(() => {
-    // Leer localStorage ANTES de setMounted para evitar que el banner
-    // se renderice brevemente entre setMounted(true) y setDismissed(true).
-    const dismissedValue = localStorage.getItem("anti-monetization-dismissed");
-    if (dismissedValue === "true") {
-      setDismissed(true);
-    }
-    setMounted(true);
+  useLayoutEffect(() => {
+    const isDismissed = localStorage.getItem(DISMISS_KEY) === "true";
+    setDismissed(isDismissed);
+    document.documentElement.setAttribute("data-ax-banner", isDismissed ? "0" : "1");
 
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     setReduceMotion(mediaQuery.matches);
@@ -32,7 +30,7 @@ export function AntiMonetizationBanner() {
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
-  if (!mounted || dismissed) {
+  if (dismissed) {
     return null;
   }
 
@@ -44,7 +42,8 @@ export function AntiMonetizationBanner() {
 
   const handleDismiss = () => {
     setDismissed(true);
-    localStorage.setItem("anti-monetization-dismissed", "true");
+    localStorage.setItem(DISMISS_KEY, "true");
+    document.documentElement.setAttribute("data-ax-banner", "0");
   };
 
   const textWithStrong = t("antiMonetization.text").replace(

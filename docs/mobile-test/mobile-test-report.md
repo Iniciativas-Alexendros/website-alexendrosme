@@ -1,5 +1,7 @@
 # Informe de test de responsividad móvil — alexendros.me
 
+> **HISTÓRICO / OBSOLETO** (post Ideas/Acciones, 2026-09): no usar como checklist de trabajo. El sitio ya no usa las rutas `/about`, `/projects`, `/contact` ni la estructura desktop-first descrita aquí. Conservado solo como archivo de referencia del análisis del 2026-04-13.
+
 **Fecha**: 2026-04-13
 **Herramienta**: Chrome DevTools MCP + verificación directa de código
 **Alcance**: 8 URLs × 5 viewports (VP1=320, VP2=375, VP3=393, VP4=412, VP5=768)

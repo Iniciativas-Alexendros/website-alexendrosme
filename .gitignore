@@ -21,6 +21,8 @@ dist
 .DS_Store
 .vscode
 .idea
+.cursor/
+.zed/
 
 # claude code local config (settings.local.json contiene permisos por máquina)
 .claude

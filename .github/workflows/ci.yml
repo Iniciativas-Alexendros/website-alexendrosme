@@ -65,7 +65,7 @@ jobs:
 
   smoke:
     if: github.event_name == 'schedule'
-    runs-on: [self-hosted, ts]
+    runs-on: ubuntu-latest
     timeout-minutes: 2
     permissions: {}
     steps:

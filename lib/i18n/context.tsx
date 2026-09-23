@@ -1,6 +1,13 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useCallback,
+  useMemo,
+  useSyncExternalStore,
+  type ReactNode,
+} from "react";
 import type { Locale, I18nContextType, TranslationDict, TranslationValue } from "./types";
 import es from "./dictionaries/es";
 import en from "./dictionaries/en";
@@ -49,43 +56,60 @@ function buildValue(locale: Locale, setLocaleFn: (l: Locale) => void): I18nConte
   };
 }
 
-export function I18nProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("es");
-  const [mounted, setMounted] = useState(false);
+const localeListeners = new Set<() => void>();
 
-  useEffect(() => {
-    setMounted(true);
+function subscribeLocale(onStoreChange: () => void): () => void {
+  localeListeners.add(onStoreChange);
+  const onStorage = (e: StorageEvent) => {
+    if (e.key === LOCALE_KEY || e.key === null) onStoreChange();
+  };
+  window.addEventListener("storage", onStorage);
+  return () => {
+    localeListeners.delete(onStoreChange);
+    window.removeEventListener("storage", onStorage);
+  };
+}
+
+function emitLocaleChange(): void {
+  localeListeners.forEach((listener) => listener());
+}
+
+/** Client snapshot: prefer localStorage, then document.lang (pre-paint). */
+function getClientLocale(): Locale {
+  try {
     const stored = localStorage.getItem(LOCALE_KEY);
-    if (stored && isLocale(stored)) {
-      setLocaleState(stored);
-      document.documentElement.lang = stored;
-    }
-  }, []);
+    if (stored && isLocale(stored)) return stored;
+  } catch {
+    // storage unavailable
+  }
+  const lang = document.documentElement.lang;
+  if (isLocale(lang)) return lang;
+  return "es";
+}
+
+function getServerLocale(): Locale {
+  return "es";
+}
+
+export function I18nProvider({ children }: { children: ReactNode }) {
+  const locale = useSyncExternalStore(subscribeLocale, getClientLocale, getServerLocale);
 
   const setLocale = useCallback((newLocale: Locale) => {
     if (!isLocale(newLocale)) return;
-    setLocaleState(newLocale);
     document.documentElement.lang = newLocale;
     try {
       localStorage.setItem(LOCALE_KEY, newLocale);
     } catch {
       // storage unavailable
     }
+    emitLocaleChange();
   }, []);
 
-  // Prevent hydration mismatch — render children only after mount
-  if (!mounted) {
-    return (
-      <I18nContext.Provider value={buildValue("es", setLocale)}>{children}</I18nContext.Provider>
-    );
-  }
+  const value = useMemo(() => buildValue(locale, setLocale), [locale, setLocale]);
 
-  return (
-    <I18nContext.Provider value={buildValue(locale, setLocale)}>{children}</I18nContext.Provider>
-  );
+  return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 }
 
 export function useI18n() {
-  const context = useContext(I18nContext);
-  return context;
+  return useContext(I18nContext);
 }
