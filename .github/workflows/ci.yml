@@ -197,20 +197,33 @@ jobs:
           retention-days: 7
 
   deploy:
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    # Always report a status so branch protection's required "deploy" check can pass on PRs.
+    # Production deploy only runs on push to main; PRs get a successful no-op.
+    if: always() && needs.build.result == 'success' && needs.e2e.result == 'success' && needs.lhci.result == 'success' && needs.a11y.result == 'success' && needs.perf.result == 'success'
     runs-on: ${{ (github.event_name == 'workflow_dispatch' && inputs.runner) || 'ubuntu-latest' }}
     needs: [build, e2e, lhci, a11y, perf]
     timeout-minutes: 15
     permissions:
       contents: read
     steps:
+      - name: Skip production deploy on pull requests
+        if: github.event_name == 'pull_request' || github.ref != 'refs/heads/main'
+        run: echo "Skipping production deploy (not a push to main)."
+
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         with:
           node-version-file: ".nvmrc"
           cache: npm
+
       - run: npm ci
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
       - name: Deploy to Vercel (production)
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
           if [ -n "${{ secrets.VERCEL_TOKEN }}" ]; then
             npx vercel deploy --prod --token "${{ secrets.VERCEL_TOKEN }}" --scope alexendros-team --yes
