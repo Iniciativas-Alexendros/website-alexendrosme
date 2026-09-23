@@ -1,7 +1,15 @@
 import { describe, it, expect } from "vitest";
-import { selectStrategy } from "@/lib/sw-strategy";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { CACHE_VERSION, selectStrategy } from "@/lib/sw-strategy";
 
 describe("SW selectStrategy", () => {
+  it("CACHE_VERSION matches public/sw.js", () => {
+    const sw = readFileSync(join(process.cwd(), "public/sw.js"), "utf8");
+    const match = sw.match(/const CACHE_VERSION = "([^"]+)"/);
+    expect(match?.[1]).toBe(CACHE_VERSION);
+  });
+
   it("/_next/static/foo.js → static-cache-first", () => {
     expect(selectStrategy("/_next/static/foo.js", "no-cors")).toBe("static-cache-first");
   });
