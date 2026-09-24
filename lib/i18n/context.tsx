@@ -11,6 +11,7 @@ import {
 import type { Locale, I18nContextType, TranslationDict, TranslationValue } from "./types";
 import es from "./dictionaries/es";
 import en from "./dictionaries/en";
+import { pathForLocaleSwitch } from "./locale-path";
 
 const LOCALE_KEY = "ax-locale";
 const VALID_LOCALES: ReadonlySet<string> = new Set(["es", "en"]);
@@ -101,17 +102,10 @@ function navigateForLocale(newLocale: Locale): boolean {
   const path = window.location.pathname;
   const search = window.location.search;
   const hash = window.location.hash;
-  if (newLocale === "en" && path !== "/en" && !path.startsWith("/en/")) {
-    const dest = path === "/" ? "/en" : `/en${path}`;
-    window.location.assign(`${dest}${search}${hash}`);
-    return true;
-  }
-  if (newLocale === "es" && (path === "/en" || path.startsWith("/en/"))) {
-    const rest = path === "/en" ? "/" : path.slice(3) || "/";
-    window.location.assign(`${rest}${search}${hash}`);
-    return true;
-  }
-  return false;
+  const dest = pathForLocaleSwitch(path, newLocale);
+  if (!dest) return false;
+  window.location.assign(`${dest}${search}${hash}`);
+  return true;
 }
 
 export function I18nProvider({

@@ -22,3 +22,21 @@ export function withLocalePrefix(prefix: string, path: string): string {
   if (normalized === "/") return prefix;
   return `${prefix}${normalized}`;
 }
+
+/**
+ * Same-origin path when switching locale via the URL tree.
+ * Collapses duplicate slashes so `/en//host` cannot become protocol-relative `//host`.
+ */
+export function pathForLocaleSwitch(pathname: string, newLocale: "es" | "en"): string | null {
+  const path = pathname || "/";
+  if (newLocale === "en") {
+    if (path === "/en" || path.startsWith("/en/")) return null;
+    const dest = path === "/" ? "/en" : `/en${path}`;
+    return dest.replace(/\/{2,}/g, "/");
+  }
+  if (path !== "/en" && !path.startsWith("/en/")) return null;
+  if (path === "/en") return "/";
+  const rest = path.slice(3) || "/";
+  const normalized = rest.replace(/^\/+/, "/") || "/";
+  return normalized.startsWith("/") ? normalized : `/${normalized}`;
+}

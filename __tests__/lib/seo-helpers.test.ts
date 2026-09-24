@@ -32,3 +32,20 @@ describe("hreflangAlternates", () => {
     expect(alts.languages["x-default"]).toContain("/opinion");
   });
 });
+
+describe("pathForLocaleSwitch", () => {
+  it("strips /en without allowing protocol-relative URLs", async () => {
+    const { pathForLocaleSwitch } = await import("@/lib/i18n/locale-path");
+    expect(pathForLocaleSwitch("/en//evil.com", "es")).toBe("/evil.com");
+    expect(pathForLocaleSwitch("/en///evil.com", "es")).toBe("/evil.com");
+    expect(pathForLocaleSwitch("/en/now", "es")).toBe("/now");
+    expect(pathForLocaleSwitch("/en", "es")).toBe("/");
+  });
+
+  it("prefixes /en for Spanish paths", async () => {
+    const { pathForLocaleSwitch } = await import("@/lib/i18n/locale-path");
+    expect(pathForLocaleSwitch("/", "en")).toBe("/en");
+    expect(pathForLocaleSwitch("/now", "en")).toBe("/en/now");
+    expect(pathForLocaleSwitch("/en/now", "en")).toBeNull();
+  });
+});
