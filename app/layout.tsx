@@ -77,7 +77,10 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#17130f",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#faf8f2" },
+    { media: "(prefers-color-scheme: dark)", color: "#17130f" },
+  ],
   colorScheme: "dark light",
 };
 
@@ -125,7 +128,8 @@ h1.display,.hero h1{font-family:var(--font-display);font-weight:700;letter-spaci
 
         {/* PWA: manifest + apple touch icon */}
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#17130f" />
+        <meta name="theme-color" content="#faf8f2" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#17130f" media="(prefers-color-scheme: dark)" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="mobile-web-app-capable" content="yes" />

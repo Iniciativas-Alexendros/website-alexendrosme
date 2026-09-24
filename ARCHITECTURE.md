@@ -8,8 +8,8 @@ código y los ADR.
 
 Aplicación Next.js 16 que sirve el sitio web personal de Alexendros — alexendros.me,
 "espacio libre de dinero". **Export estático** (`output: "export"`) desplegado en
-Vercel con dominio gestionado en Hostinger. Colecciones de contenido: `/ideas` y
-`/acciones`.
+Vercel con dominio gestionado en Hostinger. Colecciones de contenido: `/proyectos` y
+`/opinion`.
 
 ```mermaid
 flowchart LR
@@ -38,20 +38,20 @@ flowchart LR
 ### `lib/`
 
 - Utilidades sin dependencia de React (validación, mapeos, helpers).
-- `lib/content/` · loader + tipos (colecciones `ideas` | `acciones`), MDX con
+- `lib/content/` · loader + tipos (colecciones `proyectos` | `opinion`), MDX con
   gray-matter + Zod. `lib/i18n/` · diccionarios es/en. `lib/seo/` ·
-  breadcrumb JSON-LD. `lib/feed.ts` · RSS/Atom. `lib/og-image.tsx` · OG
-  dinámicas (IDEAS_THEME / ACCIONES_THEME).
+  breadcrumb JSON-LD, hreflang, OG helpers. `lib/feed.ts` · RSS/Atom.
+  `lib/og-image.tsx` · OG dinámicas (PROYECTOS_THEME / OPINION_THEME).
 
 ### `content/`
 
-- `content/ideas/` (3 MDX) y `content/acciones/` (2 MDX) con frontmatter
-  validado (title, date, tags, description, draft).
+- `content/proyectos/` y `content/opinion/` con frontmatter validado
+  (title, date, tags, description, draft).
 
 ### `public/`
 
-- Estáticos: sitemaps segmentados (`sitemap-pages.xml`, `sitemap-ideas.xml`,
-  `sitemap-acciones.xml`), feeds (`feed.xml`, `feed-ideas.*`, `feed-acciones.*`),
+- Estáticos: sitemaps segmentados (`sitemap-pages.xml`, `sitemap-proyectos.xml`,
+  `sitemap-opinion.xml`), feeds (`feed.xml`, `feed-proyectos.*`, `feed-opinion.*`),
   `search-index.json`, `sw.js`, `manifest.json`, `og/`.
 
 ## Decisiones cardinales

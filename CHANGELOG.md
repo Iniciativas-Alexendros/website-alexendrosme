@@ -5,6 +5,32 @@ Todos los cambios destacables de este proyecto se documentan en este archivo.
 El formato sigue [Keep a Changelog 1.1.0](https://keepachangelog.com/es-ES/1.1.0/),
 y este proyecto se adhiere a [SemVer 2.0.0](https://semver.org/lang/es/).
 
+## [0.9.0] — 2026-09-24 · Paleta light, higiene y retirada de /now
+
+### Añadido
+
+- Stubs de proyectos **ALIGNUX** y **NEUBAT** en `content/proyectos/`.
+- `theme-color` dual (light `#faf8f2` / dark `#17130f`) en viewport y meta.
+
+### Cambiado
+
+- **Paleta light**: papel cálido de croma baja, bordes más suaves, acento oro AA con hover más oscuro, texto violeta menos cromático (`app/styles/tokens/colors.css`, `DESIGN.md`).
+- **Opinión / Proyectos**: listados scaneables (`opinion-list`, `project-card`), TOC móvil y contraste de lectura.
+- OG de artículos unificadas vía `lib/og-image.tsx`.
+- Copy de etiquetas i18n (`tags.countTotalSuffix`).
+- Docs raíz (`README`, `ARCHITECTURE`) alineadas a `proyectos` / `opinion`.
+
+### Eliminado
+
+- Ruta **`/now`** (ES y EN) y `components/now-content.tsx`.
+- Proyectos MDX retirados: `elegir-con-criterio`, `espacio-libre-de-dinero`.
+
+### Corregido
+
+- Token inexistente `--ax-shadow-glass` → `--ax-glass-shadow`; toast SW sin hex legacy.
+- Auditoría de hidratación y comentarios a11y sin rutas `/espensar`/`/esposible`.
+- Tests de contraste y seo-helpers sincronizados con tokens y rutas actuales.
+
 ## [0.8.0] — 2026-09-03 · Ideas y Acciones
 
 ### Cambiado

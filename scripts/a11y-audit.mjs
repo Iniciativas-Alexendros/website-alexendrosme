@@ -37,9 +37,9 @@ const MIME = {
  * Resolve a request path to a Next.js static export file.
  * Next.js export produces e.g.:
  *   / → /index.html
- *   /espensar → /espensar.html
- *   /espensar/critica-tecnologica → /espensar/critica-tecnologica.html
- *   /espensar/critica-tecnologica/ → directory with extracted assets
+ *   /proyectos → /proyectos.html
+ *   /proyectos/alignux → /proyectos/alignux.html
+ *   /proyectos/alignux/ → directory with extracted assets
  */
 function resolvePath(urlPath) {
   // Remove query string

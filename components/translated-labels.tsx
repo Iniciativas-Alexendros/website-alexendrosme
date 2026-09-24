@@ -74,7 +74,8 @@ export function TagsIndexHeader({ count }: { count: number }) {
     <header className="collection-header">
       <h1 className="headline">{t("tags.indexTitle")}</h1>
       <p className="prose-lead collection-desc">
-        {pluralizeWithCount(count, "tags.countLabelOne", "tags.countLabelMany")} en total.
+        {pluralizeWithCount(count, "tags.countLabelOne", "tags.countLabelMany")}{" "}
+        {t("tags.countTotalSuffix")}
       </p>
     </header>
   );

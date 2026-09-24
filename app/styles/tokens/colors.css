@@ -129,39 +129,36 @@
 }
 
 /* ===========================================================================
-   LIGHT MODE — calidez dorada (hue 85) + texto violeta (hue 315).
-   Contraste ≥ 4.5:1 (WCAG AA) en todas las combinaciones semánticas.
+   LIGHT MODE — papel cálido (hue 85, croma baja) + texto violeta (hue 315).
+   Contraste ≥ 4.5:1 (WCAG AA) en combinaciones semánticas.
    Activado por: @media (prefers-color-scheme: light) O [data-theme="light"]
    =========================================================================== */
 
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
-    /* ----- Superficies: oro cálido (hue 85), L 0.98 → 0.42 ----- */
-    --ax-surface-0: oklch(0.98 0.01 85);
-    --ax-surface-50: oklch(0.96 0.012 85);
-    --ax-surface-100: oklch(0.93 0.014 85); /* card base */
-    --ax-surface-200: oklch(0.88 0.016 85);
-    --ax-surface-300: oklch(0.82 0.018 85); /* border subtle */
-    --ax-surface-400: oklch(0.76 0.02 85);
-    --ax-surface-500: oklch(0.7 0.022 85); /* border default */
-    --ax-surface-600: oklch(0.63 0.024 85);
-    --ax-surface-700: oklch(0.56 0.026 85); /* border strong */
-    --ax-surface-800: oklch(0.49 0.028 85);
-    --ax-surface-900: oklch(0.42 0.03 85); /* elementos flotantes máx */
+    /* ----- Superficies: papel cálido (hue 85), croma baja; L 0.985 → 0.42 ----- */
+    --ax-surface-0: oklch(0.985 0.004 85);
+    --ax-surface-50: oklch(0.97 0.005 85);
+    --ax-surface-100: oklch(0.94 0.007 85); /* card base — salto claro vs page */
+    --ax-surface-200: oklch(0.9 0.008 85);
+    --ax-surface-300: oklch(0.86 0.009 85); /* border subtle */
+    --ax-surface-400: oklch(0.8 0.01 85);
+    --ax-surface-500: oklch(0.74 0.011 85); /* border default */
+    --ax-surface-600: oklch(0.66 0.012 85);
+    --ax-surface-700: oklch(0.58 0.013 85); /* border strong */
+    --ax-surface-800: oklch(0.5 0.014 85);
+    --ax-surface-900: oklch(0.42 0.015 85);
 
-    /* Atmósfera radial aclarada */
-    --ax-atmo-haze: oklch(0.85 0.06 85);
-    --ax-atmo-velvet: oklch(0.9 0.04 85);
-    --ax-atmo-vignette: oklch(0.95 0.01 85);
+    /* Atmósfera radial suave */
+    --ax-atmo-haze: oklch(0.9 0.03 85);
+    --ax-atmo-velvet: oklch(0.94 0.02 85);
+    --ax-atmo-vignette: oklch(0.97 0.008 85);
 
-    /* ----- Acento: dorado más oscuro para AA sobre superficies claras ----- */
-    /* accent L=0.55 → contraste 4.7:1 sobre surface-0 (L=0.98) */
-    --ax-accent: oklch(0.55 0.15 85);
-    --ax-accent-dim: oklch(
-      0.48 0.14 85
-    ); /* oro grave — más oscuro que accent (0.55); sync w/ __tests__/lib/contrast.test.ts */
-    --ax-accent-bright: oklch(0.48 0.17 85); /* hover: más brillante */
-    --ax-accent-fg: oklch(1 0 0); /* blanco ≥4.5:1 sobre oro (light mode) */
+    /* ----- Acento: oro cromático; hover = más oscuro (AA + texto blanco) ----- */
+    --ax-accent: oklch(0.52 0.16 85);
+    --ax-accent-dim: oklch(0.44 0.14 85);
+    --ax-accent-bright: oklch(0.44 0.17 85); /* hover: más oscuro que accent */
+    --ax-accent-fg: oklch(1 0 0);
 
     --ax-brand-primary: var(--ax-accent);
     --ax-brand-primary-hc: var(--ax-accent);
@@ -171,47 +168,40 @@
 
     --ax-accent-shimmer: linear-gradient(
       180deg,
-      oklch(0.48 0.17 85) 0%,
-      oklch(0.55 0.15 85) 38%,
-      oklch(0.62 0.13 85) 70%,
-      oklch(0.58 0.14 85) 100%
+      oklch(0.44 0.17 85) 0%,
+      oklch(0.52 0.16 85) 38%,
+      oklch(0.58 0.13 85) 70%,
+      oklch(0.48 0.14 85) 100%
     );
 
-    /* ----- Texto: violeta (hue 315), L 0.15 → 0.6 ----- */
-    --ax-text-primary: oklch(0.15 0.012 315); /* 12.8:1 sobre surface-0 */
-    --ax-text-secondary: oklch(0.3 0.014 315); /* 6.4:1 */
-    --ax-text-tertiary: oklch(0.35 0.014 315); /* ≥7:1 AAA muted on light */
-    --ax-text-disabled: oklch(0.6 0.018 315); /* 3.1:1 — solo disabled */
-    --ax-text-inverse: oklch(0.95 0.008 85); /* sobre superficies oscuras */
+    /* ----- Texto: violeta (hue 315), croma suave ----- */
+    --ax-text-primary: oklch(0.18 0.01 315);
+    --ax-text-secondary: oklch(0.32 0.01 315);
+    --ax-text-tertiary: oklch(0.4 0.01 315);
+    --ax-text-disabled: oklch(0.62 0.012 315);
+    --ax-text-inverse: oklch(0.97 0.004 85);
 
-    /* ----- Bordes: alineados con escala surface ----- */
     --ax-border-subtle: var(--ax-surface-300);
     --ax-border-default: var(--ax-surface-500);
     --ax-border-strong: var(--ax-surface-700);
     --ax-border-focus: var(--ax-accent);
 
-    /* ----- Estados semánticos: ajustados para fondos claros ----- */
-    /* Success: verde oliva (hue 130) */
     --ax-success-fg: oklch(0.3 0.12 130);
     --ax-success-bg: oklch(0.88 0.08 130);
     --ax-success-border: oklch(0.5 0.1 130);
 
-    /* Warning: ámbar (hue 82) — cerca del acento pero distinguible */
     --ax-warning-fg: oklch(0.35 0.12 82);
     --ax-warning-bg: oklch(0.9 0.08 82);
     --ax-warning-border: oklch(0.55 0.1 82);
 
-    /* Error: rojo (hue 25) */
     --ax-error-fg: oklch(0.35 0.15 25);
     --ax-error-bg: oklch(0.88 0.08 25);
     --ax-error-border: oklch(0.5 0.12 25);
 
-    /* Info: azul (hue 230) */
     --ax-info-fg: oklch(0.3 0.12 230);
     --ax-info-bg: oklch(0.88 0.07 230);
     --ax-info-border: oklch(0.5 0.1 230);
 
-    /* ----- Glass: más sutil en light mode ----- */
     --ax-glass-bg: linear-gradient(
       140deg,
       oklch(0 0 0 / 0.04) 0%,
@@ -222,7 +212,6 @@
     --ax-glass-blur: blur(20px) saturate(140%);
     --ax-glass-shadow: inset 0 1px 0 oklch(1 0 0 / 0.5), 0 20px 50px -15px oklch(0 0 0 / 0.15);
 
-    /* ----- Shadows para overlays en light mode ----- */
     --ax-shadow-overlay:
       0 1px 2px 0 oklch(0 0 0 / 0.1), 0 12px 32px -8px oklch(0 0 0 / 0.15),
       0 0 0 1px var(--ax-border-default);
@@ -248,28 +237,26 @@
 
 /* Selector manual para forzar light mode (data-theme="light" en <html>) */
 [data-theme="light"] {
-  --ax-surface-0: oklch(0.98 0.01 85);
-  --ax-surface-50: oklch(0.96 0.012 85);
-  --ax-surface-100: oklch(0.93 0.014 85);
-  --ax-surface-200: oklch(0.88 0.016 85);
-  --ax-surface-300: oklch(0.82 0.018 85);
-  --ax-surface-400: oklch(0.76 0.02 85);
-  --ax-surface-500: oklch(0.7 0.022 85);
-  --ax-surface-600: oklch(0.63 0.024 85);
-  --ax-surface-700: oklch(0.56 0.026 85);
-  --ax-surface-800: oklch(0.49 0.028 85);
-  --ax-surface-900: oklch(0.42 0.03 85);
+  --ax-surface-0: oklch(0.985 0.004 85);
+  --ax-surface-50: oklch(0.97 0.005 85);
+  --ax-surface-100: oklch(0.94 0.007 85);
+  --ax-surface-200: oklch(0.9 0.008 85);
+  --ax-surface-300: oklch(0.86 0.009 85);
+  --ax-surface-400: oklch(0.8 0.01 85);
+  --ax-surface-500: oklch(0.74 0.011 85);
+  --ax-surface-600: oklch(0.66 0.012 85);
+  --ax-surface-700: oklch(0.58 0.013 85);
+  --ax-surface-800: oklch(0.5 0.014 85);
+  --ax-surface-900: oklch(0.42 0.015 85);
 
-  --ax-atmo-haze: oklch(0.85 0.06 85);
-  --ax-atmo-velvet: oklch(0.9 0.04 85);
-  --ax-atmo-vignette: oklch(0.95 0.01 85);
+  --ax-atmo-haze: oklch(0.9 0.03 85);
+  --ax-atmo-velvet: oklch(0.94 0.02 85);
+  --ax-atmo-vignette: oklch(0.97 0.008 85);
 
-  --ax-accent: oklch(0.55 0.15 85);
-  --ax-accent-dim: oklch(
-    0.48 0.14 85
-  ); /* oro grave — más oscuro que accent (0.55); sync w/ __tests__/lib/contrast.test.ts */
-  --ax-accent-bright: oklch(0.48 0.17 85); /* hover: más brillante */
-  --ax-accent-fg: oklch(1 0 0); /* blanco ≥4.5:1 sobre oro (light mode) */
+  --ax-accent: oklch(0.52 0.16 85);
+  --ax-accent-dim: oklch(0.44 0.14 85);
+  --ax-accent-bright: oklch(0.44 0.17 85); /* hover: más oscuro que accent */
+  --ax-accent-fg: oklch(1 0 0);
 
   --ax-brand-primary: var(--ax-accent);
   --ax-brand-primary-hc: var(--ax-accent);
@@ -279,17 +266,17 @@
 
   --ax-accent-shimmer: linear-gradient(
     180deg,
-    oklch(0.48 0.17 85) 0%,
-    oklch(0.55 0.15 85) 38%,
-    oklch(0.62 0.13 85) 70%,
-    oklch(0.58 0.14 85) 100%
+    oklch(0.44 0.17 85) 0%,
+    oklch(0.52 0.16 85) 38%,
+    oklch(0.58 0.13 85) 70%,
+    oklch(0.48 0.14 85) 100%
   );
 
-  --ax-text-primary: oklch(0.15 0.012 315);
-  --ax-text-secondary: oklch(0.3 0.014 315);
-  --ax-text-tertiary: oklch(0.35 0.014 315);
-  --ax-text-disabled: oklch(0.6 0.018 315);
-  --ax-text-inverse: oklch(0.95 0.008 85);
+  --ax-text-primary: oklch(0.18 0.01 315);
+  --ax-text-secondary: oklch(0.32 0.01 315);
+  --ax-text-tertiary: oklch(0.4 0.01 315);
+  --ax-text-disabled: oklch(0.62 0.012 315);
+  --ax-text-inverse: oklch(0.97 0.004 85);
 
   --ax-border-subtle: var(--ax-surface-300);
   --ax-border-default: var(--ax-surface-500);

@@ -104,6 +104,7 @@ const en: TranslationDict = {
     backToTags: "← All tags",
     countLabelOne: "tag",
     countLabelMany: "tags",
+    countTotalSuffix: "in total.",
     detailCountOne: "article with this tag",
     detailCountMany: "articles with this tag",
   },

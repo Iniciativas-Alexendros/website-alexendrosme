@@ -4,7 +4,7 @@ name: "Alexendros.me Design System"
 description: >
   Design system propio para alexendros.me. Atmósfera violeta profunda con
   acento dorado. Dark-first, oklch exclusivo, tokens CSS custom properties
-  con namespace --ax-*. Light mode documentado como planned.
+  con namespace --ax-*. Light mode activo: papel cálido + texto violeta.
 
 colors:
   # --- Surface scale (elevation via luminosity, hue 315) ---
@@ -82,12 +82,18 @@ colors:
   # --- Special ---
   accent-shimmer: "linear-gradient(180deg, oklch(0.92 0.1 88) 0%, oklch(0.82 0.165 85) 38%, oklch(0.62 0.13 85) 70%, oklch(0.78 0.155 85) 100%)"
 
-  # --- Light mode (planned, not active) ---
+  # --- Light mode (activo en colors.css) ---
   light:
-    surface-0: oklch(0.98 0.004 85)
-    surface-100: oklch(0.95 0.006 85)
-    text-primary: oklch(0.15 0.014 315)
-    accent: oklch(0.55 0.18 85)
+    surface-0: oklch(0.985 0.004 85)
+    surface-100: oklch(0.94 0.007 85)
+    surface-300: oklch(0.86 0.009 85)
+    surface-500: oklch(0.74 0.011 85)
+    text-primary: oklch(0.18 0.01 315)
+    text-secondary: oklch(0.32 0.01 315)
+    text-tertiary: oklch(0.4 0.01 315)
+    accent: oklch(0.52 0.16 85)
+    accent-bright: oklch(0.44 0.17 85)
+    accent-fg: oklch(1 0 0)
 
 motion:
   duration-instant: 80ms
