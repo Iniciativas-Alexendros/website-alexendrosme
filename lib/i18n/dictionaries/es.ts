@@ -17,7 +17,6 @@ const es: TranslationDict = {
     navLabel: "Navegación principal",
     logoLabel: "Alexendros — volver al inicio",
     skipToContent: "Saltar al contenido",
-    now: "Ahora",
   },
 
   hero: {
@@ -93,20 +92,9 @@ const es: TranslationDict = {
     tocTitle: "En este artículo",
   },
 
-  now: {
-    title: "/now",
-    desc: "Qué estoy haciendo ahora. Inspirado por la idea de Derek Sivers (sive.rs/now).",
-    lastUpdatedPrefix: "Actualizado:",
-    sectionBuilding: "En marcha",
-    buildingItems:
-      "Este sitio, siempre en evolución · El hub comercial en alexendros.dev, fuera de este espacio",
-    sectionReading: "Leyendo",
-    readingItems: "La renta básica — Daniel Raventós · Technopoly — Neil Postman",
-    sectionFocus: "Enfoque",
-    focusItems:
-      "Escribir con voz humana · Soberanía personal en lo digital · Menos ruido, más criterio",
-    footerBack: "← Volver al inicio",
-    empty: "Actualización en progreso — vuelve pronto.",
+  opinion: {
+    featured: "Lo más reciente",
+    archive: "Archivo",
   },
 
   tags: {

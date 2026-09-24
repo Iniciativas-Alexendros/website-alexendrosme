@@ -70,7 +70,7 @@ describe("resolveFromDict (string[] leaves)", () => {
   });
 });
 
-describe("i18n tags + now keys exist in both locales", () => {
+describe("i18n tags + opinion keys exist in both locales", () => {
   it("tags.indexTitle present in es + en", () => {
     expect(typeof resolveFromDict(es, "tags.indexTitle")).toBe("string");
     expect(typeof resolveFromDict(en, "tags.indexTitle")).toBe("string");
@@ -93,11 +93,11 @@ describe("i18n tags + now keys exist in both locales", () => {
     expect(typeof esMany).toBe("string");
   });
 
-  it("now.* keys present in es + en", () => {
-    for (const key of ["title", "desc", "sectionFocus", "focusItems", "footerBack", "empty"]) {
-      expect(typeof resolveFromDict(es, `now.${key}`)).toBe("string");
-      expect(typeof resolveFromDict(en, `now.${key}`)).toBe("string");
-    }
+  it("opinion.featured and opinion.archive present in es + en", () => {
+    expect(typeof resolveFromDict(es, "opinion.featured")).toBe("string");
+    expect(typeof resolveFromDict(en, "opinion.featured")).toBe("string");
+    expect(typeof resolveFromDict(es, "opinion.archive")).toBe("string");
+    expect(typeof resolveFromDict(en, "opinion.archive")).toBe("string");
   });
 
   it("article.minutesShort differs between es and en (proves both are translated)", () => {

@@ -13,32 +13,32 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://alexendros.me/proyectos/espacio-libre-de-dinero</loc>
-    <lastmod>2026-09-23T10:00:00Z</lastmod>
+    <loc>https://alexendros.me/proyectos/alignux</loc>
+    <lastmod>2026-09-24T10:00:00Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
-      <image:loc>https://alexendros.me/proyectos/espacio-libre-de-dinero/opengraph-image</image:loc>
+      <image:loc>https://alexendros.me/proyectos/alignux/opengraph-image</image:loc>
     </image:image>
   </url>
   <url>
-    <loc>https://alexendros.me/en/proyectos/espacio-libre-de-dinero</loc>
-    <lastmod>2026-09-23T10:00:00Z</lastmod>
+    <loc>https://alexendros.me/en/proyectos/alignux</loc>
+    <lastmod>2026-09-24T10:00:00Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://alexendros.me/proyectos/elegir-con-criterio</loc>
-    <lastmod>2026-09-23T09:00:00Z</lastmod>
+    <loc>https://alexendros.me/proyectos/neubat</loc>
+    <lastmod>2026-09-24T09:00:00Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
-      <image:loc>https://alexendros.me/proyectos/elegir-con-criterio/opengraph-image</image:loc>
+      <image:loc>https://alexendros.me/proyectos/neubat/opengraph-image</image:loc>
     </image:image>
   </url>
   <url>
-    <loc>https://alexendros.me/en/proyectos/elegir-con-criterio</loc>
-    <lastmod>2026-09-23T09:00:00Z</lastmod>
+    <loc>https://alexendros.me/en/proyectos/neubat</loc>
+    <lastmod>2026-09-24T09:00:00Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

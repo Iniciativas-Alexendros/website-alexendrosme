@@ -127,6 +127,9 @@ export default async function OpinionArticle({ params }: Props) {
                 readingTime={article.readingTime}
                 tags={article.frontmatter.tags}
               />
+              {article.frontmatter.description ? (
+                <p className="article-lead">{article.frontmatter.description}</p>
+              ) : null}
             </header>
 
             <MarkdownRenderer content={article.content} />

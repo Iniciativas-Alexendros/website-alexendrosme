@@ -33,20 +33,22 @@ describe("generate-sitemap", () => {
     expect(xml).toContain("sitemap-opinion.xml");
   });
 
-  it("pages sitemap includes /now and /tags", () => {
+  it("pages sitemap includes /proyectos, /opinion and /tags", () => {
     const xml = readFile("sitemap-pages.xml");
-    expect(xml).toContain("https://alexendros.me/now");
+    expect(xml).toContain("https://alexendros.me/proyectos");
+    expect(xml).toContain("https://alexendros.me/opinion");
     expect(xml).toContain("https://alexendros.me/tags");
     expect(xml).toContain("https://alexendros.me/");
     expect(xml).toContain("https://alexendros.me/legal/aviso-legal");
+    expect(xml).not.toContain("https://alexendros.me/now");
   });
 
   it("pages sitemap includes /en tree", () => {
     const xml = readFile("sitemap-pages.xml");
     expect(xml).toContain("https://alexendros.me/en");
-    expect(xml).toContain("https://alexendros.me/en/now");
     expect(xml).toContain("https://alexendros.me/en/opinion");
     expect(xml).toContain("https://alexendros.me/en/proyectos");
+    expect(xml).not.toContain("https://alexendros.me/en/now");
   });
 
   it("article sitemaps include image: namespace", () => {
