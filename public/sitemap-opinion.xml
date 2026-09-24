@@ -2,9 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://alexendros.me/opinion</loc>
-    <lastmod>2026-09-23</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alexendros.me/en/opinion</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://alexendros.me/opinion/manifiesto-eligete-a-ti</loc>
@@ -12,8 +18,14 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
-      <image:loc>https://alexendros.me/opinion/manifiesto-eligete-a-ti/opengraph-image.png</image:loc>
+      <image:loc>https://alexendros.me/opinion/manifiesto-eligete-a-ti/opengraph-image</image:loc>
     </image:image>
+  </url>
+  <url>
+    <loc>https://alexendros.me/en/opinion/manifiesto-eligete-a-ti</loc>
+    <lastmod>2026-07-07T00:00:00Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://alexendros.me/opinion/soberania-digital</loc>
@@ -21,8 +33,14 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
-      <image:loc>https://alexendros.me/opinion/soberania-digital/opengraph-image.png</image:loc>
+      <image:loc>https://alexendros.me/opinion/soberania-digital/opengraph-image</image:loc>
     </image:image>
+  </url>
+  <url>
+    <loc>https://alexendros.me/en/opinion/soberania-digital</loc>
+    <lastmod>2026-06-20T10:00:00Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://alexendros.me/opinion/protocolos-vs-plataformas</loc>
@@ -30,8 +48,14 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
-      <image:loc>https://alexendros.me/opinion/protocolos-vs-plataformas/opengraph-image.png</image:loc>
+      <image:loc>https://alexendros.me/opinion/protocolos-vs-plataformas/opengraph-image</image:loc>
     </image:image>
+  </url>
+  <url>
+    <loc>https://alexendros.me/en/opinion/protocolos-vs-plataformas</loc>
+    <lastmod>2026-06-18T09:00:00Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://alexendros.me/opinion/critica-tecnologica</loc>
@@ -39,8 +63,14 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
-      <image:loc>https://alexendros.me/opinion/critica-tecnologica/opengraph-image.png</image:loc>
+      <image:loc>https://alexendros.me/opinion/critica-tecnologica/opengraph-image</image:loc>
     </image:image>
+  </url>
+  <url>
+    <loc>https://alexendros.me/en/opinion/critica-tecnologica</loc>
+    <lastmod>2026-06-15T14:30:00Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://alexendros.me/opinion/escape-del-feudo-algoritmico</loc>
@@ -48,7 +78,13 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
-      <image:loc>https://alexendros.me/opinion/escape-del-feudo-algoritmico/opengraph-image.png</image:loc>
+      <image:loc>https://alexendros.me/opinion/escape-del-feudo-algoritmico/opengraph-image</image:loc>
     </image:image>
+  </url>
+  <url>
+    <loc>https://alexendros.me/en/opinion/escape-del-feudo-algoritmico</loc>
+    <lastmod>2026-06-10T16:00:00Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>

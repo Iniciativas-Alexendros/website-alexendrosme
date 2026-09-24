@@ -11,6 +11,7 @@ import {
 import type { Locale, I18nContextType, TranslationDict, TranslationValue } from "./types";
 import es from "./dictionaries/es";
 import en from "./dictionaries/en";
+import { pathForLocaleSwitch } from "./locale-path";
 
 const LOCALE_KEY = "ax-locale";
 const VALID_LOCALES: ReadonlySet<string> = new Set(["es", "en"]);
@@ -74,8 +75,16 @@ function emitLocaleChange(): void {
   localeListeners.forEach((listener) => listener());
 }
 
-/** Client snapshot: prefer localStorage, then document.lang (pre-paint). */
+function pathLocale(): Locale | null {
+  const path = window.location.pathname;
+  if (path === "/en" || path.startsWith("/en/")) return "en";
+  return null;
+}
+
+/** Client snapshot: URL prefix wins, then localStorage, then document.lang. */
 function getClientLocale(): Locale {
+  const fromPath = pathLocale();
+  if (fromPath) return fromPath;
   try {
     const stored = localStorage.getItem(LOCALE_KEY);
     if (stored && isLocale(stored)) return stored;
@@ -87,15 +96,34 @@ function getClientLocale(): Locale {
   return "es";
 }
 
-function getServerLocale(): Locale {
-  return "es";
+function navigateForLocale(newLocale: Locale): boolean {
+  // Vitest/jsdom exercises the localStorage path without full page navigation.
+  if (process.env.VITEST) return false;
+  const path = window.location.pathname;
+  const search = window.location.search;
+  const hash = window.location.hash;
+  const dest = pathForLocaleSwitch(path, newLocale);
+  if (!dest) return false;
+  window.location.assign(`${dest}${search}${hash}`);
+  return true;
 }
 
-export function I18nProvider({ children }: { children: ReactNode }) {
-  const locale = useSyncExternalStore(subscribeLocale, getClientLocale, getServerLocale);
+export function I18nProvider({
+  children,
+  forcedLocale,
+}: {
+  children: ReactNode;
+  forcedLocale?: Locale;
+}) {
+  const locale = useSyncExternalStore(
+    subscribeLocale,
+    () => forcedLocale ?? getClientLocale(),
+    () => forcedLocale ?? "es",
+  );
 
   const setLocale = useCallback((newLocale: Locale) => {
     if (!isLocale(newLocale)) return;
+    if (navigateForLocale(newLocale)) return;
     document.documentElement.lang = newLocale;
     try {
       localStorage.setItem(LOCALE_KEY, newLocale);

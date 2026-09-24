@@ -81,7 +81,7 @@ const ROUTES = [
   { n: "article:protocolos", p: "/opinion/protocolos-vs-plataformas" },
   { n: "now", p: "/now" },
   { n: "tags", p: "/tags" },
-  { n: "tag:Alexendros", p: "/tags/Alexendros" },
+  { n: "tag:Alexendros", p: "/tags/alexendros" },
   { n: "legal:aviso-legal", p: "/legal/aviso-legal" },
   { n: "legal:privacidad", p: "/legal/privacidad" },
   { n: "legal:cookies", p: "/legal/cookies" },

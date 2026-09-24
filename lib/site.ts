@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Alexendros",
-  fullName: "Alejandro, Domingo y Agustí",
+  fullName: "Alejandro Domingo Agustí",
   title: "Alexendros · pensamiento, libertad y vida digital",
   description:
     "Espacio personal y libre de dinero de Alexendros: opinión, proyectos y reflexiones sobre libertad y vida digital desde Valencia. Sin anuncios ni captación.",

@@ -65,6 +65,7 @@ const es: TranslationDict = {
     strong: "monetización",
     link: "Lo comercial vive en alexendros.dev",
     dismissLabel: "Cerrar aviso de espacio libre de monetización",
+    regionLabel: "Aviso de espacio libre de monetización",
   },
 
   theme: {
@@ -133,7 +134,7 @@ const es: TranslationDict = {
     results: '{count} resultado(s) para "{query}"',
     sectionProyectos: "Proyectos",
     sectionOpinion: "Opinión",
-    shortcut: "Buscar (⌘K)",
+    shortcut: "Buscar (Ctrl/⌘K)",
     loadError: "No se pudo cargar el índice de búsqueda. Intenta de nuevo más tarde.",
     loading: "Cargando índice de búsqueda...",
     clear: "Limpiar búsqueda",

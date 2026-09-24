@@ -17,11 +17,23 @@
     { "source": "/uses", "destination": "/#biografia", "permanent": true },
     { "source": "/empleo", "destination": "/", "permanent": false },
     { "source": "/about", "destination": "/#biografia", "permanent": true },
-    { "source": "/projects", "destination": "/", "permanent": true },
+    { "source": "/projects", "destination": "/proyectos", "permanent": true },
     { "source": "/contact", "destination": "/", "permanent": true },
     {
       "source": "/herramientas",
       "destination": "/#biografia",
+      "permanent": true
+    },
+    { "source": "/acciones", "destination": "/opinion", "permanent": true },
+    { "source": "/ideas", "destination": "/opinion", "permanent": true },
+    {
+      "source": "/acciones/:slug",
+      "destination": "/opinion/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/ideas/:slug",
+      "destination": "/opinion/:slug",
       "permanent": true
     }
   ],

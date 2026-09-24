@@ -65,6 +65,7 @@ const en: TranslationDict = {
     strong: "monetization",
     link: "The commercial stuff lives at alexendros.dev",
     dismissLabel: "Close monetization-free notice",
+    regionLabel: "Monetization-free space notice",
   },
 
   theme: {
@@ -133,7 +134,7 @@ const en: TranslationDict = {
     results: '{count} result(s) for "{query}"',
     sectionProyectos: "Projects",
     sectionOpinion: "Opinion",
-    shortcut: "Search (⌘K)",
+    shortcut: "Search (Ctrl/⌘K)",
     loadError: "Could not load the search index. Please try again later.",
     loading: "Loading search index...",
     clear: "Clear search",

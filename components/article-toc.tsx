@@ -51,7 +51,7 @@ export function ArticleToc({ items }: Props) {
 
   return (
     <aside className="toc" aria-label={t("article.tocTitle")}>
-      <h3 className="toc-title">{t("article.tocTitle")}</h3>
+      <p className="toc-title">{t("article.tocTitle")}</p>
       <nav>
         <ul className="toc-list">
           {items.map((item) => (

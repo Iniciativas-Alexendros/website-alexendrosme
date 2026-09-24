@@ -3,6 +3,9 @@ import Link from "next/link";
 import { getContentCollection } from "@/lib/content/loader";
 import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { siteConfig } from "@/lib/site";
+import { rootOgImageUrl } from "@/lib/seo/og";
+import { hreflangAlternates } from "@/lib/seo/hreflang";
+import { tagPath } from "@/lib/seo/tags";
 import {
   CollectionLabel,
   CollectionEmpty,
@@ -10,14 +13,28 @@ import {
   ReadingTime,
 } from "@/components/translated-labels";
 
+const alts = hreflangAlternates("/proyectos");
+
 export const metadata: Metadata = {
   title: "Proyectos",
   description: "Cosas que estoy haciendo o cuidando, contadas sin jerga técnica.",
-  alternates: { canonical: "/proyectos" },
+  alternates: {
+    canonical: alts.canonical,
+    languages: alts.languages,
+  },
   openGraph: {
     title: "Proyectos · Alexendros",
     description: "Cosas que estoy haciendo o cuidando, contadas sin jerga técnica.",
+    type: "website",
     url: "https://alexendros.me/proyectos",
+    images: [rootOgImageUrl()],
+    locale: "es_ES",
+    siteName: siteConfig.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Proyectos · Alexendros",
+    images: [rootOgImageUrl()],
   },
 };
 
@@ -64,7 +81,7 @@ export default async function ProyectosPage() {
                       {article.frontmatter.tags.map((tag) => (
                         <Link
                           key={tag}
-                          href={`/tags/${encodeURIComponent(tag)}`}
+                          href={tagPath(tag)}
                           className="tag-pill no-underline hover:bg-muted transition-colors"
                         >
                           #{tag}

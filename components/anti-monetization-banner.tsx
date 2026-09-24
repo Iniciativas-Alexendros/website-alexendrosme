@@ -54,8 +54,8 @@ export function AntiMonetizationBanner() {
   return (
     <div
       className={bannerClass}
-      role="status"
-      aria-live="polite"
+      role="region"
+      aria-label={t("antiMonetization.regionLabel")}
       data-reduced-motion={reduceMotion ? "true" : "false"}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
