@@ -1,5 +1,15 @@
 # Política de seguridad de website-alexendrosme
 
+### Propósito de este documento
+
+- **Objetivos:** Declarar versiones soportadas, el canal privado de avisos y
+  la superficie del sitio estático (export HTML, CSP, JSON-LD).
+- **Estructura:** Versiones soportadas → cómo reportar → SLA → trade-offs
+  conocidos → alcance.
+- **Contenido a integrar según contexto:** Adapta versiones y superficie de
+  este sitio. No copies la política de un SaaS ni un desk de comunidad. No
+  commitees `.env` ni claves.
+
 ## Versiones soportadas
 
 | Versión        | Soporte de seguridad |
@@ -10,10 +20,13 @@
 
 ## Reportar una vulnerabilidad
 
-**No abras un issue público** para reportar vulnerabilidades. Hazlo por
-canal privado a security@alexendros.me. Cifra el mensaje con la clave PGP
-publicada en el directorio Web Key Directory (PENDIENTE_PUBLICAR_WKD, accesible
-vía `gpg --auto-key-locate wkd --locate-key security@alexendros.me`).
+**No abras un issue público** para reportar vulnerabilidades.
+
+1. Preferible: [GitHub Security Advisory](https://github.com/Iniciativas-Alexendros/website-alexendrosme/security/advisories/new).
+2. Alternativa: correo privado a security@alexendros.me. Cifra el mensaje con
+   la clave PGP publicada en el directorio Web Key Directory
+   (PENDIENTE_PUBLICAR_WKD, accesible vía
+   `gpg --auto-key-locate wkd --locate-key security@alexendros.me`).
 
 Incluye en el reporte:
 
@@ -50,6 +63,14 @@ de la Información y de Comercio Electrónico (LSSI-CE) cuando aplique.
 
 Para consultas no urgentes y solicitudes de información sobre seguridad
 del proyecto: security@alexendros.me.
+
+## Dependencias
+
+CI ejecuta `npm audit --omit=dev --audit-level=high` en el job `quality`
+como **aviso** (no gate): el baseline de Next.js 16 reporta advisories de
+runtime (middleware, Server Actions, image optimizer) que no aplican a este
+export estático. Renovate (`.github/renovate.json`) cubre `npm` y
+`github-actions`. No hay Dependabot de version-updates.
 
 ## Trade-offs de seguridad conocidos
 

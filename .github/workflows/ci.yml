@@ -65,15 +65,8 @@ jobs:
             echo "::warning::No recent runner logs found"
           fi
 
-  smoke:
-    if: github.event_name == 'schedule'
-    runs-on: ubuntu-latest
-    timeout-minutes: 2
-    permissions: {}
-    steps:
-      - run: echo "ok" && exit 0
-
-  build:
+  quality:
+    name: quality
     runs-on: ${{ github.event_name == 'workflow_dispatch' && inputs.runner == 'self-hosted' && fromJSON('["self-hosted","ts"]') || 'ubuntu-latest' }}
     timeout-minutes: 15
     permissions:
@@ -92,12 +85,74 @@ jobs:
       - run: npm run format:check
       - run: npm run typecheck
       - run: npm run lint
-      - run: npm run test
+      - name: Audit production dependencies
+        # Informativo: Next.js 16 + transitivas reportan high/critical que no
+        # aplican al export estático (sin middleware, Server Actions ni image
+        # optimizer). No se hace gate para no forzar un bump de producto.
+        continue-on-error: true
+        run: npm audit --omit=dev --audit-level=high
+
+  test:
+    name: test
+    runs-on: ${{ github.event_name == 'workflow_dispatch' && inputs.runner == 'self-hosted' && fromJSON('["self-hosted","ts"]') || 'ubuntu-latest' }}
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+      - run: npm ci
+      - name: Unit tests + coverage gate
+        run: npm run test -- --coverage
+
+  build:
+    name: build
+    runs-on: ${{ github.event_name == 'workflow_dispatch' && inputs.runner == 'self-hosted' && fromJSON('["self-hosted","ts"]') || 'ubuntu-latest' }}
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+      - run: npm ci
       - run: npm run build
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: static-export
+          path: out/
+          if-no-files-found: error
+          retention-days: 3
+
+  smoke:
+    name: smoke
+    needs: [build]
+    runs-on: ${{ github.event_name == 'workflow_dispatch' && inputs.runner == 'self-hosted' && fromJSON('["self-hosted","ts"]') || 'ubuntu-latest' }}
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        with:
+          name: static-export
+          path: out/
+      - name: Smoke — servir export y comprobar rutas
+        run: npm run smoke
 
   e2e:
     runs-on: ${{ github.event_name == 'workflow_dispatch' && inputs.runner == 'self-hosted' && fromJSON('["self-hosted","ts"]') || 'ubuntu-latest' }}
-    needs: build
+    needs: [quality, test, build]
     timeout-minutes: 20
     permissions:
       contents: read
@@ -124,7 +179,7 @@ jobs:
 
   lhci:
     runs-on: ${{ github.event_name == 'workflow_dispatch' && inputs.runner == 'self-hosted' && fromJSON('["self-hosted","ts"]') || 'ubuntu-latest' }}
-    needs: build
+    needs: [quality, test, build]
     timeout-minutes: 15
     permissions:
       contents: read
@@ -145,7 +200,7 @@ jobs:
 
   a11y:
     runs-on: ${{ github.event_name == 'workflow_dispatch' && inputs.runner == 'self-hosted' && fromJSON('["self-hosted","ts"]') || 'ubuntu-latest' }}
-    needs: build
+    needs: [quality, test, build]
     timeout-minutes: 20
     permissions:
       contents: read
@@ -172,7 +227,7 @@ jobs:
 
   perf:
     runs-on: ${{ github.event_name == 'workflow_dispatch' && inputs.runner == 'self-hosted' && fromJSON('["self-hosted","ts"]') || 'ubuntu-latest' }}
-    needs: build
+    needs: [quality, test, build]
     timeout-minutes: 15
     permissions:
       contents: read
@@ -201,9 +256,9 @@ jobs:
   deploy:
     # Always report a status so branch protection's required "deploy" check can pass on PRs.
     # Production deploy only runs on push to main; PRs get a successful no-op.
-    if: always() && needs.build.result == 'success' && needs.e2e.result == 'success' && needs.lhci.result == 'success' && needs.a11y.result == 'success' && needs.perf.result == 'success'
+    if: always() && needs.quality.result == 'success' && needs.test.result == 'success' && needs.build.result == 'success' && needs.smoke.result == 'success' && needs.e2e.result == 'success' && needs.lhci.result == 'success' && needs.a11y.result == 'success' && needs.perf.result == 'success'
     runs-on: ${{ github.event_name == 'workflow_dispatch' && inputs.runner == 'self-hosted' && fromJSON('["self-hosted","ts"]') || 'ubuntu-latest' }}
-    needs: [build, e2e, lhci, a11y, perf]
+    needs: [quality, test, build, smoke, e2e, lhci, a11y, perf]
     timeout-minutes: 15
     permissions:
       contents: read
@@ -241,7 +296,7 @@ jobs:
   pr-summary:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    needs: [build, e2e, lhci, a11y, perf]
+    needs: [quality, test, build, smoke, e2e, lhci, a11y, perf]
     timeout-minutes: 5
     permissions:
       pull-requests: write
@@ -250,7 +305,10 @@ jobs:
       - id: check-all
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         env:
+          QUALITY_RESULT: ${{ needs.quality.result }}
+          TEST_RESULT: ${{ needs.test.result }}
           BUILD_RESULT: ${{ needs.build.result }}
+          SMOKE_RESULT: ${{ needs.smoke.result }}
           E2E_RESULT: ${{ needs.e2e.result }}
           LHCI_RESULT: ${{ needs.lhci.result }}
           A11Y_RESULT: ${{ needs.a11y.result }}
@@ -265,7 +323,10 @@ jobs:
             };
 
             const checks = [
-              { name: '**Build** (format:check, typecheck, lint, test, build)', result: process.env.BUILD_RESULT },
+              { name: '**quality** (format, typecheck, lint, verify, audit)', result: process.env.QUALITY_RESULT },
+              { name: '**test** (Vitest + coverage)', result: process.env.TEST_RESULT },
+              { name: '**build** (export estático `out/`)', result: process.env.BUILD_RESULT },
+              { name: '**smoke** (rutas canónicas del export)', result: process.env.SMOKE_RESULT },
               { name: '**E2E Tests** (Playwright)', result: process.env.E2E_RESULT },
               { name: '**Lighthouse CI** (rendimiento, accesibilidad, SEO)', result: process.env.LHCI_RESULT },
               { name: '**A11y** (contraste WCAG + axe-core)', result: process.env.A11Y_RESULT },
