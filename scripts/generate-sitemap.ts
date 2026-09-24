@@ -60,7 +60,6 @@ async function main() {
 
   const pages = [
     urlEntry(`${BASE}/`, NOW, "monthly", "1.0"),
-    urlEntry(`${BASE}/now`, NOW, "weekly", "0.7"),
     urlEntry(`${BASE}/proyectos`, NOW, "weekly", "0.8"),
     urlEntry(`${BASE}/opinion`, NOW, "weekly", "0.8"),
     urlEntry(`${BASE}/tags`, NOW, "monthly", "0.6"),
@@ -69,7 +68,6 @@ async function main() {
     urlEntry(`${BASE}/legal/cookies`, NOW, "yearly", "0.2"),
     urlEntry(`${BASE}/legal/seguridad`, NOW, "yearly", "0.3"),
     urlEntry(`${BASE}/en`, NOW, "monthly", "0.9"),
-    urlEntry(`${BASE}/en/now`, NOW, "weekly", "0.6"),
     urlEntry(`${BASE}/en/proyectos`, NOW, "weekly", "0.7"),
     urlEntry(`${BASE}/en/opinion`, NOW, "weekly", "0.7"),
     urlEntry(`${BASE}/en/tags`, NOW, "monthly", "0.5"),

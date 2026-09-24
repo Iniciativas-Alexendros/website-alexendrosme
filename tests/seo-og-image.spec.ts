@@ -13,8 +13,8 @@ const ARTICLES: Article[] = [
   { collection: "opinion", slug: "soberania-digital" },
   { collection: "opinion", slug: "protocolos-vs-plataformas" },
   { collection: "opinion", slug: "escape-del-feudo-algoritmico" },
-  { collection: "proyectos", slug: "espacio-libre-de-dinero" },
-  { collection: "proyectos", slug: "elegir-con-criterio" },
+  { collection: "proyectos", slug: "alignux" },
+  { collection: "proyectos", slug: "neubat" },
 ];
 
 test.describe("OG and Twitter images per article", () => {

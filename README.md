@@ -1,6 +1,6 @@
 # Mi propio portal de contenido personal con código abierto accesible desde internet.
 
-> Espacio personal con datos biográficos, ideas, ensayos y crítica tecnológica.
+> Espacio personal libre de monetización: opinión, proyectos y pensamiento.
 
 [![Deployed on Vercel](https://img.shields.io/badge/vercel-%23000000?logo=vercel&logoColor=white)](https://alexendros.me)
 [![CI: build · e2e · lhci · a11y · perf](https://img.shields.io/github/actions/workflow/status/Iniciativas-Alexendros/website-alexendrosme/ci.yml?branch=main&logo=github&label=CI&style=flat-square)](https://github.com/Iniciativas-Alexendros/website-alexendrosme/actions/workflows/ci.yml)
@@ -16,8 +16,8 @@
 
 Sitio web personal estático para [alexendros.me](https://alexendros.me). Contenido editorial sobre soberanía digital, crítica tecnológica y alternativas al modelo de plataformas.
 
-- **[Ideas](https://alexendros.me/ideas)** — reflexiones sobre tecnología y sociedad
-- **[Acciones](https://alexendros.me/acciones)** — guías prácticas de alternativas
+- **[Proyectos](https://alexendros.me/proyectos)** — iniciativas y experimentos en curso
+- **[Opinión](https://alexendros.me/opinion)** — ensayos y crítica en voz humana
 
 ## Stack
 
@@ -61,11 +61,12 @@ npm run typecheck
 ```
 ├── app/                  # App Router (rutas + layouts)
 │   ├── styles/           # CSS: tokens, base, components, prose
-│   ├── ideas/            # Colección: reflexiones
-│   ├── acciones/         # Colección: guías prácticas
+│   ├── proyectos/        # Colección: iniciativas
+│   ├── opinion/          # Colección: ensayos (blog)
+│   ├── en/               # Árbol EN (SSG + hreflang)
 │   └── legal/            # Páginas legales
 ├── components/           # Componentes React (shadcn/ui base)
-├── content/              # MDX (ideas + acciones)
+├── content/              # MDX (proyectos + opinion)
 ├── lib/                  # Utilidades (cn, content loader, schemas)
 ├── public/               # Assets estáticos
 ├── DESIGN.md             # Sistema de diseño v1

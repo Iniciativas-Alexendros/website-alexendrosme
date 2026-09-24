@@ -37,9 +37,9 @@ const MIME = {
  * Resolve a request path to a Next.js static export file.
  * Next.js export produces e.g.:
  *   / → /index.html
- *   /espensar → /espensar.html
- *   /espensar/critica-tecnologica → /espensar/critica-tecnologica.html
- *   /espensar/critica-tecnologica/ → directory with extracted assets
+ *   /proyectos → /proyectos.html
+ *   /proyectos/alignux → /proyectos/alignux.html
+ *   /proyectos/alignux/ → directory with extracted assets
  */
 function resolvePath(urlPath) {
   // Remove query string
@@ -113,17 +113,17 @@ function startServer() {
 // ── Routes to audit — covers all site pages ──
 const ROUTES = [
   { name: "home", path: "/" },
-  { name: "espensar (collection)", path: "/espensar" },
-  { name: "espensar: crítica tecnológica", path: "/espensar/critica-tecnologica" },
-  { name: "espensar: manifiesto elígete a ti", path: "/espensar/manifiesto-eligete-a-ti" },
-  { name: "espensar: soberanía digital", path: "/espensar/soberania-digital" },
-  { name: "esposible (collection)", path: "/esposible" },
-  { name: "esposible: escape del feudo", path: "/esposible/escape-del-feudo-algoritmico" },
-  { name: "esposible: protocolos vs plataformas", path: "/esposible/protocolos-vs-plataformas" },
-  { name: "now", path: "/now" },
+  { name: "proyectos (collection)", path: "/proyectos" },
+  { name: "proyectos: alignux", path: "/proyectos/alignux" },
+  { name: "proyectos: neubat", path: "/proyectos/neubat" },
+  { name: "opinion (collection)", path: "/opinion" },
+  { name: "opinion: crítica tecnológica", path: "/opinion/critica-tecnologica" },
+  { name: "opinion: manifiesto elígete a ti", path: "/opinion/manifiesto-eligete-a-ti" },
+  { name: "opinion: soberanía digital", path: "/opinion/soberania-digital" },
+  { name: "opinion: escape del feudo", path: "/opinion/escape-del-feudo-algoritmico" },
+  { name: "opinion: protocolos vs plataformas", path: "/opinion/protocolos-vs-plataformas" },
   { name: "tags (index)", path: "/tags" },
   { name: "tags: Alexendros", path: "/tags/alexendros" },
-  { name: "tags: algoritmos", path: "/tags/algoritmos" },
   { name: "legal: aviso legal", path: "/legal/aviso-legal" },
   { name: "legal: privacidad", path: "/legal/privacidad" },
   { name: "legal: cookies", path: "/legal/cookies" },

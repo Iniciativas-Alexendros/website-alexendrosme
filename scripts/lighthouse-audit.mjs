@@ -57,9 +57,9 @@ const server = createServer((req, res) => {
 // Site-type representative routes (1 per page type for speed)
 const ROUTES = [
   { name: "home", path: "/" },
-  { name: "collection: espensar", path: "/espensar" },
-  { name: "article: crítica tecnológica", path: "/espensar/critica-tecnologica" },
-  { name: "now", path: "/now" },
+  { name: "collection: opinion", path: "/opinion" },
+  { name: "article: crítica tecnológica", path: "/opinion/critica-tecnologica" },
+  { name: "proyectos", path: "/proyectos" },
   { name: "tags index", path: "/tags" },
   { name: "legal: privacidad", path: "/legal/privacidad" },
   { name: "error 404", path: "/nonexistent" },

@@ -1,16 +1,12 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { getContentCollection } from "@/lib/content/loader";
 import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { siteConfig } from "@/lib/site";
 import { rootOgImageUrl } from "@/lib/seo/og";
 import { hreflangAlternates } from "@/lib/seo/hreflang";
-import {
-  CollectionLabel,
-  CollectionEmpty,
-  BackHomeLabel,
-  ReadingTime,
-} from "@/components/translated-labels";
+import { OpinionFeatured, OpinionArchive } from "@/components/opinion-list";
+import { LocaleLink } from "@/components/locale-link";
+import { CollectionLabel, CollectionEmpty, BackHomeLabel } from "@/components/translated-labels";
 
 const alts = hreflangAlternates("/opinion");
 
@@ -61,68 +57,32 @@ export default async function OpinionPage() {
           </p>
         ) : (
           <div className="stack-xl">
-            {featured && (
-              <section aria-labelledby="opinion-featured">
-                <p className="ds-label" id="opinion-featured">
-                  Lo más reciente
-                </p>
-                <article>
-                  <Link href={`/opinion/${featured.slug}`} className="article-item">
-                    <time dateTime={featured.frontmatter.date} className="ds-caption">
-                      {new Date(featured.frontmatter.date).toLocaleDateString("es-ES", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
-                    </time>
-                    <h2 className="article-item__title">{featured.frontmatter.title}</h2>
-                    {featured.frontmatter.description && (
-                      <p className="article-item__desc">{featured.frontmatter.description}</p>
-                    )}
-                    <span className="ds-caption">
-                      <ReadingTime minutes={featured.readingTime} />
-                    </span>
-                  </Link>
-                </article>
-              </section>
-            )}
+            {featured ? (
+              <OpinionFeatured
+                slug={featured.slug}
+                title={featured.frontmatter.title}
+                description={featured.frontmatter.description}
+                date={featured.frontmatter.date}
+                readingTime={featured.readingTime}
+              />
+            ) : null}
 
-            {archive.length > 0 && (
-              <section aria-labelledby="opinion-archive">
-                <h2 id="opinion-archive" className="title">
-                  Archivo
-                </h2>
-                <div className="stack-lg">
-                  {archive.map((article) => (
-                    <article key={article.slug}>
-                      <Link href={`/opinion/${article.slug}`} className="article-item">
-                        <time dateTime={article.frontmatter.date} className="ds-caption">
-                          {new Date(article.frontmatter.date).toLocaleDateString("es-ES", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          })}
-                        </time>
-                        <h3 className="article-item__title">{article.frontmatter.title}</h3>
-                        {article.frontmatter.description && (
-                          <p className="article-item__desc">{article.frontmatter.description}</p>
-                        )}
-                        <span className="ds-caption">
-                          <ReadingTime minutes={article.readingTime} />
-                        </span>
-                      </Link>
-                    </article>
-                  ))}
-                </div>
-              </section>
-            )}
+            <OpinionArchive
+              items={archive.map((article) => ({
+                slug: article.slug,
+                title: article.frontmatter.title,
+                description: article.frontmatter.description,
+                date: article.frontmatter.date,
+                readingTime: article.readingTime,
+              }))}
+            />
           </div>
         )}
 
         <footer className="section-footer">
-          <Link href="/" className="back-link">
+          <LocaleLink href="/" className="back-link">
             <BackHomeLabel />
-          </Link>
+          </LocaleLink>
         </footer>
       </div>
     </>

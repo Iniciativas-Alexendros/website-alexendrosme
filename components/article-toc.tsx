@@ -9,6 +9,35 @@ interface Props {
   items: ToCItem[];
 }
 
+function TocNav({
+  items,
+  activeId,
+  onNavigate,
+}: {
+  items: ToCItem[];
+  activeId: string;
+  onNavigate: (e: React.MouseEvent<HTMLAnchorElement>, id: string) => void;
+}) {
+  return (
+    <nav>
+      <ul className="toc-list">
+        {items.map((item) => (
+          <li key={item.id} className={cn("toc-item", `toc-level-${item.level}`)}>
+            <a
+              href={`#${item.id}`}
+              className={cn("toc-link", activeId === item.id && "toc-link--active")}
+              onClick={(e) => onNavigate(e, item.id)}
+              aria-current={activeId === item.id ? "true" : undefined}
+            >
+              {item.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
 export function ArticleToc({ items }: Props) {
   const { t } = useI18n();
   const [activeId, setActiveId] = useState<string>("");
@@ -18,7 +47,8 @@ export function ArticleToc({ items }: Props) {
     e.preventDefault();
     const el = document.getElementById(id);
     if (!el) return;
-    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
     el.focus({ preventScroll: true });
     window.history.replaceState(null, "", `#${id}`);
   }, []);
@@ -50,24 +80,16 @@ export function ArticleToc({ items }: Props) {
   if (items.length === 0) return null;
 
   return (
-    <aside className="toc" aria-label={t("article.tocTitle")}>
-      <p className="toc-title">{t("article.tocTitle")}</p>
-      <nav>
-        <ul className="toc-list">
-          {items.map((item) => (
-            <li key={item.id} className={cn("toc-item", `toc-level-${item.level}`)}>
-              <a
-                href={`#${item.id}`}
-                className={cn("toc-link", activeId === item.id && "toc-link--active")}
-                onClick={(e) => handleClick(e, item.id)}
-                aria-current={activeId === item.id ? "true" : undefined}
-              >
-                {item.text}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </aside>
+    <>
+      <details className="toc-mobile">
+        <summary className="toc-mobile__summary">{t("article.tocTitle")}</summary>
+        <TocNav items={items} activeId={activeId} onNavigate={handleClick} />
+      </details>
+
+      <aside className="toc" aria-label={t("article.tocTitle")}>
+        <p className="toc-title">{t("article.tocTitle")}</p>
+        <TocNav items={items} activeId={activeId} onNavigate={handleClick} />
+      </aside>
+    </>
   );
 }

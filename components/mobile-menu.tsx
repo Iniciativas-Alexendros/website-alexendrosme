@@ -115,15 +115,6 @@ export function MobileMenu({ activeHash }: { activeHash: string }) {
                 {t("nav.opinion")}
               </Link>
             </li>
-            <li>
-              <Link
-                href={withLocalePrefix(prefix, "/now")}
-                onClick={() => setOpen(false)}
-                className="sidebar-link"
-              >
-                {t("nav.now")}
-              </Link>
-            </li>
           </ul>
         </div>
       </SheetContent>

@@ -37,19 +37,17 @@ test.describe("Landing · smoke + anchors + FABs", () => {
     expect(scrollY).toBeLessThan(100);
   });
 
-  test("nav contiene biografía, proyectos, opinión y ahora", async ({ page, viewport }) => {
+  test("nav contiene biografía, proyectos y opinión", async ({ page, viewport }) => {
     const isMobile = !viewport || viewport.width < 768;
     if (isMobile) {
       await expect(page.locator("a[href='#biografia']").first()).toBeAttached();
       await expect(page.locator("a[href='/proyectos']").first()).toBeAttached();
       await expect(page.locator("a[href='/opinion']").first()).toBeAttached();
-      await expect(page.locator("a[href='/now']").first()).toBeAttached();
     } else {
       const nav = page.locator("header nav ul").first();
       await expect(nav.locator("a[href='#biografia']")).toBeVisible();
       await expect(nav.locator("a[href='/proyectos']")).toBeVisible();
       await expect(nav.locator("a[href='/opinion']")).toBeVisible();
-      await expect(nav.locator("a[href='/now']")).toBeVisible();
     }
   });
 

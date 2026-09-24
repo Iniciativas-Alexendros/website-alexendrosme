@@ -112,10 +112,10 @@ describe("I18nProvider hydrated (createRoot)", () => {
   it("resuelve t() con path existente", async () => {
     await renderApp(
       <I18nProvider>
-        <Consumer path="nav.now" />
+        <Consumer path="nav.proyectos" />
       </I18nProvider>,
     );
-    expect(container.querySelector('[data-testid="t-result"]')?.textContent).toBe("Ahora");
+    expect(container.querySelector('[data-testid="t-result"]')?.textContent).toBe("Proyectos");
   });
 
   it("resuelve t() con path inexistente devuelve el path", async () => {
@@ -175,32 +175,32 @@ describe("I18nProvider hydrated (createRoot)", () => {
   it("actualiza locale al llamar setLocale('en')", async () => {
     await renderApp(
       <I18nProvider>
-        <Consumer path="nav.now" />
+        <Consumer path="nav.proyectos" />
       </I18nProvider>,
     );
 
     await clickTestid("set-locale-en");
 
     expect(container.querySelector('[data-testid="locale"]')?.textContent).toBe("en");
-    expect(container.querySelector('[data-testid="t-result"]')?.textContent).toBe("Now");
+    expect(container.querySelector('[data-testid="t-result"]')?.textContent).toBe("Projects");
   });
 
   it("actualiza locale al llamar setLocale('es') desde en", async () => {
     localStorage.setItem(LOCALE_KEY, "en");
     await renderApp(
       <I18nProvider>
-        <Consumer path="nav.now" />
+        <Consumer path="nav.proyectos" />
       </I18nProvider>,
     );
 
     // After hydration effects, should be "en"
     expect(container.querySelector('[data-testid="locale"]')?.textContent).toBe("en");
-    expect(container.querySelector('[data-testid="t-result"]')?.textContent).toBe("Now");
+    expect(container.querySelector('[data-testid="t-result"]')?.textContent).toBe("Projects");
 
     await clickTestid("set-locale-es");
 
     expect(container.querySelector('[data-testid="locale"]')?.textContent).toBe("es");
-    expect(container.querySelector('[data-testid="t-result"]')?.textContent).toBe("Ahora");
+    expect(container.querySelector('[data-testid="t-result"]')?.textContent).toBe("Proyectos");
   });
 
   it("lee locale de localStorage al montar", async () => {
@@ -208,17 +208,17 @@ describe("I18nProvider hydrated (createRoot)", () => {
 
     await renderApp(
       <I18nProvider>
-        <Consumer path="nav.now" />
+        <Consumer path="nav.proyectos" />
       </I18nProvider>,
     );
 
-    expect(container.querySelector('[data-testid="t-result"]')?.textContent).toBe("Now");
+    expect(container.querySelector('[data-testid="t-result"]')?.textContent).toBe("Projects");
   });
 
   it("persiste locale en localStorage al cambiar", async () => {
     await renderApp(
       <I18nProvider>
-        <Consumer path="nav.now" />
+        <Consumer path="nav.proyectos" />
       </I18nProvider>,
     );
 
@@ -230,7 +230,7 @@ describe("I18nProvider hydrated (createRoot)", () => {
   it("actualiza document.documentElement.lang al cambiar locale", async () => {
     await renderApp(
       <I18nProvider>
-        <Consumer path="nav.now" />
+        <Consumer path="nav.proyectos" />
       </I18nProvider>,
     );
 
@@ -258,7 +258,7 @@ describe("I18nProvider hydrated (createRoot)", () => {
 
     await renderApp(
       <I18nProvider>
-        <Consumer path="nav.now" />
+        <Consumer path="nav.proyectos" />
       </I18nProvider>,
     );
 
@@ -273,7 +273,7 @@ describe("I18nProvider hydrated (createRoot)", () => {
 
     await renderApp(
       <I18nProvider>
-        <Consumer path="nav.now" />
+        <Consumer path="nav.proyectos" />
       </I18nProvider>,
     );
 
@@ -287,15 +287,15 @@ describe("I18nProvider hydrated (createRoot)", () => {
   it("cambia locale dos veces (es→en→es)", async () => {
     await renderApp(
       <I18nProvider>
-        <Consumer path="nav.now" />
+        <Consumer path="nav.proyectos" />
       </I18nProvider>,
     );
 
     await clickTestid("set-locale-en");
-    expect(container.querySelector('[data-testid="t-result"]')?.textContent).toBe("Now");
+    expect(container.querySelector('[data-testid="t-result"]')?.textContent).toBe("Projects");
 
     await clickTestid("set-locale-es");
-    expect(container.querySelector('[data-testid="t-result"]')?.textContent).toBe("Ahora");
+    expect(container.querySelector('[data-testid="t-result"]')?.textContent).toBe("Proyectos");
   });
 });
 

@@ -17,7 +17,6 @@ const en: TranslationDict = {
     navLabel: "Main navigation",
     logoLabel: "Alexendros — back to home",
     skipToContent: "Skip to content",
-    now: "Now",
   },
 
   hero: {
@@ -93,20 +92,9 @@ const en: TranslationDict = {
     tocTitle: "On this page",
   },
 
-  now: {
-    title: "/now",
-    desc: "What I'm doing now. Inspired by Derek Sivers' idea (sive.rs/now).",
-    lastUpdatedPrefix: "Updated:",
-    sectionBuilding: "In progress",
-    buildingItems:
-      "This site, always evolving · The commercial hub at alexendros.dev, outside this space",
-    sectionReading: "Reading",
-    readingItems: "La renta básica — Daniel Raventós · Technopoly — Neil Postman",
-    sectionFocus: "Focus",
-    focusItems:
-      "Writing in a human voice · Personal digital sovereignty · Less noise, more judgment",
-    footerBack: "← Back to home",
-    empty: "Update in progress — check back soon.",
+  opinion: {
+    featured: "Latest",
+    archive: "Archive",
   },
 
   tags: {
@@ -116,6 +104,7 @@ const en: TranslationDict = {
     backToTags: "← All tags",
     countLabelOne: "tag",
     countLabelMany: "tags",
+    countTotalSuffix: "in total.",
     detailCountOne: "article with this tag",
     detailCountMany: "articles with this tag",
   },

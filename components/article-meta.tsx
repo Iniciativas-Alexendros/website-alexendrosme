@@ -7,7 +7,7 @@ import { useLocalePrefix, withLocalePrefix } from "@/lib/i18n/locale-path";
 
 interface Props {
   date: string;
-  readingTime: number;
+  readingTime?: number;
   tags: string[];
 }
 
@@ -20,27 +20,32 @@ export function ArticleMeta({ date, readingTime, tags }: Props) {
     month: "long",
     day: "numeric",
   });
+  const showReading = typeof readingTime === "number" && readingTime > 0;
 
   return (
     <div className="article-meta">
       <time dateTime={date}>{formattedDate}</time>
-      <span aria-hidden="true">·</span>
-      <span>
-        {readingTime} {t("article.minutesShort")}
-      </span>
+      {showReading ? (
+        <>
+          <span aria-hidden="true">·</span>
+          <span>
+            {readingTime} {t("article.minutesShort")}
+          </span>
+        </>
+      ) : null}
       {tags.length > 0 && (
-        <span className="cluster-sm" role="list" aria-label={t("article.tagsLabel")}>
+        <ul className="cluster-sm article-meta__tags" aria-label={t("article.tagsLabel")}>
           {tags.map((tag) => (
-            <Link
-              key={tag}
-              href={withLocalePrefix(prefix, tagPath(tag))}
-              role="listitem"
-              className="tag-pill no-underline hover:bg-muted transition-colors"
-            >
-              #{tag}
-            </Link>
+            <li key={tag}>
+              <Link
+                href={withLocalePrefix(prefix, tagPath(tag))}
+                className="tag-pill no-underline hover:bg-muted transition-colors"
+              >
+                #{tag}
+              </Link>
+            </li>
           ))}
-        </span>
+        </ul>
       )}
     </div>
   );

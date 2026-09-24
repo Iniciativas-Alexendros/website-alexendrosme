@@ -120,15 +120,23 @@ export default async function ProyectosArticle({ params }: Props) {
           <ArticleToc items={tocItems} />
           <article className="article-main">
             <header className="article-head">
+              {article.frontmatter.status ? (
+                <p className="ds-label project-status">{article.frontmatter.status}</p>
+              ) : null}
               <h1 className="headline article-title">{article.frontmatter.title}</h1>
               <ArticleMeta
                 date={article.frontmatter.date}
-                readingTime={article.readingTime}
+                readingTime={article.content.trim().length > 0 ? article.readingTime : undefined}
                 tags={article.frontmatter.tags}
               />
+              {article.frontmatter.description ? (
+                <p className="article-lead">{article.frontmatter.description}</p>
+              ) : null}
             </header>
 
-            <MarkdownRenderer content={article.content} />
+            {article.content.trim().length > 0 ? (
+              <MarkdownRenderer content={article.content} />
+            ) : null}
           </article>
         </div>
 

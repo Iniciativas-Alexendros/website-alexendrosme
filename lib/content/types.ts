@@ -5,6 +5,7 @@ export const FrontmatterSchema = z.object({
   date: z.string().datetime(),
   tags: z.array(z.string()).default([]),
   description: z.string().optional(),
+  status: z.string().optional(),
   canonical: z.string().url().optional(),
   draft: z.boolean().default(false),
 });
