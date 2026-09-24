@@ -1,5 +1,14 @@
 <!-- canon-managed: true -->
 
+### Propósito de este documento
+
+- **Objetivos:** Plantilla de PR para describir el cambio y exigir las
+  comprobaciones de calidad, tests y jobs `quality` / `test` / `build` /
+  `smoke`.
+- **Estructura:** Qué cambia → por qué → cómo probar → checklist.
+- **Contenido a integrar según contexto:** Adapta el checklist a los
+  scripts de este sitio. No copies plantillas de CLI/SaaS.
+
 ## Qué
 
 Resume en una o dos frases qué cambia este pull request.
@@ -22,18 +31,15 @@ Pasos verificables para revisar manualmente:
 
 ## Lista de comprobación
 
-- [ ] **CI build passes** — `npm run build` sin errores.
-- [ ] **Tests unitarios** — `npm run test` (vitest) pasa.
-- [ ] **TypeScript** — `npm run typecheck` (`tsc --noEmit`) sin errores.
-- [ ] **Lint** — `npm run lint` (eslint) sin errores.
-- [ ] **E2E tests** — `npm run test:e2e` (Playwright) pasa.
-- [ ] **Lighthouse scores ≥ threshold** — rendimiento ≥85, accesibilidad ≥95, buenas prácticas ≥90, SEO ≥90.
-- [ ] **Format** — `npm run format:check` (prettier) sin diferencias.
-- [ ] **Configuración Vercel** — `npm run verify:vercel` pasa (vercel.json sincronizado con dashboard).
-- [ ] Tests nuevos o actualizados cuando aplica.
-- [ ] Documentación pertinente actualizada (README, ARCHITECTURE, ADR, CHANGELOG).
-- [ ] Sin secretos/credenciales en el código.
-- [ ] Sigue [Código de Conducta](../CODE_OF_CONDUCT.md) y guía de [contribución](../CONTRIBUTING.md).
+- [ ] `npm run typecheck && npm run lint && npm run format:check`
+- [ ] `npm run test -- --coverage`
+- [ ] `npm run build && npm run smoke`
+- [ ] CI `quality` / `test` / `build` / `smoke` en verde
+- [ ] E2E / Lighthouse / a11y / perf cuando el cambio los toca
+- [ ] Documentación pertinente actualizada (README, ARCHITECTURE, ADR)
+- [ ] Sin secretos/credenciales en el código
+- [ ] Sigue [Código de Conducta](../CODE_OF_CONDUCT.md) y
+      [contribución](../CONTRIBUTING.md)
 
 ## Notas para revisión
 

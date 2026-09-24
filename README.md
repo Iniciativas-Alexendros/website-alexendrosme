@@ -1,5 +1,16 @@
 # Mi propio portal de contenido personal con código abierto accesible desde internet.
 
+### Propósito de este documento
+
+- **Objetivos:** Presentar alexendros.me, el stack estático y los contratos
+  públicos (arranque, colecciones, CI) para humanos, CI y agentes.
+- **Estructura:** Identidad y badges → qué es → stack → desarrollo local →
+  estructura → design system → comunidad.
+- **Contenido a integrar según contexto:** Adapta nombre, badges y rutas de
+  este sitio. No copies stack/devops de alexendros.dev ni un README de CLI.
+  Las colecciones son `proyectos` y `opinion`. No reescribas el copy editorial
+  en un PR de plataforma.
+
 > Espacio personal libre de monetización: opinión, proyectos y pensamiento.
 
 [![Deployed on Vercel](https://img.shields.io/badge/vercel-%23000000?logo=vercel&logoColor=white)](https://alexendros.me)
@@ -31,6 +42,10 @@ Sitio web personal estático para [alexendros.me](https://alexendros.me). Conten
 | Deploy    | [Vercel](https://vercel.com) (export estático)                                                                                                       |
 | Testing   | [Vitest](https://vitest.dev) + [Playwright](https://playwright.dev)                                                                                  |
 
+**Ref:** [CHANGELOG](CHANGELOG.md) · [DECISIONS](DECISIONS.md) ·
+[ARCHITECTURE](ARCHITECTURE.md) · [AGENTS](AGENTS.md) · [docs/](docs/) ·
+[CONTRIBUTING](CONTRIBUTING.md) · [SECURITY](SECURITY.md)
+
 ## Desarrollo local
 
 ```bash
@@ -50,6 +65,7 @@ npm run build        # export estático en ./out
 # Tests
 npm run test         # unit (Vitest)
 npm run test:e2e     # e2e (Playwright)
+npm run smoke        # rutas canónicas del export (`out/` previo)
 
 # Lint + tipos
 npm run lint
@@ -70,7 +86,8 @@ npm run typecheck
 ├── lib/                  # Utilidades (cn, content loader, schemas)
 ├── public/               # Assets estáticos
 ├── DESIGN.md             # Sistema de diseño v1
-└── ARCHITECTURE.md       # Decisiones técnicas
+├── ARCHITECTURE.md       # Decisiones técnicas
+└── docs/                 # ADRs, guías y runbooks
 ```
 
 ## Sistema de diseño
@@ -79,9 +96,12 @@ Ver [DESIGN.md](DESIGN.md) para documentación completa de tokens, componentes y
 
 Tokens con prefijo `--ax-*` para colores, motion, spacing y layout. Triple cadena de aliases compatible con shadcn/ui.
 
-## Licencia
+## Licencia y comunidad
 
-[CC BY-NC-SA 4.0](LICENSE) — Anticomercial: cópialo, úsalo, compártelo. No comercies con ello.
+[CC BY-NC-SA 4.0](LICENSE) — Anticomercial: cópialo, úsalo, compártelo. No
+comercies con ello. Contribuciones: [CONTRIBUTING.md](CONTRIBUTING.md).
+Conducta: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md). Vulnerabilidades:
+[SECURITY.md](SECURITY.md). Soporte: [SUPPORT.md](SUPPORT.md).
 
 <!-- RELEASE_SECTION_START -->
 <!-- RELEASE_SECTION_END -->

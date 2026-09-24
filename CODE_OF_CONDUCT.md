@@ -1,5 +1,15 @@
 # Código de Conducta para Contribuidores
 
+### Propósito de este documento
+
+- **Objetivos:** Definir el estándar de conducta del proyecto y el canal
+  privado para denunciar acoso o abuso.
+- **Estructura:** Compromiso → estándares → responsabilidades → alcance →
+  aplicación y contacto.
+- **Contenido a integrar según contexto:** Adapta el correo de aplicación
+  (`contacto@alexendros.me`). No copies el CoC de un SaaS con desk de
+  comunidad.
+
 ## Nuestro compromiso
 
 Como participantes, contribuyentes y mantenedores nos comprometemos a hacer
