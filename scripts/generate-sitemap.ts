@@ -68,6 +68,11 @@ async function main() {
     urlEntry(`${BASE}/legal/privacidad`, NOW, "yearly", "0.2"),
     urlEntry(`${BASE}/legal/cookies`, NOW, "yearly", "0.2"),
     urlEntry(`${BASE}/legal/seguridad`, NOW, "yearly", "0.3"),
+    urlEntry(`${BASE}/en`, NOW, "monthly", "0.9"),
+    urlEntry(`${BASE}/en/now`, NOW, "weekly", "0.6"),
+    urlEntry(`${BASE}/en/proyectos`, NOW, "weekly", "0.7"),
+    urlEntry(`${BASE}/en/opinion`, NOW, "weekly", "0.7"),
+    urlEntry(`${BASE}/en/tags`, NOW, "monthly", "0.5"),
   ].join("\n");
 
   await fs.writeFile(
@@ -78,15 +83,17 @@ async function main() {
 
   const proyectosUrls = [
     urlEntry(`${BASE}/proyectos`, NOW, "weekly", "0.8"),
-    ...proyectos.map((a) =>
+    urlEntry(`${BASE}/en/proyectos`, NOW, "weekly", "0.7"),
+    ...proyectos.flatMap((a) => [
       urlEntryWithImage(
         `${BASE}/proyectos/${a.slug}`,
         a.frontmatter.date ?? NOW,
         "monthly",
         "0.7",
-        `${BASE}/proyectos/${a.slug}/opengraph-image.png`,
+        `${BASE}/proyectos/${a.slug}/opengraph-image`,
       ),
-    ),
+      urlEntry(`${BASE}/en/proyectos/${a.slug}`, a.frontmatter.date ?? NOW, "monthly", "0.6"),
+    ]),
   ].join("\n");
 
   await fs.writeFile(
@@ -97,15 +104,17 @@ async function main() {
 
   const opinionUrls = [
     urlEntry(`${BASE}/opinion`, NOW, "weekly", "0.8"),
-    ...opinion.map((a) =>
+    urlEntry(`${BASE}/en/opinion`, NOW, "weekly", "0.7"),
+    ...opinion.flatMap((a) => [
       urlEntryWithImage(
         `${BASE}/opinion/${a.slug}`,
         a.frontmatter.date ?? NOW,
         "monthly",
         "0.7",
-        `${BASE}/opinion/${a.slug}/opengraph-image.png`,
+        `${BASE}/opinion/${a.slug}/opengraph-image`,
       ),
-    ),
+      urlEntry(`${BASE}/en/opinion/${a.slug}`, a.frontmatter.date ?? NOW, "monthly", "0.6"),
+    ]),
   ].join("\n");
 
   await fs.writeFile(

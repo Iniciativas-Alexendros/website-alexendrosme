@@ -90,16 +90,11 @@ h1.display,
   letter-spacing: -0.025em;
   line-height: 0.98;
   text-wrap: balance;
-  background: linear-gradient(
-    180deg,
-    var(--ax-text-primary) 0%,
-    var(--ax-text-primary) 55%,
-    color-mix(in oklch, var(--ax-text-primary) 78%, transparent) 80%,
-    color-mix(in oklch, var(--ax-text-primary) 35%, transparent) 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+  /* Solid fill for WCAG contrast; glow stays decorative on the box. */
+  color: var(--ax-text-primary);
+  -webkit-text-fill-color: var(--ax-text-primary);
+  background: none;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
   filter: drop-shadow(0 0 36px color-mix(in oklch, var(--ax-accent) 18%, transparent));
 }

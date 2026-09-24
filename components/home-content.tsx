@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ContactFab } from "@/components/contact-fab";
 import { useI18n } from "@/lib/i18n";
+import { useLocalePrefix, withLocalePrefix } from "@/lib/i18n/locale-path";
 import { siteConfig } from "@/lib/site";
 import type { getContentCollection } from "@/lib/content/loader";
 import type { CollectionType } from "@/lib/content/types";
@@ -26,6 +27,7 @@ function formatDate(dateStr: string, locale: string) {
 
 export function HomeContent({ latestArticles }: HomeContentProps) {
   const { t, locale } = useI18n();
+  const prefix = useLocalePrefix();
 
   return (
     <>
@@ -100,11 +102,11 @@ export function HomeContent({ latestArticles }: HomeContentProps) {
                 __html: t("sections.publicaciones.desc")
                   .replace(
                     "{proyectosLink}",
-                    `<a href="/proyectos" class="brand-link">${t("sections.publicaciones.proyectosLabel")}</a>`,
+                    `<a href="${withLocalePrefix(prefix, "/proyectos")}" class="brand-link">${t("sections.publicaciones.proyectosLabel")}</a>`,
                   )
                   .replace(
                     "{opinionLink}",
-                    `<a href="/opinion" class="brand-link">${t("sections.publicaciones.opinionLabel")}</a>`,
+                    `<a href="${withLocalePrefix(prefix, "/opinion")}" class="brand-link">${t("sections.publicaciones.opinionLabel")}</a>`,
                   ),
               }}
             />
@@ -116,7 +118,10 @@ export function HomeContent({ latestArticles }: HomeContentProps) {
             <div className="stack-lg">
               {latestArticles.map((article) => (
                 <article key={`${article.type}-${article.slug}`}>
-                  <Link href={`/${article.type}/${article.slug}`} className="article-item">
+                  <Link
+                    href={withLocalePrefix(prefix, `/${article.type}/${article.slug}`)}
+                    className="article-item"
+                  >
                     <time dateTime={article.frontmatter.date} className="ds-caption">
                       {formatDate(article.frontmatter.date, locale)}
                     </time>

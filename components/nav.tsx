@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { ExternalLink, Search } from "lucide-react";
 import { siteConfig } from "@/lib/site";
@@ -25,17 +25,29 @@ function scrollToAnchor(href: string) {
   }
 }
 
+function localePrefix(pathname: string): string {
+  return pathname === "/en" || pathname.startsWith("/en/") ? "/en" : "";
+}
+
 export function Nav() {
   const headerRef = useRef<HTMLElement | null>(null);
   const { t } = useI18n();
   const { openSearch } = useSearch();
   const pathname = usePathname();
+  const prefix = localePrefix(pathname);
+  const [modKey, setModKey] = useState("Ctrl");
 
   const activeHash = useScrollSpy(siteConfig.nav.map((item) => item.href.replace("#", "")));
-  const onHome = pathname === "/";
-  const onNowPage = pathname === "/now";
-  const onProyectos = pathname.startsWith("/proyectos");
-  const onOpinion = pathname.startsWith("/opinion");
+  const onHome = pathname === "/" || pathname === "/en";
+  const stripped = prefix ? pathname.slice(prefix.length) || "/" : pathname;
+  const onNowPage = stripped === "/now";
+  const onProyectos = stripped.startsWith("/proyectos");
+  const onOpinion = stripped.startsWith("/opinion");
+
+  useEffect(() => {
+    const mac = /Mac|iPhone|iPad|iPod/i.test(navigator.platform || navigator.userAgent);
+    setModKey(mac ? "⌘" : "Ctrl");
+  }, []);
 
   useEffect(() => {
     const header = headerRef.current;
@@ -48,16 +60,18 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const homeHref = prefix || "/";
+
   return (
     <header ref={headerRef} className="site-nav">
       <nav className="site-shell site-nav__inner" aria-label={t("nav.navLabel")}>
         <Link
-          href="/"
+          href={homeHref}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
             if (onHome) {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
-              window.history.replaceState(null, "", "/");
+              window.history.replaceState(null, "", homeHref);
             }
           }}
           className="nav-logo"
@@ -81,14 +95,17 @@ export function Nav() {
                 {t("nav.biografia")}
               </a>
             ) : (
-              <Link href="/#biografia" className="site-nav__link">
+              <Link
+                href={`${homeHref === "/" ? "" : homeHref}/#biografia`}
+                className="site-nav__link"
+              >
                 {t("nav.biografia")}
               </Link>
             )}
           </li>
           <li>
             <Link
-              href="/proyectos"
+              href={`${prefix}/proyectos`}
               className={onProyectos ? "site-nav__link site-nav__link--active" : "site-nav__link"}
               aria-current={onProyectos ? "page" : undefined}
             >
@@ -97,7 +114,7 @@ export function Nav() {
           </li>
           <li>
             <Link
-              href="/opinion"
+              href={`${prefix}/opinion`}
               className={onOpinion ? "site-nav__link site-nav__link--active" : "site-nav__link"}
               aria-current={onOpinion ? "page" : undefined}
             >
@@ -106,7 +123,7 @@ export function Nav() {
           </li>
           <li>
             <Link
-              href="/now"
+              href={`${prefix}/now`}
               className={onNowPage ? "site-nav__link site-nav__link--active" : "site-nav__link"}
               aria-current={onNowPage ? "page" : undefined}
             >
@@ -122,7 +139,7 @@ export function Nav() {
           aria-label={t("search.triggerAria")}
         >
           <Search className="icn-sm" aria-hidden="true" />
-          <span className="text-xs text-muted-foreground ml-1 font-mono">⌘K</span>
+          <span className="text-xs text-muted-foreground ml-1 font-mono">{modKey}+K</span>
         </button>
 
         <a

@@ -55,7 +55,7 @@
      ===================================================================== */
   --ax-text-primary: oklch(0.97 0.008 310);
   --ax-text-secondary: oklch(0.8 0.01 310);
-  --ax-text-tertiary: oklch(0.62 0.012 310);
+  --ax-text-tertiary: oklch(0.75 0.01 310); /* ≥7:1 vs surface-0 (AAA muted) */
   --ax-text-disabled: oklch(0.46 0.014 310);
   --ax-text-inverse: oklch(0.07 0.012 315);
 
@@ -180,7 +180,7 @@
     /* ----- Texto: violeta (hue 315), L 0.15 → 0.6 ----- */
     --ax-text-primary: oklch(0.15 0.012 315); /* 12.8:1 sobre surface-0 */
     --ax-text-secondary: oklch(0.3 0.014 315); /* 6.4:1 */
-    --ax-text-tertiary: oklch(0.45 0.016 315); /* 4.6:1 */
+    --ax-text-tertiary: oklch(0.35 0.014 315); /* ≥7:1 AAA muted on light */
     --ax-text-disabled: oklch(0.6 0.018 315); /* 3.1:1 — solo disabled */
     --ax-text-inverse: oklch(0.95 0.008 85); /* sobre superficies oscuras */
 
@@ -287,7 +287,7 @@
 
   --ax-text-primary: oklch(0.15 0.012 315);
   --ax-text-secondary: oklch(0.3 0.014 315);
-  --ax-text-tertiary: oklch(0.45 0.016 315);
+  --ax-text-tertiary: oklch(0.35 0.014 315);
   --ax-text-disabled: oklch(0.6 0.018 315);
   --ax-text-inverse: oklch(0.95 0.008 85);
 
@@ -383,7 +383,7 @@
 
   --ax-text-primary: oklch(0.97 0.008 310);
   --ax-text-secondary: oklch(0.8 0.01 310);
-  --ax-text-tertiary: oklch(0.62 0.012 310);
+  --ax-text-tertiary: oklch(0.75 0.01 310); /* ≥7:1 vs surface-0 (AAA muted) */
   --ax-text-disabled: oklch(0.46 0.014 310);
   --ax-text-inverse: oklch(0.07 0.012 315);
 

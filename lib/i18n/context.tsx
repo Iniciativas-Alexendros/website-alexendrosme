@@ -74,8 +74,16 @@ function emitLocaleChange(): void {
   localeListeners.forEach((listener) => listener());
 }
 
-/** Client snapshot: prefer localStorage, then document.lang (pre-paint). */
+function pathLocale(): Locale | null {
+  const path = window.location.pathname;
+  if (path === "/en" || path.startsWith("/en/")) return "en";
+  return null;
+}
+
+/** Client snapshot: URL prefix wins, then localStorage, then document.lang. */
 function getClientLocale(): Locale {
+  const fromPath = pathLocale();
+  if (fromPath) return fromPath;
   try {
     const stored = localStorage.getItem(LOCALE_KEY);
     if (stored && isLocale(stored)) return stored;
@@ -87,15 +95,41 @@ function getClientLocale(): Locale {
   return "es";
 }
 
-function getServerLocale(): Locale {
-  return "es";
+function navigateForLocale(newLocale: Locale): boolean {
+  // Vitest/jsdom exercises the localStorage path without full page navigation.
+  if (process.env.VITEST) return false;
+  const path = window.location.pathname;
+  const search = window.location.search;
+  const hash = window.location.hash;
+  if (newLocale === "en" && path !== "/en" && !path.startsWith("/en/")) {
+    const dest = path === "/" ? "/en" : `/en${path}`;
+    window.location.assign(`${dest}${search}${hash}`);
+    return true;
+  }
+  if (newLocale === "es" && (path === "/en" || path.startsWith("/en/"))) {
+    const rest = path === "/en" ? "/" : path.slice(3) || "/";
+    window.location.assign(`${rest}${search}${hash}`);
+    return true;
+  }
+  return false;
 }
 
-export function I18nProvider({ children }: { children: ReactNode }) {
-  const locale = useSyncExternalStore(subscribeLocale, getClientLocale, getServerLocale);
+export function I18nProvider({
+  children,
+  forcedLocale,
+}: {
+  children: ReactNode;
+  forcedLocale?: Locale;
+}) {
+  const locale = useSyncExternalStore(
+    subscribeLocale,
+    () => forcedLocale ?? getClientLocale(),
+    () => forcedLocale ?? "es",
+  );
 
   const setLocale = useCallback((newLocale: Locale) => {
     if (!isLocale(newLocale)) return;
+    if (navigateForLocale(newLocale)) return;
     document.documentElement.lang = newLocale;
     try {
       localStorage.setItem(LOCALE_KEY, newLocale);

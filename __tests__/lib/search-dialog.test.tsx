@@ -146,7 +146,7 @@ describe("SearchDialog load error state", () => {
     await renderDialog();
 
     expect(document.querySelector('[role="alert"]')).toBeNull();
-    expect(document.body.textContent).toContain("Buscar (⌘K)");
+    expect(document.body.textContent).toContain("Buscar (Ctrl/⌘K)");
   });
 
   it("does not fetch the search index until the dialog is open", async () => {

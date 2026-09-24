@@ -1,18 +1,34 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { getAllTags, getArticlesByTag } from "@/lib/content/loader";
 import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { siteConfig } from "@/lib/site";
+import { LocaleLink } from "@/components/locale-link";
+import { tagPath } from "@/lib/seo/tags";
 import { TagsIndexHeader, TagsEmpty, BackHomeLabel } from "@/components/translated-labels";
+import { rootOgImageUrl } from "@/lib/seo/og";
+import { hreflangAlternates } from "@/lib/seo/hreflang";
+
+const alts = hreflangAlternates("/tags");
 
 export const metadata: Metadata = {
   title: "Etiquetas",
   description: "Navega los artículos por etiqueta.",
-  alternates: { canonical: "/tags" },
+  alternates: {
+    canonical: alts.canonical,
+    languages: alts.languages,
+  },
   openGraph: {
     title: "Etiquetas · Alexendros",
     description: "Navega los artículos por etiqueta.",
+    type: "website",
     url: `${siteConfig.url}/tags`,
+    images: [rootOgImageUrl()],
+    locale: "es_ES",
+    siteName: siteConfig.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: [rootOgImageUrl()],
   },
 };
 
@@ -32,9 +48,9 @@ export default async function TagsIndexPage() {
             <TagsEmpty />
           </p>
           <footer className="section-footer">
-            <Link href="/" className="back-link">
+            <LocaleLink href="/" className="back-link">
               <BackHomeLabel />
-            </Link>
+            </LocaleLink>
           </footer>
         </div>
       </>
@@ -49,21 +65,21 @@ export default async function TagsIndexPage() {
 
         <div className="cluster">
           {tagsWithCount.map(({ tag, count }) => (
-            <Link
+            <LocaleLink
               key={tag}
-              href={`/tags/${encodeURIComponent(tag)}`}
+              href={tagPath(tag)}
               className="tag-pill hover:bg-muted transition-colors no-underline"
             >
               #{tag}
               <span className="ml-1 text-xs text-muted-foreground">({count})</span>
-            </Link>
+            </LocaleLink>
           ))}
         </div>
 
         <footer className="section-footer">
-          <Link href="/" className="back-link">
+          <LocaleLink href="/" className="back-link">
             <BackHomeLabel />
-          </Link>
+          </LocaleLink>
         </footer>
       </div>
     </>

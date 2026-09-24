@@ -1,5 +1,3 @@
-import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getRawContent, getContentCollection } from "@/lib/content/loader";
 import { MarkdownRenderer } from "@/components/mdx";
@@ -8,7 +6,11 @@ import { ArticleMeta } from "@/components/article-meta";
 import { ArticleToc } from "@/components/article-toc";
 import { extractToc } from "@/lib/content/toc";
 import { siteConfig } from "@/lib/site";
+import { articleOgImageUrl } from "@/lib/seo/og";
+import { hreflangAlternates } from "@/lib/seo/hreflang";
 import { BackOpinionLabel } from "@/components/translated-labels";
+import { LocaleLink } from "@/components/locale-link";
+import type { Metadata } from "next";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -25,24 +27,32 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!article) return {};
 
+  const alts = hreflangAlternates(`/opinion/${slug}`);
+
   return {
     title: article.frontmatter.title,
     description: article.frontmatter.description ?? article.frontmatter.title,
-    alternates: { canonical: `/opinion/${slug}` },
+    alternates: {
+      canonical: alts.canonical,
+      languages: alts.languages,
+    },
     openGraph: {
       title: `${article.frontmatter.title} · Alexendros`,
       description: article.frontmatter.description ?? article.frontmatter.title,
       type: "article",
       publishedTime: article.frontmatter.date,
+      modifiedTime: article.frontmatter.date,
       tags: article.frontmatter.tags,
       url: `${siteConfig.url}/opinion/${slug}`,
-      images: [`${siteConfig.url}/opinion/${slug}/opengraph-image.png`],
+      images: [articleOgImageUrl("opinion", slug)],
+      locale: "es_ES",
+      siteName: siteConfig.name,
     },
     twitter: {
       card: "summary_large_image",
       title: `${article.frontmatter.title} · Alexendros`,
       description: article.frontmatter.description ?? article.frontmatter.title,
-      images: [`${siteConfig.url}/opinion/${slug}/opengraph-image.png`],
+      images: [articleOgImageUrl("opinion", slug)],
     },
   };
 }
@@ -54,21 +64,29 @@ export default async function OpinionArticle({ params }: Props) {
   if (!article) notFound();
 
   const tocItems = extractToc(article.content);
+  const ogImage = articleOgImageUrl("opinion", slug);
+  const published = article.frontmatter.date;
 
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: article.frontmatter.title,
     description: article.frontmatter.description,
-    datePublished: article.frontmatter.date,
+    datePublished: published,
+    dateModified: published,
+    inLanguage: "es",
+    keywords: article.frontmatter.tags?.join(", "),
+    image: ogImage,
     author: {
       "@type": "Person",
       name: siteConfig.fullName,
+      alternateName: siteConfig.name,
       url: siteConfig.url,
     },
     publisher: {
       "@type": "Person",
-      name: siteConfig.name,
+      name: siteConfig.fullName,
+      alternateName: siteConfig.name,
       url: siteConfig.url,
     },
     url: `${siteConfig.url}/opinion/${slug}`,
@@ -94,12 +112,13 @@ export default async function OpinionArticle({ params }: Props) {
 
       <div className="site-shell article-shell">
         <nav className="article-nav">
-          <Link href="/opinion" className="ds-caption back-link">
+          <LocaleLink href="/opinion" className="ds-caption back-link">
             <BackOpinionLabel />
-          </Link>
+          </LocaleLink>
         </nav>
 
         <div className="article-layout">
+          <ArticleToc items={tocItems} />
           <article className="article-main">
             <header className="article-head">
               <h1 className="headline article-title">{article.frontmatter.title}</h1>
@@ -112,14 +131,12 @@ export default async function OpinionArticle({ params }: Props) {
 
             <MarkdownRenderer content={article.content} />
           </article>
-
-          <ArticleToc items={tocItems} />
         </div>
 
         <footer className="section-footer">
-          <Link href="/opinion" className="back-link">
+          <LocaleLink href="/opinion" className="back-link">
             <BackOpinionLabel />
-          </Link>
+          </LocaleLink>
         </footer>
       </div>
     </>

@@ -22,7 +22,7 @@ test.describe("OG and Twitter images per article", () => {
     test(`meta tags de ${collection}/${slug} apuntan a ruta per-article`, async ({ page }) => {
       await page.goto(`/${collection}/${slug}`);
 
-      const expected = `${BASE}/${collection}/${slug}/opengraph-image.png`;
+      const expected = `${BASE}/${collection}/${slug}/opengraph-image`;
 
       const ogImage = await page.locator('meta[property="og:image"]').getAttribute("content");
       expect(ogImage).toBe(expected);

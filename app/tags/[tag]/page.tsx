@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllTags, getArticlesByTag } from "@/lib/content/loader";
+import { getAllTags, getArticlesByTag, resolveTagLabel } from "@/lib/content/loader";
 import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { siteConfig } from "@/lib/site";
+import { slugifyTag, tagPath } from "@/lib/seo/tags";
+import { rootOgImageUrl } from "@/lib/seo/og";
+import { hreflangAlternates } from "@/lib/seo/hreflang";
+import { LocaleLink } from "@/components/locale-link";
 import {
   TagPageHeader,
   ReadingTime,
@@ -17,25 +20,53 @@ interface Props {
 
 export async function generateStaticParams(): Promise<{ tag: string }[]> {
   const tags = await getAllTags();
-  return tags.map((tag) => ({ tag }));
+  const params = new Set<string>();
+  for (const tag of tags) {
+    params.add(slugifyTag(tag));
+    // Legacy export path (accented / spaced segment) still resolve via resolveTagLabel
+    if (tag !== slugifyTag(tag)) params.add(tag);
+  }
+  return [...params].map((tag) => ({ tag }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tag } = await params;
-  const decoded = decodeURIComponent(tag);
+  const label = await resolveTagLabel(tag);
+  if (!label) return {};
+  const path = tagPath(label);
+  const alts = hreflangAlternates(path);
   return {
-    title: `#${decoded} · Etiquetas`,
-    description: `Artículos etiquetados con #${decoded}.`,
-    alternates: { canonical: `/tags/${encodeURIComponent(decoded)}` },
+    title: `#${label} · Etiquetas`,
+    description: `Artículos etiquetados con #${label}.`,
+    alternates: {
+      canonical: alts.canonical,
+      languages: alts.languages,
+    },
+    openGraph: {
+      title: `#${label} · Alexendros`,
+      description: `Artículos etiquetados con #${label}.`,
+      type: "website",
+      url: `${siteConfig.url}${path}`,
+      images: [rootOgImageUrl()],
+      locale: "es_ES",
+      siteName: siteConfig.name,
+    },
+    twitter: {
+      card: "summary_large_image",
+      images: [rootOgImageUrl()],
+    },
   };
 }
 
 export default async function TagPage({ params }: Props) {
   const { tag } = await params;
-  const decoded = decodeURIComponent(tag);
-  const articles = await getArticlesByTag(decoded);
+  const label = await resolveTagLabel(tag);
+  if (!label) notFound();
 
+  const articles = await getArticlesByTag(label);
   if (articles.length === 0) notFound();
+
+  const path = tagPath(label);
 
   return (
     <>
@@ -43,18 +74,18 @@ export default async function TagPage({ params }: Props) {
         items={[
           { name: "Etiquetas", href: `${siteConfig.url}/tags` },
           {
-            name: `#${decoded}`,
-            href: `${siteConfig.url}/tags/${encodeURIComponent(decoded)}`,
+            name: `#${label}`,
+            href: `${siteConfig.url}${path}`,
           },
         ]}
       />
       <div className="site-shell article-shell">
-        <TagPageHeader tag={decoded} count={articles.length} />
+        <TagPageHeader tag={label} count={articles.length} />
 
         <div className="stack-lg">
           {articles.map((article) => (
             <article key={`${article.type}-${article.slug}`}>
-              <Link href={`/${article.type}/${article.slug}`} className="article-item">
+              <LocaleLink href={`/${article.type}/${article.slug}`} className="article-item">
                 <LocalDate date={article.frontmatter.date} />
                 <h2 className="article-item__title">{article.frontmatter.title}</h2>
                 {article.frontmatter.description && (
@@ -63,15 +94,15 @@ export default async function TagPage({ params }: Props) {
                 <span className="ds-caption">
                   <ReadingTime minutes={article.readingTime} />
                 </span>
-              </Link>
+              </LocaleLink>
             </article>
           ))}
         </div>
 
         <footer className="section-footer">
-          <Link href="/tags" className="back-link">
+          <LocaleLink href="/tags" className="back-link">
             <BackToTagsLabel />
-          </Link>
+          </LocaleLink>
         </footer>
       </div>
     </>

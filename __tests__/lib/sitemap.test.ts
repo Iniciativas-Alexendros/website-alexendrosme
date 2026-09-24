@@ -41,6 +41,14 @@ describe("generate-sitemap", () => {
     expect(xml).toContain("https://alexendros.me/legal/aviso-legal");
   });
 
+  it("pages sitemap includes /en tree", () => {
+    const xml = readFile("sitemap-pages.xml");
+    expect(xml).toContain("https://alexendros.me/en");
+    expect(xml).toContain("https://alexendros.me/en/now");
+    expect(xml).toContain("https://alexendros.me/en/opinion");
+    expect(xml).toContain("https://alexendros.me/en/proyectos");
+  });
+
   it("article sitemaps include image: namespace", () => {
     const proy = readFile("sitemap-proyectos.xml");
     expect(proy).toContain('xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"');
@@ -49,13 +57,13 @@ describe("generate-sitemap", () => {
     expect(opinion).toContain('xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"');
   });
 
-  it("article image:loc points to /opengraph-image.png (root OG)", () => {
+  it("article image:loc points to per-article /opengraph-image (no .png)", () => {
     const proy = readFile("sitemap-proyectos.xml");
     const locations = proy.match(/<image:loc>([^<]+)<\/image:loc>/g) ?? [];
     expect(locations.length).toBeGreaterThan(0);
     for (const loc of locations) {
-      expect(loc).toContain("/opengraph-image.png");
-      expect(loc).not.toContain("/[slug]/opengraph-image.png");
+      expect(loc).toMatch(/\/proyectos\/[^/]+\/opengraph-image</);
+      expect(loc).not.toContain("opengraph-image.png");
     }
   });
 

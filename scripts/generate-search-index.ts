@@ -10,6 +10,8 @@ interface SearchIndexItem {
   description: string;
   tags: string[];
   content: string;
+  /** Absolute path for client-only search (no Schema.org SearchAction). */
+  url: string;
 }
 
 function stripMarkdown(md: string): string {
@@ -42,6 +44,7 @@ async function main() {
         description: item.frontmatter.description ?? "",
         tags: item.frontmatter.tags,
         content,
+        url: `/${type}/${item.slug}`,
       });
     }
   }

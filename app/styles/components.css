@@ -1113,6 +1113,7 @@
     flex: 1;
     min-width: 0;
     max-width: 48rem;
+    order: 1;
   }
 
   /* Headings con tabIndex necesitan scroll-margin para que scrollIntoView
@@ -1131,6 +1132,7 @@
     width: 14rem;
     flex-shrink: 0;
     display: none;
+    order: 2;
   }
   @media (min-width: 80rem) {
     .toc {
@@ -1197,14 +1199,24 @@
     margin-top: 0.75rem;
   }
 
-  /* ── Hero: firma shimmer ─────────────────────────── */
+  /* Inline links: expandable hit area (WCAG 2.2 target size) */
+  .brand-link,
+  .prose a,
+  .article-item {
+    position: relative;
+  }
+  .brand-link::before,
+  .prose a::before {
+    content: "";
+    position: absolute;
+    inset: -0.35rem -0.25rem;
+    min-height: 24px;
+  }
   .hero-signature--shimmer {
-    background: var(--ax-accent-shimmer);
-    background-size: 100% 200%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: hero-shimmer 6s var(--ax-ease-in-out) infinite alternate;
+    color: var(--ax-accent);
+    -webkit-text-fill-color: var(--ax-accent);
+    background: none;
+    animation: none;
   }
 
   /* Motion: nav link underline + FAB con spring */

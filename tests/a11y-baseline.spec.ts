@@ -14,7 +14,7 @@ const pages = [
   { name: "protocolos-vs-plataformas", path: "/opinion/protocolos-vs-plataformas" },
   { name: "now", path: "/now" },
   { name: "tags", path: "/tags" },
-  { name: "tags-alexendros", path: "/tags/Alexendros" },
+  { name: "tags-alexendros", path: "/tags/alexendros" },
   { name: "aviso-legal", path: "/legal/aviso-legal" },
   { name: "privacidad", path: "/legal/privacidad" },
   { name: "cookies", path: "/legal/cookies" },

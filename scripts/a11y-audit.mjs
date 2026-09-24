@@ -122,7 +122,7 @@ const ROUTES = [
   { name: "esposible: protocolos vs plataformas", path: "/esposible/protocolos-vs-plataformas" },
   { name: "now", path: "/now" },
   { name: "tags (index)", path: "/tags" },
-  { name: "tags: Alexendros", path: "/tags/Alexendros" },
+  { name: "tags: Alexendros", path: "/tags/alexendros" },
   { name: "tags: algoritmos", path: "/tags/algoritmos" },
   { name: "legal: aviso legal", path: "/legal/aviso-legal" },
   { name: "legal: privacidad", path: "/legal/privacidad" },

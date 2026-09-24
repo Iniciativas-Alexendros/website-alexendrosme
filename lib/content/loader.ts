@@ -124,6 +124,8 @@ export interface TagArticle {
   readingTime: number;
 }
 
+import { slugifyTag } from "@/lib/seo/tags";
+
 export async function getAllTags(): Promise<string[]> {
   const [proyectos, opinion] = await Promise.all([
     getContentCollection("proyectos"),
@@ -136,20 +138,31 @@ export async function getAllTags(): Promise<string[]> {
   return Array.from(tags).sort((a, b) => a.localeCompare(b, "es"));
 }
 
+/** Resolve a URL tag param (slug or raw label) to the frontmatter display label. */
+export async function resolveTagLabel(param: string): Promise<string | null> {
+  const decoded = decodeURIComponent(param);
+  const tags = await getAllTags();
+  const exact = tags.find((t) => t === decoded);
+  if (exact) return exact;
+  const bySlug = tags.find((t) => slugifyTag(t) === slugifyTag(decoded));
+  return bySlug ?? null;
+}
+
 export async function getArticlesByTag(tag: string): Promise<TagArticle[]> {
+  const label = (await resolveTagLabel(tag)) ?? tag;
   const [proyectos, opinion] = await Promise.all([
     getContentCollection("proyectos"),
     getContentCollection("opinion"),
   ]);
   const tagged: TagArticle[] = [
     ...proyectos
-      .filter((a) => a.frontmatter.tags.includes(tag))
+      .filter((a) => a.frontmatter.tags.includes(label))
       .map((a) => ({
         ...a,
         type: "proyectos" as const,
       })),
     ...opinion
-      .filter((a) => a.frontmatter.tags.includes(tag))
+      .filter((a) => a.frontmatter.tags.includes(label))
       .map((a) => ({
         ...a,
         type: "opinion" as const,

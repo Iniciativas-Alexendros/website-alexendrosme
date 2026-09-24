@@ -3,6 +3,8 @@ import Link from "next/link";
 import { getContentCollection } from "@/lib/content/loader";
 import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { siteConfig } from "@/lib/site";
+import { rootOgImageUrl } from "@/lib/seo/og";
+import { hreflangAlternates } from "@/lib/seo/hreflang";
 import {
   CollectionLabel,
   CollectionEmpty,
@@ -10,14 +12,28 @@ import {
   ReadingTime,
 } from "@/components/translated-labels";
 
+const alts = hreflangAlternates("/opinion");
+
 export const metadata: Metadata = {
   title: "Opinión",
   description: "Escritos en primera persona sobre libertad, atención y vida digital.",
-  alternates: { canonical: "/opinion" },
+  alternates: {
+    canonical: alts.canonical,
+    languages: alts.languages,
+  },
   openGraph: {
     title: "Opinión · Alexendros",
     description: "Escritos en primera persona sobre libertad, atención y vida digital.",
+    type: "website",
     url: "https://alexendros.me/opinion",
+    images: [rootOgImageUrl()],
+    locale: "es_ES",
+    siteName: siteConfig.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Opinión · Alexendros",
+    images: [rootOgImageUrl()],
   },
 };
 

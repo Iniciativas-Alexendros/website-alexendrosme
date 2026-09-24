@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
+import { LocaleLink } from "@/components/locale-link";
 
 interface Props {
   lastUpdated: string;
@@ -42,7 +42,7 @@ export function NowContent({ lastUpdated }: Props) {
         <div className="stack-lg prose">
           {building.length > 0 && (
             <section>
-              <h2>🔨 {t("now.sectionBuilding")}</h2>
+              <h2>{t("now.sectionBuilding")}</h2>
               <ul>
                 {building.map((item, i) => (
                   <li key={i}>{item}</li>
@@ -53,7 +53,7 @@ export function NowContent({ lastUpdated }: Props) {
 
           {reading.length > 0 && (
             <section>
-              <h2>📖 {t("now.sectionReading")}</h2>
+              <h2>{t("now.sectionReading")}</h2>
               <ul>
                 {reading.map((item, i) => (
                   <li key={i}>{item}</li>
@@ -64,7 +64,7 @@ export function NowContent({ lastUpdated }: Props) {
 
           {focus.length > 0 && (
             <section>
-              <h2>🎯 {t("now.sectionFocus")}</h2>
+              <h2>{t("now.sectionFocus")}</h2>
               <ul>
                 {focus.map((item, i) => (
                   <li key={i}>{item}</li>
@@ -76,9 +76,9 @@ export function NowContent({ lastUpdated }: Props) {
       )}
 
       <footer className="section-footer">
-        <Link href="/" className="back-link">
+        <LocaleLink href="/" className="back-link">
           {t("now.footerBack")}
-        </Link>
+        </LocaleLink>
       </footer>
     </div>
   );

@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
+import { tagPath } from "@/lib/seo/tags";
+import { useLocalePrefix, withLocalePrefix } from "@/lib/i18n/locale-path";
 
 interface Props {
   date: string;
@@ -11,6 +13,7 @@ interface Props {
 
 export function ArticleMeta({ date, readingTime, tags }: Props) {
   const { t, locale } = useI18n();
+  const prefix = useLocalePrefix();
   const dateLocale = locale === "en" ? "en-US" : "es-ES";
   const formattedDate = new Date(date).toLocaleDateString(dateLocale, {
     year: "numeric",
@@ -30,7 +33,7 @@ export function ArticleMeta({ date, readingTime, tags }: Props) {
           {tags.map((tag) => (
             <Link
               key={tag}
-              href={`/tags/${encodeURIComponent(tag)}`}
+              href={withLocalePrefix(prefix, tagPath(tag))}
               role="listitem"
               className="tag-pill no-underline hover:bg-muted transition-colors"
             >

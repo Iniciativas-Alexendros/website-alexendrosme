@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/i18n";
 import { useSearch } from "@/components/search-provider";
+import { useLocalePrefix, withLocalePrefix } from "@/lib/i18n/locale-path";
 
 function scrollToAnchor(href: string) {
   if (!href.startsWith("#")) return;
@@ -23,7 +24,9 @@ export function MobileMenu({ activeHash }: { activeHash: string }) {
   const { openSearch } = useSearch();
   const { t } = useI18n();
   const pathname = usePathname();
-  const onHome = pathname === "/";
+  const prefix = useLocalePrefix();
+  const homeHref = prefix || "/";
+  const onHome = pathname === "/" || pathname === "/en";
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -44,7 +47,7 @@ export function MobileMenu({ activeHash }: { activeHash: string }) {
       <SheetContent side="right" className="sheet-panel">
         <div className="sheet-body">
           <Link
-            href="/"
+            href={homeHref}
             className="sheet-logo"
             onClick={() => {
               setOpen(false);
@@ -85,23 +88,39 @@ export function MobileMenu({ activeHash }: { activeHash: string }) {
                   {t("nav.biografia")}
                 </a>
               ) : (
-                <Link href="/#biografia" onClick={() => setOpen(false)} className="sidebar-link">
+                <Link
+                  href={withLocalePrefix(prefix, "/#biografia")}
+                  onClick={() => setOpen(false)}
+                  className="sidebar-link"
+                >
                   {t("nav.biografia")}
                 </Link>
               )}
             </li>
             <li>
-              <Link href="/proyectos" onClick={() => setOpen(false)} className="sidebar-link">
+              <Link
+                href={withLocalePrefix(prefix, "/proyectos")}
+                onClick={() => setOpen(false)}
+                className="sidebar-link"
+              >
                 {t("nav.proyectos")}
               </Link>
             </li>
             <li>
-              <Link href="/opinion" onClick={() => setOpen(false)} className="sidebar-link">
+              <Link
+                href={withLocalePrefix(prefix, "/opinion")}
+                onClick={() => setOpen(false)}
+                className="sidebar-link"
+              >
                 {t("nav.opinion")}
               </Link>
             </li>
             <li>
-              <Link href="/now" onClick={() => setOpen(false)} className="sidebar-link">
+              <Link
+                href={withLocalePrefix(prefix, "/now")}
+                onClick={() => setOpen(false)}
+                className="sidebar-link"
+              >
                 {t("nav.now")}
               </Link>
             </li>

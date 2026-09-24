@@ -6,7 +6,8 @@
   "description": "Espacio personal y libre de dinero de Alexendros: opinión, proyectos y reflexiones sobre libertad y vida digital desde Valencia. Sin anuncios ni captación.",
   "author": {
     "@type": "Person",
-    "name": "Alejandro Domingo Agustí"
+    "name": "Alejandro Domingo Agustí",
+    "alternateName": "Alexendros"
   },
-  "inLanguage": "es"
+  "inLanguage": ["es", "en"]
 }
